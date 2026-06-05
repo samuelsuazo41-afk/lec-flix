@@ -1,224 +1,389 @@
-// === NAVEGACIÓN ===
-window.openScreen = function(screenName, returnTo = null) {
-  document.getElementById('menu').style.display = 'none';
-  document.getElementById('resultat').style.display = 'none';
-  const screen = document.getElementById('screen-' + screenName);
-  if (screen) {
-    screen.dataset.returnTo = returnTo || 'menu';
-    screen.classList.add('active');
-  }
-};
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0f12">
+  <title>Lec-Flix Test</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=6">
+</head>
+<body>
+  <header>
+    <h1>Lec-Flix</h1>
+    <p>Test de despliegue de tabs</p>
+  </header>
 
-window.closeScreen = function(returnTo = null) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  if (returnTo) {
-    document.getElementById(returnTo).classList.add('active');
-  } else {
-    document.getElementById('menu').style.display = 'block';
-    document.getElementById('resultat').style.display = 'block';
-  }
-};
+  <main>
+    <!-- MENÚ PRINCIPAL - NIVEL 1 -->
+    <section id="menu">
+      <div class="tabs-container">
+        <div class="tab-btn" data-tab="genere">GÈNERE <span>▼</span></div>
+        <div class="tab-btn" data-tab="personatge">PERSONATGE <span>▼</span></div>
+        <div class="tab-btn" data-tab="estructura">ESTRUCTURA <span>▼</span></div>
+        <div class="tab-btn" data-tab="mon">MÓN <span>▼</span></div>
+        <div class="tab-btn" data-tab="escenari">ESCENARI <span>▼</span></div>
+        <div class="tab-btn" data-tab="estil">ESTIL <span>▼</span></div>
+      </div>
 
-// === ESTADO GLOBAL ===
-window.seleccio = {
-  genere: null,
-  quantitat_personatges: 1,
-  personatges: [],
-  estructura: null,
-  mon: null,
-  escenari: null,
-  estil: null
-};
+      <div class="botons">
+        <button id="btn-preview">Preview</button>
+        <button id="btn-generar">Generar Guió</button>
+        <button id="btn-exportar">Exportar.txt</button>
+      </div>
+    </section>
 
-// Mapeo UI -> clave real de banco cargado por loaderjson.js
-const mapCategoria = {
-  'genere': 'banco_generes',
-  'personatge': 'banco_personatge',
-  'estructura': 'banco_estructura',
-  'mon': 'banco_ubicacion',
-  'escenari': 'banco_escenarios',
-  'estil': 'banco_olors'
-};
+    <!-- ===== PANTALLAS NIVEL 2 ===== -->
+    <section id="screen-genere" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>GÈNERE</h2>
+      </div>
+      <div class="screen-content" id="genere-content"></div>
+    </section>
 
-// Dummy fallback por si falla el load
-const banco_personatge_dummy = [
-  {id: 'quantitat', nom: 'Quants personatges?', suggeriments: ['1', '2', '3', '4+']},
-  {id: 'heroi', nom: 'Heròic', suggeriments: ['P1', 'P2', 'P3', 'P4'], roles: {generico: ['Protagonista', 'Mentor', 'Còmplic', 'Traïdor']}},
-  {id: 'antagonista', nom: 'Antagonista', suggeriments: ['P1', 'P2', 'P3', 'P4'], roles: {generico: ['Vilà pur', 'Antiheroi', 'Títere', 'Tràgic']}},
-  {id: 'secundari', nom: 'Secundari', suggeriments: ['P1', 'P2', 'P3', 'P4'], roles: {generico: ['Amic', 'Company', 'Veí', 'Testimoni']}},
-  {id: 'mentor', nom: 'Mentor', suggeriments: ['P1', 'P2', 'P3', 'P4'], roles: {generico: ['Mestre', 'Guia', 'Saviesa', 'Protector']}},
-  {id: 'amor', nom: 'Amor', suggeriments: ['P1', 'P2', 'P3', 'P4'], roles: {generico: ['Interès romàntic', 'Ex-parella', 'Amor secret', 'Amor impossible']}}
-];
+    <section id="screen-personatge" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>PERSONATGE</h2>
+      </div>
+      <div class="screen-content" id="personatge-content"></div>
+    </section>
 
-// === RENDERIZADO NIVEL 3 ===
-function renderSubtabs(categoria) {
-  const container = document.getElementById(categoria + '-content');
-  if (!container) return;
+    <section id="screen-estructura" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ESTRUCTURA</h2>
+      </div>
+      <div class="screen-content" id="estructura-content"></div>
+    </section>
 
-  const key = mapCategoria[categoria];
-  const banco = categoria === 'personatge'
-   ? (window.banco?.banco_personatge || banco_personatge_dummy)
-    : (window.banco?.[key] || []);
+    <section id="screen-mon" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>MÓN</h2>
+      </div>
+      <div class="screen-content" id="mon-content"></div>
+    </section>
 
-  if (!banco || Object.keys(banco).length === 0) {
-    container.innerHTML = '<p style="color:var(--text-muted)">No hi ha dades carregades</p>';
-    return;
-  }
+    <section id="screen-escenari" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ESCENARI</h2>
+      </div>
+      <div class="screen-content" id="escenari-content"></div>
+    </section>
 
-  container.innerHTML = '';
-  Object.keys(banco).forEach(id => {
-    const item = banco[id];
-    const btn = document.createElement('button');
-    btn.className = 'subtab-btn';
-    btn.textContent = item.nom || id;
-    btn.onclick = () => {
-      container.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    <section id="screen-estil" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ESTIL</h2>
+      </div>
+      <div class="screen-content" id="estil-content"></div>
+    </section>
 
-      if (item.suggeriments && item.suggeriments.length) {
-        renderSuggeriments(categoria, id, item.suggeriments, item);
-        openScreen(`${categoria}-${id}`, `screen-${categoria}`);
-      } else {
-        window.seleccio[categoria] = {tipus: id, detall: item.nom || id};
-        closeScreen();
-      }
-    };
-    container.appendChild(btn);
-  });
-}
+    <!-- ===== PANTALLAS NIVEL 3 - GÈNERE ===== -->
+    <section id="screen-genere-accio" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ACCIÓ - Tipus</h2>
+      </div>
+      <div class="screen-content" id="genere-accio-content"></div>
+    </section>
 
-// === RENDERIZADO NIVEL 4 ===
-function renderSuggeriments(categoria, subtabId, suggeriments, itemRef) {
-  const container = document.getElementById(`${categoria}-${subtabId}-content`);
-  if (!container) return;
+    <section id="screen-genere-romantic" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ROMÀNTIC - Tipus</h2>
+      </div>
+      <div class="screen-content" id="genere-romantic-content"></div>
+    </section>
 
-  container.innerHTML = '';
-  suggeriments.forEach(sug => {
-    const btn = document.createElement('button');
-    btn.className = 'subtab-btn';
-    btn.textContent = sug;
-    btn.onclick = () => {
-      container.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    <section id="screen-genere-terror" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>TERROR - Tipus</h2>
+      </div>
+      <div class="screen-content" id="genere-terror-content"></div>
+    </section>
 
-      if (categoria === 'personatge' && subtabId!== 'quantitat') {
-        const num = sug;
-        renderRolPersonatge(subtabId, num, itemRef);
-        openScreen(`${categoria}-${subtabId}-${num.toLowerCase()}-rol`, `screen-${categoria}-${subtabId}`);
-      } else if (categoria === 'personatge' && subtabId === 'quantitat') {
-        window.seleccio.quantitat_personatges = sug === '4+'? 4 : parseInt(sug);
-        closeScreen(`screen-${categoria}`);
-      } else {
-        window.seleccio[categoria] = {tipus: subtabId, detall: sug};
-        closeScreen(`screen-${categoria}`);
-      }
-    };
-    container.appendChild(btn);
-  });
-}
+    <section id="screen-genere-comedia" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>COMÈDIA - Tipus</h2>
+      </div>
+      <div class="screen-content" id="genere-comedia-content"></div>
+    </section>
 
-// === RENDERIZADO NIVEL 4 ROL ===
-function renderRolPersonatge(tipus, num, itemRef) {
-  const container = document.getElementById(`personatge-${tipus}-${num.toLowerCase()}-rol-content`);
-  if (!container) return;
+    <!-- ===== PANTALLAS NIVEL 3 - PERSONATGE ===== -->
+    <section id="screen-personatge-quantitat" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>QUANTS PERSONATGES?</h2>
+      </div>
+      <div class="screen-content" id="personatge-quantitat-content"></div>
+    </section>
 
-  const index = parseInt(num.substring(1)) - 1;
-  const genereActual = window.seleccio.genere?.tipus || 'generico';
-  const roles = itemRef.roles?.[genereActual] || itemRef.roles?.generico || ['Protagonista'];
+    <section id="screen-personatge-heroi" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>HERÒIC - Quin personatge?</h2>
+      </div>
+      <div class="screen-content" id="personatge-heroi-content"></div>
+    </section>
 
-  container.innerHTML = '';
-  roles.forEach(rol => {
-    const btn = document.createElement('button');
-    btn.className = 'subtab-btn';
-    btn.textContent = rol;
-    btn.onclick = () => {
-      container.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      window.seleccio.personatges[index] = {tipus: tipus, rol: rol};
-      closeScreen(`screen-personatge-${tipus}`);
-    };
-    container.appendChild(btn);
-  });
-}
+    <section id="screen-personatge-antagonista" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ANTAGONISTA - Quin personatge?</h2>
+      </div>
+      <div class="screen-content" id="personatge-antagonista-content"></div>
+    </section>
 
-// === MOTOR DEL GENERADOR ===
-function generarLectura() {
-  if (!window.seleccio.genere ||!window.seleccio.estructura || window.seleccio.personatges.length === 0) {
-    return "<p style='color:var(--text-muted)'>Falta configurar Gènere, Estructura o almenys 1 Personatge.</p>";
-  }
+    <section id="screen-personatge-secundari" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>SECUNDARI - Quin personatge?</h2>
+      </div>
+      <div class="screen-content" id="personatge-secundari-content"></div>
+    </section>
 
-  while (window.seleccio.personatges.length < window.seleccio.quantitat_personatges) {
-    window.seleccio.personatges.push({tipus: 'secundari', rol: 'Complementari'});
-  }
+    <section id="screen-personatge-mentor" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>MENTOR - Quin personatge?</h2>
+      </div>
+      <div class="screen-content" id="personatge-mentor-content"></div>
+    </section>
 
-  const g = window.seleccio.genere.tipus;
-  const gDetall = window.seleccio.genere.detall;
-  const e = window.seleccio.estructura.tipus;
-  const mon = window.seleccio.mon?.detall || 'un lloc qualsevol';
-  const escenari = window.seleccio.escenari?.detall || 'un escenari indefinit';
-  const estil = window.seleccio.estil?.tipus || 'directe';
+    <section id="screen-personatge-amor" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>AMOR - Quin personatge?</h2>
+      </div>
+      <div class="screen-content" id="personatge-amor-content"></div>
+    </section>
 
-  const plantilles = {
-    'accio': {
-      'Persecució': `La persecució comença quan ${nomPersonatge(0)} descobreix que ${nomPersonatge(1)} no és qui sembla. Corren per ${escenari}, mentre ${mon} s'enfonsa en el caos.`,
-      'Supervivència': `${nomPersonatge(0)} ha de sobreviure. Sense recursos, a ${escenari}, cada pas per ${mon} és una aposta contra la mort.`
-    },
-    'terror': {
-      'Psicològic': `Una veu ressona a la ment de ${nomPersonatge(0)}. A ${escenari}, entre les ombres de ${mon}, la realitat es trenca.`,
-      'Sobrenatural': `Alguna cosa ha despertat a ${escenari}. ${nomPersonatge(0)} ho sent. ${mon} ja no és segur.`
-    },
-    'romantic': {
-      'Amor impossible': `${nomPersonatge(0)} estima ${nomPersonatge(1)}, però ${mon} els separa. A ${escenari}, cada mirada és una ferida.`,
-      'Segona oportunitat': `Després d'anys, ${nomPersonatge(0)} torna a trobar ${nomPersonatge(1)} a ${escenari}. ${mon} ha canviat, però els sentiments no.`
-    },
-    'comedia': {
-      'Situacional': `${nomPersonatge(0)} entra a ${escenari} i ho embolica tot. ${mon} no tornarà a ser el mateix.`
+    <!-- ===== PANTALLAS NIVEL 4 - ROL DE PERSONATGE ===== -->
+    <section id="screen-personatge-heroi-p1-rol" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>HERÒIC P1 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-heroi-p1-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-heroi-p2-rol" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>HERÒIC P2 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-heroi-p2-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-heroi-p3-rol" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>HERÒIC P3 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-heroi-p3-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-heroi-p4-rol" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>HERÒIC P4 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-heroi-p4-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-antagonista-p1-rol" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ANTAGONISTA P1 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-antagonista-p1-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-antagonista-p2-rol" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ANTAGONISTA P2 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-antagonista-p2-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-antagonista-p3-rol" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ANTAGONISTA P3 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-antagonista-p3-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-antagonista-p4-rol" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>ANTAGONISTA P4 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-antagonista-p4-rol-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - ESTRUCTURA ===== -->
+    <section id="screen-estructura-3actes" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>3 ACTES - Tipus</h2>
+      </div>
+      <div class="screen-content" id="estructura-3actes-content"></div>
+    </section>
+
+    <section id="screen-estructura-viatge" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>VIATGE - Tipus</h2>
+      </div>
+      <div class="screen-content" id="estructura-viatge-content"></div>
+    </section>
+
+    <section id="screen-estructura-no-lineal" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>NO LINEAL - Tipus</h2>
+      </div>
+      <div class="screen-content" id="estructura-no-lineal-content"></div>
+    </section>
+
+    <section id="screen-estructura-en-marc" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>EN MARC - Tipus</h2>
+      </div>
+      <div class="screen-content" id="estructura-en-marc-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - MÓN ===== -->
+    <section id="screen-mon-fantasia" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>FANTASIA - Tipus</h2>
+      </div>
+      <div class="screen-content" id="mon-fantasia-content"></div>
+    </section>
+
+    <section id="screen-mon-ciencia" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>CIÈNCIA FICCIÓ - Tipus</h2>
+      </div>
+      <div class="screen-content" id="mon-ciencia-content"></div>
+    </section>
+
+    <section id="screen-mon-historic" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>HISTÒRIC - Tipus</h2>
+      </div>
+      <div class="screen-content" id="mon-historic-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - ESCENARI ===== -->
+    <section id="screen-escenari-ciutat" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>CIUTAT - Ubicació</h2>
+      </div>
+      <div class="screen-content" id="escenari-ciutat-content"></div>
+    </section>
+
+    <section id="screen-escenari-bosc" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>BOSC - Tipus</h2>
+      </div>
+      <div class="screen-content" id="escenari-bosc-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - ESTIL ===== -->
+    <section id="screen-estil-directe" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>DIRECTE - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-directe-content"></div>
+    </section>
+
+    <section id="screen-estil-poetic" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>POÈTIC - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-poetic-content"></div>
+    </section>
+
+    <section id="screen-estil-ironico" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>IRÒNIC - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-ironico-content"></div>
+    </section>
+
+    <section id="screen-estil-minimal" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>MINIMAL - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-minimal-content"></div>
+    </section>
+
+    <section id="screen-estil-visual" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>VISUAL - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-visual-content"></div>
+    </section>
+
+    <section id="screen-estil-dialogic" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>DIALÒGIC - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-dialogic-content"></div>
+    </section>
+
+    <section id="screen-estil-tecnic" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>TÈCNIC - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-tecnic-content"></div>
+    </section>
+
+    <section id="screen-estil-experimental" class="screen">
+      <div class="screen-header">
+        <button class="btn-tornar">← Tornar</button>
+        <h2>EXPERIMENTAL - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-experimental-content"></div>
+    </section>
+
+    <!-- RESULTAT -->
+    <section id="resultat">
+      <p style="color: var(--text-muted); text-align: center;">
+        Toca un botó per obrir la seva pantalla
+      </p>
+    </section>
+  </main>
+
+  <!-- ORDEN DE CARGA CRÍTICO -->
+  <script type="module" src="data/loaderjson.js"></script>
+  <script type="module" src="main.js?v=7"></script>
+  <script>
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('sw.js');
     }
-  };
-
-  let text = '';
-  if (e === '3actes') {
-    text += `<h3>Acte 1 - Plantejament</h3><p>${plantilles[g]?.[gDetall] || 'La història comença.'}</p>`;
-    text += `<h3>Acte 2 - Nus</h3><p>La tensió puja. ${nomPersonatge(0)} ha de decidir. ${escenari} es torna perillós.</p>`;
-    text += `<h3>Acte 3 - Desenllaç</h3><p>El final arriba. ${mon} guarda el secret. ${nomPersonatge(0)} afronta el destí.</p>`;
-  } else if (e === 'viatge') {
-    text += `<h3>Inici del Viatge</h3><p>${nomPersonatge(0)} abandona ${escenari}. El camí per ${mon} és llarg.</p>`;
-    text += `<h3>Prova</h3><p>En el viatge, troba el seu límit. ${nomPersonatge(1) || 'Un desconegut'} l'ajuda o el traiciona.</p>`;
-    text += `<h3>Retorn</h3><p>Torna diferent. ${escenari} ja no és el mateix. Ni ${nomPersonatge(0)}.</p>`;
-  } else {
-    text += `<p>${plantilles[g]?.[gDetall] || 'La història es desenvolupa.'}</p>`;
-  }
-
-  if (estil === 'poetic') text = text.replace(/\./g, '... ');
-  else if (estil === 'minimal') text = text.split('.').slice(0, 3).join('.') + '.';
-
-  return text;
-}
-
-function nomPersonatge(index) {
-  const p = window.seleccio.personatges[index];
-  if (!p) return 'Algú';
-  const noms = ['Àlex', 'Marta', 'Oriol', 'Laia'];
-  return noms[index] || `Personatge ${index+1}`;
-}
-
-// === INICIALITZACIÓ ===
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    window.banco = await loadAllBancs();
-    window.dispatchEvent(new Event('bancosLoaded'));
-  } catch (e) {
-    console.error('Error carregant bancs:', e);
-    window.banco = {};
-  }
-
-  ['genere', 'personatge', 'estructura', 'mon', 'escenari', 'estil'].forEach(cat => {
-    renderSubtabs(cat);
-  });
-
-  document.getElementById('btn-generar').onclick = () => {
-    const resultat = generarLectura();
-    document.getElementById('resultat').innerHTML = resultat;
-    document.getElementById('resultat').style.display = 'block';
-  };
-});
+  </script>
+</body>
+</html>
