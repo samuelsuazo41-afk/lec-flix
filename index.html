@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0f12">
+  <title>Guio-Pro Test</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+  <header>
+    <h1>Guio-Pro</h1>
+    <p>Test de despliegue de tabs</p>
+  </header>
+
+  <main>
+    <section id="menu">
+      <div class="tabs-container">
+
+        <div class="tab" id="tab-genere">
+          <div class="tab-header" onclick="toggleTab('tab-genere')">GÈNERE <span>▼</span></div>
+          <div class="tab-content" id="genere-content"></div>
+        </div>
+
+        <div class="tab" id="tab-personatge">
+          <div class="tab-header" onclick="toggleTab('tab-personatge')">PERSONATGE <span>▼</span></div>
+          <div class="tab-content" id="personatge-content"></div>
+        </div>
+
+        <div class="tab" id="tab-estructura">
+          <div class="tab-header" onclick="toggleTab('tab-estructura')">ESTRUCTURA <span>▼</span></div>
+          <div class="tab-content" id="estructura-content"></div>
+        </div>
+
+        <div class="tab" id="tab-mon">
+          <div class="tab-header" onclick="toggleTab('tab-mon')">MÓN <span>▼</span></div>
+          <div class="tab-content" id="mon-content"></div>
+        </div>
+
+        <div class="tab" id="tab-escenari">
+          <div class="tab-header" onclick="toggleTab('tab-escenari')">ESCENARI <span>▼</span></div>
+          <div class="tab-content" id="escenari-content"></div>
+        </div>
+
+        <div class="tab" id="tab-estil">
+          <div class="tab-header" onclick="toggleTab('tab-estil')">ESTIL <span>▼</span></div>
+          <div class="tab-content" id="estil-content"></div>
+        </div>
+
+      </div>
+
+      <div class="botons">
+        <button id="btn-preview">Preview</button>
+        <button id="btn-generar">Generar Guió</button>
+        <button id="btn-exportar">Exportar.txt</button>
+      </div>
+    </section>
+
+    <section id="resultat">
+      <p style="color: var(--text-muted); text-align: center;">
+        Toca un tab per desplegar
+      </p>
+    </section>
+  </main>
+
+  <script src="main.js?v=1"></script>
+</body>
+</html>
