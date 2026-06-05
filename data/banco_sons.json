@@ -1,0 +1,422 @@
+[
+  {
+    "id": "so_vent",
+    "genero": ["policiac", "romance", "fantasia", "aventura", "misterio", "drama", "thriller", "terror"],
+    "texto_base": [
+      "el vent entre els carrers",
+      "una ventada freda",
+      "el vent xiulant",
+      "brisa suau",
+      "rafegues de vent",
+      "el vent colpejant persianes",
+      "aire que s’escola",
+      "vent nocturn",
+      "una corrent d’aire",
+      "vent tallant",
+      "el vent remenant fulles",
+      "aire pesat",
+      "vent constant",
+      "una bufada sobtada",
+      "vent que gemega"
+    ]
+  },
+  {
+    "id": "so_pluja",
+    "genero": ["policiac", "romance", "drama", "misterio", "thriller"],
+    "texto_base": [
+      "la pluja colpejant el vidre",
+      "gotes sobre teulada",
+      "pluja fina",
+      "xàfec sobtat",
+      "pluja picant a terra",
+      "cops de pluja",
+      "pluja persistent",
+      "gotes relliscant",
+      "pluja contra persianes",
+      "tempesta llunyana",
+      "pluja tamborilejant",
+      "xirimiri",
+      "pluja torrencial",
+      "gotes sobre metall",
+      "pluja que no para"
+    ]
+  },
+  {
+    "id": "so_passos",
+    "genero": ["policiac", "misterio", "thriller", "terror"],
+    "texto_base": [
+      "passos lluny que s’acosten",
+      "petjades sobre terra",
+      "passos ràpids",
+      "talons ressonant",
+      "passos que s’allunyen",
+      "petjades pesades",
+      "passos sigil·losos",
+      "ressò de passos",
+      "passos irregulars",
+      "petjades sobre fusta",
+      "passos que dubten",
+      "cops de peu",
+      "passos arrastrats",
+      "petjades a correcuita",
+      "passos que s’aturen"
+    ]
+  },
+  {
+    "id": "so_porta",
+    "genero": ["misterio", "terror", "thriller", "policiac"],
+    "texto_base": [
+      "una porta que cruix",
+      "porta tancant-se de cop",
+      "pany girant",
+      "porta entreoberta",
+      "frontissa grinyolant",
+      "cop de porta",
+      "porta colpejant marc",
+      "pany clicant",
+      "porta que tremola",
+      "frontissa vella",
+      "porta que es tanca sola",
+      "pany forçant-se",
+      "porta ressonant",
+      "cop sec de porta",
+      "frontissa que plora"
+    ]
+  },
+  {
+    "id": "so_silenci",
+    "genero": ["misterio", "terror", "drama", "policiac"],
+    "texto_base": [
+      "un silenci pesat",
+      "silenci absolut",
+      "silenci que ofega",
+      "quietud total",
+      "silenci trencat",
+      "silenci incòmode",
+      "absència de so",
+      "silenci tens",
+      "quietud expectant",
+      "silenci que prem",
+      "silenci de tomba",
+      "calma tensa",
+      "silenci vigil",
+      "silenci trencadís",
+      "quietud estranya"
+    ]
+  },
+  {
+    "id": "so_riure",
+    "genero": ["romance", "drama", "fantasia"],
+    "texto_base": [
+      "un riure llunyà",
+      "rialleta baixa",
+      "riure contingut",
+      "riure sincer",
+      "riure nerviós",
+      "riure que s’escapa",
+      "rialleta suau",
+      "riure agut",
+      "riure fosc",
+      "rialleta dolça",
+      "riure que s’escampa",
+      "riure trencat",
+      "rialleta fugaç",
+      "riure amagat",
+      "riure que ressona"
+    ]
+  },
+  {
+    "id": "so_tre",
+    "genero": ["aventura", "fantasia", "drama"],
+    "texto_base": [
+      "les branques fregant-se",
+      "fulles remenant-se",
+      "cops de vent entre arbres",
+      "branques cruixint",
+      "fullatge xiulant",
+      "arbres gemegant",
+      "branques fregant paret",
+      "fulles caient",
+      "bosc murmurant",
+      "branques trencant-se",
+      "fullatge espès",
+      "arbres balancejant-se",
+      "branques fregant vidre",
+      "fulles remolinant",
+      "bosc respirant"
+    ]
+  },
+  {
+    "id": "so_moto",
+    "genero": ["policiac", "aventura", "thriller"],
+    "texto_base": [
+      "una moto accelerant",
+      "motor rugint",
+      "moto passant de llarg",
+      "accelerada sobtada",
+      "motor llunyà",
+      "moto frenant",
+      "bram de motor",
+      "moto acostant-se",
+      "escapament brut",
+      "motor calent",
+      "moto virant",
+      "acceleració brusca",
+      "motor persistent",
+      "moto allunyant-se",
+      "rugit de motor"
+    ]
+  },
+  {
+    "id": "so_sirena",
+    "genero": ["policiac", "thriller", "drama"],
+    "texto_base": [
+      "una sirena lluny",
+      "sirena acostant-se",
+      "ulular agut",
+      "sirena passant de llarg",
+      "so d’alerta",
+      "sirena persistent",
+      "ulular que s’allunya",
+      "sirena tallant l’aire",
+      "so urgent",
+      "sirena intermitent",
+      "ulular que s’acosta",
+      "sirena estridents",
+      "so d’emergència",
+      "sirena que s’apaga",
+      "ulular llunyà"
+    ]
+  },
+  {
+    "id": "so_musica",
+    "genero": ["romance", "drama", "aventura"],
+    "texto_base": [
+      "música de fons",
+      "melodia baixa",
+      "ritme llunyà",
+      "cançó apagada",
+      "música ambiental",
+      "acords suaus",
+      "melodia persistent",
+      "so de piano",
+      "música que s’escola",
+      "ritme constant",
+      "cançó llunyana",
+      "acords trencats",
+      "música suau",
+      "melodia fugaç",
+      "so de guitarra"
+    ]
+  },
+  {
+    "id": "so_respiracio",
+    "genero": ["terror", "thriller", "misterio", "drama"],
+    "texto_base": [
+      "una respiració agitada",
+      "alè contingut",
+      "respiració accelerada",
+      "bufall llunyà",
+      "alè pesat",
+      "respiració irregular",
+      "bufall proper",
+      "alè tallat",
+      "respiració forçada",
+      "bufall baix",
+      "alè que tremola",
+      "respiració profunda",
+      "bufall sigil·lós",
+      "alè que s’escapa",
+      "respiració contingent"
+    ]
+  },
+  {
+    "id": "so_cop",
+    "genero": ["policiac", "thriller", "terror"],
+    "texto_base": [
+      "un cop sec",
+      "impacte sord",
+      "cop contundent",
+      "ressò metàl·lic",
+      "cop contra fusta",
+      "impacte violent",
+      "cop sec i net",
+      "ressò llunyà",
+      "cop que trenca",
+      "impacte dur",
+      "cop repetit",
+      "ressò que s’apaga",
+      "cop contra paret",
+      "impacte sobtat",
+      "cop final"
+    ]
+  },
+  {
+    "id": "so_aigua",
+    "genero": ["romance", "drama", "fantasia", "aventura"],
+    "texto_base": [
+      "l’aigua corrent",
+      "degoteig constant",
+      "aigua brollant",
+      "rajolí suau",
+      "aigua xocant",
+      "degoteig irregular",
+      "rajolí persistent",
+      "aigua relliscant",
+      "degoteig llunyà",
+      "rajolí fort",
+      "aigua remenant",
+      "degoteig rítmic",
+      "rajolí tallat",
+      "aigua caient",
+      "degoteig final"
+    ]
+  },
+  {
+    "id": "so_campanes",
+    "genero": ["drama", "fantasia", "romance"],
+    "texto_base": [
+      "les campanes de l’església",
+      "repic llunyà",
+      "campanes tocant",
+      "so metàl·lic",
+      "repic lent",
+      "campanes al vent",
+      "ressò de bronze",
+      "repic solemne",
+      "campanes llunyanes",
+      "so profund",
+      "repic persistent",
+      "campanes al capvespre",
+      "ressò que s’allunya",
+      "repic final",
+      "campanes que callen"
+    ]
+  },
+  {
+    "id": "so_gossos",
+    "genero": ["policiac", "misterio", "thriller"],
+    "texto_base": [
+      "gossos bordant lluny",
+      "bordall agut",
+      "lladrar persistent",
+      "gossos acostant-se",
+      "bordall nerviós",
+      "lladrar baix",
+      "gossos llunyans",
+      "bordall trencat",
+      "lladrar sobtat",
+      "gossos cridant",
+      "bordall que s’apaga",
+      "lladrar persistent",
+      "gossos alertant",
+      "bordall final",
+      "lladrar que cessa"
+    ]
+  },
+  {
+    "id": "so_veus",
+    "genero": ["misterio", "policiac", "drama", "terror"],
+    "texto_base": [
+      "veus baixes",
+      "muris llunyans",
+      "xerrameca apagada",
+      "veus que s’encreuen",
+      "murmuri constant",
+      "xerrameca tensa",
+      "veus properes",
+      "murmuri que s’apaga",
+      "xerrameca nerviosa",
+      "veus que s’allunyen",
+      "murmuri inintel·ligible",
+      "xerrameca baixa",
+      "veus que s’acosten",
+      "murmuri final",
+      "xerrameca que cessa"
+    ]
+  },
+  {
+    "id": "so_foc",
+    "genero": ["fantasia", "aventura", "drama", "terror"],
+    "texto_base": [
+      "el foc cremant",
+      "crack de llenya",
+      "flama crepitant",
+      "foc creixent",
+      "crack sec",
+      "flama viva",
+      "foc consumint",
+      "crack persistent",
+      "flama baixa",
+      "foc rugint",
+      "crack final",
+      "flama que s’apaga",
+      "foc llunyà",
+      "crack sobtat",
+      "flama que tremola"
+    ]
+  },
+  {
+    "id": "so_rellotge",
+    "genero": ["misterio", "policiac", "drama"],
+    "texto_base": [
+      "el tic-tac d’un rellotge",
+      "cops metàl·lics",
+      "tic-tac lent",
+      "ressò constant",
+      "cops regulars",
+      "tic-tac persistent",
+      "ressò proper",
+      "cops baixos",
+      "tic-tac accelerat",
+      "ressò llunyà",
+      "cops finals",
+      "tic-tac que s’apaga",
+      "ressò metàl·lic",
+      "cops irregulars",
+      "tic-tac que cessa"
+    ]
+  },
+  {
+    "id": "so_eco",
+    "genero": ["terror", "misterio", "fantasia"],
+    "texto_base": [
+      "un eco llunyà",
+      "ressò profund",
+      "eco que s’allunya",
+      "ressò trencat",
+      "eco persistent",
+      "ressò baix",
+      "eco que torna",
+      "ressò final",
+      "eco que s’apaga",
+      "ressò proper",
+      "eco que creix",
+      "ressò irregular",
+      "eco llunyà",
+      "ressò que cessa",
+      "eco final"
+    ]
+  },
+  {
+    "id": "so_paper",
+    "genero": ["policiac", "misterio", "drama"],
+    "texto_base": [
+      "paper fregant-se",
+      "fulles movent-se",
+      "soroll de paper",
+      "fregat suau",
+      "fulles girant",
+      "paper arrugant-se",
+      "soroll sec",
+      "fregat constant",
+      "fulles caient",
+      "paper tallant aire",
+      "soroll llunyà",
+      "fregat final",
+      "fulles amuntegades",
+      "paper que es tanca",
+      "soroll que cessa"
+    ]
+  }
+    ]
