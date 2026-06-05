@@ -11,7 +11,11 @@
   --radius: 12px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -59,6 +63,7 @@ header p {
   justify-content: space-between;
   align-items: center;
   transition: all 0.2s;
+  color: var(--text);
 }
 
 .tab-btn:hover { 
@@ -95,11 +100,21 @@ header p {
   transition: opacity 0.2s;
 }
 
-.botons button:hover { opacity: 0.8; }
+.botons button:hover { 
+  opacity: 0.8; 
+}
 
-#btn-preview { background: #06b6d4; }
-#btn-generar { background: var(--accent); }
-#btn-exportar { background: var(--success); }
+#btn-preview { 
+  background: #06b6d4; 
+}
+
+#btn-generar { 
+  background: var(--accent); 
+}
+
+#btn-exportar { 
+  background: var(--success); 
+}
 
 /* PANTALLAS DEDICADAS - NIVEL 2, 3 Y 4 */
 .screen {
@@ -117,11 +132,17 @@ header p {
 }
 
 @keyframes slideIn {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from { 
+    transform: translateX(100%); 
+  }
+  to { 
+    transform: translateX(0); 
+  }
 }
 
-.screen.active { display: block; }
+.screen.active { 
+  display: block; 
+}
 
 .screen-header {
   display: flex;
@@ -136,7 +157,8 @@ header p {
   z-index: 10;
 }
 
-.screen-header button {
+/* BOTÓN TORNAR */
+.btn-tornar {
   background: var(--card);
   border: 1px solid var(--border);
   color: var(--text);
@@ -147,7 +169,7 @@ header p {
   transition: all 0.2s;
 }
 
-.screen-header button:hover {
+.btn-tornar:hover {
   border-color: var(--accent);
   background: var(--bg-elevated);
 }
@@ -219,7 +241,23 @@ header p {
   min-height: 100px;
 }
 
+#resultat h3 {
+  color: var(--accent);
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+#resultat pre {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
 @media (max-width: 640px) {
-  .screen-content { grid-template-columns: 1fr; }
-  .botons { grid-template-columns: 1fr; }
+  .screen-content { 
+    grid-template-columns: 1fr; 
+  }
+  .botons { 
+    grid-template-columns: 1fr; 
+  }
 }
