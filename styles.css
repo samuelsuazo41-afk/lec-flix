@@ -101,7 +101,7 @@ header p {
 #btn-generar { background: var(--accent); }
 #btn-exportar { background: var(--success); }
 
-/* PANTALLAS DEDICADAS */
+/* PANTALLAS DEDICADAS - NIVEL 2 Y 3 */
 .screen {
   display: none;
   position: fixed;
@@ -157,6 +157,15 @@ header p {
   font-size: 1.5rem;
 }
 
+/* Indicador visual para nivel 3 */
+[id*="screen-genere-"] .screen-header h2,
+[id*="screen-personatge-"] .screen-header h2,
+[id*="screen-estructura-"] .screen-header h2,
+[id*="screen-mon-"] .screen-header h2 {
+  font-size: 1.3rem;
+  opacity: 0.9;
+}
+
 .screen-content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -164,7 +173,7 @@ header p {
   padding-bottom: 40px;
 }
 
-/* SUBTABS - CORREGIDO */
+/* SUBTABS */
 .screen-content .subtab-btn {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
@@ -181,6 +190,7 @@ header p {
 .screen-content .subtab-btn:hover {
   border-color: var(--accent);
   background: var(--card);
+  transform: translateY(-2px);
 }
 
 .screen-content .subtab-btn.active {
@@ -188,6 +198,7 @@ header p {
   border-color: var(--accent);
   color: var(--bg);
   font-weight: 700;
+  box-shadow: 0 4px 12px var(--accent-soft);
 }
 
 #resultat {
