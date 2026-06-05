@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Lec-Flix Test</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <header>
@@ -17,6 +17,12 @@
   <main>
     <!-- MENÚ PRINCIPAL -->
     <section id="menu">
+      <input id="input-titol" type="text" placeholder="Títol del llibre..."
+             onchange="seleccio.titol = this.value"
+             style="width:90%; max-width:400px; padding:10px; margin:12px auto; display:block;
+                    background:var(--bg-dark); color:var(--text); border:1px solid var(--border);
+                    border-radius:6px; text-align:center; font-size:15px;">
+
       <div class="tabs-container">
         <div class="tab-btn" onclick="openScreen('genere')">GÈNERE <span>▼</span></div>
         <div class="tab-btn" onclick="openScreen('personatge')">PERSONATGE <span>▼</span></div>
@@ -500,4 +506,4 @@
 
   <script src="main.js?v=6"></script>
 </body>
-</html> 
+</html>
