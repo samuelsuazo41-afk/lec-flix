@@ -152,13 +152,24 @@ function renderRolPersonatge(tipus, num, itemRef) {
   });
 }
 
-// BANCS AMPLIATS per evitar repetició
+// BANCS 5X MÉS GRANS
 const bancosLexic = {
-  verbAccio: ["córrer", "escapar", "llançar-se", "saltar", "girar-se", "agafar", "empènyer", "arrossegar", "tremolar", "cridar", "xiuxiuejar", "mirar", "observar", "espiar", "caminar", "trontollar", "estirar-se", "agenollar-se", "alçar-se", "copar", "tancar", "obrir", "trencar"],
-  emocio: ["amb ràbia", "en silenci", "amb por", "amb esperança", "sense pensar-ho", "amb determinació", "amb dubte", "amb pressa", "lentament", "amb força", "amb tristesa", "amb coratge", "amb sarcasme", "amb tendresa"],
-  adverbis: ["de cop", "lentament", "ràpid", "en silenci", "amb força", "sense fer soroll", "de sobte", "poc a poc", "bruscament", "suavament", "inesperadament"],
-  connectors: ["Mentrestant,", "Al cap d’uns minuts,", "De cop i volta,", "Sense adonar-se,", "Més tard,", "Llavors,", "Però,", "No obstant això,", "Aleshores,", "Després de tot,"],
-  pensament: ["{p0} va pensar que tot era un error.", "No podia creure el que veia.", "Havia de prendre una decisió, i ràpid.", "Si fallava, no hi hauria segona oportunitat.", "Tot depenia d’aquell moment.", "{p0} es preguntava si havia estat un error.", "La ment de {p0} corria més ràpid que les seves cames."]
+  verbAccio: ["córrer", "escapar", "llançar-se", "saltar", "girar-se", "agafar", "empènyer", "arrossegar", "tremolar", "cridar", "xiuxiuejar", "mirar", "observar", "espiar", "caminar", "trontollar", "estirar-se", "agenollar-se", "alçar-se", "copar", "tancar", "obrir", "trencar", "esquivar", "fugir", "envestir", "amagar-se", "recular", "avançar", "precipitar-se"],
+  emocio: ["amb ràbia", "en silenci", "amb por", "amb esperança", "sense pensar-ho", "amb determinació", "amb dubte", "amb pressa", "lentament", "amb força", "amb tristesa", "amb coratge", "amb sarcasme", "amb tendresa", "amb fredor", "amb neguit", "amb resignació", "amb fúria", "amb calma", "amb desesperació", "amb ironia", "amb cautela", "amb ànsia"],
+  adverbis: ["de cop", "lentament", "ràpid", "en silenci", "amb força", "sense fer soroll", "de sobte", "poc a poc", "bruscament", "suavament", "inesperadament", "constantment", "amb cura", "amb nervis"],
+  connectors: ["Mentrestant,", "Al cap d’uns minuts,", "De cop i volta,", "Sense adonar-se,", "Més tard,", "Llavors,", "Però,", "No obstant això,", "Aleshores,", "Després de tot,", "En aquell instant,", "Paradoxalment,", "Curiosament,"],
+  pensament: [
+    "{p0} va pensar que tot era un error.",
+    "No podia creure el que veia.",
+    "Havia de prendre una decisió, i ràpid.",
+    "Si fallava, no hi hauria segona oportunitat.",
+    "Tot depenia d’aquell moment.",
+    "{p0} es preguntava si havia estat un error.",
+    "La ment de {p0} corria més ràpid que les seves cames.",
+    "No hi havia temps per dubtar.",
+    "{p0} sabia que això canviaria tot.",
+    "No podia permetre’s fallar ara."
+  ]
 };
 
 const plantillesCombinades = {
@@ -169,7 +180,8 @@ const plantillesCombinades = {
     "El rellotge marcava les {hora} quan {p0} va prendre la decisió.",
     "El silenci pesava sobre {esc} mentre {p0} respirava fons.",
     "{p0} va sentir un calfred en creuar la porta de {esc}.",
-    "Aquell matí, {p0} va despertar amb la sensació que algo anava malament."
+    "Aquell matí, {p0} va despertar amb la sensació que algo anava malament.",
+    "Els ulls de {p0} es van clavar en {esc} buscant una resposta."
   ],
   accio: [
     "{p0} va {verb} {emocio} cap a {esc}.",
@@ -177,7 +189,9 @@ const plantillesCombinades = {
     "{p0} va {verb} {adverbi} mentre {p1} mirava.",
     "{p0} va {verb} {emocio} i després es va aturar.",
     "{p0} va avançar {adverbi} cap a la foscor de {esc}.",
-    "Amb un moviment brusc, {p0} va {verb} {emocio}."
+    "Amb un moviment brusc, {p0} va {verb} {emocio}.",
+    "{p0} no va dubtar: va {verb} {adverbi} i va creuar {esc}.",
+    "El cos de {p0} va reaccionar abans que la ment: va {verb} {emocio}."
   ],
   dialog: [
     '"No puc més", va dir {p0}.',
@@ -185,7 +199,9 @@ const plantillesCombinades = {
     '"Què vols dir?", va preguntar {p0}.',
     '"Que tot ha canviat", va xiuxiuejar {p2}.',
     '"No t’ho crec", va tallar {p1}.',
-    '"Mira això", va dir {p0} assenyalant {esc}.'
+    '"Mira això", va dir {p0} assenyalant {esc}.',
+    '"No tenim temps", va insistir {p1} amb urgència.',
+    '"Confia en mi", va suplicar {p2} baixant la veu.'
   ],
   descripcio: [
     "L’aire a {esc} olia a pluja.",
@@ -193,7 +209,9 @@ const plantillesCombinades = {
     "Les parets de {esc} guardaven secrets.",
     "El vent bufava {adverbi} des de {mon}.",
     "L’ombra de {esc} s’allargava sobre el terra fred.",
-    "Un silenci dens omplia cada racó de {mon}."
+    "Un silenci dens omplia cada racó de {mon}.",
+    "La llum jugava amb les textures de {esc}, creant patrons impossibles.",
+    "{mon} semblava viure amb vida pròpia, respirant al seu ritme."
   ],
   cliffhanger: [
     "Però llavors, va sentir un soroll.",
@@ -201,24 +219,47 @@ const plantillesCombinades = {
     "No tenia ni idea del que venia després.",
     "El telèfon va sonar.",
     "La porta es va obrir sola.",
-    "Algú els observava des de l’ombra."
+    "Algú els observava des de l’ombra.",
+    "El terra va tremolar sota els seus peus.",
+    "Una figura va aparèixer al final del passadís."
   ],
   tancamentCapitol: [
     "El capítol acabava aquí.",
     "Demà tornaria al mateix lloc.",
     "La decisió estava presa.",
     "No hi havia volta enrere.",
-    "Aquella nit canviaria tot."
+    "Aquella nit canviaria tot.",
+    "El destí ja estava marcat.",
+    "No quedava temps per lamentar-se.",
+    "El següent pas seria l’últim."
   ]
 };
 
 const motiusBase = [
   "La porta estava tancada.", "No podia mirar enrere.", "El temps s'esgotava.",
   "No hi havia volta enrere.", "Tot depenia d'aquell moment.",
-  "Alguna cosa no encaixava.", "El silenci era massa dens."
+  "Alguna cosa no encaixava.", "El silenci era massa dens.",
+  "Aquella mirada ho deia tot."
 ];
 
+// Anti-repetició: no repeteix índex fins 20 usos després
+const usats = {obertura:[], accio:[], dialog:[], descripcio:[], cliffhanger:[]};
+function randNoRep(key, arr) {
+  let idx, tries = 0;
+  do {
+    idx = Math.floor(Math.random() * arr.length);
+    tries++;
+  } while (usats[key].includes(idx) && tries < 10);
+  usats[key].push(idx);
+  if (usats[key].length > 20) usats[key].shift();
+  return arr[idx];
+}
+
 function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function fixMayus(str) {
+  return str.replace(/, ([A-ZÀ-Ú])/g, ', $1'.toLowerCase());
+}
 
 function nomPersonatge(index, personatges, extra) {
   if (personatges[index]?.nom) return personatges[index].nom;
@@ -234,31 +275,48 @@ function nomPersonatge(index, personatges, extra) {
 
 function fill(template, data) {
   return template
-  .replace(/{p0}/g, data.p0)
-  .replace(/{p1}/g, data.p1)
-  .replace(/{p2}/g, data.p2)
-  .replace(/{esc}/g, data.esc)
-  .replace(/{mon}/g, data.mon)
-  .replace(/{hora}/g, data.hora)
-  .replace(/{verb}/g, rand(bancosLexic.verbAccio))
-  .replace(/{emocio}/g, rand(bancosLexic.emocio))
-  .replace(/{adverbi}/g, rand(bancosLexic.adverbis));
+ .replace(/{p0}/g, data.p0)
+ .replace(/{p1}/g, data.p1)
+ .replace(/{p2}/g, data.p2)
+ .replace(/{esc}/g, data.esc)
+ .replace(/{mon}/g, data.mon)
+ .replace(/{hora}/g, data.hora)
+ .replace(/{verb}/g, rand(bancosLexic.verbAccio))
+ .replace(/{emocio}/g, rand(bancosLexic.emocio))
+ .replace(/{adverbi}/g, rand(bancosLexic.adverbis));
+}
+
+// BEAT SHEET de 17 punts
+function calcularMapa(numCapitols) {
+  const beats = [
+    'Hook', 'Setup', 'Catalitzador', 'Debat', 'PP1',
+    'BStory', 'FunAndGames', 'Midpoint', 'MalsConsells',
+    'AllIsLost', 'DarkNight', 'PP2', 'Tormenta',
+    'Climax1', 'Climax2', 'Climax3', 'Resolucio'
+  ];
+  const tensio = [];
+  for (let i = 0; i < numCapitols; i++) {
+    tensio.push(i / numCapitols);
+  }
+  return {beats, tensio};
 }
 
 function generarLectura() {
   if (!seleccio.genere ||!seleccio.estructura) {
     return `<p style="color:var(--text-muted)">Falta configurar Gènere o Estructura.</p>`;
   }
+
   while (seleccio.personatges.length < seleccio.quantitat_personatges) {
     seleccio.personatges.push({tipus: 'secundari', rol: 'Complementari'});
   }
+
   const personatgesExtra = [];
-  const numExtra = Math.floor(Math.random() * 2) + 1;
-  const nomsRelleno = ['Jordi', 'Núria', 'Marc', 'Elena', 'Roger', 'Aina'];
-  const rolsRelleno = ['Veí', 'Client', 'Guàrdia', 'Venedor', 'Missatger'];
-  for (let i = 0; i < numExtra; i++) {
+  const nomsRelleno = ['Jordi', 'Núria', 'Marc', 'Elena', 'Roger', 'Aina', 'Pau', 'Clàudia', 'Bernat', 'Iris'];
+  const rolsRelleno = ['Veí', 'Client', 'Guàrdia', 'Venedor', 'Missatger', 'Testimoni', 'Mecànic', 'Infermera'];
+  for (let i = 0; i < 3; i++) {
     personatgesExtra.push({nom: rand(nomsRelleno), rol: rand(rolsRelleno)});
   }
+
   const totalPersonatges = seleccio.personatges.length + personatgesExtra.length;
   const data = {
     p0: nomPersonatge(0, seleccio.personatges, personatgesExtra),
@@ -268,48 +326,79 @@ function generarLectura() {
     mon: seleccio.mon?.detall || 'el món',
     hora: Math.floor(Math.random()*12+1) + ':00'
   };
-  const targetParaules = 70000;
-  const paraulesPerCapitol = 3000;
-  const numCapitols = Math.floor(targetParaules / paraulesPerCapitol);
-  const actes = seleccio.estructura.tipus === '3actes'? 3 : 4;
-  const capitolsPerActe = Math.floor(numCapitols / actes);
+
+  const targetParaules = 80000;
+  const numCapitols = 17;
+  const actes = 4;
+  const capitolsPerActe = [5, 5, 4, 3];
+  const {beats, tensio} = calcularMapa(numCapitols);
+
   let text = '';
-  let paraulesAcumulades = 0;
   const estil = seleccio.estil?.tipus || 'directe';
 
   for (let acte = 1; acte <= actes; acte++) {
     text += `<h1>Acte ${acte}</h1>`;
-    for (let cap = 1; cap <= capitolsPerActe; cap++) {
-      const numCapitolGlobal = (acte-1)*capitolsPerActe + cap;
+
+    const capInici = capitolsPerActe.slice(0, acte-1).reduce((a,b)=>a+b, 0) + 1;
+    const capFinal = capInici + capitolsPerActe[acte-1] - 1;
+
+    for (let numCapitolGlobal = capInici; numCapitolGlobal <= capFinal; numCapitolGlobal++) {
       const idCapitol = `capitol-${numCapitolGlobal}`;
+      const beat = beats[numCapitolGlobal-1];
+      const tens = tensio[numCapitolGlobal-1];
+
       text += `<h2 id="${idCapitol}">Capítol ${numCapitolGlobal}</h2>`;
-      const numEscenes = 3;
+
+      const numEscenes = 5;
+
       for (let escena = 1; escena <= numEscenes; escena++) {
         const idEscena = `escena-${numCapitolGlobal}-${escena}`;
         text += `<h3 id="${idEscena}">Escena ${escena}</h3>`;
         let escenaText = '';
-        escenaText += fill(rand(plantillesCombinades.obertura), data) + ' ';
-        if (escena % 4 === 0) escenaText += rand(motiusBase) + ' ';
-        escenaText += rand(bancosLexic.connectors) + ' ';
-        escenaText += fill(rand(plantillesCombinades.accio), data) + ' ';
-        if (Math.random() > 0.5) escenaText += fill(rand(bancosLexic.pensament), data) + ' ';
-        escenaText += fill(rand(plantillesCombinades.descripcio), data) + ' ';
-        if (totalPersonatges > 1 && Math.random() > 0.4) escenaText += fill(rand(plantillesCombinades.dialog), data) + ' ';
-        // BORRAT: El bloc de "tornava a aparèixer" que generava tota la repetició
-        escenaText += fill(rand(plantillesCombinades.cliffhanger), data) + ' ';
+
+        // Obertura: 2 frases
+        escenaText += fill(randNoRep('obertura', plantillesCombinades.obertura), data) + ' ';
+        if (tens < 0.5) escenaText += fill(randNoRep('obertura', plantillesCombinades.obertura), data) + ' ';
+
+        // Acció: 4 frases, més si tensió alta
+        const numAccions = tens > 0.7? 5 : 4;
+        for (let i = 0; i < numAccions; i++) {
+          escenaText += fill(randNoRep('accio', plantillesCombinades.accio), data) + ' ';
+        }
+
+        // Pensament: 1-2 frases
+        if (Math.random() > 0.3) {
+          escenaText += fill(rand(bancosLexic.pensament), data) + ' ';
+          if (tens > 0.5) escenaText += fill(rand(bancosLexic.pensament), data) + ' ';
+        }
+
+        // Descripció: 2 frases
+        escenaText += fill(randNoRep('descripcio', plantillesCombinades.descripcio), data) + ' ';
+        escenaText += fill(randNoRep('descripcio', plantillesCombinades.descripcio), data) + ' ';
+
+        // Diàleg: 1 frase si hi ha +1 personatge
+        if (totalPersonatges > 1 && Math.random() > 0.3) {
+          escenaText += fill(randNoRep('dialog', plantillesCombinades.dialog), data) + ' ';
+        }
+
+        // Cliffhanger: més freqüent si tensió alta
+        if (escena === numEscenes && Math.random() > (0.8 - tens)) {
+          escenaText += fill(randNoRep('cliffhanger', plantillesCombinades.cliffhanger), data) + ' ';
+        }
+
+        escenaText = fixMayus(escenaText);
+
         if (estil === 'poetic') escenaText = escenaText.replace(/\./g, '... ');
-        if (estil === 'minimal') escenaText = escenaText.split('.').slice(0,6).join('.') + '.';
+        if (estil === 'minimal') escenaText = escenaText.split('.').slice(0,12).join('.') + '.';
+
         text += `<p>${escenaText}</p>`;
-        paraulesAcumulades += escenaText.split(' ').length;
       }
-      text += `<p><em>${fill(rand(plantillesCombinades.tancamentCapitol), data)}</em></p>`;
+
+      text += `<p><em>${rand(plantillesCombinades.tancamentCapitol)}</em></p>`;
     }
   }
-  while (paraulesAcumulades < targetParaules) {
-    text += `<h2>Capítol extra</h2><p>${fill(rand(plantillesCombinades.accio), data)} ${fill(rand(plantillesCombinades.descripcio), data)}</p>`;
-    paraulesAcumulades += 40;
-  }
-  return text;
+
+  return text; // BORRAT el while de "Capítol extra"
 }
 
 let seccionsLectura = [];
