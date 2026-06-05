@@ -141,7 +141,7 @@ header p {
 }
 
 .screen.active { 
-  display: block; 
+  display: block !important; 
 }
 
 .screen-header {
