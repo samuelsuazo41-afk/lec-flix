@@ -101,7 +101,7 @@ header p {
 #btn-generar { background: var(--accent); }
 #btn-exportar { background: var(--success); }
 
-/* PANTALLAS DEDICADAS - NIVEL 2 Y 3 */
+/* PANTALLAS DEDICADAS - NIVEL 2, 3 Y 4 */
 .screen {
   display: none;
   position: fixed;
@@ -164,6 +164,15 @@ header p {
 [id*="screen-mon-"] .screen-header h2 {
   font-size: 1.3rem;
   opacity: 0.9;
+}
+
+/* Indicador visual para nivel 4 */
+[id*="-p1-rol"] .screen-header h2,
+[id*="-p2-rol"] .screen-header h2,
+[id*="-p3-rol"] .screen-header h2,
+[id*="-p4-rol"] .screen-header h2 {
+  font-size: 1.2rem;
+  opacity: 0.8;
 }
 
 .screen-content {
