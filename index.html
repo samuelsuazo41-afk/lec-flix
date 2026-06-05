@@ -165,6 +165,7 @@
     </section>
 
     <!-- ===== PANTALLAS NIVEL 4 - ROL DE PERSONATGE ===== -->
+    <!-- HEROI -->
     <section id="screen-personatge-heroi-p1-rol" class="screen">
       <div class="screen-header">
         <button onclick="closeScreen('screen-personatge-heroi')">← Tornar</button>
@@ -197,6 +198,7 @@
       <div class="screen-content" id="personatge-heroi-p4-rol-content"></div>
     </section>
 
+    <!-- ANTAGONISTA -->
     <section id="screen-personatge-antagonista-p1-rol" class="screen">
       <div class="screen-header">
         <button onclick="closeScreen('screen-personatge-antagonista')">← Tornar</button>
@@ -227,6 +229,105 @@
         <h2>ANTAGONISTA P4 - Rol</h2>
       </div>
       <div class="screen-content" id="personatge-antagonista-p4-rol-content"></div>
+    </section>
+
+    <!-- SECUNDARI - NUEVO -->
+    <section id="screen-personatge-secundari-p1-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-secundari')">← Tornar</button>
+        <h2>SECUNDARI P1 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-secundari-p1-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-secundari-p2-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-secundari')">← Tornar</button>
+        <h2>SECUNDARI P2 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-secundari-p2-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-secundari-p3-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-secundari')">← Tornar</button>
+        <h2>SECUNDARI P3 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-secundari-p3-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-secundari-p4-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-secundari')">← Tornar</button>
+        <h2>SECUNDARI P4 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-secundari-p4-rol-content"></div>
+    </section>
+
+    <!-- MENTOR - NUEVO -->
+    <section id="screen-personatge-mentor-p1-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-mentor')">← Tornar</button>
+        <h2>MENTOR P1 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-mentor-p1-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-mentor-p2-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-mentor')">← Tornar</button>
+        <h2>MENTOR P2 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-mentor-p2-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-mentor-p3-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-mentor')">← Tornar</button>
+        <h2>MENTOR P3 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-mentor-p3-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-mentor-p4-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-mentor')">← Tornar</button>
+        <h2>MENTOR P4 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-mentor-p4-rol-content"></div>
+    </section>
+
+    <!-- AMOR - NUEVO -->
+    <section id="screen-personatge-amor-p1-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-amor')">← Tornar</button>
+        <h2>AMOR P1 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-amor-p1-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-amor-p2-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-amor')">← Tornar</button>
+        <h2>AMOR P2 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-amor-p2-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-amor-p3-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-amor')">← Tornar</button>
+        <h2>AMOR P3 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-amor-p3-rol-content"></div>
+    </section>
+
+    <section id="screen-personatge-amor-p4-rol" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge-amor')">← Tornar</button>
+        <h2>AMOR P4 - Rol</h2>
+      </div>
+      <div class="screen-content" id="personatge-amor-p4-rol-content"></div>
     </section>
 
     <!-- ===== PANTALLAS NIVEL 3 - ESTRUCTURA ===== -->
@@ -369,7 +470,27 @@
       <div class="screen-content" id="estil-experimental-content"></div>
     </section>
 
-    <!-- RESULTAT -->
+    <!-- ===== PANTALLA DE LECTURA - NUEVO ===== -->
+    <section id="screen-lectura" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('menu')">← Menú</button>
+        <h2>LECTURA</h2>
+        <button id="btn-toc-toggle">Índex</button>
+      </div>
+
+      <div id="toc-container" class="toc-hidden">
+        <div id="toc-content"></div>
+      </div>
+
+      <div class="screen-content" id="lectura-content"></div>
+
+      <div class="lectura-nav">
+        <button id="btn-prev-seccio">← Anterior</button>
+        <button id="btn-next-seccio">Següent →</button>
+      </div>
+    </section>
+
+    <!-- RESULTAT - SE MANTIENE PARA PREVIEW -->
     <section id="resultat">
       <p style="color: var(--text-muted); text-align: center;">
         Toca un botó per obrir la seva pantalla
