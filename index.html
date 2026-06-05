@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d0f12">
-  <title>Lec-flix Test</title>
+  <title>Guio-Pro Test</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=1">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
   <header>
@@ -15,39 +15,15 @@
   </header>
 
   <main>
+    <!-- MENÚ PRINCIPAL -->
     <section id="menu">
       <div class="tabs-container">
-
-        <div class="tab" id="tab-genere">
-          <div class="tab-header" onclick="toggleTab('tab-genere')">GÈNERE <span>▼</span></div>
-          <div class="tab-content" id="genere-content"></div>
-        </div>
-
-        <div class="tab" id="tab-personatge">
-          <div class="tab-header" onclick="toggleTab('tab-personatge')">PERSONATGE <span>▼</span></div>
-          <div class="tab-content" id="personatge-content"></div>
-        </div>
-
-        <div class="tab" id="tab-estructura">
-          <div class="tab-header" onclick="toggleTab('tab-estructura')">ESTRUCTURA <span>▼</span></div>
-          <div class="tab-content" id="estructura-content"></div>
-        </div>
-
-        <div class="tab" id="tab-mon">
-          <div class="tab-header" onclick="toggleTab('tab-mon')">MÓN <span>▼</span></div>
-          <div class="tab-content" id="mon-content"></div>
-        </div>
-
-        <div class="tab" id="tab-escenari">
-          <div class="tab-header" onclick="toggleTab('tab-escenari')">ESCENARI <span>▼</span></div>
-          <div class="tab-content" id="escenari-content"></div>
-        </div>
-
-        <div class="tab" id="tab-estil">
-          <div class="tab-header" onclick="toggleTab('tab-estil')">ESTIL <span>▼</span></div>
-          <div class="tab-content" id="estil-content"></div>
-        </div>
-
+        <div class="tab-btn" onclick="openScreen('genere')">GÈNERE <span>▼</span></div>
+        <div class="tab-btn" onclick="openScreen('personatge')">PERSONATGE <span>▼</span></div>
+        <div class="tab-btn" onclick="openScreen('estructura')">ESTRUCTURA <span>▼</span></div>
+        <div class="tab-btn" onclick="openScreen('mon')">MÓN <span>▼</span></div>
+        <div class="tab-btn" onclick="openScreen('escenari')">ESCENARI <span>▼</span></div>
+        <div class="tab-btn" onclick="openScreen('estil')">ESTIL <span>▼</span></div>
       </div>
 
       <div class="botons">
@@ -57,13 +33,62 @@
       </div>
     </section>
 
+    <!-- PANTALLAS DEDICADAS -->
+    <section id="screen-genere" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>GÈNERE</h2>
+      </div>
+      <div class="screen-content" id="genere-content"></div>
+    </section>
+
+    <section id="screen-personatge" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>PERSONATGE</h2>
+      </div>
+      <div class="screen-content" id="personatge-content"></div>
+    </section>
+
+    <section id="screen-estructura" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>ESTRUCTURA</h2>
+      </div>
+      <div class="screen-content" id="estructura-content"></div>
+    </section>
+
+    <section id="screen-mon" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>MÓN</h2>
+      </div>
+      <div class="screen-content" id="mon-content"></div>
+    </section>
+
+    <section id="screen-escenari" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>ESCENARI</h2>
+      </div>
+      <div class="screen-content" id="escenari-content"></div>
+    </section>
+
+    <section id="screen-estil" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>ESTIL</h2>
+      </div>
+      <div class="screen-content" id="estil-content"></div>
+    </section>
+
     <section id="resultat">
       <p style="color: var(--text-muted); text-align: center;">
-        Toca un tab per desplegar
+        Toca un botó per obrir la seva pantalla
       </p>
     </section>
   </main>
 
-  <script src="main.js?v=1"></script>
+  <script src="main.js?v=2"></script>
 </body>
 </html>
