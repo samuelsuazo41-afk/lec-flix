@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Lec-Flix Test</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
   <header>
@@ -33,7 +33,8 @@
       </div>
     </section>
 
-    <!-- PANTALLAS DEDICADAS -->
+    <!-- ===== PANTALLAS NIVEL 2 ===== -->
+
     <section id="screen-genere" class="screen">
       <div class="screen-header">
         <button onclick="closeScreen()">← Tornar</button>
@@ -82,6 +83,83 @@
       <div class="screen-content" id="estil-content"></div>
     </section>
 
+    <!-- ===== PANTALLAS NIVEL 3 - GÈNERE ===== -->
+    <section id="screen-genere-accio" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-genere')">← Tornar</button>
+        <h2>ACCIÓ - Tipus</h2>
+      </div>
+      <div class="screen-content" id="genere-accio-content"></div>
+    </section>
+
+    <section id="screen-genere-romantic" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-genere')">← Tornar</button>
+        <h2>ROMÀNTIC - Tipus</h2>
+      </div>
+      <div class="screen-content" id="genere-romantic-content"></div>
+    </section>
+
+    <section id="screen-genere-terror" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-genere')">← Tornar</button>
+        <h2>TERROR - Tipus</h2>
+      </div>
+      <div class="screen-content" id="genere-terror-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - PERSONATGE ===== -->
+    <section id="screen-personatge-heroi" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge')">← Tornar</button>
+        <h2>HEROI - Tipus</h2>
+      </div>
+      <div class="screen-content" id="personatge-heroi-content"></div>
+    </section>
+
+    <section id="screen-personatge-antagonista" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge')">← Tornar</button>
+        <h2>ANTAGONISTA - Tipus</h2>
+      </div>
+      <div class="screen-content" id="personatge-antagonista-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - ESTRUCTURA ===== -->
+    <section id="screen-estructura-3actes" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estructura')">← Tornar</button>
+        <h2>3 ACTES - Tipus</h2>
+      </div>
+      <div class="screen-content" id="estructura-3actes-content"></div>
+    </section>
+
+    <section id="screen-estructura-viatge" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estructura')">← Tornar</button>
+        <h2>VIATGE - Tipus</h2>
+      </div>
+      <div class="screen-content" id="estructura-viatge-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - MÓN ===== -->
+    <section id="screen-mon-fantasia" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-mon')">← Tornar</button>
+        <h2>FANTASIA - Tipus</h2>
+      </div>
+      <div class="screen-content" id="mon-fantasia-content"></div>
+    </section>
+
+    <section id="screen-mon-ciencia" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-mon')">← Tornar</button>
+        <h2>CIÈNCIA FICCIÓ - Tipus</h2>
+      </div>
+      <div class="screen-content" id="mon-ciencia-content"></div>
+    </section>
+
+    <!-- RESULTAT -->
     <section id="resultat">
       <p style="color: var(--text-muted); text-align: center;">
         Toca un botó per obrir la seva pantalla
@@ -89,6 +167,6 @@
     </section>
   </main>
 
-  <script src="main.js?v=2"></script>
+  <script src="main.js?v=3"></script>
 </body>
 </html>
