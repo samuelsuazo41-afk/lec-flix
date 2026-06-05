@@ -377,6 +377,14 @@
     </section>
   </main>
 
-  <script src="main.js?v=6"></script>
+  <!-- ORDEN DE CARGA CRÍTICO -->
+  <script src="data/loaderjson.js"></script>
+  <script src="core/generadorlilibre.js"></script>
+  <script src="main.js?v=7"></script>
+  <script>
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
 </body>
 </html>
