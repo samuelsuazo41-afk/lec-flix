@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Lec-Flix Test</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <header>
@@ -99,6 +99,22 @@
       <div class="screen-content" id="genere-romantic-content"></div>
     </section>
 
+    <section id="screen-genere-terror" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-genere')">← Tornar</button>
+        <h2>TERROR - Tipus</h2>
+      </div>
+      <div class="screen-content" id="genere-terror-content"></div>
+    </section>
+
+    <section id="screen-genere-comedia" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-genere')">← Tornar</button>
+        <h2>COMÈDIA - Tipus</h2>
+      </div>
+      <div class="screen-content" id="genere-comedia-content"></div>
+    </section>
+
     <!-- ===== PANTALLAS NIVEL 3 - PERSONATGE ===== -->
     <section id="screen-personatge-quantitat" class="screen">
       <div class="screen-header">
@@ -122,6 +138,30 @@
         <h2>ANTAGONISTA - Quin personatge?</h2>
       </div>
       <div class="screen-content" id="personatge-antagonista-content"></div>
+    </section>
+
+    <section id="screen-personatge-secundari" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge')">← Tornar</button>
+        <h2>SECUNDARI - Quin personatge?</h2>
+      </div>
+      <div class="screen-content" id="personatge-secundari-content"></div>
+    </section>
+
+    <section id="screen-personatge-mentor" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge')">← Tornar</button>
+        <h2>MENTOR - Quin personatge?</h2>
+      </div>
+      <div class="screen-content" id="personatge-mentor-content"></div>
+    </section>
+
+    <section id="screen-personatge-amor" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-personatge')">← Tornar</button>
+        <h2>AMOR - Quin personatge?</h2>
+      </div>
+      <div class="screen-content" id="personatge-amor-content"></div>
     </section>
 
     <!-- ===== PANTALLAS NIVEL 4 - ROL DE PERSONATGE ===== -->
@@ -189,7 +229,7 @@
       <div class="screen-content" id="personatge-antagonista-p4-rol-content"></div>
     </section>
 
-    <!-- ===== RESTO NIVEL 3 ===== -->
+    <!-- ===== PANTALLAS NIVEL 3 - ESTRUCTURA ===== -->
     <section id="screen-estructura-3actes" class="screen">
       <div class="screen-header">
         <button onclick="closeScreen('screen-estructura')">← Tornar</button>
@@ -198,12 +238,135 @@
       <div class="screen-content" id="estructura-3actes-content"></div>
     </section>
 
+    <section id="screen-estructura-viatge" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estructura')">← Tornar</button>
+        <h2>VIATGE - Tipus</h2>
+      </div>
+      <div class="screen-content" id="estructura-viatge-content"></div>
+    </section>
+
+    <section id="screen-estructura-no-lineal" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estructura')">← Tornar</button>
+        <h2>NO LINEAL - Tipus</h2>
+      </div>
+      <div class="screen-content" id="estructura-no-lineal-content"></div>
+    </section>
+
+    <section id="screen-estructura-en-marc" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estructura')">← Tornar</button>
+        <h2>EN MARC - Tipus</h2>
+      </div>
+      <div class="screen-content" id="estructura-en-marc-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - MÓN ===== -->
     <section id="screen-mon-fantasia" class="screen">
       <div class="screen-header">
         <button onclick="closeScreen('screen-mon')">← Tornar</button>
         <h2>FANTASIA - Tipus</h2>
       </div>
       <div class="screen-content" id="mon-fantasia-content"></div>
+    </section>
+
+    <section id="screen-mon-ciencia" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-mon')">← Tornar</button>
+        <h2>CIÈNCIA FICCIÓ - Tipus</h2>
+      </div>
+      <div class="screen-content" id="mon-ciencia-content"></div>
+    </section>
+
+    <section id="screen-mon-historic" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-mon')">← Tornar</button>
+        <h2>HISTÒRIC - Tipus</h2>
+      </div>
+      <div class="screen-content" id="mon-historic-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - ESCENARI ===== -->
+    <section id="screen-escenari-ciutat" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-escenari')">← Tornar</button>
+        <h2>CIUTAT - Ubicació</h2>
+      </div>
+      <div class="screen-content" id="escenari-ciutat-content"></div>
+    </section>
+
+    <section id="screen-escenari-bosc" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-escenari')">← Tornar</button>
+        <h2>BOSC - Tipus</h2>
+      </div>
+      <div class="screen-content" id="escenari-bosc-content"></div>
+    </section>
+
+    <!-- ===== PANTALLAS NIVEL 3 - ESTIL ===== -->
+    <section id="screen-estil-directe" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estil')">← Tornar</button>
+        <h2>DIRECTE - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-directe-content"></div>
+    </section>
+
+    <section id="screen-estil-poetic" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estil')">← Tornar</button>
+        <h2>POÈTIC - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-poetic-content"></div>
+    </section>
+
+    <section id="screen-estil-ironico" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estil')">← Tornar</button>
+        <h2>IRÒNIC - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-ironico-content"></div>
+    </section>
+
+    <section id="screen-estil-minimal" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estil')">← Tornar</button>
+        <h2>MINIMAL - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-minimal-content"></div>
+    </section>
+
+    <section id="screen-estil-visual" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estil')">← Tornar</button>
+        <h2>VISUAL - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-visual-content"></div>
+    </section>
+
+    <section id="screen-estil-dialogic" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estil')">← Tornar</button>
+        <h2>DIALÒGIC - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-dialogic-content"></div>
+    </section>
+
+    <section id="screen-estil-tecnic" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estil')">← Tornar</button>
+        <h2>TÈCNIC - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-tecnic-content"></div>
+    </section>
+
+    <section id="screen-estil-experimental" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen('screen-estil')">← Tornar</button>
+        <h2>EXPERIMENTAL - Variant</h2>
+      </div>
+      <div class="screen-content" id="estil-experimental-content"></div>
     </section>
 
     <!-- RESULTAT -->
@@ -214,6 +377,6 @@
     </section>
   </main>
 
-  <script src="main.js?v=4"></script>
+  <script src="main.js?v=6"></script>
 </body>
 </html>
