@@ -1,30 +1,28 @@
-// Función global para desplegar tabs
-window.toggleTab = function(tabId) {
-  const tab = document.getElementById(tabId);
-  if (!tab) return;
-
-  const isOpen = tab.classList.contains('open');
-
-  // Cerrar todos
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('open'));
-
-  // Abrir el clicado si no estaba abierto
-  if (!isOpen) {
-    tab.classList.add('open');
-  }
+// Abrir pantalla dedicada
+window.openScreen = function(screenName) {
+  document.getElementById('menu').style.display = 'none';
+  document.getElementById('resultat').style.display = 'none';
+  document.getElementById('screen-' + screenName).classList.add('active');
 };
 
-// Subtabs dummy para probar
+// Cerrar pantalla y volver al menú
+window.closeScreen = function() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('menu').style.display = 'block';
+  document.getElementById('resultat').style.display = 'block';
+};
+
+// Subtabs dummy
 const dummyData = {
-  'genere-content': ['Acció', 'Romàntic', 'Thriller', 'Comèdia'],
-  'personatge-content': ['Heròic', 'Antiheroi', 'Secundari', 'Villà'],
-  'estructura-content': ['3 Actes', 'Heroi', 'Lineal', 'No lineal'],
-  'mon-content': ['Fantasia', 'Realista', 'Cyberpunk', 'Històric'],
-  'escenari-content': ['Ciutat', 'Bosc', 'Espai', 'Castell'],
-  'estil-content': ['Directe', 'Poètic', 'Còmic', 'Fosc']
+  'genere-content': ['Acció', 'Romàntic', 'Thriller', 'Comèdia', 'Ciència Ficció', 'Drama'],
+  'personatge-content': ['Heròic', 'Antiheroi', 'Secundari', 'Villà', 'Protagonista', 'Narrador'],
+  'estructura-content': ['3 Actes', 'Heroi', 'Lineal', 'No lineal', 'Paral·lel', 'Flashback'],
+  'mon-content': ['Fantasia', 'Realista', 'Cyberpunk', 'Històric', 'Postapocalíptic', 'Contemporani'],
+  'escenari-content': ['Ciutat', 'Bosc', 'Espai', 'Castell', 'Desert', 'Mar'],
+  'estil-content': ['Directe', 'Poètic', 'Còmic', 'Fosc', 'Líric', 'Minimalista']
 };
 
-// Render inicial de subtabs
+// Render inicial
 document.addEventListener('DOMContentLoaded', () => {
   Object.keys(dummyData).forEach(containerId => {
     const container = document.getElementById(containerId);
