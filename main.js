@@ -1,6 +1,8 @@
 window.openScreen = function(screenName, returnTo = null) {
   document.getElementById('menu').style.display = 'none';
   document.getElementById('resultat').style.display = 'none';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  
   const screen = document.getElementById('screen-' + screenName);
   if (screen) {
     screen.dataset.returnTo = returnTo || 'menu';
@@ -10,6 +12,7 @@ window.openScreen = function(screenName, returnTo = null) {
 
 window.closeScreen = function(returnTo = null) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  
   if (returnTo) {
     document.getElementById(returnTo).classList.add('active');
   } else {
