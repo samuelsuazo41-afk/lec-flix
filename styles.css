@@ -253,11 +253,60 @@ header p {
   overflow-x: auto;
 }
 
-@media (max-width: 640px) {
-  .screen-content { 
-    grid-template-columns: 1fr; 
-  }
-  .botons { 
-    grid-template-columns: 1fr; 
-  }
+/* ===== PANTALLA DE LECTURA ===== */
+
+#screen-lectura .screen-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+#btn-toc-toggle {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#btn-toc-toggle:hover {
+  border-color: var(--accent);
+  background: var(--bg-elevated);
+}
+
+/* Contenedor del índice */
+#toc-container {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--bg-elevated);
+  border-bottom: 2px solid var(--accent);
+  z-index: 200;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.toc-hidden {
+  transform: translateY(-110%);
+  pointer-events: none;
+  display: none;
+}
+
+#toc-content {
+  padding: 12px 0;
+}
+
+.toc-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+  color: var(--text);
 }
