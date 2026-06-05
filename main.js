@@ -1,8 +1,9 @@
 window.openScreen = function(screenName, returnTo = null) {
+  alert('Click detectado: ' + screenName); // <- línea de prueba
   document.getElementById('menu').style.display = 'none';
   document.getElementById('resultat').style.display = 'none';
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-
+  
   const screen = document.getElementById('screen-' + screenName);
   if (screen) {
     screen.dataset.returnTo = returnTo || 'menu';
