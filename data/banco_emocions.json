@@ -1,0 +1,520 @@
+[
+  {
+    "id": "emo_pol_por",
+    "texto_base": "{{sensacio}} {{pensament}} {{reaccio}} {{so_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "El cor em batega a la gola.", "Se’m talla la respiració.",
+        "Un fred metàl·lic em puja per l’esquena.", "Les mans em tremolen.",
+        "La boca se’m seca de cop.", "Sento un nus a l’estómac.",
+        "El cap em zumba.", "Em falta terra sota els peus.",
+        "La pell se’m posa de gallina.", "Em falta l’aire.",
+        "El pit em pesa.", "Les cames em flaquegen.",
+        "Un nus em puja a la gola.", "El temps sembla aturar-se.",
+        "Sento que em falta terra."
+      ],
+      "pensament": [
+        "Aquest cop m’he passat.",
+        "Algú m’ha vist.",
+        "No hauria d’haver entrat.",
+        "Si em troben, estic mort.",
+        "Aquesta porta no s’havia d’obrir.",
+        "Si fallo, algú paga.",
+        "Aquesta és la prova que faltava.",
+        "No tinc alibi.",
+        "Si ho explico, no em creuran.",
+        "Ara tinc alguna cosa a perdre.",
+        "Algú vol que ho trobi.",
+        "Això és una trampa.",
+        "No puc confiar en ningú.",
+        "Acabo de creuar la línia.",
+        "Si m’equivoco, em condemnen."
+      ],
+      "reaccio": [
+        "Em quedo paralitzat.", "Retrocedeixo sense fer soroll.",
+        "Miro enrere per instint.", "Premo la paret buscant sortida.",
+        "Em giro espantat.", "Marxo sense mirar enrere.",
+        "Em llanço cap a l’ombra.", "Premo la respiració.",
+        "Tanco els ulls un segon.", "Apreto les dents.",
+        "Em llanço cap a la porta.", "Em quedo quiet com una estàtua.",
+        "Respiro per la boca.", "Em passo la mà per la cara.",
+        "Em llanço a terra."
+      ],
+      "so_ambient": [
+        "De fons {{so}} no ajuda.", "L’aire de {{ciutat}} porta {{olor}}.",
+        "Només se sent {{so}}.", "{{ciutat}} dorm, però {{so}} no.",
+        "Un cop sec ressona amb {{so}}.", "L’olor de {{olor}} em tapa la boca.",
+        "{{so}} sembla seguir-me.", "L’olor de {{olor}} em gira l’estómac.",
+        "El silenci pesa més que {{so}}.", "L’aire porta {{olor}} i por.",
+        "{{so}} no em deixa pensar.", "L’olor de {{olor}} em mareja.",
+        "Cada cop que sento {{so}}, em giro.", "L’aire de {{ciutat}} és dens.",
+        "Només {{so}} trenca el silenci."
+      ]
+    },
+    "intensitat": "alta",
+    "tags": ["por", "perill", "policia"],
+    "genero": "policiac"
+  },
+  {
+    "id": "emo_rom_tendre",
+    "texto_base": "{{sensacio}} {{mirada}} {{desig}} {{olor_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "Se’m desfà el pit.", "Sento calor a les galtes.",
+        "La respiració em canvia.", "Les mans em pesen.",
+        "El cor em va lent.", "Em falta l’aire.",
+        "Tinc fred i calor a la vegada.", "El cos em pesa.",
+        "Em tremolen els dits.", "El cap em fa voltes.",
+        "Sento un nus a la gola.", "Les cames em flaquegen.",
+        "El cos em reacciona abans que jo.", "Tinc la boca seca.",
+        "El cor em batega fort."
+      ],
+      "mirada": [
+        "La seva mirada em busca.", "Baixa els ulls i somriu.",
+        "No desvia la vista de la meva.", "Els nostres ulls es creuen i es queden.",
+        "Em mira com si em conegués.", "Mira la meva boca quan parlo.",
+        "Tanca els ulls quan em sent.", "Em mira i no diu res.",
+        "Mira les meves mans.", "Em mira per sobre de l’espatlla.",
+        "Baixa la vista quan somric.", "Em mira i somriu.",
+        "Tanca els ulls quan parlo.", "Em mira com si tingués por.",
+        "Em mira com si em volgués dir alguna cosa."
+      ],
+      "desig": [
+        "Vull tocar-li la mà.", "Vull dir-li el seu nom.",
+        "Vull que aquest moment duri.", "Vull trencar el silenci.",
+        "Vull dir-li que sí.", "Vull quedar-me aquí.",
+        "Vull repetir-ho.", "Vull que em miri així sempre.",
+        "Vull dir-li que l’estimo.", "Vull que em toqui.",
+        "Vull que no marxi.", "Vull que em pregunti.",
+        "Vull dir-li la veritat.", "Vull que em besa.",
+        "Vull que es quedi."
+      ],
+      "olor_ambient": [
+        "{{olor}} s’enfila des del carrer.", "De fons arriba {{so}}.",
+        "L’aire de {{ciutat}} ho fa tot més real.", "Fa olor de {{olor}} i pluja.",
+        "El seu perfum es barreja amb {{olor}}.", "Fa olor de {{olor}} i cafè.",
+        "L’aire porta {{olor}} i fred.", "Fa olor de {{olor}} i mar.",
+        "L’olor de {{olor}} ho tapa tot.", "",
+        "L’aire de {{ciutat}} pesa.", "Fa olor de {{olor}} i fum.",
+        "L’olor de {{olor}} em mareja.", "L’aire porta {{olor}} i silenci.",
+        "Fa olor de {{olor}} i nit."
+      ]
+    },
+    "intensitat": "mitja",
+    "tags": ["tendresa", "amor", "silenci"],
+    "genero": "romance"
+  },
+  {
+    "id": "emo_ter_angoixa",
+    "texto_base": "{{sensacio}} {{percepcio}} {{paralisis}} {{so_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "La pell se’m posa de gallina.", "Sento un buit a l’estómac.",
+        "El fred em paralitza.", "La sang se’m glaça.",
+        "El cap em pesa.", "Em falta l’aire.",
+        "El cos no em respon.", "Tinc nàusees.",
+        "Les mans em tremolen.", "El cor em va desbocat.",
+        "Tinc la boca seca.", "Les cames no em sostenen.",
+        "El cap em zumba.", "Sento un nus a la gola.",
+        "El cos em pesa."
+      ],
+      "percepcio": [
+        "Veig una ombra que no hauria d’estar aquí.",
+        "Sento una respiració que no és la meva.",
+        "Distingeixo un moviment a la cantonada.",
+        "El mirall em torna una figura estranya.",
+        "La porta està oberta i jo la vaig tancar.",
+        "Algú ha mogut la cadira.",
+        "Sento passes que s’aturen quan jo m’atur.",
+        "El sostre cruix quan ningú camina.",
+        "Veig un reflex que no coincideix.",
+        "Sento que algú respira darrere meu.",
+        "La cortina es mou sense aire.",
+        "Algú xiuxiueja el meu nom.",
+        "Veig una figura al racó.",
+        "Sento un cop sec sota el llit.",
+        "La llum parpelleja quan miro."
+      ],
+      "paralisis": [
+        "No puc moure’m.", "La veu no em surt.",
+        "Les cames no em responen.", "Només puc mirar.",
+        "Si parpellejo desapareix.", "Si em giro, la veig.",
+        "Tinc la boca tancada.", "Les mans em pesen.",
+        "No puc cridar.", "El cos no em respon.",
+        "Sento que si em moc, em veu.", "Tinc els ulls oberts i no parpellejo.",
+        "La respiració se’m talla.", "No puc apartar la vista.",
+        "El cos em pesa."
+      ],
+      "so_ambient": [
+        "{{so}} ressona pel carrer buit.", "L’aire de {{ciutat}} porta {{olor}}.",
+        "Només se sent {{so}}.", "{{ciutat}} dorm i això ho fa pitjor.",
+        "El silenci pesa més que {{so}}.", "L’olor de {{olor}} em tapa la boca.",
+        "{{so}} sembla venir de dins la paret.", "L’olor de {{olor}} em mareja.",
+        "Cada cop que sento {{so}}, em giro.", "L’aire de {{ciutat}} és dens.",
+        "{{so}} no s’atura.", "L’olor de {{olor}} és dolça i podrida.",
+        "{{so}} ressona dins el meu cap.", "L’aire porta {{olor}} i fred.",
+        "Només {{so}} trenca el silenci."
+      ]
+    },
+    "intensitat": "alta",
+    "tags": ["por", "sobrenatural", "paralisis"],
+    "genero": "terror"
+  },
+  {
+    "id": "emo_thr_paranoia",
+    "texto_base": "{{sensacio}} {{dubte}} {{paralisis}} {{so_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "La nuca em crema.", "El cap em zumba.",
+        "Sento que m’observen.", "Les mans em suen.",
+        "El cor em va desbocat.", "Em falta l’aire.",
+        "Tinc nàusees.", "El cap em pesa.",
+        "La boca se’m seca.", "Les cames em flaquegen.",
+        "El pit em pesa.", "Tinc la pell freda.",
+        "El cos em tremola.", "Sento un nus a la gola.",
+        "El cap em gira."
+      ],
+      "dubte": [
+        "No sé si és real o si m’ho invento.",
+        "Si ho dic, em prendran per boig.",
+        "Potser jo vaig fer-ho i no ho recordo.",
+        "Potser algú vol que pensi que estic boig.",
+        "La meva memòria falla.",
+        "No puc confiar en mi.",
+        "Potser tot això és una prova.",
+        "Potser sóc jo el culpable.",
+        "Potser algú em manipula.",
+        "Potser estic somiant.",
+        "Potser algú em segueix.",
+        "Potser algú em grava.",
+        "Potser algú llegeix els meus pensaments.",
+        "Potser tot és mentida.",
+        "Potser jo sóc la mentida."
+      ],
+      "paralisis": [
+        "Em quedo quiet.", "No puc pensar clar.",
+        "Cada so és una amenaça.", "Miro enrere cada dos segons.",
+        "No sé en qui confiar.", "Només tinc la meva ment, i menteix.",
+        "No puc deixar de pensar-hi.", "Miro els reflexos als vidres.",
+        "Em giro espantat.", "Em llanço cap a l’ombra.",
+        "Respiro per la boca.", "Apreto les dents.",
+        "Tanco els ulls un segon.", "Em passo la mà per la cara.",
+        "Em quedo paralitzat."
+      ],
+      "so_ambient": [
+        "{{so}} no m’ajuda a pensar.", "L’aire porta {{olor}} i nervis.",
+        "{{ciutat}} sembla conèixer el meu secret.", "El soroll de {{so}} em persegueix.",
+        "L’olor de {{olor}} em mareja.", "Cada cop que sento {{so}}, em giro.",
+        "{{so}} ressona dins el meu cap.", "L’aire de {{ciutat}} és dens.",
+        "{{so}} no s’atura.", "L’olor de {{olor}} és metàl·lica.",
+        "{{so}} em segueix.", "L’aire porta {{olor}} i por.",
+        "{{so}} no em deixa pensar.", "L’olor de {{olor}} em tapa la boca.",
+        "Només {{so}} trenca el silenci."
+      ]
+    },
+    "intensitat": "alta",
+    "tags": ["paranoia", "manipulacio", "ment"],
+    "genero": "thriller"
+  },
+  {
+    "id": "emo_fan_meravella",
+    "texto_base": "{{sensacio}} {{descobriment}} {{por}} {{so_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "La pell em formigueja.", "Se’m talla la respiració.",
+        "El món brilla diferent.", "El cos em vibra.",
+        "El cap em pesa de llum.", "Em falta l’aire de meravella.",
+        "Els ulls em fan mal de tant veure.", "El cor em va lent.",
+        "Les mans em tremolen.", "El pit em pesa.",
+        "Tinc la boca oberta.", "Les cames em flaquegen.",
+        "El cap em gira.", "Sento un nus a la gola.",
+        "El cos em pesa de llum."
+      ],
+      "descobriment": [
+        "La màgia existeix.", "No sóc normal.",
+        "{{ciutat}} amaga coses.", "Jo puc fer-ho.",
+        "Això és real.", "El món és més gran.",
+        "Jo tinc poder.", "Això em tria a mi.",
+        "La màgia em parla.", "Jo sóc part d’això.",
+        "Això és meu.", "Això em crida.",
+        "Això em transforma.", "Això em canvia.",
+        "Això em marca."
+      ],
+      "por": [
+        "Si ho dic, em prendran per boig.",
+        "Si ho toco, explotaré.",
+        "Si l’uso, em cobraran.",
+        "Si ho veuen, em caçaran.",
+        "La màgia té preu.",
+        "No sé controlar-ho.",
+        "Si ho faig, em marquen.",
+        "Si ho amago, em crema.",
+        "Si l’accepto, canvio.",
+        "Si el rebutjo, em mata.",
+        "Si aprenc, no torno enrere.",
+        "Si fujo, em busca.",
+        "Si parlo, em tanquen.",
+        "Si callo, em crema.",
+        "Si l’uso, em perdo."
+      ],
+      "so_ambient": [
+        "{{so}} canvia de to.", "L’aire ara fa olor de {{olor}}.",
+        "{{ciutat}} sembla viure.", "El so de {{so}} és diferent ara.",
+        "L’olor de {{olor}} és dolça i perillosa.", "El silenci té pes.",
+        "{{so}} ressona dins meu.", "L’aire porta {{olor}} i llum.",
+        "{{so}} no s’atura.", "L’olor de {{olor}} és metàl·lica.",
+        "{{so}} em segueix.", "L’aire porta {{olor}} i meravella.",
+        "{{so}} no em deixa pensar.", "L’olor de {{olor}} em tapa la boca.",
+        "Només {{so}} trenca el silenci."
+      ]
+    },
+    "intensitat": "alta",
+    "tags": ["meravella", "por", "magia"],
+    "genero": "fantasia"
+  },
+  {
+    "id": "emo_com_vergonya",
+    "texto_base": "{{sensacio}} {{pensament}} {{salida}} {{so_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "La cara em crema.", "Vull desaparèixer.",
+        "El terra és atractiu.", "Les orelles em cremen.",
+        "El cos em pesa.", "Em falta l’aire.",
+        "Em poso vermell.", "Em tremolen les mans.",
+        "El pit em pesa.", "Les cames em flaquegen.",
+        "El cap em gira.", "Sento un nus a la gola.",
+        "El cos em pesa.", "Em falta terra.",
+        "Em tremola la veu."
+      ],
+      "pensament": [
+        "Tothom ho ha vist.", "No podré mirar ningú als ulls.",
+        "Això sortirà a TikTok.", "Em gravaran.",
+        "Demà ho recordarà tothom.", "No tinc excusa.",
+        "Sóc un desastre.", "Vull morir.",
+        "No podré sortir al carrer.", "El meu cap ho ha vist.",
+        "La meva ex ho ha vist.", "El vídeo ja circula.",
+        "No tinc on amagar-me.", "Sóc el pallasso del dia.",
+        "Això em perseguirà."
+      ],
+      "salida": [
+        "Riu-te’n tu primer.", "Fes com si res.",
+        "Marxa i no tornis.", "Fingeix que és broma.",
+        "Culpa el gat.", "Digues que és art.",
+        "Bloqueja a tothom.", "Canvia de ciutat.",
+        "Fes una broma pitjor.", "Accepta la humiliació.",
+        "Digues que és un experiment social.", "Bloqueja Instagram.",
+        "Marxa corrents.", "Fingeix que t’has desmaiat.",
+        "Digues que és performance."
+      ],
+      "so_ambient": [
+        "De fons {{so}} fa que sigui pitjor.", "L’aire porta {{olor}} i riure contingut.",
+        "{{ciutat}} sencera sembla mirar.", "El soroll de {{so}} ho amplifica.",
+        "L’olor de {{olor}} em mareja.", "Se sent un silenci incòmode.",
+        "{{so}} ressona dins meu.", "L’aire porta {{olor}} i riure.",
+        "{{so}} no s’atura.", "L’olor de {{olor}} és incòmoda.",
+        "{{so}} em persegueix.", "L’aire porta {{olor}} i vergonya.",
+        "{{so}} no em deixa pensar.", "L’olor de {{olor}} em tapa la boca.",
+        "Només {{so}} trenca el silenci."
+      ]
+    },
+    "intensitat": "mitja",
+    "tags": ["vergonya", "humor", "social"],
+    "genero": "comedia"
+  },
+  {
+    "id": "emo_per_cinic",
+    "texto_base": "{{sensacio}} {{pensament}} {{reaccio}} {{so_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "La mandíbula se’m tensa.", "Em puja un gust amarg.",
+        "El cap em pesa de fàstic.", "Les mans se’m tanquen.",
+        "El pit em crema per dins.", "Em falta l’aire però no de por.",
+        "La mirada se’m glaça.", "El cos em demana marxar.",
+        "Se’m tanca la gola.", "Em tremola el llavi.",
+        "El cap em zumba de ràbia.", "Les cames em pesen.",
+        "El cor em va lent i dur.", "Em falta terra sota els peus.",
+        "La pell se’m posa tensa."
+      ],
+      "pensament": [
+        "Ja ho sabia.", "Tots menteixen igual.",
+        "Això era de manual.", "No em sorprèn.",
+        "Em venen la moto.", "Promeses buides.",
+        "Aquí hi ha segones intencions.", "Res és gratis.",
+        "Em prenen per idiota.", "Ja he vist aquesta pel·lícula.",
+        "Em volen manipular.", "Això és teatre.",
+        "No em crec res.", "Ja m’han enganyat abans.",
+        "Em volen utilitzar."
+      ],
+      "reaccio": [
+        "M’encongeixo d’espatlles.", "Somric amb amargor.",
+        "Em giro i me’n vaig.", "No dic res.",
+        "Alço una cella.", "Deixo anar un riure sec.",
+        "Em creuo de braços.", "Baixo la mirada.",
+        "Tanco la boca amb força.", "Em passo la mà per la cara.",
+        "Em quedo quiet.", "Em llanço cap a l’ombra.",
+        "Respiro per la boca.", "Apreto les dents.",
+        "Em quedo paralitzat."
+      ],
+      "so_ambient": [
+        "{{so}} em confirma el que pensava.", "L’aire porta {{olor}} i hipocresia.",
+        "{{ciutat}} menteix com sempre.", "El soroll de {{so}} ho diu tot.",
+        "L’olor de {{olor}} em fa fàstic.", "El silenci és còmplice.",
+        "{{so}} ressona com una burla.", "L’aire porta {{olor}} i falsedat.",
+        "{{so}} no s’atura.", "L’olor de {{olor}} és podrida.",
+        "{{so}} em segueix.", "L’aire porta {{olor}} i menyspreu.",
+        "{{so}} no em deixa pensar.", "L’olor de {{olor}} em tapa la boca.",
+        "Només {{so}} trenca el silenci."
+      ]
+    },
+    "intensitat": "alta",
+    "tags": ["cinisme", "desconfiança", "rabia"],
+    "genero": "dramatic"
+  },
+  {
+    "id": "emo_per_idealista",
+    "texto_base": "{{sensacio}} {{pensament}} {{impuls}} {{so_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "El pit se’m dilata.", "Se’m humitegen els ulls.",
+        "El cor em batega fort.", "Les mans em tremolen de fe.",
+        "La boca se’m dibuixa en somriure.", "Sento un nus de gratitud.",
+        "El cap em pesa de llum.", "Em falta l’aire d’emoció.",
+        "La pell se’m posa de gallina.", "Em falta terra sota els peus.",
+        "El cos em vibra.", "Les cames em flaquegen.",
+        "El cap em gira.", "Sento un nus a la gola.",
+        "El cos em pesa de llum."
+      ],
+      "pensament": [
+        "Encara es pot canviar.", "La gent és bona.",
+        "Aquest és el moment.", "Val la pena lluitar.",
+        "No estem sols.", "Hi ha una sortida.",
+        "Podem fer-ho millor.", "Això té sentit.",
+        "Encara crec en nosaltres.", "Això val la pena.",
+        "No em rendeixo.", "Hi ha esperança.",
+        "Podem construir-ho.", "Això ens uneix.",
+        "Això ens salva."
+      ],
+      "impuls": [
+        "Vull abraçar-lo.", "Vull dir-li la veritat.",
+        "Vull compartir-ho.", "Vull aixecar la mà.",
+        "Vull començar ara.", "Vull creure-hi.",
+        "Vull dir-li que sí.", "Vull quedar-me aquí.",
+        "Vull repetir-ho.", "Vull que em miri així sempre.",
+        "Vull dir-li que l’estimo.", "Vull que em toqui.",
+        "Vull que no marxi.", "Vull que em pregunti.",
+        "Vull dir-li la veritat."
+      ],
+      "so_ambient": [
+        "{{so}} sona com una promesa.", "L’aire porta {{olor}} i esperança.",
+        "{{ciutat}} respira amb mi.", "El soroll de {{so}} em calma.",
+        "L’olor de {{olor}} és dolça i neta.", "El silenci és ple.",
+        "{{so}} ressona dins meu.", "L’aire porta {{olor}} i llum.",
+        "{{so}} no s’atura.", "L’olor de {{olor}} és neta.",
+        "{{so}} em segueix.", "L’aire porta {{olor}} i fe.",
+        "{{so}} no em deixa pensar.", "L’olor de {{olor}} em tapa la boca.",
+        "Només {{so}} trenca el silenci."
+      ]
+    },
+    "intensitat": "mitja",
+    "tags": ["idealisme", "esperanca", "fe"],
+    "genero": "dramatic"
+  },
+  {
+    "id": "emo_per_ambicio",
+    "texto_base": "{{sensacio}} {{pensament}} {{estrategia}} {{so_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "El cos em crema.", "Les mans em tremolen d’ansia.",
+        "El cap em zumba de plans.", "La mirada se’m clava.",
+        "El pit em pesa de gana.", "Em falta l’aire de tensió.",
+        "La mandíbula se’m tensa.", "El cos em demana avançar.",
+        "Se’m tanca la gola.", "Em tremola el pols.",
+        "El cap em gira.", "Sento un nus a la gola.",
+        "El cos em pesa.", "Em falta terra.",
+        "Em tremola la veu."
+      ],
+      "pensament": [
+        "Això és el meu moment.", "No em conformo.",
+        "Puc arribar més amunt.", "Aquesta és la porta.",
+        "Em toca guanyar.", "No accepto un no.",
+        "Això em posiciona.", "Ho aprofito tot.",
+        "No deixo escapar res.", "Això és meu.",
+        "No em rendeixo.", "Hi ha oportunitat.",
+        "Podem escalar.", "Això ens porta lluny.",
+        "Això ens dona poder."
+      ],
+      "estrategia": [
+        "Miro qui tinc al costat.", "Avanço un pas.",
+        "Preparo la jugada.", "Aprofito l’escletxa.",
+        "Guardo informació.", "Calculo el risc.",
+        "Marxo quan cal.", "Entro quan toca.",
+        "No ensenyo les cartes.", "Premo quan fa mal.",
+        "No ensenyo les cartes.", "Premo quan fa mal.",
+        "Guardo informació.", "Calculo el risc.",
+        "Marxo quan cal."
+      ],
+      "so_ambient": [
+        "{{so}} és música per a mi.", "L’aire porta {{olor}} i oportunitat.",
+        "{{ciutat}} es mou al meu ritme.", "El soroll de {{so}} m’empeny.",
+        "L’olor de {{olor}} em desperta.", "El silenci és avantatge.",
+        "{{so}} ressona com un repte.", "L’aire porta {{olor}} i fum.",
+        "{{so}} no s’atura.", "L’olor de {{olor}} és metàl·lica.",
+        "{{so}} em segueix.", "L’aire porta {{olor}} i poder.",
+        "{{so}} no em deixa pensar.", "L’olor de {{olor}} em tapa la boca.",
+        "Només {{so}} trenca el silenci."
+      ]
+    },
+    "intensitat": "alta",
+    "tags": ["ambicio", "estrategia", "poder"],
+    "genero": "dramatic"
+  },
+  {
+    "id": "emo_per_empatia",
+    "texto_base": "{{sensacio}} {{percepcio}} {{compassio}} {{so_ambient}}",
+    "banco_variables": {
+      "sensacio": [
+        "El pit se’m contrau.", "Se’m humitegen els ulls.",
+        "La gola se’m tanca.", "Les mans em pesen de pena.",
+        "El cor em batega lent.", "Em falta l’aire de commoció.",
+        "La pell se’m posa tendra.", "El cos em demana apropar-me.",
+        "Se’m tanca la boca.", "Em tremolen els dits.",
+        "El cap em gira.", "Sento un nus a la gola.",
+        "El cos em pesa.", "Em falta terra.",
+        "Em tremola la veu."
+      ],
+      "percepcio": [
+        "Veig la seva por.", "Sento el seu silenci.",
+        "Distingeixo el seu tremolor.", "El seu cos ho diu tot.",
+        "La seva mirada em busca.", "El seu gest em parla.",
+        "Sento la seva respiració.", "El seu cap està baix.",
+        "Veig les seves mans.", "Sento la seva absència.",
+        "Veig les seves mans.", "Sento la seva absència.",
+        "El seu cos ho diu tot.", "La seva mirada em busca.",
+        "Sento el seu silenci."
+      ],
+      "compassio": [
+        "Vull acostar-me.", "Vull dir-li que estic aquí.",
+        "Vull tocar-li l’espatlla.", "Vull compartir el pes.",
+        "Vull escoltar-lo.", "Vull entendre’l.",
+        "Vull quedar-me.", "Vull protegir-lo.",
+        "Vull dir-li que no està sol.", "Vull que em miri.",
+        "Vull dir-li que estic aquí.", "Vull tocar-li l’espatlla.",
+        "Vull compartir el pes.", "Vull escoltar-lo.",
+        "Vull entendre’l."
+      ],
+      "so_ambient": [
+        "{{so}} sona suau.", "L’aire porta {{olor}} i tendresa.",
+        "{{ciutat}} sembla calmar-se.", "El soroll de {{so}} em bressola.",
+        "L’olor de {{olor}} és neta.", "El silenci ens acosta.",
+        "{{so}} ressona com una carícia.", "L’aire porta {{olor}} i pau.",
+        "{{so}} no s’atura.", "L’olor de {{olor}} és dolça.",
+        "{{so}} em segueix.", "L’aire porta {{olor}} i calma.",
+        "{{so}} no em deixa pensar.", "L’olor de {{olor}} em tapa la boca.",
+        "Només {{so}} trenca el silenci."
+      ]
+    },
+    "intensitat": "mitja",
+    "tags": ["empatia", "compassio", "dol"],
+    "genero": "dramatic"
+  }
+      ]
