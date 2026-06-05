@@ -81,7 +81,7 @@ const banco_personatge_dummy = [
 function renderSubtabs(categoria) {
   const container = document.getElementById(categoria + '-content');
   const banco = categoria === 'personatge'
-  ? window.banco_personatge || banco_personatge_dummy
+? window.banco_personatge || banco_personatge_dummy
     : bancos[categoria];
 
   if (!container ||!banco) return;
@@ -141,8 +141,8 @@ function renderRolPersonatge(tipus, num, itemRef) {
   if (!container) return;
 
   const index = parseInt(num.substring(1)) - 1;
-  const genereActual = seleccio.genere || 'generico';
-  const roles = itemRef.roles[genereActual] || itemRef.roles.generico;
+  const genereActual = seleccio.genere?.tipus || 'generico';
+  const roles = itemRef.roles?.[genereActual] || itemRef.roles?.generico;
 
   container.innerHTML = '';
   roles.forEach(rol => {
@@ -159,8 +159,160 @@ function renderRolPersonatge(tipus, num, itemRef) {
   });
 }
 
+// ==================== GENERADOR DE LECTURA ====================
+
+const plantilles = {
+  'accio': {
+    'Persecució': (p0, p1, esc, mon) =>
+      `La persecució comença quan ${p0} descobreix que ${p1} no és qui sembla. Corren per ${esc}, mentre ${mon} s'enfonsa en el caos.`,
+    'Supervivència': (p0, p1, esc, mon) =>
+      `${p0} ha de sobreviure. Sense recursos, a ${esc}, cada pas per ${mon} és una aposta contra la mort.`,
+    'Rescat': (p0, p1, esc, mon) =>
+      `${p0} ha de rescatar ${p1} de ${esc}. El temps s'esgota a ${mon}.`,
+    'Invasió': (p0, p1, esc, mon) =>
+      `${mon} és envaït. ${p0} lidera la resistència des de ${esc}.`
+  },
+  'terror': {
+    'Psicològic': (p0, p1, esc, mon) =>
+      `Una veu ressona a la ment de ${p0}. A ${esc}, entre les ombres de ${mon}, la realitat es trenca.`,
+    'Sobrenatural': (p0, p1, esc, mon) =>
+      `Alguna cosa ha despertat a ${esc}. ${p0} ho sent. ${mon} ja no és segur.`,
+    'Slasher': (p0, p1, esc, mon) =>
+      `Les llums de ${esc} s'apaguen. ${p0} corre per ${mon} mentre alguna cosa el persegueix.`,
+    'Gore': (p0, p1, esc, mon) =>
+      `La sang esquitxa les parets de ${esc}. ${p0} no pot mirar cap a ${mon}.`
+  },
+  'romantic': {
+    'Amor impossible': (p0, p1, esc, mon) =>
+      `${p0} estima ${p1}, però ${mon} els separa. A ${esc}, cada mirada és una ferida.`,
+    'Segona oportunitat': (p0, p1, esc, mon) =>
+      `Després d'anys, ${p0} torna a trobar ${p1} a ${esc}. ${mon} ha canviat, però els sentiments no.`,
+    'Triangle': (p0, p1, esc, mon) =>
+      `${p0} està entre ${p1} i un altre. A ${esc}, ${mon} ho complica tot.`,
+    'A distància': (p0, p1, esc, mon) =>
+      `${p0} i ${p1} s'estimen a través de ${mon}. Cada carta des de ${esc} és un crit.`
+  },
+  'comedia': {
+    'Situacional': (p0, p1, esc, mon) =>
+      `${p0} entra a ${esc} i ho embolica tot. ${mon} no tornarà a ser el mateix.`,
+    'Paròdia': (p0, p1, esc, mon) =>
+      `${p0} intenta ser heroi a ${esc}, però ${mon} se'n riu.`,
+    'Romàntica': (p0, p1, esc, mon) =>
+      `${p0} vol conquistar ${p1} a ${esc}, però ${mon} s'hi interposa.`,
+    'Negra': (p0, p1, esc, mon) =>
+      `${p0} vol robar ${p1} a ${esc}. ${mon} amaga secrets foscos.`
+  }
+};
+
+function nomPersonatge(index) {
+  const p = seleccio.personatges[index];
+  if (!p) return 'Algú';
+  const noms = ['Àlex', 'Marta', 'Oriol', 'Laia'];
+  return noms[index] || `Personatge ${index+1}`;
+}
+
+function generarLectura() {
+  if (!seleccio.genere ||!seleccio.estructura || seleccio.personatges.length === 0) {
+    return `<p style="color:var(--text-muted)">Falta configurar Gènere, Estructura o almenys 1 Personatge.</p>`;
+  }
+
+  while (seleccio.personatges.length < seleccio.quantitat_personatges) {
+    seleccio.personatges.push({tipus: 'secundari', rol: 'Complementari'});
+  }
+
+  const g = seleccio.genere.tipus;
+  const gDetall = seleccio.genere.detall;
+  const e = seleccio.estructura.tipus;
+  const mon = seleccio.mon?.detall || 'un lloc qualsevol';
+  const esc = seleccio.escenari?.detall || 'un escenari indefinit';
+  const estil = seleccio.estil?.tipus || 'directe';
+
+  const p0 = nomPersonatge(0);
+  const p1 = nomPersonatge(1);
+
+  let text = plantilles[g]?.[gDetall]?.(p0, p1, esc, mon) ||
+             `La història comença a ${esc}. ${p0} té un repte.`;
+
+  if (e === '3actes') {
+    text = `<h3>Acte 1 - Plantejament</h3><p>${text}</p>` +
+           `<h3>Acte 2 - Nus</h3><p>La tensió puja. ${p0} ha de decidir. ${esc} es torna perillós.</p>` +
+           `<h3>Acte 3 - Desenllaç</h3><p>El final arriba. ${mon} guarda el secret. ${p0} afronta el destí.</p>`;
+  } else if (e === 'viatge') {
+    text = `<h3>Inici del Viatge</h3><p>${p0} abandona ${esc}. El camí per ${mon} és llarg.</p>` +
+           `<h3>Prova</h3><p>En el viatge, troba el seu límit. ${p1 || 'Un desconegut'} l'ajuda.</p>` +
+           `<h3>Retorn</h3><p>Torna diferent. ${esc} ja no és el mateix.</p>`;
+  } else {
+    text = `<p>${text}</p>`;
+  }
+
+  if (estil === 'poetic') {
+    text = text.replace(/\./g, '... ');
+  } else if (estil === 'minimal') {
+    text = text.split('.').slice(0, 3).join('.') + '.';
+  }
+
+  return text;
+}
+
+// ==================== PREVIEW Y EXPORTAR ====================
+
+function generarPreview() {
+  const g = seleccio.genere?.detall || 'No seleccionat';
+  const e = seleccio.estructura?.detall || 'No seleccionat';
+  const q = seleccio.quantitat_personatges;
+  const p = seleccio.personatges.length;
+
+  return `
+    <h3>Preview de la teva selecció</h3>
+    <p><strong>Gènere:</strong> ${g}</p>
+    <p><strong>Estructura:</strong> ${e}</p>
+    <p><strong>Personatges:</strong> ${q} configurats, ${p} definits</p>
+    <p><strong>Món:</strong> ${seleccio.mon?.detall || 'No seleccionat'}</p>
+    <p><strong>Escenari:</strong> ${seleccio.escenari?.detall || 'No seleccionat'}</p>
+    <p><strong>Estil:</strong> ${seleccio.estil?.detall || 'No seleccionat'}</p>
+    <hr>
+    <p style="color:var(--text-muted)">Toca "Generar Guió" per veure el text complet.</p>
+  `;
+}
+
+function exportarTxt() {
+  const contingut = document.getElementById('resultat').innerText || generarLectura();
+  const blob = new Blob([contingut], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'guio-lectura.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ==================== INIT ====================
+
 document.addEventListener('DOMContentLoaded', () => {
   ['genere', 'personatge', 'estructura', 'mon', 'escenari', 'estil'].forEach(cat => {
     renderSubtabs(cat);
   });
-});
+
+  const btnPreview = document.getElementById('btn-preview');
+  if (btnPreview) {
+    btnPreview.onclick = () => {
+      document.getElementById('resultat').innerHTML = generarPreview();
+      document.getElementById('resultat').style.display = 'block';
+    };
+  }
+
+  const btnGenerar = document.getElementById('btn-generar');
+  if (btnGenerar) {
+    btnGenerar.onclick = () => {
+      document.getElementById('resultat').innerHTML = generarLectura();
+      document.getElementById('resultat').style.display = 'block';
+    };
+  }
+
+  const btnExportar = document.getElementById('btn-exportar');
+  if (btnExportar) {
+    btnExportar.onclick = exportarTxt;
+  }
+}); 
