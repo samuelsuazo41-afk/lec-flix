@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lec-flix-test-v23';
+const CACHE_NAME = 'lec-flix-test-v24';
 
 const urlsToCache = [
   './',
@@ -9,7 +9,19 @@ const urlsToCache = [
   './sw.js',
   './icon-192.png',
   './icon-512.png',
-  './icon-512-maskable.png'
+  './icon-512-maskable.png',
+  './core/generadorlilibre.js',
+  './data/loaderjson.js',
+  './data/banco_ecenes.json',
+  './data/banco_emocions.json',
+  './data/banco_escenarios.json',
+  './data/banco_estructura.json',
+  './data/banco_generes.json',
+  './data/banco_lectura.json',
+  './data/banco_olors.json',
+  './data/banco_personatge.json',
+  './data/banco_sons.json',
+  './data/banco_ubicacion.json'
 ];
 
 self.addEventListener('install', event => {
