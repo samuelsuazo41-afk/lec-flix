@@ -8,11 +8,9 @@ export async function loadAllBancs() {
     'banco_emocions.json',
     'banco_ecenes.json',
     'banco_lectura.json',
-    'determinants.json',
-    'banco_vocabulari.json',
-    'banco_preguntes.json',
-    'banco_ubicacion.json',
-    'banco_temes.json'
+    'banco_olors.json',
+    'banco_sons.json',
+    'banco_ubicacion.json'
   ];
 
   const bancs = {};
@@ -26,4 +24,3 @@ export async function loadAllBancs() {
   await Promise.all(promises);
   return bancs;
 }
-
