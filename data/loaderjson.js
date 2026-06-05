@@ -11,7 +11,7 @@ export async function loadAllBancs() {
     'determinants.json',
     'banco_vocabulari.json',
     'banco_preguntes.json',
-    'banco_ubicacions.json',
+    'banco_ubicacion.json',
     'banco_temes.json'
   ];
 
