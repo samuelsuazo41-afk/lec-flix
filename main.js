@@ -2,7 +2,7 @@ window.openScreen = function(screenName, returnTo = null) {
   document.getElementById('menu').style.display = 'none';
   document.getElementById('resultat').style.display = 'none';
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  
+
   const screen = document.getElementById('screen-' + screenName);
   if (screen) {
     screen.dataset.returnTo = returnTo || 'menu';
@@ -12,7 +12,7 @@ window.openScreen = function(screenName, returnTo = null) {
 
 window.closeScreen = function(returnTo = null) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  
+
   if (returnTo) {
     document.getElementById(returnTo).classList.add('active');
   } else {
@@ -31,7 +31,6 @@ window.seleccio = {
   estil: null
 };
 
-// Bancos completos para todas las categorías - SIN TOCAR
 const bancos = {
   'genere': [
     {id: 'accio', nom: 'Acció', suggeriments: ['Persecució', 'Supervivència', 'Rescat', 'Invasió']},
@@ -66,7 +65,6 @@ const bancos = {
   ]
 };
 
-// Personatge con 6 categorías y 4 niveles - SIN TOCAR
 const banco_personatge_dummy = [
   {id: 'quantitat', nom: 'Quants personatges?', suggeriments: ['1', '2', '3', '4+']},
   {id: 'heroi', nom: 'Heròic', suggeriments: ['P1', 'P2', 'P3', 'P4'],
@@ -83,10 +81,7 @@ const banco_personatge_dummy = [
 
 function renderSubtabs(categoria) {
   const container = document.getElementById(categoria + '-content');
-  const banco = categoria === 'personatge'
-? window.banco_personatge || banco_personatge_dummy
-    : bancos[categoria];
-
+  const banco = categoria === 'personatge'? banco_personatge_dummy : bancos[categoria];
   if (!container ||!banco) return;
 
   container.innerHTML = '';
@@ -97,7 +92,6 @@ function renderSubtabs(categoria) {
     btn.onclick = () => {
       container.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       if (item.suggeriments) {
         renderSuggeriments(categoria, item.id, item.suggeriments, item);
         openScreen(`${categoria}-${item.id}`, `screen-${categoria}`);
@@ -113,7 +107,6 @@ function renderSubtabs(categoria) {
 function renderSuggeriments(categoria, subtabId, suggeriments, itemRef) {
   const container = document.getElementById(`${categoria}-${subtabId}-content`);
   if (!container) return;
-
   container.innerHTML = '';
   suggeriments.forEach(sug => {
     const btn = document.createElement('button');
@@ -122,7 +115,6 @@ function renderSuggeriments(categoria, subtabId, suggeriments, itemRef) {
     btn.onclick = () => {
       container.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       if (categoria === 'personatge' && subtabId!== 'quantitat') {
         const num = sug;
         renderRolPersonatge(subtabId, num, itemRef);
@@ -142,11 +134,9 @@ function renderSuggeriments(categoria, subtabId, suggeriments, itemRef) {
 function renderRolPersonatge(tipus, num, itemRef) {
   const container = document.getElementById(`personatge-${tipus}-${num.toLowerCase()}-rol-content`);
   if (!container) return;
-
   const index = parseInt(num.substring(1)) - 1;
   const genereActual = seleccio.genere?.tipus || 'generico';
   const roles = itemRef.roles?.[genereActual] || itemRef.roles?.generico;
-
   container.innerHTML = '';
   roles.forEach(rol => {
     const btn = document.createElement('button');
@@ -162,82 +152,24 @@ function renderRolPersonatge(tipus, num, itemRef) {
   });
 }
 
-// ==================== MOTOR COMBINATORIO + BESTSELLER ====================
-
 const bancosLexic = {
-  verbAccio: [
-    "córrer", "escapar", "llançar-se", "saltar", "girar-se", "agafar",
-    "empènyer", "arrossegar", "tremolar", "cridar", "xiuxiuejar", "mirar"
-  ],
-  emocio: [
-    "amb ràbia", "en silenci", "amb por", "amb esperança", "sense pensar-ho",
-    "amb determinació", "amb dubte", "amb pressa", "lentament", "amb força"
-  ],
-  adverbis: [
-    "de cop", "lentament", "ràpid", "en silenci", "amb força",
-    "sense fer soroll", "de sobte", "poc a poc"
-  ],
-  connectors: [
-    "Mentrestant,", "Al cap d’uns minuts,", "De cop i volta,",
-    "Sense adonar-se,", "Més tard,", "Llavors,", "Però,"
-  ],
-  pensament: [
-    "{p0} va pensar que tot era un error.",
-    "No podia creure el que veia.",
-    "Havia de prendre una decisió, i ràpid.",
-    "Si fallava, no hi hauria segona oportunitat.",
-    "Tot depenia d’aquell moment."
-  ]
+  verbAccio: ["córrer", "escapar", "llançar-se", "saltar", "girar-se", "agafar", "empènyer", "arrossegar", "tremolar", "cridar", "xiuxiuejar", "mirar"],
+  emocio: ["amb ràbia", "en silenci", "amb por", "amb esperança", "sense pensar-ho", "amb determinació", "amb dubte", "amb pressa", "lentament", "amb força"],
+  adverbis: ["de cop", "lentament", "ràpid", "en silenci", "amb força", "sense fer soroll", "de sobte", "poc a poc"],
+  connectors: ["Mentrestant,", "Al cap d’uns minuts,", "De cop i volta,", "Sense adonar-se,", "Més tard,", "Llavors,", "Però,"],
+  pensament: ["{p0} va pensar que tot era un error.", "No podia creure el que veia.", "Havia de prendre una decisió, i ràpid.", "Si fallava, no hi hauria segona oportunitat.", "Tot depenia d’aquell moment."]
 };
 
 const plantillesCombinades = {
-  obertura: [
-    "La llum entrava quan {p0} va obrir els ulls.",
-    "{p0} no sabia que aquell dia {p1} canviaria tot.",
-    "{p0} mirava {esc} pensant en {p2}.",
-    "El rellotge marcava les {hora} quan {p0} va prendre la decisió."
-  ],
-  accio: [
-    "{p0} va {verb} {emocio} cap a {esc}.",
-    "Sense pensar-ho, {p0} va {verb} per {mon}.",
-    "{p0} va {verb} {adverbi} mentre {p1} mirava.",
-    "{p0} va {verb} {emocio} i després es va aturar."
-  ],
-  dialog: [
-    '"No puc més", va dir {p0}.',
-    '"Tens raó", va respondre {p1}. "Però ho hem de provar."',
-    '"Què vols dir?", va preguntar {p0}.',
-    '"Que tot ha canviat", va xiuxiuejar {p2}.',
-    '"No t’ho crec", va tallar {p1}.'
-  ],
-  descripcio: [
-    "L’aire a {esc} olia a pluja.",
-    "{mon} s’estenia davant d’ells, infinit.",
-    "Les parets de {esc} guardaven secrets.",
-    "El vent bufava {adverbi} des de {mon}."
-  ],
-  cliffhanger: [
-    "Però llavors, va sentir un soroll.",
-    "I en aquell moment, tot va canviar.",
-    "No tenia ni idea del que venia després.",
-    "El telèfon va sonar.",
-    "La porta es va obrir sola."
-  ],
-  tancamentCapitol: [
-    "El capítol acabava aquí.",
-    "Demà tornaria al mateix lloc.",
-    "La decisió estava presa.",
-    "No hi havia volta enrere."
-  ]
+  obertura: ["La llum entrava quan {p0} va obrir els ulls.", "{p0} no sabia que aquell dia {p1} canviaria tot.", "{p0} mirava {esc} pensant en {p2}.", "El rellotge marcava les {hora} quan {p0} va prendre la decisió."],
+  accio: ["{p0} va {verb} {emocio} cap a {esc}.", "Sense pensar-ho, {p0} va {verb} per {mon}.", "{p0} va {verb} {adverbi} mentre {p1} mirava.", "{p0} va {verb} {emocio} i després es va aturar."],
+  dialog: ['"No puc més", va dir {p0}.', '"Tens raó", va respondre {p1}. "Però ho hem de provar."', '"Què vols dir?", va preguntar {p0}.', '"Que tot ha canviat", va xiuxiuejar {p2}.', '"No t’ho crec", va tallar {p1}.'],
+  descripcio: ["L’aire a {esc} olia a pluja.", "{mon} s’estenia davant d’ells, infinit.", "Les parets de {esc} guardaven secrets.", "El vent bufava {adverbi} des de {mon}."],
+  cliffhanger: ["Però llavors, va sentir un soroll.", "I en aquell moment, tot va canviar.", "No tenia ni idea del que venia després.", "El telèfon va sonar.", "La porta es va obrir sola."],
+  tancamentCapitol: ["El capítol acabava aquí.", "Demà tornaria al mateix lloc.", "La decisió estava presa.", "No hi havia volta enrere."]
 };
 
-const motiusBase = [
-  "La porta estava tancada.",
-  "No podia mirar enrere.",
-  "El temps s'esgotava.",
-  "No hi havia volta enrere.",
-  "Tot depenia d'aquell moment."
-];
+const motiusBase = ["La porta estava tancada.", "No podia mirar enrere.", "El temps s'esgotava.", "No hi havia volta enrere.", "Tot depenia d'aquell moment."];
 
 function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
@@ -255,40 +187,31 @@ function nomPersonatge(index, personatges, extra) {
 
 function fill(template, data) {
   return template
-.replace(/{p0}/g, data.p0)
-.replace(/{p1}/g, data.p1)
-.replace(/{p2}/g, data.p2)
-.replace(/{esc}/g, data.esc)
-.replace(/{mon}/g, data.mon)
-.replace(/{hora}/g, data.hora)
-.replace(/{verb}/g, rand(bancosLexic.verbAccio))
-.replace(/{emocio}/g, rand(bancosLexic.emocio))
-.replace(/{adverbi}/g, rand(bancosLexic.adverbis));
+   .replace(/{p0}/g, data.p0)
+   .replace(/{p1}/g, data.p1)
+   .replace(/{p2}/g, data.p2)
+   .replace(/{esc}/g, data.esc)
+   .replace(/{mon}/g, data.mon)
+   .replace(/{hora}/g, data.hora)
+   .replace(/{verb}/g, rand(bancosLexic.verbAccio))
+   .replace(/{emocio}/g, rand(bancosLexic.emocio))
+   .replace(/{adverbi}/g, rand(bancosLexic.adverbis));
 }
-
-// ==================== GENERADOR DE LECTURA BESTSELLER ====================
 
 function generarLectura() {
   if (!seleccio.genere ||!seleccio.estructura) {
     return `<p style="color:var(--text-muted)">Falta configurar Gènere o Estructura.</p>`;
   }
-
   while (seleccio.personatges.length < seleccio.quantitat_personatges) {
     seleccio.personatges.push({tipus: 'secundari', rol: 'Complementari'});
   }
-
   const personatgesExtra = [];
   const numExtra = Math.floor(Math.random() * 2) + 1;
   const nomsRelleno = ['Jordi', 'Núria', 'Marc', 'Elena', 'Roger', 'Aina'];
   const rolsRelleno = ['Veí', 'Client', 'Guàrdia', 'Venedor', 'Missatger'];
-
   for (let i = 0; i < numExtra; i++) {
-    personatgesExtra.push({
-      nom: nomsRelleno[Math.floor(Math.random() * nomsRelleno.length)],
-      rol: rolsRelleno[Math.floor(Math.random() * rolsRelleno.length)]
-    });
+    personatgesExtra.push({nom: rand(nomsRelleno), rol: rand(rolsRelleno)});
   }
-
   const totalPersonatges = seleccio.personatges.length + personatgesExtra.length;
   const data = {
     p0: nomPersonatge(0, seleccio.personatges, personatgesExtra),
@@ -298,85 +221,53 @@ function generarLectura() {
     mon: seleccio.mon?.detall || 'el món',
     hora: Math.floor(Math.random()*12+1) + ':00'
   };
-
   const targetParaules = 70000;
   const paraulesPerCapitol = 3000;
   const numCapitols = Math.floor(targetParaules / paraulesPerCapitol);
   const actes = seleccio.estructura.tipus === '3actes'? 3 : 4;
   const capitolsPerActe = Math.floor(numCapitols / actes);
-
   let text = '';
   let paraulesAcumulades = 0;
   const estil = seleccio.estil?.tipus || 'directe';
   const elementsCallback = [];
-
   for (let acte = 1; acte <= actes; acte++) {
     text += `<h1>Acte ${acte}</h1>`;
-
     for (let cap = 1; cap <= capitolsPerActe; cap++) {
       const numCapitolGlobal = (acte-1)*capitolsPerActe + cap;
       const idCapitol = `capitol-${numCapitolGlobal}`;
       text += `<h2 id="${idCapitol}">Capítol ${numCapitolGlobal}</h2>`;
-
       const numEscenes = 3;
       for (let escena = 1; escena <= numEscenes; escena++) {
         const idEscena = `escena-${numCapitolGlobal}-${escena}`;
         text += `<h3 id="${idEscena}">Escena ${escena}</h3>`;
         let escenaText = '';
-
-        escenaText += fill(rand(plantillesCombinades.obertura), data) + ';
-
-        if (escena % 4 === 0) {
-          escenaText += rand(motiusBase) + ' ';
-        }
-
+        escenaText += fill(rand(plantillesCombinades.obertura), data) + ' ';
+        if (escena % 4 === 0) escenaText += rand(motiusBase) + ' ';
         escenaText += rand(bancosLexic.connectors) + ' ';
-        escenaText += fill(rand(plantillesCombinades.accio), data) + ';
-
-        if (Math.random() > 0.5) {
-          escenaText += fill(rand(bancosLexic.pensament), data) + ' ';
-        }
-
-        escenaText += fill(rand(plantillesCombinades.descripcio), data) + ';
-
-        if (totalPersonatges > 1 && Math.random() > 0.4) {
-          escenaText += fill(rand(plantillesCombinades.dialog), data) + ' ';
-        }
-
-        if (Math.random() > 0.7 && elementsCallback.length > 0) {
-          escenaText += `El ${rand(elementsCallback)} tornava a aparèixer. `;
-        }
-
+        escenaText += fill(rand(plantillesCombinades.accio), data) + ' ';
+        if (Math.random() > 0.5) escenaText += fill(rand(bancosLexic.pensament), data) + ' ';
+        escenaText += fill(rand(plantillesCombinades.descripcio), data) + ' ';
+        if (totalPersonatges > 1 && Math.random() > 0.4) escenaText += fill(rand(plantillesCombinades.dialog), data) + ' ';
+        if (Math.random() > 0.7 && elementsCallback.length > 0) escenaText += `El ${rand(elementsCallback)} tornava a aparèixer. `;
         if (Math.random() > 0.8) {
           const nouElement = rand(['medalló', 'carta', 'clau', 'foto', 'llibre']);
-          if (!elementsCallback.includes(nouElement)) {
-            elementsCallback.push(nouElement);
-          }
+          if (!elementsCallback.includes(nouElement)) elementsCallback.push(nouElement);
         }
-
-        escenaText += fill(rand(plantillesCombinades.cliffhanger), data) + ';
-
+        escenaText += fill(rand(plantillesCombinades.cliffhanger), data) + ' ';
         if (estil === 'poetic') escenaText = escenaText.replace(/\./g, '... ');
         if (estil === 'minimal') escenaText = escenaText.split('.').slice(0,6).join('.') + '.';
-
         text += `<p>${escenaText}</p>`;
         paraulesAcumulades += escenaText.split(' ').length;
       }
-
       text += `<p><em>${fill(rand(plantillesCombinades.tancamentCapitol), data)}</em></p>`;
     }
   }
-
   while (paraulesAcumulades < targetParaules) {
-    text += `<h2>Capítol extra</h2>`;
-    text += `<p>${fill(rand(plantillesCombinades.accio), data)} ${fill(rand(plantillesCombinades.descripcio), data)}</p>`;
+    text += `<h2>Capítol extra</h2><p>${fill(rand(plantillesCombinades.accio), data)} ${fill(rand(plantillesCombinades.descripcio), data)}</p>`;
     paraulesAcumulades += 40;
   }
-
   return text;
 }
-
-// ==================== TOC Y NAVEGACIÓN LECTURA ====================
 
 let seccionsLectura = [];
 let seccioActual = 0;
@@ -385,19 +276,15 @@ function generarTOC(textHTML) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(textHTML, 'text/html');
   const headers = doc.querySelectorAll('h1, h2, h3');
-
   let tocHTML = '';
   seccionsLectura = [];
-
   headers.forEach((h) => {
     if (h.id) {
       seccionsLectura.push(h.id);
-      const classe = h.tagName === 'H1'? 'toc-acte' :
-                     h.tagName === 'H2'? 'toc-capitol' : 'toc-escena';
+      const classe = h.tagName === 'H1'? 'toc-acte' : h.tagName === 'H2'? 'toc-capitol' : 'toc-escena';
       tocHTML += `<div class="toc-item ${classe}" onclick="saltarASeccio('${h.id}')">${h.textContent}</div>`;
     }
   });
-
   const tocContainer = document.getElementById('toc-content');
   if (tocContainer) tocContainer.innerHTML = tocHTML;
 }
@@ -412,14 +299,11 @@ window.saltarASeccio = function(id) {
   }
 };
 
-// ==================== PREVIEW Y EXPORTAR ====================
-
 function generarPreview() {
   const g = seleccio.genere?.detall || 'No seleccionat';
   const e = seleccio.estructura?.detall || 'No seleccionat';
   const q = seleccio.quantitat_personatges;
   const p = seleccio.personatges.length;
-
   return `
     <h3>Preview de la teva selecció</h3>
     <p><strong>Gènere:</strong> ${g}</p>
@@ -446,65 +330,36 @@ function exportarTxt() {
   URL.revokeObjectURL(url);
 }
 
-// ==================== INIT ====================
-
 document.addEventListener('DOMContentLoaded', () => {
-  ['genere', 'personatge', 'estructura', 'mon', 'escenari', 'estil'].forEach(cat => {
-    renderSubtabs(cat);
-  });
-
+  ['genere', 'personatge', 'estructura', 'mon', 'escenari', 'estil'].forEach(cat => renderSubtabs(cat));
   const btnPreview = document.getElementById('btn-preview');
-  if (btnPreview) {
-    btnPreview.onclick = () => {
-      document.getElementById('resultat').innerHTML = generarPreview();
-      document.getElementById('resultat').style.display = 'block';
-    };
-  }
-
+  if (btnPreview) btnPreview.onclick = () => {
+    document.getElementById('resultat').innerHTML = generarPreview();
+    document.getElementById('resultat').style.display = 'block';
+  };
   const btnGenerar = document.getElementById('btn-generar');
-  if (btnGenerar) {
-    btnGenerar.onclick = () => {
-      const text = generarLectura();
-      const lecturaContent = document.getElementById('lectura-content');
-      if (lecturaContent) {
-        lecturaContent.innerHTML = text;
-        generarTOC(text);
-        openScreen('lectura');
-      }
-    };
-  }
-
+  if (btnGenerar) btnGenerar.onclick = () => {
+    const text = generarLectura();
+    const lecturaContent = document.getElementById('lectura-content');
+    if (lecturaContent) {
+      lecturaContent.innerHTML = text;
+      generarTOC(text);
+      openScreen('lectura');
+    }
+  };
   const btnExportar = document.getElementById('btn-exportar');
-  if (btnExportar) {
-    btnExportar.onclick = exportarTxt;
-  }
-
-  // Navegación lectura
+  if (btnExportar) btnExportar.onclick = exportarTxt;
   const btnPrev = document.getElementById('btn-prev-seccio');
-  if (btnPrev) {
-    btnPrev.onclick = () => {
-      if (seccioActual > 0) {
-        seccioActual--;
-        saltarASeccio(seccionsLectura[seccioActual]);
-      }
-    };
-  }
-
+  if (btnPrev) btnPrev.onclick = () => {
+    if (seccioActual > 0) { seccioActual--; saltarASeccio(seccionsLectura[seccioActual]); }
+  };
   const btnNext = document.getElementById('btn-next-seccio');
-  if (btnNext) {
-    btnNext.onclick = () => {
-      if (seccioActual < seccionsLectura.length - 1) {
-        seccioActual++;
-        saltarASeccio(seccionsLectura[seccioActual]);
-      }
-    };
-  }
-
+  if (btnNext) btnNext.onclick = () => {
+    if (seccioActual < seccionsLectura.length - 1) { seccioActual++; saltarASeccio(seccionsLectura[seccioActual]); }
+  };
   const btnTocToggle = document.getElementById('btn-toc-toggle');
-  if (btnTocToggle) {
-    btnTocToggle.onclick = () => {
-      const tocContainer = document.getElementById('toc-container');
-      if (tocContainer) tocContainer.classList.toggle('toc-hidden');
-    };
-  }
+  if (btnTocToggle) btnTocToggle.onclick = () => {
+    const tocContainer = document.getElementById('toc-container');
+    if (tocContainer) tocContainer.classList.toggle('toc-hidden');
+  };
 });
