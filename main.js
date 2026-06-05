@@ -22,7 +22,7 @@ window.closeScreen = function(returnTo = null) {
 };
 
 window.seleccio = {
-  titol: null, // NUEVO
+  titol: null,
   genere: null,
   quantitat_personatges: 1,
   personatges: [],
@@ -153,7 +153,6 @@ function renderRolPersonatge(tipus, num, itemRef) {
   });
 }
 
-// BANCS 5X MÉS GRANS + SEPARACIÓ VERBS
 const bancosLexic = {
   verbFisic: ["córrer", "escapar", "llançar-se", "saltar", "girar-se", "agafar", "empènyer", "arrossegar", "tremolar", "caminar", "trontollar", "estirar-se", "agenollar-se", "alçar-se", "copar", "tancar", "obrir", "trencar", "esquivar", "fugir", "envestir", "amagar-se", "recular", "avançar", "precipitar-se"],
   verbVerbal: ["cridar", "xiuxiuejar", "murar", "confessar", "preguntar", "respondre", "insistir", "suplicar"],
@@ -244,7 +243,6 @@ const motiusBase = [
   "Aquella mirada ho deia tot."
 ];
 
-// Anti-repetició per STRING, no per índex
 const usatsString = {obertura:new Set(), accio:new Set(), dialog:new Set(), descripcio:new Set(), cliffhanger:new Set()};
 function randNoRep(key, arr) {
   let fr, tries = 0;
@@ -258,15 +256,6 @@ function randNoRep(key, arr) {
 }
 
 function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-// Pondera keywords del título 3x
-function randPonderat(arr, keywords) {
-  if (!keywords || keywords.length === 0) return rand(arr);
-  const ponderat = arr.flatMap(frase =>
-    keywords.some(k => frase.toLowerCase().includes(k))? [frase,frase,frase] : [frase]
-  );
-  return rand(ponderat);
-}
 
 function fixMayus(str) {
   return str.replace(/, ([A-ZÀ-Ú])/g, ', $1'.toLowerCase());
@@ -298,7 +287,6 @@ function fill(template, data) {
 .replace(/{adverbi}/g, rand(bancosLexic.adverbis));
 }
 
-// ANALITZADOR DE TÍTOL
 const diccionariTemes = {
   traicio: ['mentida', 'secret', 'dubt', 'confiança', 'trencar'],
   mort: ['silenci', 'ombra', 'final', 'comiat', 'fred'],
@@ -315,7 +303,6 @@ function analitzarTitol(titol) {
   return {tema:'generic', keywords:[]};
 }
 
-// BEAT SHEET dinàmic per títol
 function calcularMapa(numCapitols, titol) {
   const beatsBase = [
     'Hook', 'Setup', 'Catalitzador', 'Debat', 'PP1',
@@ -373,7 +360,7 @@ function generarLectura() {
   const numCapitols = 17;
   const actes = 4;
   const capitolsPerActe = [5, 5, 4, 3];
-  const {beats, tensio, keywords} = calcularMapa(numCapitols, seleccio.titol);
+  const {beats, tensio} = calcularMapa(numCapitols, seleccio.titol);
 
   let text = '';
   const estil = seleccio.estil?.tipus || 'directe';
@@ -397,9 +384,6 @@ function generarLectura() {
         const idEscena = `escena-${numCapitolGlobal}-${escena}`;
         text += `<h3 id="${idEscena}">Escena ${escena}</h3>`;
         let escenaText = '';
-
-        // Variació de longitud per trencar patró
-        const numFrases = escena === 3? 12 : escena === 5? 6 : 8;
 
         escenaText += fill(randNoRep('obertura', plantillesCombinades.obertura), data) + ';
 
