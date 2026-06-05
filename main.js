@@ -161,7 +161,6 @@ function renderRolPersonatge(tipus, num, itemRef) {
 
 // ==================== MOTOR COMBINATORIO + BESTSELLER ====================
 
-// Bancos léxicos para combinatoria
 const bancosLexic = {
   verbAccio: [
     "córrer", "escapar", "llançar-se", "saltar", "girar-se", "agafar",
@@ -188,7 +187,6 @@ const bancosLexic = {
   ]
 };
 
-// Plantillas combinatorias - multiplican variaciones x20
 const plantillesCombinades = {
   obertura: [
     "La llum entrava quan {p0} va obrir els ulls.",
@@ -230,7 +228,6 @@ const plantillesCombinades = {
   ]
 };
 
-// Motius per repetició controlada
 const motiusBase = [
   "La porta estava tancada.",
   "No podia mirar enrere.",
@@ -255,15 +252,15 @@ function nomPersonatge(index, personatges, extra) {
 
 function fill(template, data) {
   return template
- .replace(/{p0}/g, data.p0)
- .replace(/{p1}/g, data.p1)
- .replace(/{p2}/g, data.p2)
- .replace(/{esc}/g, data.esc)
- .replace(/{mon}/g, data.mon)
- .replace(/{hora}/g, data.hora)
- .replace(/{verb}/g, rand(bancosLexic.verbAccio))
- .replace(/{emocio}/g, rand(bancosLexic.emocio))
- .replace(/{adverbi}/g, rand(bancosLexic.adverbis));
+.replace(/{p0}/g, data.p0)
+.replace(/{p1}/g, data.p1)
+.replace(/{p2}/g, data.p2)
+.replace(/{esc}/g, data.esc)
+.replace(/{mon}/g, data.mon)
+.replace(/{hora}/g, data.hora)
+.replace(/{verb}/g, rand(bancosLexic.verbAccio))
+.replace(/{emocio}/g, rand(bancosLexic.emocio))
+.replace(/{adverbi}/g, rand(bancosLexic.adverbis));
 }
 
 // ==================== GENERADOR DE LECTURA BESTSELLER ====================
@@ -273,12 +270,10 @@ function generarLectura() {
     return `<p style="color:var(--text-muted)">Falta configurar Gènere o Estructura.</p>`;
   }
 
-  // Normalitzar personatges
   while (seleccio.personatges.length < seleccio.quantitat_personatges) {
     seleccio.personatges.push({tipus: 'secundari', rol: 'Complementari'});
   }
 
-  // Afegir 1-2 personatges de relleno
   const personatgesExtra = [];
   const numExtra = Math.floor(Math.random() * 2) + 1;
   const nomsRelleno = ['Jordi', 'Núria', 'Marc', 'Elena', 'Roger', 'Aina'];
@@ -301,7 +296,6 @@ function generarLectura() {
     hora: Math.floor(Math.random()*12+1) + ':00'
   };
 
-  // Estàndard bestseller: 60k-80k paraules
   const targetParaules = 70000;
   const paraulesPerCapitol = 3000;
   const numCapitols = Math.floor(targetParaules / paraulesPerCapitol);
@@ -318,44 +312,38 @@ function generarLectura() {
 
     for (let cap = 1; cap <= capitolsPerActe; cap++) {
       const numCapitolGlobal = (acte-1)*capitolsPerActe + cap;
-      text += `<h2>Capítol ${numCapitolGlobal}</h2>`;
+      const idCapitol = `capitol-${numCapitolGlobal}`;
+      text += `<h2 id="${idCapitol}">Capítol ${numCapitolGlobal}</h2>`;
 
       const numEscenes = 3;
       for (let escena = 1; escena <= numEscenes; escena++) {
-        text += `<h3>Escena ${escena}</h3>`;
+        const idEscena = `escena-${numCapitolGlobal}-${escena}`;
+        text += `<h3 id="${idEscena}">Escena ${escena}</h3>`;
         let escenaText = '';
 
-        // Hook
         escenaText += fill(rand(plantillesCombinades.obertura), data) + ';
 
-        // Motiu repetitiu cada 4 escenes
         if (escena % 4 === 0) {
           escenaText += rand(motiusBase) + ' ';
         }
 
-        // Acció combinatòria
         escenaText += rand(bancosLexic.connectors) + ' ';
         escenaText += fill(rand(plantillesCombinades.accio), data) + ';
 
-        // Pensament intern
         if (Math.random() > 0.5) {
           escenaText += fill(rand(bancosLexic.pensament), data) + ' ';
         }
 
-        // Descripció
         escenaText += fill(rand(plantillesCombinades.descripcio), data) + ';
 
-        // Diàleg amb personatges extra
         if (totalPersonatges > 1 && Math.random() > 0.4) {
           escenaText += fill(rand(plantillesCombinades.dialog), data) + ' ';
         }
 
-        // Callback a element anterior
         if (Math.random() > 0.7 && elementsCallback.length > 0) {
           escenaText += `El ${rand(elementsCallback)} tornava a aparèixer. `;
         }
 
-        // Registrar element nou per callback futur
         if (Math.random() > 0.8) {
           const nouElement = rand(['medalló', 'carta', 'clau', 'foto', 'llibre']);
           if (!elementsCallback.includes(nouElement)) {
@@ -363,10 +351,8 @@ function generarLectura() {
           }
         }
 
-        // Cliffhanger
         escenaText += fill(rand(plantillesCombinades.cliffhanger), data) + ';
 
-        // Aplicar estil
         if (estil === 'poetic') escenaText = escenaText.replace(/\./g, '... ');
         if (estil === 'minimal') escenaText = escenaText.split('.').slice(0,6).join('.') + '.';
 
@@ -378,7 +364,6 @@ function generarLectura() {
     }
   }
 
-  // Completar fins target si falta
   while (paraulesAcumulades < targetParaules) {
     text += `<h2>Capítol extra</h2>`;
     text += `<p>${fill(rand(plantillesCombinades.accio), data)} ${fill(rand(plantillesCombinades.descripcio), data)}</p>`;
@@ -388,7 +373,43 @@ function generarLectura() {
   return text;
 }
 
-// ==================== PREVIEW Y EXPORTAR - SIN TOCAR ====================
+// ==================== TOC Y NAVEGACIÓN LECTURA ====================
+
+let seccionsLectura = [];
+let seccioActual = 0;
+
+function generarTOC(textHTML) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(textHTML, 'text/html');
+  const headers = doc.querySelectorAll('h1, h2, h3');
+
+  let tocHTML = '';
+  seccionsLectura = [];
+
+  headers.forEach((h) => {
+    if (h.id) {
+      seccionsLectura.push(h.id);
+      const classe = h.tagName === 'H1'? 'toc-acte' :
+                     h.tagName === 'H2'? 'toc-capitol' : 'toc-escena';
+      tocHTML += `<div class="toc-item ${classe}" onclick="saltarASeccio('${h.id}')">${h.textContent}</div>`;
+    }
+  });
+
+  const tocContainer = document.getElementById('toc-content');
+  if (tocContainer) tocContainer.innerHTML = tocHTML;
+}
+
+window.saltarASeccio = function(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({behavior: 'smooth', block: 'start'});
+    seccioActual = seccionsLectura.indexOf(id);
+    const tocContainer = document.getElementById('toc-container');
+    if (tocContainer) tocContainer.classList.add('toc-hidden');
+  }
+};
+
+// ==================== PREVIEW Y EXPORTAR ====================
 
 function generarPreview() {
   const g = seleccio.genere?.detall || 'No seleccionat';
@@ -410,7 +431,7 @@ function generarPreview() {
 }
 
 function exportarTxt() {
-  const contingut = document.getElementById('resultat').innerText || generarLectura();
+  const contingut = document.getElementById('lectura-content').innerText || generarLectura();
   const blob = new Blob([contingut], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -422,7 +443,7 @@ function exportarTxt() {
   URL.revokeObjectURL(url);
 }
 
-// ==================== INIT - SIN TOCAR ====================
+// ==================== INIT ====================
 
 document.addEventListener('DOMContentLoaded', () => {
   ['genere', 'personatge', 'estructura', 'mon', 'escenari', 'estil'].forEach(cat => {
@@ -440,13 +461,47 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnGenerar = document.getElementById('btn-generar');
   if (btnGenerar) {
     btnGenerar.onclick = () => {
-      document.getElementById('resultat').innerHTML = generarLectura();
-      document.getElementById('resultat').style.display = 'block';
+      const text = generarLectura();
+      const lecturaContent = document.getElementById('lectura-content');
+      if (lecturaContent) {
+        lecturaContent.innerHTML = text;
+        generarTOC(text);
+        openScreen('lectura');
+      }
     };
   }
 
   const btnExportar = document.getElementById('btn-exportar');
   if (btnExportar) {
     btnExportar.onclick = exportarTxt;
+  }
+
+  // Navegación lectura
+  const btnPrev = document.getElementById('btn-prev-seccio');
+  if (btnPrev) {
+    btnPrev.onclick = () => {
+      if (seccioActual > 0) {
+        seccioActual--;
+        saltarASeccio(seccionsLectura[seccioActual]);
+      }
+    };
+  }
+
+  const btnNext = document.getElementById('btn-next-seccio');
+  if (btnNext) {
+    btnNext.onclick = () => {
+      if (seccioActual < seccionsLectura.length - 1) {
+        seccioActual++;
+        saltarASeccio(seccionsLectura[seccioActual]);
+      }
+    };
+  }
+
+  const btnTocToggle = document.getElementById('btn-toc-toggle');
+  if (btnTocToggle) {
+    btnTocToggle.onclick = () => {
+      const tocContainer = document.getElementById('toc-container');
+      if (tocContainer) tocContainer.classList.toggle('toc-hidden');
+    };
   }
 });
