@@ -106,7 +106,7 @@ export async function generarLlibre(seleccio, bancs) {
       let textEsc = '';
 
       // Obertura
-      textEsc += fill(plantilla('obertura'), data) + ';
+      textEsc += fill(plantilla('obertura'), data) + ' ';
 
       // Accions
       const nAccions = tens > 0.7? 4 : 3;
@@ -120,7 +120,7 @@ export async function generarLlibre(seleccio, bancs) {
       }
 
       // Descripció
-      textEsc += fill(plantilla('descripcio'), data) + ';
+      textEsc += fill(plantilla('descripcio'), data) + ' ';
 
       // Diàleg si hi ha més d’1 personatge
       if (Math.random() > 0.3) {
