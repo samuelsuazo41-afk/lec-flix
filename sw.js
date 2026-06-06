@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lec-flix-test-v94';
+const CACHE_NAME = 'lec-flix-test-v96';
 
 const urlsToCache = [
   './',
