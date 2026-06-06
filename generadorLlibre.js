@@ -1,4 +1,4 @@
-// core/generadorLlibre.js - Motor V8.1 Final
+// generadorLlibre.js - Motor V8.1 Final
 (function() {
   function generarEscena(beatNom, configBase, bancs, hist, numCap, numEsc, totalCaps, paraulesPerEscena) {
     hist = hist || {ubicacions:[], olors:[], sons:[], frasesUsades:[], tensions:0, capActe:1};
