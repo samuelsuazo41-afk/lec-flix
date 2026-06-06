@@ -10,7 +10,7 @@ function randNoRep(arr, hist, maxHist = 15) {
   const filtrat = arr.filter(x =>!hist.includes(x.id || x));
   const pool = filtrat.length? filtrat : arr;
   const sel = rand(pool);
-  hist.push(sel.id || sel);
+  hist.push(sel.id || JSON.stringify(sel));
   if (hist.length > maxHist) hist.shift();
   return sel;
 }
@@ -37,7 +37,7 @@ export async function generarLlibre(config, bancs) {
   const genereTriat = Object.keys(config.genero).find(k => config.genero[k] > 0) || 'policiac';
   const generos = mapGenere[genereTriat] || ['policiac'];
 
-  // 2. Beats amb fallback
+// 2. Beats amb fallback
 const beats = bancs.banco_estructura?.beats || Array(config.nCapitols).fill({id:1, nom:'Beat'});
 const beatsPerCapitol = Math.ceil(beats.length / config.nCapitols);
   
