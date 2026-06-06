@@ -18,11 +18,13 @@ export async function generarLlibre(seleccio, bancs) {
     {tipus: 'cliffhanger', text: 'Però llavors, va sentir un soroll.'},
     {tipus: 'tancament', text: 'El capítol acabava aquí.'}
   ];
-  const estructures = BANCS.banco_estructura || {
-    'Save the Cat': Array(17).fill('Beat'),
-    '3 Actes': Array(17).fill('Beat'),
-    'No Lineal': Array(17).fill('Beat')
-  };
+ const beats = estructures[seleccio.estructura] || estructures['Save the Cat'] || Array(numCapitols).fill('Beat');
+
+const estructures = BANCS.banco_estructura || {
+  'Save the Cat': Array(17).fill('Beat'),
+  '3 Actes': Array(17).fill('Beat'),
+  'No Lineal': Array(17).fill('Beat')
+};
 
   // Decidir ritme
   let numCapitols, paraulesAprox, escenesPerCap;
