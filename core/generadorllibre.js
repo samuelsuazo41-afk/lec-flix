@@ -1,57 +1,74 @@
-// core/generadorLlibre.js - Motor v5 anti-repetició
-function generarEscena(beatNom, configBase, bancs, hist) {
-  hist = hist || {ubicacions:[], olors:[], sons:[], accions:[]};
+// core/generadorLlibre.js - Motor v6: Paràgrafs llargs + estructura 3 actes
+function generarEscena(beatNom, configBase, bancs, hist, numCap, numEsc, totalCaps) {
+  hist = hist || {ubicacions:[], olors:[], sons:[], accions:[], tensions:0};
 
-  // 1. Agafar bancs aleatoris CADA escena, no fixos
   const olorsPool = bancs.banco_olors?.filter(o => o.genero?.includes(configBase.genere)) || [];
   const sonsPool = bancs.banco_sons?.filter(s => s.genero?.includes(configBase.genere)) || [];
   const escenarisPool = bancs.banco_escenarios?.filter(e => e.ciutat === configBase.ciutat) || [];
 
-  // 2. Evitar repetir ubicació
-  let escDisp = escenarisPool.filter(e =>!hist.ubicacions.includes(e.nom));
-  if (escDisp.length === 0) { hist.ubicacions = []; escDisp = escenarisPool; }
+  // Rotar ubicació cada 2 escenes per donar sensació d'avanç
+  let escDisp = escenarisPool.filter(e =>!hist.ubicacions.slice(-2).includes(e.nom));
+  if (escDisp.length === 0) escDisp = escenarisPool;
   const esc = escDisp[Math.floor(Math.random() * escDisp.length)];
   hist.ubicacions.push(esc.nom);
 
-  // 3. Evitar repetir olor/so
-  let olorsDisp = olorsPool.filter(o =>!hist.olors.includes(o.texto_base?.[0]));
-  if (olorsDisp.length === 0) { hist.olors = []; olorsDisp = olorsPool; }
-  const olorObj = olorsDisp[Math.floor(Math.random() * olorsDisp.length)] || {texto_base:[configBase.olor]};
+  const olorObj = olorsPool[Math.floor(Math.random() * olorsPool.length)] || {texto_base:[configBase.olor || 'aire fred']};
   const olor = olorObj.texto_base[Math.floor(Math.random() * olorObj.texto_base.length)];
-  hist.olors.push(olor);
 
-  let sonsDisp = sonsPool.filter(s =>!hist.sons.includes(s.texto_base?.[0]));
-  if (sonsDisp.length === 0) { hist.sons = []; sonsDisp = sonsPool; }
-  const soObj = sonsDisp[Math.floor(Math.random() * sonsDisp.length)] || {texto_base:[configBase.so]};
+  const soObj = sonsPool[Math.floor(Math.random() * sonsPool.length)] || {texto_base:[configBase.so || 'silenci']};
   const so = soObj.texto_base[Math.floor(Math.random() * soObj.texto_base.length)];
-  hist.sons.push(so);
 
-  // 4. Plantilles segons beat per continuïtat narrativa
-  const plantilles = {
-    'Obertura': `${configBase.nom} va obrir els ulls a ${esc.nom}. L'olor de ${olor} i el so de ${so} el van desorientar.`,
-    'Tema plantejat': `A ${esc.nom}, ${configBase.nom} va notar que ${olor} no era normal. ${configBase.tic} el va delatar.`,
-    'Catalitzador': `Un ${so} va trencar el silenci a ${esc.nom}. ${configBase.nom} va saber que alguna cosa havia canviat.`,
-    'Setup': `${configBase.nom} es va moure per ${esc.nom}, respirant ${olor} mentre pensava en ${configBase.ciutat}.`,
-    'default': `${configBase.nom} va continuar a ${esc.nom}, amb ${olor} i ${so} de fons. ${configBase.tic}.`
+  // Tensió puja amb els capítols. Acte 2 = més conflicte
+  const progress = numCap / totalCaps;
+  if (progress > 0.25 && progress < 0.75) hist.tensions++;
+
+  // Plantilles llargues: 4-6 frases per escena
+  const plantillesLlarga = {
+    'Obertura': [
+      `${configBase.nom} va obrir els ulls a ${esc.nom}.`,
+      `L'olor de ${olor} li va recordar una promesa que havia oblidat.`,
+      `El so de ${so} ressonava entre les parets com un eco del passat.`,
+      `${configBase.tic} quan la veritat era a punt de sortir.`,
+      `Aquell matí a ${configBase.ciutat} tot semblava normal, però alguna cosa havia canviat.`
+    ],
+    'Tema plantejat': [
+      `A ${esc.nom}, ${configBase.nom} va comprendre que no estava sol.`,
+      `L'aire feia olor de ${olor}, una olor que no encaixava amb el lloc.`,
+      `Cada ${so} que sentia semblava un avís.`,
+      `Si no actuava ara, la pista es perdria per sempre.`,
+      `I per primera vegada en anys, va sentir por.`
+    ],
+    'Catalitzador': [
+      `El ${so} va trencar el silenci de ${esc.nom} com un tret.`,
+      `${configBase.nom} va córrer sense saber cap a on.`,
+      `L'olor de ${olor} era més intensa ara, gairebé asfixiant.`,
+      `Tenia dues opcions: fugir o enfrontar-se al que fos.`,
+      `Va triar quedar-se. Aquesta seria la decisió que ho canviaria tot.`
+    ],
+    'Setup': [
+      `${configBase.nom} es va moure per ${esc.nom} intentant ordenar els pensaments.`,
+      `L'olor de ${olor} el seguia com una ombra.`,
+      `El ${so} de fons li recordava que el temps s'acabava.`,
+      `Necessitava respostes, però tothom mentia. ${configBase.tic} sempre que mentien.`,
+      `A ${configBase.ciutat} ningú era qui deia ser.`
+    ],
+    'default': [
+      `${configBase.nom} va continuar a ${esc.nom}, amb ${olor} i ${so} de fons.`,
+      `Els seus pensaments eren un caos de records i sospites.`,
+      `Si ${configBase.tic}, volia dir que estava a punt de descobrir alguna cosa.`,
+      `El carrer estava buit, però sentia que l'observaven.`,
+      `Va respirar fons i va fer un pas endavant.`
+    ]
   };
 
-  const textBase = plantilles[beatNom] || plantilles['default'];
+  const frases = plantillesLlarga[beatNom] || plantillesLlarga['default'];
 
-  // 5. Frase extra per allargar i no repetir acció
-  if (!hist.accions.includes('investigacio')) {
-    hist.accions.push('investigacio');
-    return { text: textBase + ` Va començar a buscar pistes entre les ombres.`, hist };
-  } else if (!hist.accions.includes('dubte')) {
-    hist.accions.push('dubte');
-    return { text: textBase + ` "Això no quadra", va murmurar.`, hist };
-  } else {
-    const variants = [
-      ` El silenci pesava més que abans.`,
-      ` Cada pas ressonava diferent ara.`,
-      ` Alguna cosa s'havia mogut sense que se n'adonés.`
-    ];
-    return { text: textBase + variants[Math.floor(Math.random()*variants.length)], hist };
+  // Si estem a Acte 2, afegir gir/conflicte extra
+  if (hist.tensions > 1 && Math.random() > 0.5) {
+    frases.splice(3, 0, `De sobte, va entendre que tot el que creia era mentida.`);
   }
+
+  return { text: frases.join(' '), hist };
 }
 
 window.generarEscena = generarEscena;
