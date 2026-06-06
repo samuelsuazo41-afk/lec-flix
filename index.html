@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Lec-Flix Genèric</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
   <header>
@@ -15,89 +15,26 @@
   </header>
 
   <main>
+    <!-- MENÚ PRINCIPAL -->
     <section id="menu">
       <input id="input-titol" type="text" placeholder="Títol del llibre..."
-             onchange="seleccio.titol = this.value">
+             onchange="seleccio.titol = this.value"
+             style="width:90%; max-width:400px; padding:10px; margin:12px auto; display:block;
+                    background:var(--bg-dark); color:var(--text); border:1px solid var(--border);
+                    border-radius:6px; text-align:center; font-size:15px;">
 
       <div class="tabs-container">
-        <!-- GÈNERE -->
-        <div class="tab-btn">
-          <div class="tab-header" onclick="toggleSubmenu('genere')">
-            GÈNERE <span id="genere-label">▼</span>
-          </div>
-          <div class="submenu" id="genere-submenu">
-            <button class="opt-btn" onclick="selectGenere('accio')">Acció</button>
-            <button class="opt-btn" onclick="selectGenere('romantic')">Romàntic</button>
-            <button class="opt-btn" onclick="selectGenere('terror')">Terror</button>
-            <button class="opt-btn" onclick="selectGenere('misteri')">Misteri</button>
-            <button class="opt-btn" onclick="selectGenere('fantasia')">Fantasia</button>
-            <button class="opt-btn" onclick="selectGenere('comedia')">Comèdia</button>
-          </div>
+        <div class="tab-btn" onclick="openScreen('genere')">
+          GÈNERE <span id="genere-label">▼</span>
         </div>
-
-        <!-- La resta igual que el teu codi -->
-        <!-- ESTRUCTURA -->
-        <div class="tab-btn">
-          <div class="tab-header" onclick="toggleSubmenu('estructura')">
-            ESTRUCTURA <span id="estructura-label">▼</span>
-          </div>
-          <div class="submenu" id="estructura-submenu">
-            <button class="opt-btn" onclick="selectEstructura('3 Actes')">3 Actes Clàssic</button>
-            <button class="opt-btn" onclick="selectEstructura('Save the Cat')">Save the Cat</button>
-            <button class="opt-btn" onclick="selectEstructura('No Lineal')">No Lineal</button>
-          </div>
+        <div class="tab-btn" onclick="openScreen('estructura')">
+          ESTRUCTURA <span id="estructura-label">▼</span>
         </div>
-
-        <!-- RITME -->
-        <div class="tab-btn">
-          <div class="tab-header" onclick="toggleSubmenu('ritme')">
-            RITME <span id="ritme-label">▼</span>
-          </div>
-          <div class="submenu" id="ritme-submenu">
-            <button class="opt-btn" onclick="selectRitme('Relat Curt')">Relat Curt ~5k</button>
-            <button class="opt-btn" onclick="selectRitme('Novel·la')">Novel·la 60k</button>
-            <button class="opt-btn" onclick="selectRitme('Èpic')">Èpic 100k</button>
-          </div>
+        <div class="tab-btn" onclick="openScreen('ritme')">
+          RITME <span id="ritme-label">▼</span>
         </div>
-
-        <!-- POV -->
-        <div class="tab-btn">
-          <div class="tab-header" onclick="toggleSubmenu('pov')">
-            POV <span id="pov-label">▼</span>
-          </div>
-          <div class="submenu" id="pov-submenu">
-            <button class="opt-btn" onclick="selectPov('1 Protagonista')">1 Protagonista</button>
-            <button class="opt-btn" onclick="selectPov('3 POV Rotatius')">3 POV Rotatius</button>
-            <button class="opt-btn" onclick="selectPov('Omniscient')">Narrador Omniscient</button>
-          </div>
-        </div>
-
-        <!-- PERSONATGE, MÓN, ESCENARI igual que el teu -->
-        <div class="tab-btn">
-          <div class="tab-header" onclick="toggleSubmenu('personatge')">
-            PERSONATGE <span id="personatge-label">▼</span>
-          </div>
-          <div class="submenu" id="personatge-submenu">
-            <button class="opt-btn" onclick="selectPersonatge(null, 'Aleatori')">Aleatori</button>
-          </div>
-        </div>
-
-        <div class="tab-btn">
-          <div class="tab-header" onclick="toggleSubmenu('mon')">
-            MÓN <span id="mon-label">▼</span>
-          </div>
-          <div class="submenu" id="mon-submenu">
-            <button class="opt-btn" onclick="selectMon(null, 'Aleatori')">Aleatori</button>
-          </div>
-        </div>
-
-        <div class="tab-btn">
-          <div class="tab-header" onclick="toggleSubmenu('escenari')">
-            ESCENARI <span id="escenari-label">▼</span>
-          </div>
-          <div class="submenu" id="escenari-submenu">
-            <button class="opt-btn" onclick="selectEscenari(null, 'Aleatori')">Aleatori</button>
-          </div>
+        <div class="tab-btn" onclick="openScreen('pov')">
+          POV <span id="pov-label">▼</span>
         </div>
       </div>
 
@@ -106,205 +43,158 @@
         <button id="btn-generar">Generar Novel·la</button>
         <button id="btn-exportar">Exportar.txt</button>
       </div>
-
-      <section id="resultat">
-        <p style="color: var(--text-muted); text-align: center;">
-          Selecciona Gènere + Ritme + Estructura per començar
-        </p>
-      </section>
     </section>
 
+    <!-- ===== PANTALLAS NIVEL 2 ===== -->
+    <section id="screen-genere" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>GÈNERE</h2>
+      </div>
+      <div class="screen-content" id="genere-content">
+        <button class="opt-btn" onclick="selectGenere('accio')">Acció</button>
+        <button class="opt-btn" onclick="selectGenere('romantic')">Romàntic</button>
+        <button class="opt-btn" onclick="selectGenere('terror')">Terror</button>
+        <button class="opt-btn" onclick="selectGenere('misteri')">Misteri</button>
+        <button class="opt-btn" onclick="selectGenere('fantasia')">Fantasia</button>
+        <button class="opt-btn" onclick="selectGenere('comedia')">Comèdia</button>
+      </div>
+    </section>
+
+    <section id="screen-estructura" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>ESTRUCTURA</h2>
+      </div>
+      <div class="screen-content" id="estructura-content">
+        <button class="opt-btn" onclick="selectEstructura('3 Actes')">3 Actes Clàssic</button>
+        <button class="opt-btn" onclick="selectEstructura('Save the Cat')">Save the Cat</button>
+        <button class="opt-btn" onclick="selectEstructura('No Lineal')">No Lineal</button>
+      </div>
+    </section>
+
+    <section id="screen-ritme" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>RITME</h2>
+      </div>
+      <div class="screen-content" id="ritme-content">
+        <button class="opt-btn" onclick="selectRitme('Relat Curt')">Relat Curt ~5k</button>
+        <button class="opt-btn" onclick="selectRitme('Novel·la')">Novel·la 60k</button>
+        <button class="opt-btn" onclick="selectRitme('Èpic')">Èpic 100k</button>
+      </div>
+    </section>
+
+    <section id="screen-pov" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>POV</h2>
+      </div>
+      <div class="screen-content" id="pov-content">
+        <button class="opt-btn" onclick="selectPov('1 Protagonista')">1 Protagonista</button>
+        <button class="opt-btn" onclick="selectPov('3 POV Rotatius')">3 POV Rotatius</button>
+        <button class="opt-btn" onclick="selectPov('Omniscient')">Narrador Omniscient</button>
+      </div>
+    </section>
+
+    <!-- ===== PANTALLA DE LECTURA ===== -->
     <section id="screen-lectura" class="screen">
       <div class="screen-header">
-        <button onclick="closeLectura()">← Menú</button>
+        <button onclick="closeScreen('menu')">← Menú</button>
         <h2>LECTURA</h2>
         <button id="btn-toc-toggle">Índex</button>
       </div>
+
       <div id="toc-container" class="toc-hidden">
         <div id="toc-content"></div>
       </div>
+
       <div class="screen-content" id="lectura-content"></div>
+
       <div class="lectura-nav">
         <button id="btn-prev-seccio">← Anterior</button>
         <button id="btn-next-seccio">Següent →</button>
       </div>
     </section>
+
+    <!-- RESULTAT -->
+    <section id="resultat">
+      <p style="color: var(--text-muted); text-align: center;">
+        Selecciona Gènere + Ritme + Estructura per començar
+      </p>
+    </section>
   </main>
 
-  <script type="module">
-    import { generarLlibre } from './js/main.js';
-    import { loadAllBancs } from './data/loaderjson.js';
-
+  <script>
+    // Estat global
     window.seleccio = {
       titol: '',
       genere: 'policiac',
       estructura: 'Save the Cat',
       ritme: 'Novel·la',
-      pov: '1 Protagonista',
-      personatgeId: null,
-      mon: null,
-      escenariId: null
+      pov: '1 Protagonista'
     };
 
     let llibreGenerat = null;
-    let BANCS = {};
 
-    loadAllBancs().then(b => {
-      BANCS = b;
-      omplirSubmenus();
-    });
-
-    function omplirSubmenus() {
-      omplirPersonatges();
-      omplirMons();
-    }
-
-    function omplirPersonatges() {
-      const persDiv = document.getElementById('personatge-submenu');
-      persDiv.innerHTML = `<button class="opt-btn" onclick="selectPersonatge(null, 'Aleatori')">Aleatori</button>`;
-      const persPool = BANCS.banco_personatge?.filter(p => p.genero === seleccio.genere) || [];
-      persPool.forEach(p => {
-        const nom = p.banco_variables?.nom?.[0] || 'Sense nom';
-        persDiv.innerHTML += `<button class="opt-btn" onclick="selectPersonatge('${p.id}', '${nom}')">${nom}</button>`;
-      });
-    }
-
-    function omplirMons() {
-      const monDiv = document.getElementById('mon-submenu');
-      monDiv.innerHTML = `<button class="opt-btn" onclick="selectMon(null, 'Aleatori')">Aleatori</button>`;
-      BANCS.banco_ubicacion?.forEach(u => {
-        monDiv.innerHTML += `<button class="opt-btn" onclick="selectMon('${u.ciutat}', '${u.ciutat}')">${u.ciutat}</button>`;
-      });
-    }
-
-    function omplirEscenaris() {
-      const escDiv = document.getElementById('escenari-submenu');
-      escDiv.innerHTML = `<button class="opt-btn" onclick="selectEscenari(null, 'Aleatori')">Aleatori</button>`;
-      let escPool = BANCS.banco_escenarios || [];
-      if (seleccio.mon) {
-        escPool = escPool.filter(e => e.ciutat === seleccio.mon);
-      }
-      escPool.forEach(e => {
-        escDiv.innerHTML += `<button class="opt-btn" onclick="selectEscenari('${e.id}', '${e.nom}')">${e.nom}</button>`;
-      });
-    }
-
-    window.toggleSubmenu = id => {
-      const submenu = document.getElementById(id + '-submenu');
-      const header = submenu.parentElement.querySelector('.tab-header');
-      const isActive = submenu.classList.contains('active');
-
-      document.querySelectorAll('.submenu.active').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.tab-header.rotated').forEach(h => h.classList.remove('rotated'));
-
-      if (!isActive) {
-        submenu.classList.add('active');
-        header.classList.add('rotated');
-        if (id === 'escenari') omplirEscenaris();
+    // Navegació pantalles
+    window.openScreen = id => {
+      const screenId = 'screen-' + id;
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(screenId);
+      if (target) {
+        target.classList.add('active');
+        document.getElementById('menu').style.display = 'none';
       }
     };
 
+    window.closeScreen = () => {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('menu').style.display = 'block';
+    };
+
+    // Selectors
     window.selectGenere = g => {
       seleccio.genere = g;
       document.getElementById('genere-label').textContent = g.toUpperCase();
-      toggleSubmenu('genere');
-      omplirPersonatges();
+      closeScreen();
     };
 
     window.selectEstructura = e => {
       seleccio.estructura = e;
       document.getElementById('estructura-label').textContent = e;
-      toggleSubmenu('estructura');
+      closeScreen();
     };
 
     window.selectRitme = r => {
       seleccio.ritme = r;
       document.getElementById('ritme-label').textContent = r;
-      toggleSubmenu('ritme');
+      closeScreen();
     };
 
     window.selectPov = p => {
       seleccio.pov = p;
       document.getElementById('pov-label').textContent = p;
-      toggleSubmenu('pov');
+      closeScreen();
     };
 
-    window.selectPersonatge = (id, nom) => {
-      seleccio.personatgeId = id;
-      document.getElementById('personatge-label').textContent = nom;
-      toggleSubmenu('personatge');
+    // Toggle índex lectura
+    document.getElementById('btn-toc-toggle').onclick = () => {
+      document.getElementById('toc-container').classList.toggle('toc-hidden');
     };
 
-    window.selectMon = (ciutat, nom) => {
-      seleccio.mon = ciutat;
-      document.getElementById('mon-label').textContent = nom;
-      seleccio.escenariId = null;
-      document.getElementById('escenari-label').textContent = '▼';
-      toggleSubmenu('mon');
-    };
-
-    window.selectEscenari = (id, nom) => {
-      seleccio.escenariId = id;
-      document.getElementById('escenari-label').textContent = nom;
-      toggleSubmenu('escenari');
-    };
-
-    document.getElementById('btn-generar').onclick = async () => {
-      document.getElementById('resultat').innerHTML = '<p style="text-align:center">Generant...</p>';
-      try {
-        llibreGenerat = await generarLlibre(seleccio);
-        mostrarLlibre(llibreGenerat);
-      } catch (err) {
-        console.error(err);
-        document.getElementById('resultat').innerHTML =
-          `<p style="color:red;text-align:center">Error: ${err.message}</p>`;
-      }
+    // Botons - temporal, només per provar que obre
+    document.getElementById('btn-generar').onclick = () => {
+      document.getElementById('resultat').innerHTML = 
+        '<p style="text-align:center;color:var(--accent)">Les tabs ja obren! Ara cal connectar main.js</p>';
     };
 
     document.getElementById('btn-preview').onclick = () => {
-      if (!llibreGenerat) return alert('Primer prem Generar Novel·la');
-      mostrarLlibre(llibreGenerat);
+      alert('Primer prem Generar Novel·la');
     };
 
     document.getElementById('btn-exportar').onclick = () => {
-      if (!llibreGenerat) return alert('Primer prem Generar Novel·la');
-      const text = llibreGenerat.capitols.map(c =>
-        `CAPÍTOL ${c.num}\n\n` + c.escenes.map(e => `${e.titol}\n${e.text}\n\n`).join('')
-      ).join('\n---\n\n');
-      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = (seleccio.titol || 'novel·la') + '.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    };
-
-    function mostrarLlibre(llibre) {
-      const div = document.getElementById('lectura-content');
-      div.innerHTML = '';
-      llibre.capitols.forEach(cap => {
-        cap.escenes.forEach(esc => {
-          const el = document.createElement('div');
-          el.innerHTML = `<h3>${esc.titol}</h3><p>${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
-          div.appendChild(el);
-        });
-      });
-      document.getElementById('resultat').innerHTML =
-        `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules aprox</p>`;
-      document.getElementById('menu').style.display = 'none';
-      document.getElementById('screen-lectura').classList.add('active');
-    }
-
-    window.closeLectura = () => {
-      document.getElementById('screen-lectura').classList.remove('active');
-      document.getElementById('menu').style.display = 'block';
-    };
-
-    document.getElementById('btn-toc-toggle').onclick = () => {
-      document.getElementById('toc-container').classList.toggle('toc-hidden');
+      alert('Primer prem Generar Novel·la');
     };
   </script>
 </body>
