@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0d0f12">
 <title>Lec-Flix Genèric</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 </head>
 <body>
 <header>
@@ -18,41 +18,25 @@
   <!-- PANTALLA 1: MENÚ PRINCIPAL -->
   <section id="menu">
     <input id="input-titol" type="text" placeholder="Títol del llibre..." onchange="seleccio.titol = this.value">
-
     <div class="tabs-container">
-      <div class="tab-btn" onclick="openScreen('genere')">
-        GÈNERE <span id="genere-label">▼</span>
-      </div>
-      <div class="tab-btn" onclick="openScreen('estructura')">
-        ESTRUCTURA <span id="estructura-label">▼</span>
-      </div>
-      <div class="tab-btn" onclick="openScreen('ritme')">
-        RITME <span id="ritme-label">Novel·la 60k</span>
-      </div>
-      <div class="tab-btn" onclick="openScreen('pov')">
-        POV <span id="pov-label">▼</span>
-      </div>
+      <div class="tab-btn" onclick="openScreen('genere')"> GÈNERE <span id="genere-label">▼</span> </div>
+      <div class="tab-btn" onclick="openScreen('estructura')"> ESTRUCTURA <span id="estructura-label">▼</span> </div>
+      <div class="tab-btn" onclick="openScreen('ritme')"> RITME <span id="ritme-label">Novel·la 60k</span> </div>
+      <div class="tab-btn" onclick="openScreen('pov')"> POV <span id="pov-label">▼</span> </div>
     </div>
-
     <div class="botons">
       <button id="btn-preview">Preview</button>
       <button id="btn-generar">Generar Text</button>
       <button id="btn-exportar">Exportar.txt</button>
     </div>
-
     <section id="resultat">
-      <p style="color: var(--text-muted); text-align: center;">
-        Selecciona Gènere + Ritme + Estructura per començar
-      </p>
+      <p style="color: var(--text-muted); text-align: center;"> Selecciona Gènere + Ritme + Estructura per començar </p>
     </section>
   </section>
 
-  <!-- PANTALLA 2: GÈNERE -->
+  <!-- PANTALLES SEPARADES -->
   <section id="screen-genere" class="screen">
-    <div class="screen-header">
-      <button onclick="closeScreen()">← Tornar</button>
-      <h2>GÈNERE</h2>
-    </div>
+    <div class="screen-header"> <button onclick="closeScreen()">← Tornar</button> <h2>GÈNERE</h2> </div>
     <div class="screen-content" id="genere-content">
       <button class="opt-btn" onclick="selectGenere('accio')">Acció</button>
       <button class="opt-btn" onclick="selectGenere('romantic')">Romàntic</button>
@@ -63,12 +47,8 @@
     </div>
   </section>
 
-  <!-- PANTALLA 2: ESTRUCTURA -->
   <section id="screen-estructura" class="screen">
-    <div class="screen-header">
-      <button onclick="closeScreen()">← Tornar</button>
-      <h2>ESTRUCTURA</h2>
-    </div>
+    <div class="screen-header"> <button onclick="closeScreen()">← Tornar</button> <h2>ESTRUCTURA</h2> </div>
     <div class="screen-content" id="estructura-content">
       <button class="opt-btn" onclick="selectEstructura('3 Actes')">3 Actes Clàssic</button>
       <button class="opt-btn" onclick="selectEstructura('Save the Cat')">Save the Cat</button>
@@ -76,31 +56,17 @@
     </div>
   </section>
 
-  <!-- PANTALLA 2: RITME -->
   <section id="screen-ritme" class="screen">
-    <div class="screen-header">
-      <button onclick="closeScreen()">← Tornar</button>
-      <h2>RITME</h2>
-    </div>
+    <div class="screen-header"> <button onclick="closeScreen()">← Tornar</button> <h2>RITME</h2> </div>
     <div class="screen-content" id="ritme-content">
-      <button class="opt-btn" onclick="selectRitme('Relat Curt')">
-        Relat Curt ~5k<br><small style="color:var(--text-muted)">3-4 capítols</small>
-      </button>
-      <button class="opt-btn" onclick="selectRitme('Novel·la')">
-        Novel·la 60k<br><small style="color:var(--text-muted)">17 capítols</small>
-      </button>
-      <button class="opt-btn" onclick="selectRitme('Èpic')">
-        Èpic 100k<br><small style="color:var(--text-muted)">25 capítols</small>
-      </button>
+      <button class="opt-btn" onclick="selectRitme('Relat Curt')"> Relat Curt ~5k<br><small style="color:var(--text-muted)">3-4 capítols</small> </button>
+      <button class="opt-btn" onclick="selectRitme('Novel·la')"> Novel·la 60k<br><small style="color:var(--text-muted)">17 capítols</small> </button>
+      <button class="opt-btn" onclick="selectRitme('Èpic')"> Èpic 100k<br><small style="color:var(--text-muted)">25 capítols</small> </button>
     </div>
   </section>
 
-  <!-- PANTALLA 2: POV -->
   <section id="screen-pov" class="screen">
-    <div class="screen-header">
-      <button onclick="closeScreen()">← Tornar</button>
-      <h2>POV</h2>
-    </div>
+    <div class="screen-header"> <button onclick="closeScreen()">← Tornar</button> <h2>POV</h2> </div>
     <div class="screen-content" id="pov-content">
       <button class="opt-btn" onclick="selectPov('1 Protagonista')">1 Protagonista</button>
       <button class="opt-btn" onclick="selectPov('3 POV Rotatius')">3 POV Rotatius</button>
@@ -110,49 +76,32 @@
 
   <!-- PANTALLA 3: LECTURA -->
   <section id="screen-lectura" class="screen">
-    <div class="screen-header">
-      <button onclick="closeScreen('menu')">← Menú</button>
-      <h2>LECTURA</h2>
-      <button id="btn-toc-toggle">Índex</button>
-    </div>
-    <div id="toc-container" class="toc-hidden">
-      <div id="toc-content"></div>
-    </div>
+    <div class="screen-header"> <button onclick="closeScreen('menu')">← Menú</button> <h2>LECTURA</h2> <button id="btn-toc-toggle">Índex</button> </div>
+    <div id="toc-container" class="toc-hidden"> <div id="toc-content"></div> </div>
     <div class="screen-content" id="lectura-content"></div>
-    <div class="lectura-nav">
-      <button id="btn-prev-seccio">← Anterior</button>
-      <button id="btn-next-seccio">Següent →</button>
-    </div>
+    <div class="lectura-nav"> <button id="btn-prev-seccio">← Anterior</button> <button id="btn-next-seccio">Següent →</button> </div>
   </section>
 </main>
 
 <script type="module">
-const baseURL = new URL('./', import.meta.url).href; // FIX: sin /js/
-
+const baseURL = new URL('./', import.meta.url).href; // FIX: sense /js/
 let BANCS = {};
 let llibreGenerat = null;
 
-// 1. Carregar bancs
+// 1. Carregar bancs des de /data/loadBancs.js
 try {
-  const mod = await import(baseURL + 'loadBancs.js');
+  const mod = await import(baseURL + 'data/loadBancs.js'); // FIX: carpeta data/
   BANCS = await mod.loadAllBancs();
+  console.log('📚 Bancs carregats:', Object.keys(BANCS));
 } catch (e) {
   console.warn('No s\'han carregat bancs, usando fallback', e);
   BANCS = {
-    banco_estructura: {beats: Array(17).fill({nom:'Beat'})},
-    banco_lectura: [
-      {tipus:'obertura', genero:'policiac', texto_base:'{p0} va obrir els ulls.'},
-      {tipus:'accio', genero:'policiac', texto_base:'{p0} va córrer cap a {esc}.'},
-      {tipus:'dialog', genero:'policiac', texto_base:'"No puc més", va dir {p0}.'},
-      {tipus:'descripcio', genero:'policiac', texto_base:'L’aire olia a {olor}.'},
-      {tipus:'cliffhanger', genero:'policiac', texto_base:'Però llavors va sentir {so}.'},
-      {tipus:'tancament', genero:'policiac', texto_base:'El capítol acabava aquí.'}
-    ],
+    banco_estructura: {beats: Array(17).fill({nom:'Beat', id:1})},
+    banco_lectura: [ {tipus:'obertura', genero:'policiac', texto_base:'{p0} va obrir els ulls.'} ],
     banco_personatge: [{id:'p1', genero:'policiac', banco_variables:{nom:['Àlex'], tic:['somriu']}}],
     banco_ubicacion: [{ciutat:'Barcelona', banco_variables:{so:['silenci'], olor:['humitat']}}],
     banco_escenarios: [{nom:'Carrer', ciutat:'Barcelona', genero:['policiac']}],
-    banco_olors: [],
-    banco_sons: []
+    banco_olors: [], banco_sons: [], banco_emocions: []
   };
 }
 
@@ -177,42 +126,25 @@ window.openScreen = function(screenName) {
   if (screen) screen.classList.add('active');
 };
 
-window.closeScreen = function() {
+window.closeScreen = function(target = null) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('menu').style.display = 'block';
-  document.getElementById('resultat').style.display = 'block';
+  if (target === 'menu') {
+    document.getElementById('menu').style.display = 'block';
+    document.getElementById('resultat').style.display = 'block';
+  }
 };
 
 // 4. Selectors
-window.selectGenere = g => {
-  seleccio.genere = g;
-  document.getElementById('genere-label').textContent = g.toUpperCase();
-  closeScreen();
-};
+window.selectGenere = g => { seleccio.genere = g; document.getElementById('genere-label').textContent = g.toUpperCase(); closeScreen(); };
+window.selectEstructura = e => { seleccio.estructura = e; document.getElementById('estructura-label').textContent = e; closeScreen(); };
+window.selectRitme = r => { seleccio.ritme = r; document.getElementById('ritme-label').textContent = r; closeScreen(); };
+window.selectPov = p => { seleccio.pov = p; document.getElementById('pov-label').textContent = p; closeScreen(); };
 
-window.selectEstructura = e => {
-  seleccio.estructura = e;
-  document.getElementById('estructura-label').textContent = e;
-  closeScreen();
-};
-
-window.selectRitme = r => {
-  seleccio.ritme = r;
-  document.getElementById('ritme-label').textContent = r;
-  closeScreen();
-};
-
-window.selectPov = p => {
-  seleccio.pov = p;
-  document.getElementById('pov-label').textContent = p;
-  closeScreen();
-};
-
-// 5. BOTÓ GENERAR - crida a main.js
+// 5. BOTÓ GENERAR - crida ÚNIC a main.js. Ell ja importa generadorLlibre.js internament
 document.getElementById('btn-generar').onclick = async () => {
   document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${seleccio.ritme}...</p>`;
   try {
-    const mod = await import(baseURL + 'main.js');
+    const mod = await import(baseURL + 'main.js?v=3'); // cache bust v3
     llibreGenerat = await mod.generarLlibre(seleccio, BANCS);
     mostrarLlibre(llibreGenerat);
   } catch (err) {
@@ -234,34 +166,26 @@ document.getElementById('btn-exportar').onclick = () => {
     `CAPÍTOL ${c.num} - ${c.beat}\n\n` +
     c.escenes.map(e => `${e.titol}\n${e.text}\n\n`).join('')
   ).join('\n---\n\n');
-
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
-  a.download = (seleccio.titol || 'text') + '.txt';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  a.href = url; a.download = (seleccio.titol || 'text') + '.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
 };
 
-// 8. Mostrar resultat
+// 8. Mostrar resultat amb paràgrafs sencers
 function mostrarLlibre(llibre) {
   const div = document.getElementById('lectura-content');
   div.innerHTML = '';
-
   llibre.capitols.forEach(cap => {
     cap.escenes.forEach(esc => {
       const el = document.createElement('div');
-      el.innerHTML = `<h3>${esc.titol}</h3><p>${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
+      el.innerHTML = `<h3>${esc.titol}</h3><p style="line-height:1.8">${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
       div.appendChild(el);
     });
   });
-
-  document.getElementById('resultat').innerHTML =
-    `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
-
+  document.getElementById('resultat').innerHTML = `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
   document.getElementById('menu').style.display = 'none';
   document.getElementById('screen-lectura').classList.add('active');
 }
@@ -270,6 +194,11 @@ function mostrarLlibre(llibre) {
 document.getElementById('btn-toc-toggle').onclick = () => {
   document.getElementById('toc-container').classList.toggle('toc-hidden');
 };
+
+// 10. Registrar Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register(baseURL + 'sw.js');
+}
 </script>
 </body>
 </html>
