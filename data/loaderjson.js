@@ -18,7 +18,7 @@ export async function loadAllBancs() {
 
   await Promise.all(bancsFiles.map(async (file) => {
     try {
-      const res = await fetch(baseURL + 'data/' + file);
+      const res = await fetch(baseURL + 'data/' + file); 
       if (!res.ok) throw new Error(`No s'ha pogut carregar ${file}`);
       const data = await res.json();
       const key = file.replace('.json', '');
