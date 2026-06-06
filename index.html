@@ -146,7 +146,7 @@
       document.getElementById('menu').style.display = 'none';
     };
 
-    window.closeScreen = from => {
+    window.closeScreen = () => {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('menu').style.display = 'block';
     };
@@ -224,6 +224,11 @@
       
       openScreen('screen-lectura');
     }
+
+    // Toggle índex lectura
+    document.getElementById('btn-toc-toggle').onclick = () => {
+      document.getElementById('toc-container').classList.toggle('toc-hidden');
+    };
   </script>
 </body>
 </html>
