@@ -6,7 +6,6 @@ export async function loadAllBancs() {
     'banco_personatge.json',
     'banco_escenarios.json',
     'banco_emocions.json',
-    'banco_ecenes.json',
     'banco_lectura.json',
     'banco_olors.json',
     'banco_sons.json',
