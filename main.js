@@ -81,7 +81,7 @@ export async function generarLlibre(seleccio, bancs) {
     for (let numEsc = 1; numEsc <= escenesPerCap; numEsc++) {
       let textEsc = '';
 
-      textEsc += fill(plantilla('obertura', lectures, seleccio.genere), data) + ';
+      textEsc += fill(plantilla('obertura', lectures, seleccio.genere), data) + ' ';
 
       const nAccions = tens > 0.7? 4 : 3;
       for (let i = 0; i < nAccions; i++) {
@@ -92,7 +92,7 @@ export async function generarLlibre(seleccio, bancs) {
         textEsc += fill(plantilla('dialog', lectures, seleccio.genere), data) + ' ';
       }
 
-      textEsc += fill(plantilla('descripcio', lectures, seleccio.genere), data) + ';
+      textEsc += fill(plantilla('descripcio', lectures, seleccio.genere), data) + ' ';
 
       if (Math.random() > 0.3) {
         textEsc += fill(plantilla('dialog', lectures, seleccio.genere), data) + ' ';
