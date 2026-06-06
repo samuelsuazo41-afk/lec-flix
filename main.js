@@ -39,9 +39,10 @@ const randNoRep = (arr, key, max = 20) => {
 
 const fill = (t, d) => t.replace(/\{\{(\w+)\}\}/g, (_, k) => d[k] || `{{${k}}}`);
 
+// FIX: 'romantic' perquè coincideixi amb banco_lectura.json de la teva repo
 const MAP_GENERE = {
   accio: ['policiac', 'thriller', 'aventura'],
-  romantic: ['romance'],
+  romantic: ['romantic'],
   terror: ['terror'],
   misteri: ['policiac', 'misterio', 'thriller'],
   fantasia: ['fantasia'],
@@ -94,18 +95,18 @@ export async function generarLlibre(config) {
       }
       if (!esc) continue;
 
-      // 3. PLANTILLA - ja no usa banco_ecenes
+      // 3. PLANTILLA - només banco_lectura, sense fallback a banco_ecenes
       const lectPool = BANCS.banco_lectura?.filter(l => generos.includes(l.genero)) || [];
       const plantBase = lectPool.length? randNoRep(lectPool, 'plantilles') : rand(BANCS.banco_lectura || []);
       if (!plantBase) continue;
 
-      // 4. PERSONATGE - respecta config.personatgeId
+      // 4. PERSONATGE - respecta config.personatgeId i filtra per gènere
       let persBanc;
       if (config.personatgeId) {
         persBanc = BANCS.banco_personatge?.find(p => p.id === config.personatgeId);
       }
       if (!persBanc) {
-        persBanc = BANCS.banco_personatge?.find(p => generos.includes(p.genero)) || BANCS.banco_personatge?.[0];
+        persBanc = BANCS.banco_personatge?.find(p => p.genero === genereUI) || BANCS.banco_personatge?.[0];
       }
       if (!persBanc) continue;
 
@@ -119,7 +120,7 @@ export async function generarLlibre(config) {
       const pensament = rand(emo?.banco_variables?.pensament || emo?.banco_variables?.dubte || ['Penso en tot això']);
       const reaccio = rand(emo?.banco_variables?.reaccio || emo?.banco_variables?.paralisis || ['Em quedo quiet']);
 
-      // 6. OLOR + SO - FIX: banco_sons és array
+      // 6. OLOR + SO - FIX: banco_sons és array, no objecte
       const tipusOlor = tipusOlorPerBeat(idx);
       const olorBanc = BANCS.banco_olors?.find(o => o.id === `olor_${tipusOlor}`);
       const olor = olorBanc? rand(olorBanc.texto_base) : rand(ubi.banco_variables?.olor || ['aire fred']);
