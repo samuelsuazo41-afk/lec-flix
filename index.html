@@ -126,11 +126,14 @@ window.openScreen = function(screenName) {
   if (screen) screen.classList.add('active');
 };
 
-window.closeScreen = function(target = null) {
+window.closeScreen = function(target = 'menu') {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  if (target === 'menu') {
-    document.getElementById('menu').style.display = 'block';
-    document.getElementById('resultat').style.display = 'block';
+  document.getElementById('menu').style.display = 'block';
+  document.getElementById('resultat').style.display = 'block';
+  
+  if (target === 'lectura') {
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('screen-lectura').classList.add('active');
   }
 };
 
