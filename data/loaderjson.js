@@ -1,5 +1,5 @@
 export async function loadAllBancs() {
-  // loaderjson.js està dins /data/, així que baseURL és /data/
+  // loaderjson.js està dins /data/, així que la base és ./ 
   const baseURL = new URL('./', import.meta.url).href;
   
   const bancsFiles = [
