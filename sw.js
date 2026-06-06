@@ -1,16 +1,16 @@
-const CACHE_NAME = 'lec-flix-test-v98';
+const CACHE_NAME = 'lec-flix-test-v99';
 const urlsToCache = [
   './',
   './index.html',
   './styles.css',
   './main.js',
-  './core/generadorLlibre.js', // ← motor de frases sense export
+  './core/generadorLlibre.js', // 
   './manifest.json',
   './sw.js',
   './icon-192.png',
   './icon-512.png',
   './icon-512-maskable.png',
-  './data/loadBancs.js', // ← FIX: era loaderjson.js
+  './data/loadBancs.js', // 
   './data/banco_emocions.json',
   './data/banco_escenarios.json',
   './data/banco_estructura.json',
