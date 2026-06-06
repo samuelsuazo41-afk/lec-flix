@@ -1,52 +1,81 @@
-const CACHE_NAME = 'lec-flix-test-v117';
+const CACHE_NAME = 'lec-flix-v120';
+
 const urlsToCache = [
   './',
   './index.html',
   './styles.css',
-  './main.js',
-  './core/generadorLlibre.js', // 
-  './manifest.json',
-  './sw.js',
-  './icon-192.png',
-  './icon-512.png',
-  './icon-512-maskable.png',
-  './data/loadBancs.js', // 
-  './data/banco_emocions.json',
-  './data/banco_escenarios.json',
-  './data/banco_estructura.json',
+  './js/main.js',
+  './core/generadorLlibre.js',
+  './js/loadBancs.js',
   './data/banco_generes.json',
-  './data/banco_lectura.json',
-  './data/banco_olors.json',
+  './data/banco_estructura.json',
   './data/banco_personatge.json',
+  './data/banco_escenarios.json',
+  './data/banco_lectura.json',
+  './data/banco_emocions.json',
+  './data/banco_olors.json',
   './data/banco_sons.json',
   './data/banco_ubicacion.json'
 ];
 
+// INSTALAR: cachear todo + forzar activación inmediata
 self.addEventListener('install', event => {
+  console.log('SW V8.2 Installing... Cache:', CACHE_NAME);
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+      .then(cache => {
+        console.log('Cachejant arxius V8.2');
+        return cache.addAll(urlsToCache);
+      })
       .then(() => self.skipWaiting())
+      .catch(err => console.error('SW Install error:', err))
   );
 });
 
+// ACTIVAR: borrar cachés vells V117, V116, etc
 self.addEventListener('activate', event => {
+  console.log('SW V8.2 Activating... Borrant cachés vells');
   event.waitUntil(
-    caches.keys().then(keys => 
-      Promise.all(keys.map(key => key !== CACHE_NAME ? caches.delete(key) : null))
-    ).then(() => self.clients.claim())
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            console.log('Borrant caché vell:', key);
+            return caches.delete(key);
+          }
+        })
+      );
+    }).then(() => self.clients.claim())
   );
 });
 
+// FETCH: cache first, si falla va a xarxa
 self.addEventListener('fetch', event => {
+  // Ignorar peticions que no són GET
+  if (event.request.method !== 'GET') return;
+
   event.respondWith(
     caches.match(event.request)
-      .then(res => res || fetch(event.request).then(response => {
-        return caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, response.clone());
+      .then(res => {
+        if (res) {
+          // console.log('SW: Servint des de caché', event.request.url);
+          return res;
+        }
+        return fetch(event.request).then(response => {
+          // Només cachejar responses OK i del mateix origen
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
           return response;
         });
-      }))
-      .catch(() => caches.match('./index.html'))
+      })
+      .catch(() => {
+        // Fallback: si no hi ha xarxa ni caché, torna index
+        return caches.match('./index.html');
+      })
   );
 });
