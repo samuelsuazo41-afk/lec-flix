@@ -1,8 +1,6 @@
 // js/loadBancs.js - Carrega tots els bancs JSON amb fallback
 export async function loadAllBancs() {
-  // FIX: detecta automàticament si els JSON estan a /js/ o a /
-  // Si estan a la mateixa carpeta que aquest arxiu -> './'
-  // Si estan a la carpeta arrel -> '../'
+  // FIX: Los JSON están en la misma carpeta /data/ que este archivo
   const baseURL = new URL('./', import.meta.url).href;
 
   const bancsFiles = [
@@ -33,7 +31,6 @@ export async function loadAllBancs() {
       const data = await res.json();
       const key = file.replace('.json', '');
       bancs[key] = data;
-
       console.log(`✅ ${file} carregat: ${Array.isArray(data)? data.length : Object.keys(data).length} items`);
 
     } catch (err) {
