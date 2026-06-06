@@ -1,408 +1,81 @@
 [
-  {
-    "id": "lectura_obertura_1",
-    "genero": ["policiac", "romance", "fantasia", "aventura", "misterio", "drama"],
-    "texto_base": "L’aire de {{ciutat}} porta {{olor}}. {{personatge}} camina pel {{escenari}} i sent {{so}}. El cor li batega {{ritme}}."
-  },
-  {
-    "id": "lectura_obertura_2",
-    "genero": ["policiac", "romance", "fantasia", "aventura", "misterio"],
-    "texto_base": "{{temp_inici}}, {{personatge}} va entrar a {{escenari}}. Feia olor de {{olor}} i es sentia {{so}}."
-  },
-  {
-    "id": "lectura_obertura_3",
-    "genero": ["fantasia", "aventura", "drama"],
-    "texto_base": "{{personatge}} no esperava trobar {{ciutat}} així. L’olor de {{olor}} ho omplia tot. De fons, {{so}}."
-  },
-  {
-    "id": "lectura_obertura_4",
-    "genero": ["aventura", "misterio"],
-    "texto_base": "{{personatge}} va arribar a {{ciutat}} sense mapa. L’olor de {{olor}} guiava. {{so}} marcava el camí."
-  },
-  {
-    "id": "lectura_obertura_5",
-    "genero": ["romance", "drama"],
-    "texto_base": "{{personatge}} va tornar a {{ciutat}} després de temps. L’olor de {{olor}} no havia canviat. {{so}} tampoc."
-  },
+{ "id": "obertura_01", "tipus": "obertura", "genero": ["policiac","misterio"], "texto_base": "{{temp_inici}} {{personatge}} va empènyer la porta de {{escenari}} amb {{tic}} nerviós. L'aire feia olor de {{olor}} i pluja vella mentre {{so}} ressonava pels carrers buits de {{ciutat}} com un avís." },
+{ "id": "obertura_02", "tipus": "obertura", "genero": ["policiac","drama"], "texto_base": "{{personatge}} no dormia des de feia tres nits quan va arribar a {{escenari}}. {{so}} el va despertar abans que l'alarma. Feia olor de {{olor}} i de cafè fred sobre la taula." },
+{ "id": "obertura_03", "tipus": "obertura", "genero": ["romance","drama"], "texto_base": "{{personatge}} va tornar a {{ciutat}} després de {{temp_inici}} sense avisar ningú. {{escenari}} feia olor de {{olor}} exactament igual que el dia que va marxar. {{so}} va trencar el silenci quan va veure {{persona}}." },
+{ "id": "obertura_04", "tipus": "obertura", "genero": ["fantasia","aventura"], "texto_base": "{{personatge}} va creuar el llindar de {{escenari}} sabent que no hi havia tornada. {{so}} antic va despertar les parets mentre l'olor de {{olor}} i encens omplia tot {{ciutat}}." },
+{ "id": "obertura_05", "tipus": "obertura", "genero": ["policiac","thriller"], "texto_base": "El cas havia començat a {{escenari}} dues hores abans que {{personatge}} arribés. {{so}} de sirenes encara vibrava a l'aire. Feia olor de {{olor}} i sang seca al terra." },
+{ "id": "obertura_06", "tipus": "obertura", "genero": ["romance"], "texto_base": "{{personatge}} va veure {{persona}} asseguda a {{escenari}} sense buscar-la. L'olor de {{olor}} i perfume antic el va paralitzar. {{so}} de violí llunyà tapava la seva veu quan va intentar parlar." },
+{ "id": "obertura_07", "tipus": "obertura", "genero": ["terror","misterio"], "texto_base": "{{personatge}} sabia que no havia d'entrar a {{escenari}} després de mitjanit. Però {{so}} el va cridar des de dins. Feia olor de {{olor}} humit i podrit. {{ciutat}} sencera semblava retenir la respiració." },
+{ "id": "obertura_08", "tipus": "obertura", "genero": ["aventura"], "texto_base": "El mapa mentia. {{personatge}} va arribar a {{escenari}} sense brúixola ni aigua. Només {{so}} del riu i olor de {{olor}} i terra mullada guiaven el camí cap al centre de {{ciutat}}." },
+{ "id": "obertura_09", "tipus": "obertura", "genero": ["drama","policiac"], "texto_base": "{{personatge}} va aparèixer a {{escenari}} quan {{ciutat}} ja dormia. {{so}} era l'únic testimoni. Feia olor de {{olor}} i secrets que ningú s'havia atrevit a dir en veu alta." },
+{ "id": "obertura_10", "tipus": "obertura", "genero": ["fantasia","romance"], "texto_base": "{{personatge}} va sentir el nom de {{persona}} a l'aire de {{escenari}} abans de veure-la. L'olor de {{olor}} i flors silvestres ho confirmava. {{so}} de campanes llunyanes marcava el destí." },
+{ "id": "obertura_11", "tipus": "obertura", "genero": ["thriller","misterio"], "texto_base": "{{personatge}} va comptar tres segons abans d'entrar a {{escenari}}. {{so}} va cessar exactament al segon tres. Feia olor de {{olor}} i por. {{tic}} el va delatar davant de {{antagonista}}." },
+{ "id": "obertura_12", "tipus": "obertura", "genero": ["aventura","drama"], "texto_base": "El viatge havia acabat a {{escenari}}. {{personatge}} va deixar la motxilla a terra i va respirar {{olor}} per primera vegada en setmanes. {{so}} del vent confirmava que havia arribat a {{ciutat}}." },
 
-  {
-    "id": "lectura_tensio_1",
-    "genero": ["policiac", "misterio", "thriller", "terror"],
-    "texto_base": "Alguna cosa no quadra. {{personatge}} mira al voltant: {{escenari}}. El silenci pesa. Només se sent {{so}}."
-  },
-  {
-    "id": "lectura_tensio_2",
-    "genero": ["policiac", "misterio", "thriller"],
-    "texto_base": "{{personatge}} s’atura. Respira. Però {{so}} continua. L’olor de {{olor}} es fa més forta."
-  },
-  {
-    "id": "lectura_tensio_3",
-    "genero": ["terror", "misterio"],
-    "texto_base": "De sobte, {{so}}. {{personatge}} gira el cap. {{escenari}} està buit. Massa buit. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_tensio_4",
-    "genero": ["policiac", "thriller"],
-    "texto_base": "{{personatge}} sap que no està sol. Ho nota. {{escenari}} calla, però {{so}} el delata."
-  },
-  {
-    "id": "lectura_tensio_5",
-    "genero": ["misterio", "terror"],
-    "texto_base": "Un moviment. Una ombra. {{personatge}} no veu res, però {{so}} ho confirma. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_tensio_6",
-    "genero": ["policiac", "thriller"],
-    "texto_base": "{{personatge}} toca la porta. Ningú respon. Només {{so}}. L’olor de {{olor}} surt per sota."
-  },
+{ "id": "tensio_01", "tipus": "tensio", "genero": ["policiac","thriller"], "texto_base": "Alguna cosa no quadrava a {{escenari}}. {{personatge}} es va aturar al mig del passadís i va respirar fondo l'olor de {{olor}}. {{so}} sonava massa a prop, massa deliberat. {{tic}} el va trair davant de {{antagonista}}." },
+{ "id": "tensio_02", "tipus": "tensio", "genero": ["misterio","terror"], "texto_base": "De sobte {{so}}. {{personatge}} va girar el cap a {{escenari}} però només hi havia ombres que ballaven. Feia olor de {{olor}} podrit i vell. {{ciutat}} sencera semblava haver desaparegut d'un segon a l'altre." },
+{ "id": "tensio_03", "tipus": "tensio", "genero": ["policiac","drama"], "texto_base": "{{personatge}} va picar a la porta de {{escenari}} tres cops seguits. Ningú va respondre des de dins. Només {{so}} d'un rellotge i l'olor de {{olor}} sortint per sota la porta. {{tic}} el va avisar que arribava tard." },
+{ "id": "tensio_04", "tipus": "tensio", "genero": ["romance","drama"], "texto_base": "{{personatge}} va notar com {{persona}} callava deliberadament a {{escenari}}. Entre ells només hi havia {{so}} del vent i olor de {{olor}} i records no dits. Volia confessar però {{tic}} el va fer dubtar un altre cop." },
+{ "id": "tensio_05", "tipus": "tensio", "genero": ["fantasia","aventura"], "texto_base": "{{escenari}} va canviar sense avisar mentre {{personatge}} caminava. {{so}} va vibrar sota els peus i l'olor de {{olor}} i pedra antiga pujava. {{ciutat}} no era el lloc que recordava de la infància. {{tic}} el va posar en alerta màxima." },
+{ "id": "tensio_06", "tipus": "tensio", "genero": ["policiac","misterio"], "texto_base": "La pista s'acabava en sec a {{escenari}}. {{personatge}} va comprovar les dades al quadern una altra vegada. {{so}} no quadrava amb l'olor de {{olor}} a l'aire. Algú havia manipulat l'escena del crim i {{tic}} ho confirmava." },
+{ "id": "tensio_07", "tipus": "tensio", "genero": ["thriller"], "texto_base": "{{personatge}} va notar que el seguien per {{escenari}} feia tres carrers. Cada cantonada de {{ciutat}} amagava {{so}} diferent. Feia olor de {{olor}} i traïció a l'aire. {{tic}} no parava ni quan respirava." },
+{ "id": "tensio_08", "tipus": "tensio", "genero": ["romance","drama"], "texto_base": "La conversa a {{escenari}} s'havia tensat fins al límit. {{personatge}} mirava {{persona}} als ulls mentre {{so}} omplia el silenci incòmode. Feia olor de {{olor}} i paraules que cremaven per sortir." },
+{ "id": "tensio_09", "tipus": "tensio", "genero": ["misterio","fantasia"], "texto_base": "{{personatge}} va veure el seu reflex a {{escenari}} però no era ell. {{so}} va xiuxiuejar el seu nom a l'inrevés. Feia olor de {{olor}} i màgia prohibida. {{tic}} va aparèixer sol sense voler." },
+{ "id": "tensio_10", "tipus": "tensio", "genero": ["policiac","drama"], "texto_base": "El telèfon de {{escenari}} va sonar un cop i va parar. {{personatge}} sabia que només podia ser {{antagonista}}. Feia olor de {{olor}} i amenaça. {{so}} del silenci posterior era pitjor que qualsevol crit." },
 
-  {
-    "id": "lectura_descoberta_1",
-    "genero": ["fantasia", "aventura", "misterio", "policiac"],
-    "texto_base": "{{personatge}} troba {{objecte}}. Fa olor de {{olor}} i brilla sota la llum. {{so}} de fons."
-  },
-  {
-    "id": "lectura_descoberta_2",
-    "genero": ["misterio", "policiac"],
-    "texto_base": "Allà està. {{objecte}}. Amagat sota {{escenari}}. {{personatge}} sent {{so}} mentre l’agafa."
-  },
-  {
-    "id": "lectura_descoberta_3",
-    "genero": ["fantasia", "aventura"],
-    "texto_base": "{{personatge}} no s’ho creu. {{objecte}} real. L’olor de {{olor}} ho confirma. {{so}} ressona lluny."
-  },
-  {
-    "id": "lectura_descoberta_4",
-    "genero": ["misterio"],
-    "texto_base": "{{personatge}} mou {{escenari}}. Apareix {{objecte}}. Fa olor de {{olor}}. {{so}} s’atura."
-  },
-  {
-    "id": "lectura_descoberta_5",
-    "genero": ["aventura", "fantasia"],
-    "texto_base": "Entre la pols, {{objecte}}. {{personatge}} el neteja. L’olor de {{olor}} puja. {{so}} s’acosta."
-  },
+{ "id": "por_01", "tipus": "por", "genero": ["terror","thriller"], "texto_base": "La por va pujar per l'esquena de {{personatge}} com una onada gelada. {{escenari}} estava completament fosc sense llum. Només {{so}} i l'olor de {{olor}} i podrit no ajudaven a pensar clar." },
+{ "id": "por_02", "tipus": "por", "genero": ["terror"], "texto_base": "{{personatge}} no volia mirar cap a {{escenari}} però ho va fer igual. Tot estava buit i massa silenciós. I {{so}} s'acostava lent. I l'olor de {{olor}} i mort cremava la gola." },
+{ "id": "por_03", "tipus": "por", "genero": ["misterio","terror"], "texto_base": "{{personatge}} va sentir un alè fred darrere seu a {{escenari}}. L'espai era petit i no hi havia sortida. {{so}} estava molt a prop, xiuxiuejant. L'olor de {{olor}} i sofre cremava els pulmons." },
+{ "id": "por_04", "tipus": "por", "genero": ["thriller"], "texto_base": "No hi havia sortida possible. {{personatge}} ho va veure clar a {{escenari}}. La porta s'havia tancat sola darrere seu. {{so}} semblava riure a la foscor. Feia olor de {{olor}} i desesperació." },
+{ "id": "por_05", "tipus": "por", "genero": ["terror","fantasia"], "texto_base": "{{personatge}} va sentir com {{escenari}} respirava amb ell. Les parets s'expandien i es contreien. {{so}} venia de dins les pedres. Feia olor de {{olor}} i malsons antics." },
+{ "id": "por_06", "tipus": "por", "genero": ["thriller","drama"], "texto_base": "{{personatge}} va comprovar l'arma però no hi havia bales. {{escenari}} s'havia tornat un laberint. {{so}} ressonava des de tots els costats. Feia olor de {{olor}} i fi inevitable." },
 
-  {
-    "id": "lectura_trobada_1",
-    "genero": ["romance", "drama"],
-    "texto_base": "{{personatge}} veu {{persona}}. L’olor de {{olor}} l’envaeix. {{so}} omple el silenci entre ells."
-  },
-  {
-    "id": "lectura_trobada_2",
-    "genero": ["romance"],
-    "texto_base": "{{persona}} somriu. {{personatge}} oblida {{ciutat}} per un moment. Només queda {{olor}} i {{so}}."
-  },
-  {
-    "id": "lectura_trobada_3",
-    "genero": ["drama", "romance"],
-    "texto_base": "S’aturen a {{escenari}}. {{personatge}} vol dir algo, però {{so}} ho talla. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_trobada_4",
-    "genero": ["romance"],
-    "texto_base": "{{personatge}} allarga la mà. {{persona}} no es mou. {{so}} marca el temps. L’olor de {{olor}} pesa."
-  },
-  {
-    "id": "lectura_trobada_5",
-    "genero": ["drama"],
-    "texto_base": "Fa anys que no es veuen. {{personatge}} i {{persona}} a {{escenari}}. {{so}} trenca el gel. Fa olor de {{olor}}."
-  },
+{ "id": "descoberta_01", "tipus": "descoberta", "genero": ["policiac","misterio"], "texto_base": "Allà estava amagat. {{objecte}} sota {{escenari}} cobert de pols. {{personatge}} el va agafar amb guants quan {{so}} va cessar de cop. Feia olor de {{olor}} i veritat. {{ciutat}} sencera depenia d'aquell detall minúscul." },
+{ "id": "descoberta_02", "tipus": "descoberta", "genero": ["fantasia","aventura"], "texto_base": "{{personatge}} no s'ho podia creure encara. {{objecte}} real, lluent, brillant a {{escenari}}. L'olor de {{olor}} i màgia el va embriagar mentre {{so}} ressonava lluny a les muntanyes." },
+{ "id": "descoberta_03", "tipus": "descoberta", "genero": ["romance","drama"], "texto_base": "{{personatge}} va trobar la carta de {{persona}} dins {{escenari}} per casualitat. Feia olor de {{olor}} antic i tinta esborrada. {{so}} de paper vell acompanyava cada lletra llegida amb por." },
+{ "id": "descoberta_04", "tipus": "descoberta", "genero": ["policiac","thriller"], "texto_base": "La fotografia estava enganxada darrere de {{escenari}}. {{personatge}} la va treure amb cura i guants. {{so}} el va fer mirar enrere espantat. Feia olor de {{olor}} i mort recent. {{tic}} se li va congelar." },
+{ "id": "descoberta_05", "tipus": "descoberta", "genero": ["aventura"], "texto_base": "Entre les runes de {{escenari}} va aparèixer {{objecte}} intacte. {{personatge}} el va netejar mentre {{so}} s'acostava per la cova. L'olor de {{olor}} mil·lenària pujava amb cada cop de drap." },
+{ "id": "descoberta_06", "tipus": "descoberta", "genero": ["misterio","drama"], "texto_base": "{{personatge}} va moure {{escenari}} i va aparèixer {{objecte}} sota terra. {{so}} es va aturar de cop a tot {{ciutat}}. Feia olor de {{olor}} i misteri que portava segles enterrat." },
 
-  {
-    "id": "lectura_persecucio_1",
-    "genero": ["policiac", "aventura", "thriller"],
-    "texto_base": "Corre. {{personatge}} corre pel {{escenari}}. Darrere sent {{so}}. L’olor de {{olor}} es barreja amb la por."
-  },
-  {
-    "id": "lectura_persecucio_2",
-    "genero": ["policiac", "aventura"],
-    "texto_base": "{{personatge}} no mira enrere. Sap que {{so}} s’acosta. {{ciutat}} passa volant. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_persecucio_3",
-    "genero": ["thriller", "aventura"],
-    "texto_base": "A l’esquerra, a la dreta. {{personatge}} gira per {{escenari}}. {{so}} no para. L’olor de {{olor}} crema."
-  },
-  {
-    "id": "lectura_persecucio_4",
-    "genero": ["policiac"],
-    "texto_base": "{{personatge}} salta. Cauen coses. {{so}} esclata. L’olor de {{olor}} ho omple tot."
-  },
-  {
-    "id": "lectura_persecucio_5",
-    "genero": ["aventura", "thriller"],
-    "texto_base": "Més ràpid. {{personatge}} no pot parar. {{escenari}} s’estreny. {{so}} ressona. Fa olor de {{olor}}."
-  },
+{ "id": "confrontacio_01", "tipus": "confrontacio", "genero": ["policiac","drama"], "texto_base": "\"Ho saps tot\", va dir {{personatge}} a {{antagonista}} cara a cara a {{escenari}}. Ell només va respondre amb {{so}} sec i fred. L'aire feia olor de {{olor}} i tensió elèctrica. {{tic}} va marcar el moment exacte de la veritat." },
+{ "id": "confrontacio_02", "tipus": "confrontacio", "genero": ["fantasia"], "texto_base": "{{antagonista}} va riure mentre {{escenari}} tremolava per les columnes. {{personatge}} va alçar {{objecte}} amb les dues mans. {{so}} va esclatar com un tro i l'olor de {{olor}} i ozó va cremar l'aire." },
+{ "id": "confrontacio_03", "tipus": "confrontacio", "genero": ["romance","drama"], "texto_base": "\"Per què em vas mentir tot aquest temps?\" va preguntar {{personatge}} a {{persona}} a {{escenari}}. Només {{so}} del rellotge va respondre per ell. Feia olor de {{olor}} i comiat definitiu." },
+{ "id": "confrontacio_04", "tipus": "confrontacio", "genero": ["policiac","thriller"], "texto_base": "{{personatge}} es va plantar davant de {{antagonista}} a {{escenari}} sense armes. No hi havia sortida possible. {{so}} tallava l'aire mentre feia olor de {{olor}} i pólvora. {{tic}} va decidir per ell." },
 
-  {
-    "id": "lectura_reflexio_1",
-    "genero": ["drama", "romance", "fantasia"],
-    "texto_base": "{{personatge}} s’atura. Mira {{ciutat}}. Pensa en {{record}}. Fa olor de {{olor}} i sona {{so}}."
-  },
-  {
-    "id": "lectura_reflexio_2",
-    "genero": ["drama"],
-    "texto_base": "Potser s’equivoca. {{personatge}} ho dubta. {{escenari}} no ajuda. {{so}} li recorda {{olor}}."
-  },
-  {
-    "id": "lectura_reflexio_3",
-    "genero": ["fantasia", "drama"],
-    "texto_base": "{{personatge}} tanca els ulls. Respira {{olor}}. {{so}} el torna a {{ciutat}}. I a la realitat."
-  },
-  {
-    "id": "lectura_reflexio_4",
-    "genero": ["drama", "romance"],
-    "texto_base": "{{personatge}} seu. Mira les mans. Pensa en {{record}}. Fa olor de {{olor}}. {{so}} és lluny."
-  },
-  {
-    "id": "lectura_reflexio_5",
-    "genero": ["fantasia"],
-    "texto_base": "{{personatge}} no entén res. Mira {{objecte}}. {{so}} l’embruixa. L’olor de {{olor}} el calma."
-  },
+{ "id": "climax_01", "tipus": "climax", "genero": ["policiac","thriller"], "texto_base": "Ara o mai, no hi havia més temps. {{personatge}} va fer el pas endavant a {{escenari}} sense mirar enrere. Tot va tremolar al voltant. {{so}} va esclatar com una explosió mentre l'olor de {{olor}} i pólvora cremava la gola." },
+{ "id": "climax_02", "tipus": "climax", "genero": ["fantasia","aventura"], "texto_base": "{{personatge}} va aixecar {{objecte}} cap al cel de {{ciutat}}. Tot va callar de cop. {{so}} va desaparèixer del món. Només quedava l'olor de {{olor}} i llum pura inundant {{escenari}} sencer." },
+{ "id": "climax_03", "tipus": "climax", "genero": ["drama","romance"], "texto_base": "Tot o res, era el moment. {{personatge}} va saltar cap a {{persona}} a {{escenari}}. Tot s'obria al voltant com un abisme. {{so}} va esclatar al seu pit. L'olor de {{olor}} i amor crema." },
+{ "id": "climax_04", "tipus": "climax", "genero": ["thriller","drama"], "texto_base": "{{personatge}} va córrer cap a {{escenari}} sabent que no arribaria a temps. {{so}} marcava la compte enrere final. Feia olor de {{olor}} i sacrifici. {{ciutat}} sencera contenia la respiració." },
 
-  {
-    "id": "lectura_confrontacio_1",
-    "genero": ["policiac", "fantasia", "drama"],
-    "texto_base": "{{personatge}} s’enfronta a {{antagonista}}. L’ambient de {{escenari}} pesa. {{so}} talla l’aire. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_confrontacio_2",
-    "genero": ["policiac", "drama"],
-    "texto_base": "\"Ho saps\", diu {{personatge}}. {{antagonista}} calla. Només {{so}}. L’olor de {{olor}} ho omple tot."
-  },
-  {
-    "id": "lectura_confrontacio_3",
-    "genero": ["fantasia"],
-    "texto_base": "{{antagonista}} riu. {{personatge}} apreta {{objecte}}. {{escenari}} tremola. {{so}} esclata. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_confrontacio_4",
-    "genero": ["drama", "policiac"],
-    "texto_base": "\"Per què?\" pregunta {{personatge}}. {{antagonista}} no respon. {{so}} respon per ell. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_confrontacio_5",
-    "genero": ["fantasia"],
-    "texto_base": "{{personatge}} dona un pas. {{antagonista}} en fa un altre. {{escenari}} s’encén. {{so}} crema. L’olor de {{olor}} explota."
-  },
+{ "id": "esperanca_01", "tipus": "esperanca", "genero": ["romance","fantasia"], "texto_base": "{{personatge}} va somriure per primera vegada en dies. Després de tot el patiment, {{ciutat}} semblava diferent ara. Feia olor de {{olor}} i flors noves mentre {{so}} sonava com una promesa feta." },
+{ "id": "esperanca_02", "tipus": "esperanca", "genero": ["aventura"], "texto_base": "Encara hi havia temps per arreglar-ho. {{personatge}} ho sabia amb certesa. Va agafar fort {{objecte}} mentre {{so}} canviava de to. L'olor de {{olor}} i esperança també es transformava." },
+{ "id": "esperanca_03", "tipus": "esperanca", "genero": ["romance","drama"], "texto_base": "{{personatge}} va mirar {{persona}} als ulls a {{escenari}} i va veure futur. {{so}} sonava nou, com si comencés de zero. Feia olor de {{olor}} i segones oportunitats." },
 
-  {
-    "id": "lectura_alivi_1",
-    "genero": ["romance", "aventura", "fantasia"],
-    "texto_base": "Finalment, silenci. {{personatge}} respira. L’olor de {{olor}} omple {{escenari}}. {{so}} ara sona lluny."
-  },
-  {
-    "id": "lectura_alivi_2",
-    "genero": ["drama", "romance"],
-    "texto_base": "{{personatge}} seu. Tanca els ulls. {{ciutat}} espera fora. Però aquí només queda {{olor}} i {{so}} suau."
-  },
-  {
-    "id": "lectura_alivi_3",
-    "genero": ["aventura", "fantasia"],
-    "texto_base": "S’ha acabat. {{personatge}} deixa {{objecte}}. {{so}} s’atura. L’olor de {{olor}} es queda."
-  },
-  {
-    "id": "lectura_alivi_4",
-    "genero": ["drama"],
-    "texto_base": "{{personatge}} plora. Després respira. {{escenari}} no jutja. {{so}} acompanya. Fa olor de {{olor}}."
-  },
+{ "id": "transicio_01", "tipus": "transicio", "genero": ["policiac","misterio"], "texto_base": "Mentrestant {{personatge}} travessava {{escenari}} amb pas decidit. {{so}} marcava el ritme exacte dels seus passos. L'olor de {{olor}} no canviava mai a {{ciutat}} després de ploure." },
+{ "id": "transicio_02", "tipus": "transicio", "genero": ["romance","drama"], "texto_base": "Llavors {{personatge}} va marxar de {{escenari}} sense mirar enrere. Tot quedava enrere com un somni. {{so}} s'allunyava lentament. L'olor de {{olor}} i memòria es quedava a les parets." },
+{ "id": "transicio_03", "tipus": "transicio", "genero": ["aventura","fantasia"], "texto_base": "Però abans {{personatge}} havia de passar per {{escenari}} obligatori. {{so}} l'avisava de perill. Feia olor de {{olor}} i camins que no tornen enrere." },
 
-  {
-    "id": "lectura_por_1",
-    "genero": ["terror", "misterio", "thriller"],
-    "texto_base": "La por puja per l’esquena de {{personatge}}. {{escenari}} està fosc. Només {{so}}. L’olor de {{olor}} no ajuda."
-  },
-  {
-    "id": "lectura_por_2",
-    "genero": ["terror"],
-    "texto_base": "{{personatge}} no vol mirar. Però ho fa. {{escenari}} buit. I {{so}}. I l’olor de {{olor}}."
-  },
-  {
-    "id": "lectura_por_3",
-    "genero": ["terror", "misterio"],
-    "texto_base": "{{personatge}} sent un alè. Darrere. {{escenari}} és petit. {{so}} és molt a prop. L’olor de {{olor}} crema."
-  },
-  {
-    "id": "lectura_por_4",
-    "genero": ["thriller", "terror"],
-    "texto_base": "No hi ha sortida. {{personatge}} ho veu. {{escenari}} s’ha tancat. {{so}} riu. Fa olor de {{olor}}."
-  },
+{ "id": "tancament_01", "tipus": "tancament", "genero": ["policiac","drama"], "texto_base": "Cas tancat oficialment. {{personatge}} mirava {{escenari}} buit per última vegada. {{so}} ja no hi era present. Només quedava l'olor de {{olor}} i silenci final a {{ciutat}} sencera." },
+{ "id": "tancament_02", "tipus": "tancament", "genero": ["romance"], "texto_base": "{{personatge}} marxava però {{ciutat}} no l'oblidaria mai. Ni l'olor de {{olor}} que portava a la roba. Ni {{so}} de la seva veu que ressonaria sempre." },
+{ "id": "tancament_03", "tipus": "tancament", "genero": ["aventura","fantasia"], "texto_base": "{{personatge}} va guardar {{objecte}} dins la motxilla. Va tancar la porta de {{escenari}} amb cura. {{so}} es va apagar lentament. L'olor de {{olor}} i aventura es quedava dins per sempre." },
+{ "id": "tancament_04", "tipus": "tancament", "genero": ["drama","romance"], "texto_base": "{{personatge}} no mirava enrere mentre deixava {{escenari}}. {{ciutat}} es quedava enrere amb els seus secrets. {{so}} es perdia a la distància. L'olor de {{olor}} l'acompanyava." },
 
-  {
-    "id": "lectura_esperanca_1",
-    "genero": ["romance", "fantasia", "aventura"],
-    "texto_base": "{{personatge}} somriu. Després de tot, {{ciutat}} sembla diferent. Fa olor de {{olor}} i {{so}} sona com una promesa."
-  },
-  {
-    "id": "lectura_esperanca_2",
-    "genero": ["fantasia", "drama"],
-    "texto_base": "Encara hi ha temps. {{personatge}} ho sap. Agafa {{objecte}}. {{so}} canvia. L’olor de {{olor}} també."
-  },
-  {
-    "id": "lectura_esperanca_3",
-    "genero": ["romance", "aventura"],
-    "texto_base": "{{personatge}} mira {{persona}}. Potser sí. {{escenari}} brilla. {{so}} sona nou. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_esperanca_4",
-    "genero": ["fantasia"],
-    "texto_base": "{{personatge}} respira fons. {{objecte}} funciona. {{so}} s’obre. L’olor de {{olor}} neteja."
-  },
+{ "id": "dialog_01", "tipus": "dialog", "genero": ["drama", "policiac", "romance"], "texto_base": "\"No pots\", diu {{antagonista}}. {{personatge}} respon: \"Ja ho he fet\". {{so}} talla. Fa olor de {{olor}}." },
+{ "id": "dialog_02", "tipus": "dialog", "genero": ["romance"], "texto_base": "\"Et trobava a faltar\", diu {{persona}}. {{personatge}} calla. {{so}} parla per ell. L'olor de {{olor}} ho diu tot." },
+{ "id": "dialog_03", "tipus": "dialog", "genero": ["policiac"], "texto_base": "\"On és?\" pregunta {{personatge}}. Silenci. Només {{so}}. L'olor de {{olor}} delata {{antagonista}}." },
+{ "id": "dialog_04", "tipus": "dialog", "genero": ["fantasia", "drama"], "texto_base": "\"No tinc por\", menteix {{personatge}}. {{so}} el delata. L'olor de {{olor}} també." },
 
-  {
-    "id": "lectura_transicio_1",
-    "genero": ["policiac", "romance", "fantasia", "aventura", "misterio", "drama"],
-    "texto_base": "Mentrestant, {{personatge}} travessa {{escenari}}. {{so}} marca el ritme. L’olor de {{olor}} no canvia."
-  },
-  {
-    "id": "lectura_transicio_2",
-    "genero": ["policiac", "misterio"],
-    "texto_base": "Després de tot això, {{personatge}} torna a {{ciutat}}. Però {{so}} el segueix. I l’olor de {{olor}} també."
-  },
-  {
-    "id": "lectura_transicio_3",
-    "genero": ["aventura", "fantasia"],
-    "texto_base": "Però abans, {{personatge}} ha de passar per {{escenari}}. {{so}} l’avisa. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_transicio_4",
-    "genero": ["drama", "romance"],
-    "texto_base": "Llavors {{personatge}} marxa. {{escenari}} queda enrere. {{so}} s’allunya. L’olor de {{olor}} es queda."
-  },
-  {
-    "id": "lectura_transicio_5",
-    "genero": ["misterio", "aventura"],
-    "texto_base": "Ara cal decidir. {{personatge}} mira {{escenari}}. {{so}} espera. Fa olor de {{olor}}."
-  },
+{ "id": "accio_01", "tipus": "accio", "genero": ["aventura", "thriller", "fantasia"], "texto_base": "{{personatge}} salta. {{escenari}} queda enrere. {{so}} esclata. L'olor de {{olor}} crema." },
+{ "id": "accio_02", "tipus": "accio", "genero": ["policiac", "aventura"], "texto_base": "{{personatge}} trenca la porta. Fusta. {{so}} sec. L'olor de {{olor}} surt." },
+{ "id": "accio_03", "tipus": "accio", "genero": ["fantasia"], "texto_base": "{{personatge}} alça {{objecte}}. Llum. {{so}} esclata. L'olor de {{olor}} neteja." },
+{ "id": "accio_04", "tipus": "accio", "genero": ["thriller", "policiac"], "texto_base": "{{personatge}} dispara. {{so}} sec. {{escenari}} tremola. L'olor de {{olor}} crema." },
 
-  {
-    "id": "lectura_climax_1",
-    "genero": ["policiac", "fantasia", "aventura", "thriller"],
-    "texto_base": "Ara o mai. {{personatge}} fa el pas. {{escenari}} tremola. {{so}} esclata. L’olor de {{olor}} crema."
-  },
-  {
-    "id": "lectura_climax_2",
-    "genero": ["policiac", "thriller"],
-    "texto_base": "No hi ha marxa enrere. {{personatge}} ho sap. {{antagonista}} davant. {{so}} omple {{escenari}}. L’olor de {{olor}} és l’últim."
-  },
-  {
-    "id": "lectura_climax_3",
-    "genero": ["fantasia", "aventura"],
-    "texto_base": "{{personatge}} aixeca {{objecte}}. {{ciutat}} calla. {{so}} desapareix. Només queda l’olor de {{olor}}."
-  },
-  {
-    "id": "lectura_climax_4",
-    "genero": ["thriller", "drama"],
-    "texto_base": "Tot o res. {{personatge}} salta. {{escenari}} s’obre. {{so}} esclata. L’olor de {{olor}} crema."
-  },
-  {
-    "id": "lectura_climax_5",
-    "genero": ["fantasia"],
-    "texto_base": "{{personatge}} crida. {{objecte}} respon. {{so}} trenca. L’olor de {{olor}} ho inunda tot."
-  },
+{ "id": "descripcio_01", "tipus": "descripcio", "genero": ["fantasia", "aventura", "drama"], "texto_base": "{{escenari}} és vell. Les parets suen {{olor}}. {{so}} hi viu. {{personatge}} ho sent." },
+{ "id": "descripcio_02", "tipus": "descripcio", "genero": ["policiac", "misterio"], "texto_base": "{{ciutat}} dorm. Només {{so}} vetlla. L'olor de {{olor}} surt pels carrers. {{personatge}} camina." },
+{ "id": "descripcio_03", "tipus": "descripcio", "genero": ["romance", "drama"], "texto_base": "{{escenari}} està ple de llum. L'olor de {{olor}} ho tenyeix. {{so}} és suau. {{personatge}} respira." },
+{ "id": "descripcio_04", "tipus": "descripcio", "genero": ["fantasia"], "texto_base": "{{escenari}} respira. Les pedres fan {{so}}. L'olor de {{olor}} puja. {{personatge}} ho nota." },
 
-  {
-    "id": "lectura_tancament_1",
-    "genero": ["policiac", "romance", "fantasia", "aventura", "misterio", "drama"],
-    "texto_base": "S’ha acabat. {{personatge}} mira {{ciutat}} per última vegada. L’olor de {{olor}} queda. {{so}} s’esvaeix."
-  },
-  {
-    "id": "lectura_tancament_2",
-    "genero": ["romance", "drama"],
-    "texto_base": "{{personatge}} marxa. Però {{ciutat}} no l’oblida. Ni l’olor de {{olor}}. Ni {{so}}."
-  },
-  {
-    "id": "lectura_tancament_3",
-    "genero": ["aventura", "fantasia"],
-    "texto_base": "{{personatge}} guarda {{objecte}}. Tanca la porta. {{so}} s’apaga. L’olor de {{olor}} es queda dins."
-  },
-  {
-    "id": "lectura_tancament_4",
-    "genero": ["policiac", "misterio"],
-    "texto_base": "Cas tancat. {{personatge}} mira {{escenari}} buit. {{so}} ja no hi és. Només queda l’olor de {{olor}}."
-  },
-  {
-    "id": "lectura_tancament_5",
-    "genero": ["drama", "romance"],
-    "texto_base": "{{personatge}} no mira enrere. {{ciutat}} es queda enrere. {{so}} es perd. L’olor de {{olor}} l’acompanya."
-  },
-
-  {
-    "id": "lectura_dialog_1",
-    "genero": ["drama", "policiac", "romance"],
-    "texto_base": "\"No pots\", diu {{antagonista}}. {{personatge}} respon: \"Ja ho he fet\". {{so}} talla. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_dialog_2",
-    "genero": ["romance"],
-    "texto_base": "\"Et trobava a faltar\", diu {{persona}}. {{personatge}} calla. {{so}} parla per ell. L’olor de {{olor}} ho diu tot."
-  },
-  {
-    "id": "lectura_dialog_3",
-    "genero": ["policiac"],
-    "texto_base": "\"On és?\" pregunta {{personatge}}. Silenci. Només {{so}}. L’olor de {{olor}} delata {{antagonista}}."
-  },
-  {
-    "id": "lectura_dialog_4",
-    "genero": ["fantasia", "drama"],
-    "texto_base": "\"No tinc por\", menteix {{personatge}}. {{so}} el delata. L’olor de {{olor}} també."
-  },
-
-  {
-    "id": "lectura_accio_1",
-    "genero": ["aventura", "thriller", "fantasia"],
-    "texto_base": "{{personatge}} salta. {{escenari}} queda enrere. {{so}} esclata. L’olor de {{olor}} crema."
-  },
-  {
-    "id": "lectura_accio_2",
-    "genero": ["policiac", "aventura"],
-    "texto_base": "{{personatge}} trenca la porta. Fusta. {{so}} sec. L’olor de {{olor}} surt."
-  },
-  {
-    "id": "lectura_accio_3",
-    "genero": ["fantasia"],
-    "texto_base": "{{personatge}} alça {{objecte}}. Llum. {{so}} esclata. L’olor de {{olor}} neteja."
-  },
-  {
-    "id": "lectura_accio_4",
-    "genero": ["thriller", "policiac"],
-    "texto_base": "{{personatge}} dispara. {{so}} sec. {{escenari}} tremola. L’olor de {{olor}} crema."
-  },
-
-  {
-    "id": "lectura_descripcio_1",
-    "genero": ["fantasia", "aventura", "drama"],
-    "texto_base": "{{escenari}} és vell. Les parets suen {{olor}}. {{so}} hi viu. {{personatge}} ho sent."
-  },
-  {
-    "id": "lectura_descripcio_2",
-    "genero": ["policiac", "misterio"],
-    "texto_base": "{{ciutat}} dorm. Només {{so}} vetlla. L’olor de {{olor}} surt pels carrers. {{personatge}} camina."
-  },
-  {
-    "id": "lectura_descripcio_3",
-    "genero": ["romance", "drama"],
-    "texto_base": "{{escenari}} està ple de llum. L’olor de {{olor}} ho tenyeix. {{so}} és suau. {{personatge}} respira."
-  },
-  {
-    "id": "lectura_descripcio_4",
-    "genero": ["fantasia"],
-    "texto_base": "{{escenari}} respira. Les pedres fan {{so}}. L’olor de {{olor}} puja. {{personatge}} ho nota."
-  },
-
-  {
-    "id": "lectura_gir_1",
-    "genero": ["misterio", "policiac", "fantasia"],
-    "texto_base": "Però no era {{objecte}}. Era {{persona}}. {{personatge}} ho entén tard. {{so}} riu. Fa olor de {{olor}}."
-  },
-  {
-    "id": "lectura_gir_2",
-    "genero": ["drama", "romance"],
-    "texto_base": "{{personatge}} creia que era {{antagonista}}. Però era {{persona}}. {{so}} ho confirma. L’olor de {{olor}} ho diu."
-  },
-  {
-    "id": "lectura_gir_3",
-    "genero": ["aventura", "fantasia"],
-    "texto_base": "{{objecte}} no servia. Mai no ha servit. {{personatge}} ho veu. {{so}} cau. L’olor de {{olor}} es perd."
-  }
-    ]
+{ "id": "gir_01", "tipus": "gir", "genero": ["misterio", "policiac", "fantasia"], "texto_base": "Però no era {{objecte}}. Era {{persona}}. {{personatge}} ho entén tard. {{so}} riu. Fa olor de {{olor}}." },
+{ "id": "gir_02", "tipus": "gir", "genero": ["drama", "romance"], "texto_base": "{{personatge}} creia que era {{antagonista}}. Però era {{persona}}. {{so}} ho confirma. L'olor de {{olor}} ho diu." },
+{ "id": "gir_03", "tipus": "gir", "genero": ["aventura", "fantasia"], "texto_base": "{{objecte}} no servia. Mai no ha servit. {{personatge}} ho veu. {{so}} cau. L'olor de {{olor}} es perd." }
+]
