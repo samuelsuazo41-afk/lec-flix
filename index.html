@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Lec-Flix Genèric</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
   <header>
@@ -24,10 +24,18 @@
                     border-radius:6px; text-align:center; font-size:15px;">
 
       <div class="tabs-container">
-        <div class="tab-btn" onclick="openScreen('genere')">GÈNERE <span>▼</span></div>
-        <div class="tab-btn" onclick="openScreen('estructura')">ESTRUCTURA <span>▼</span></div>
-        <div class="tab-btn" onclick="openScreen('ritme')">RITME <span>▼</span></div>
-        <div class="tab-btn" onclick="openScreen('pov')">POV <span>▼</span></div>
+        <div class="tab-btn" onclick="openScreen('screen-genere')">
+          GÈNERE <span id="genere-label">▼</span>
+        </div>
+        <div class="tab-btn" onclick="openScreen('screen-estructura')">
+          ESTRUCTURA <span id="estructura-label">▼</span>
+        </div>
+        <div class="tab-btn" onclick="openScreen('screen-ritme')">
+          RITME <span id="ritme-label">▼</span>
+        </div>
+        <div class="tab-btn" onclick="openScreen('screen-pov')">
+          POV <span id="pov-label">▼</span>
+        </div>
       </div>
 
       <div class="botons">
@@ -43,7 +51,14 @@
         <button onclick="closeScreen()">← Tornar</button>
         <h2>GÈNERE</h2>
       </div>
-      <div class="screen-content" id="genere-content"></div>
+      <div class="screen-content" id="genere-content">
+        <button class="opt-btn" onclick="selectGenere('accio')">Acció</button>
+        <button class="opt-btn" onclick="selectGenere('romantic')">Romàntic</button>
+        <button class="opt-btn" onclick="selectGenere('terror')">Terror</button>
+        <button class="opt-btn" onclick="selectGenere('misteri')">Misteri</button>
+        <button class="opt-btn" onclick="selectGenere('fantasia')">Fantasia</button>
+        <button class="opt-btn" onclick="selectGenere('comedia')">Comèdia</button>
+      </div>
     </section>
 
     <section id="screen-estructura" class="screen">
@@ -51,7 +66,11 @@
         <button onclick="closeScreen()">← Tornar</button>
         <h2>ESTRUCTURA</h2>
       </div>
-      <div class="screen-content" id="estructura-content"></div>
+      <div class="screen-content" id="estructura-content">
+        <button class="opt-btn" onclick="selectEstructura('3 Actes')">3 Actes Clàssic</button>
+        <button class="opt-btn" onclick="selectEstructura('Save the Cat')">Save the Cat</button>
+        <button class="opt-btn" onclick="selectEstructura('No Lineal')">No Lineal</button>
+      </div>
     </section>
 
     <section id="screen-ritme" class="screen">
@@ -59,7 +78,11 @@
         <button onclick="closeScreen()">← Tornar</button>
         <h2>RITME</h2>
       </div>
-      <div class="screen-content" id="ritme-content"></div>
+      <div class="screen-content" id="ritme-content">
+        <button class="opt-btn" onclick="selectRitme('Relat Curt')">Relat Curt ~5k</button>
+        <button class="opt-btn" onclick="selectRitme('Novel·la')">Novel·la 60k</button>
+        <button class="opt-btn" onclick="selectRitme('Èpic')">Èpic 100k</button>
+      </div>
     </section>
 
     <section id="screen-pov" class="screen">
@@ -67,99 +90,11 @@
         <button onclick="closeScreen()">← Tornar</button>
         <h2>POV</h2>
       </div>
-      <div class="screen-content" id="pov-content"></div>
-    </section>
-
-    <!-- ===== PANTALLAS NIVEL 3 - GÈNERE ===== -->
-    <section id="screen-genere-accio" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-genere')">← Tornar</button>
-        <h2>ACCIÓ</h2>
+      <div class="screen-content" id="pov-content">
+        <button class="opt-btn" onclick="selectPov('1 Protagonista')">1 Protagonista</button>
+        <button class="opt-btn" onclick="selectPov('3 POV Rotatius')">3 POV Rotatius</button>
+        <button class="opt-btn" onclick="selectPov('Omniscient')">Narrador Omniscient</button>
       </div>
-      <div class="screen-content" id="genere-accio-content"></div>
-    </section>
-
-    <section id="screen-genere-romantic" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-genere')">← Tornar</button>
-        <h2>ROMÀNTIC</h2>
-      </div>
-      <div class="screen-content" id="genere-romantic-content"></div>
-    </section>
-
-    <section id="screen-genere-terror" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-genere')">← Tornar</button>
-        <h2>TERROR</h2>
-      </div>
-      <div class="screen-content" id="genere-terror-content"></div>
-    </section>
-
-    <section id="screen-genere-misteri" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-genere')">← Tornar</button>
-        <h2>MISTERI</h2>
-      </div>
-      <div class="screen-content" id="genere-misteri-content"></div>
-    </section>
-
-    <!-- ===== PANTALLAS NIVEL 3 - ESTRUCTURA ===== -->
-    <section id="screen-estructura-3actes" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-estructura')">← Tornar</button>
-        <h2>3 ACTES</h2>
-      </div>
-      <div class="screen-content" id="estructura-3actes-content"></div>
-    </section>
-
-    <section id="screen-estructura-savecat" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-estructura')">← Tornar</button>
-        <h2>SAVE THE CAT</h2>
-      </div>
-      <div class="screen-content" id="estructura-savecat-content"></div>
-    </section>
-
-    <!-- ===== PANTALLAS NIVEL 3 - RITME ===== -->
-    <section id="screen-ritme-relat" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-ritme')">← Tornar</button>
-        <h2>RELAT CURT</h2>
-      </div>
-      <div class="screen-content" id="ritme-relat-content"></div>
-    </section>
-
-    <section id="screen-ritme-novella" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-ritme')">← Tornar</button>
-        <h2>NOVEL·LA 60K</h2>
-      </div>
-      <div class="screen-content" id="ritme-novella-content"></div>
-    </section>
-
-    <section id="screen-ritme-epic" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-ritme')">← Tornar</button>
-        <h2>ÈPIC 100K</h2>
-      </div>
-      <div class="screen-content" id="ritme-epic-content"></div>
-    </section>
-
-    <!-- ===== PANTALLAS NIVEL 3 - POV ===== -->
-    <section id="screen-pov-unic" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-pov')">← Tornar</button>
-        <h2>POV ÚNIC</h2>
-      </div>
-      <div class="screen-content" id="pov-unic-content"></div>
-    </section>
-
-    <section id="screen-pov-multiple" class="screen">
-      <div class="screen-header">
-        <button onclick="closeScreen('screen-pov')">← Tornar</button>
-        <h2>POV MÚLTIPLE</h2>
-      </div>
-      <div class="screen-content" id="pov-multiple-content"></div>
     </section>
 
     <!-- ===== PANTALLA DE LECTURA ===== -->
@@ -190,6 +125,105 @@
     </section>
   </main>
 
-  <script src="main.js?v=7"></script>
+  <script type="module">
+    import { generarLlibre } from './js/main.js';
+
+    // Estat global
+    window.seleccio = {
+      titol: '',
+      genere: 'policiac',
+      estructura: 'Save the Cat',
+      ritme: 'Novel·la',
+      pov: '1 Protagonista'
+    };
+
+    let llibreGenerat = null;
+
+    // Navegació pantalles
+    window.openScreen = id => {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.getElementById('menu').style.display = 'none';
+    };
+
+    window.closeScreen = from => {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('menu').style.display = 'block';
+    };
+
+    // Selectors
+    window.selectGenere = g => {
+      seleccio.genere = g;
+      document.getElementById('genere-label').textContent = g.toUpperCase();
+      closeScreen();
+    };
+
+    window.selectEstructura = e => {
+      seleccio.estructura = e;
+      document.getElementById('estructura-label').textContent = e;
+      closeScreen();
+    };
+
+    window.selectRitme = r => {
+      seleccio.ritme = r;
+      document.getElementById('ritme-label').textContent = r;
+      closeScreen();
+    };
+
+    window.selectPov = p => {
+      seleccio.pov = p;
+      document.getElementById('pov-label').textContent = p;
+      closeScreen();
+    };
+
+    // Botons principals
+    document.getElementById('btn-generar').onclick = async () => {
+      document.getElementById('resultat').innerHTML = '<p>Generant...</p>';
+      llibreGenerat = await generarLlibre(seleccio);
+      mostrarLlibre(llibreGenerat);
+    };
+
+    document.getElementById('btn-preview').onclick = () => {
+      if (!llibreGenerat) {
+        alert('Primer prem Generar Novel·la');
+        return;
+      }
+      mostrarLlibre(llibreGenerat);
+    };
+
+    document.getElementById('btn-exportar').onclick = () => {
+      if (!llibreGenerat) {
+        alert('Primer prem Generar Novel·la');
+        return;
+      }
+      const text = llibreGenerat.capitols.map(c => 
+        `CAPÍTOL ${c.num}\n\n` + c.escenes.map(e => `${e.titol}\n${e.text}\n\n`).join('')
+      ).join('\n---\n\n');
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = (seleccio.titol || 'novel·la') + '.txt';
+      a.click();
+    };
+
+    function mostrarLlibre(llibre) {
+      const div = document.getElementById('lectura-content');
+      div.innerHTML = '';
+      
+      llibre.capitols.forEach(cap => {
+        cap.escenes.forEach(esc => {
+          const el = document.createElement('div');
+          el.innerHTML = `<h3>${esc.titol}</h3><p>${esc.text}</p><hr>`;
+          div.appendChild(el);
+        });
+      });
+
+      document.getElementById('resultat').innerHTML = 
+        `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules aprox</p>`;
+      
+      openScreen('screen-lectura');
+    }
+  </script>
 </body>
 </html>
