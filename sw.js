@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lec-flix-test-v90';
+const CACHE_NAME = 'lec-flix-test-v92';
 
 const urlsToCache = [
   './',
@@ -10,7 +10,6 @@ const urlsToCache = [
   './icon-192.png',
   './icon-512.png',
   './icon-512-maskable.png',
-  './core/generadorlilibre.js',
   './data/loaderjson.js',
   './data/banco_emocions.json',
   './data/banco_escenarios.json',
