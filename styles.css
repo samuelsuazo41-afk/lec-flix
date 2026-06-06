@@ -7,8 +7,6 @@
   --text-muted: #8a9199;
   --accent: #4a9eff;
   --accent-hover: #6bb0ff;
-  --danger: #ff4a4a;
-  --success: #4aff7a;
 }
 
 * {
@@ -22,7 +20,6 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 header {
@@ -69,7 +66,7 @@ main {
   border-color: var(--accent);
 }
 
-/* Tabs principals del menú */
+/* Tabs amb submenús desplegables */
 .tabs-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -77,13 +74,17 @@ main {
   margin: 24px 0;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 700px) {
   .tabs-container {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
 .tab-btn {
+  position: relative;
+}
+
+.tab-header {
   background: var(--bg-panel);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -99,15 +100,58 @@ main {
   gap: 8px;
 }
 
-.tab-btn:hover {
+.tab-header:hover {
   background: #1a1e23;
   border-color: var(--accent);
-  transform: translateY(-2px);
 }
 
-.tab-btn span {
-  font-size: 12px;
-  opacity: 0.6;
+.tab-header.rotated span {
+  transform: rotate(180deg);
+  display: inline-block;
+}
+
+/* Submenú desplegable */
+.submenu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  animation: slideDown 0.2s ease;
+}
+
+.submenu.active {
+  display: grid;
+  gap: 6px;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.opt-btn {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid transparent;
+  padding: 10px 12px;
+  border-radius: 6px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.opt-btn:hover {
+  background: #1a1e23;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* Botons principals */
@@ -146,19 +190,19 @@ main {
   border-color: var(--accent);
 }
 
-/* Pantalles */
+/* Pantalla de lectura */
 .screen {
   display: none;
-  animation: fadeIn 0.3s ease;
 }
 
 .screen.active {
   display: block;
+  animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .screen-header {
@@ -183,7 +227,6 @@ main {
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .screen-header button:hover {
@@ -191,39 +234,6 @@ main {
   border-color: var(--accent);
 }
 
-/* Contingut de pantalles */
-.screen-content {
-  display: grid;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-/* Botons d'opció dins pantalles */
-.opt-btn, .subtab-btn {
-  background: var(--bg-panel);
-  color: var(--text);
-  border: 1px solid var(--border);
-  padding: 14px 18px;
-  border-radius: 8px;
-  text-align: left;
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.opt-btn:hover, .subtab-btn:hover {
-  background: #1a1e23;
-  border-color: var(--accent);
-}
-
-.opt-btn:active, .subtab-btn:active,
-.opt-btn.active, .subtab-btn.active {
-  background: var(--accent);
-  color: var(--bg);
-  border-color: var(--accent);
-}
-
-/* Pantalla de lectura */
 #screen-lectura .screen-content {
   max-width: 700px;
   margin: 0 auto;
@@ -257,14 +267,6 @@ main {
   line-height: 1.8;
 }
 
-#lectura-content em {
-  color: var(--text-muted);
-  display: block;
-  text-align: center;
-  margin: 24px 0;
-}
-
-/* Navegació lectura */
 .lectura-nav {
   display: flex;
   justify-content: space-between;
@@ -282,7 +284,6 @@ main {
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .lectura-nav button:hover {
@@ -290,7 +291,6 @@ main {
   border-color: var(--accent);
 }
 
-/* TOC - Índex */
 #toc-container {
   background: var(--bg-panel);
   border: 1px solid var(--border);
@@ -309,7 +309,6 @@ main {
   padding: 8px 12px;
   cursor: pointer;
   border-radius: 6px;
-  transition: all 0.2s ease;
   font-size: 14px;
 }
 
@@ -336,26 +335,7 @@ main {
   color: var(--text-muted);
 }
 
-/* Resultat */
 #resultat {
   margin-top: 32px;
   text-align: center;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-dark);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
 }
