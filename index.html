@@ -207,7 +207,7 @@
   document.getElementById('btn-generar').onclick = async () => {
     document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${seleccio.ritme}...</p>`;
     try {
-      const mod = await import(baseURL + 'js/main.js');
+      const mod = await import(baseURL + 'main.js');
       llibreGenerat = await mod.generarLlibre(seleccio, BANCS);
       mostrarLlibre(llibreGenerat);
     } catch (err) {
