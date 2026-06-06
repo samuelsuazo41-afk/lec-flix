@@ -127,8 +127,7 @@
 </main>
 
 <script type="module">
-// Ruta base apunta a carpeta /js/
-const baseURL = new URL('./js/', import.meta.url).href;
+const baseURL = new URL('./', import.meta.url).href; // FIX: sin /js/
 
 let BANCS = {};
 let llibreGenerat = null;
