@@ -5,29 +5,20 @@ let generarEscenaMotor = null;
 // CARREGAR MOTOR AMB RETRY - evita "is not a function"
 async function cargarMotor() {
   try {
-    // Intent 1: path relatiu des de /js/
-    await import(new URL('../core/generadorLlibre.js', import.meta.url).href);
+    // FORZAR PATH ABSOLUT per GitHub Pages
+    await import('https://samuelsuazo41-afk.github.io/core/generadorLlibre.js?v=' + Date.now());
   } catch (e1) {
-    console.warn('⚠️ Intent 1 fallat, provant path absolut', e1.message);
-    try {
-      // Intent 2: path absolut des de root
-      await import('/core/generadorLlibre.js');
-    } catch (e2) {
-      console.error('❌ ERROR CRÍTIC: No es troba generadorLlibre.js', e2);
-      alert('ERROR: core/generadorLlibre.js no trobat. Revisa que el fitxer existeixi a /core/generadorLlibre.js sense export');
-      return false;
-    }
-  }
-
-  generarEscenaMotor = window.generarEscena;
-
-  if (typeof generarEscenaMotor!== 'function') {
-    console.error('❌ ERROR: window.generarEscena no és funció', typeof window.generarEscena);
-    alert('ERROR: El motor es va carregar però no defineix window.generarEscena. Revisa core/generadorLlibre.js');
+    console.error('❌ ERROR CRÍTIC:', e1);
+    alert('ERROR: No es pot carregar el motor. URL: https://samuelsuazo41-afk.github.io/core/generadorLlibre.js');
     return false;
   }
 
-  console.log('✅ Motor V8.1 carregat correctament');
+  generarEscenaMotor = window.generarEscena;
+  if (typeof generarEscenaMotor!== 'function') {
+    alert('ERROR: window.generarEscena no és funció');
+    return false;
+  }
+  console.log('✅ Motor V8.2 carregat correctament');
   return true;
 }
 
