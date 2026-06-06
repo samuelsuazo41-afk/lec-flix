@@ -1,64 +1,63 @@
-// js/main.js - Lec-Flix V8.1: Estándar editorial amb retry de motor
+// js/main.js - Lec-Flix V8.6: Estándar editorial unificat Llibre + Lectura
 let BANCS = {};
 let generarEscenaMotor = null;
 
-// CARREGAR MOTOR AMB RETRY - evita "is not a function"
+// CARREGAR MOTOR AMB RETRY
 async function cargarMotor() {
   try {
-    // Path dins de /js/ on GitHub Pages sí funciona
     await import('./generadorLlibre.js?v=' + Date.now());
   } catch (e1) {
     console.error('❌ ERROR CRÍTIC:', e1);
-    alert('ERROR: No es pot carregar /js/generadorLlibre.js. Revisa que existeixi');
+    alert('ERROR: No es pot carregar /js/generadorLlibre.js');
     return false;
   }
-
   generarEscenaMotor = window.generarEscena;
   if (typeof generarEscenaMotor!== 'function') {
     alert('ERROR: window.generarEscena no és funció');
     return false;
   }
-  console.log('✅ Motor V8.3 carregat des de /js/');
+  console.log('✅ Motor V8.6 carregat');
   return true;
 }
-
-// Carregar motor abans d'exportar funció
 await cargarMotor();
 
-export async function generarLlibre(seleccio, bancs) {
-  if (!generarEscenaMotor) {
-    throw new Error('Motor no carregat. Recarrega la pàgina amb Ctrl+F5');
+// FUNCIÓ UNIFICADA: Config editorial segons ritme
+function getConfigEditorial(ritme) {
+  if (ritme === 'Relat Curt') {
+    return {
+      numCapitols: 4,
+      paraulesTotals: 5000,
+      escenesPerCap: 5,
+      paraulesPerEscena: 250,
+      estructura: ['Obertura', 'Tema plantejat', 'Setup', 'Catalitzador'] // 4 beats
+    };
+  } else if (ritme === 'Èpic') {
+    return {
+      numCapitols: 30,
+      paraulesTotals: 72000,
+      escenesPerCap: 8,
+      paraulesPerEscena: 300,
+      estructura: ['Obertura', 'Tema plantejat', 'Setup', 'Catalitzador', 'Midpoint', 'Desesperança', 'Clímax', 'Resolució'] // 8 beats
+    };
+  } else { // Novel·la estàndard
+    return {
+      numCapitols: 20,
+      paraulesTotals: 60000,
+      escenesPerCap: 6,
+      paraulesPerEscena: 500,
+      estructura: ['Obertura', 'Tema plantejat', 'Setup', 'Catalitzador', 'Midpoint', 'Desesperança'] // 6 beats
+    };
   }
+}
+
+// GENERADOR DE LLIBRE COMPLET
+export async function generarLlibre(seleccio, bancs) {
+  if (!generarEscenaMotor) throw new Error('Motor no carregat');
 
   BANCS = bancs;
-  console.log('📚 Bancs rebuts a main:', Object.keys(BANCS));
+  const config = getConfigEditorial(seleccio.ritme);
 
-  // ESTÀNDAR EDITORIAL V8.1
-  let numCapitols, paraulesTotals, escenesPerCap, paraulesPerEscena;
-
-  if (seleccio.ritme === 'Relat Curt') {
-    // 5.000 - 10.000 paraules
-    numCapitols = 4;
-    paraulesTotals = 5000;
-    escenesPerCap = 5;
-    paraulesPerEscena = 250; // 5 x 250 x 4 = 5.000
-
-  } else if (seleccio.ritme === 'Èpic') {
-    // 70.000 - 90.000 paraules
-    numCapitols = 30;
-    paraulesTotals = 72000;
-    escenesPerCap = 8;
-    paraulesPerEscena = 300; // 8 x 300 x 30 = 72.000
-
-  } else {
-    // Novel·la estàndard / Best seller 60.000 - 70.000
-    numCapitols = 20;
-    paraulesTotals = 60000;
-    escenesPerCap = 6;
-    paraulesPerEscena = 500; // 6 x 500 x 20 = 60.000
-  }
-
-  const personatges = BANCS.banco_personatge || [{id:'p1', genero:'policiac', banco_variables:{nom:['Inspector Martí Vallmitjana'], tic:['es passa la mà per la barba quan menteixen']} }];
+  const personatges = BANCS.banco_personatge || [];
   const ubicacions = BANCS.banco_ubicacion || [{ciutat:'Girona'}];
 
   const persBanc = seleccio.personatgeId
@@ -69,54 +68,100 @@ export async function generarLlibre(seleccio, bancs) {
    ? ubicacions.find(u => u.ciutat === seleccio.mon)
     : ubicacions[0];
 
-  const nom = persBanc?.banco_variables?.nom?.[0] || 'Protagonista';
-  const tic = persBanc?.banco_variables?.tic?.[0] || 'es passa la mà per la barba';
-  const ciutat = ubi.ciutat;
+  const configBase = {
+    genere: seleccio.genere,
+    nom: persBanc?.banco_variables?.nom?.[0] || 'Protagonista',
+    tic: persBanc?.banco_variables?.tic?.[0] || 'es passa la mà per la barba',
+    ciutat: ubi.ciutat
+  };
 
-  const configBase = { genere: seleccio.genere, nom, tic, ciutat };
-
-  let hist = {ubicacions:[], olors:[], sons:[], frasesUsades:[], tensions:0, capActe:1};
-
-  const estructures = BANCS.banco_estructura || { beats: Array(numCapitols).fill({ nom: 'Beat' }) };
-  const beats = estructures.beats?.length
-   ? estructures.beats
-    : Array(numCapitols).fill({ nom: 'Beat' });
-
+  let hist = {ubicacions:[], olors:[], sons:[], emocions:[], frasesUsades:[], tensions:0, capActe:1};
+  const beats = config.estructura;
   const capitols = [];
-  for (let numCap = 1; numCap <= numCapitols; numCap++) {
-    const beat = beats[(numCap - 1) % beats.length];
+
+  for (let numCap = 1; numCap <= config.numCapitols; numCap++) {
+    const beatNom = beats[(numCap - 1) % beats.length];
     const escenes = [];
 
-    for (let numEsc = 1; numEsc <= escenesPerCap; numEsc++) {
-      // CRIDA AL MOTOR V8.1 amb 8 paràmetres
+    for (let numEsc = 1; numEsc <= config.escenesPerCap; numEsc++) {
       const resultat = generarEscenaMotor(
-        beat.nom,
-        configBase,
-        bancs,
-        hist,
-        numCap,
-        numEsc,
-        numCapitols,
-        paraulesPerEscena
+        beatNom, configBase, bancs, hist, numCap, numEsc, config.numCapitols, config.paraulesPerEscena
       );
       hist = resultat.hist;
       escenes.push({ titol: `Escena ${numEsc}`, text: resultat.text });
     }
 
-    escenes.push({ titol: '', text: `<em>${beat.nom} s'acabava amb ${nom} mirant cap a ${ciutat}</em>` });
-    capitols.push({ num: numCap, beat: beat.nom, escenes });
+    escenes.push({ titol: '', text: `<em>${beatNom} s'acabava amb ${configBase.nom} mirant cap a ${configBase.ciutat}</em>` });
+    capitols.push({ num: numCap, beat: beatNom, escenes });
   }
 
   return {
     capitols,
     metadata: {
-      paraulesAprox: paraulesTotals,
-      nCapitols: numCapitols,
+      paraulesAprox: config.paraulesTotals,
+      nCapitols: config.numCapitols,
       ritme: seleccio.ritme,
       genere: seleccio.genere,
-      personatge: nom,
-      ciutat,
-      paraulesPerEscena
+      personatge: configBase.nom,
+      ciutat: configBase.ciutat,
+      paraulesPerEscena: config.paraulesPerEscena
+    }
+  };
+}
+
+// GENERADOR DE LECTURA - USA EL MATEIX MOTOR I ESTÀNDAR
+export async function generarLectura(seleccio, bancs, numEscenes = 1) {
+  if (!generarEscenaMotor) throw new Error('Motor no carregat');
+
+  BANCS = bancs;
+  const config = getConfigEditorial(seleccio.ritme);
+
+  const personatges = BANCS.banco_personatge || [];
+  const ubicacions = BANCS.banco_ubicacion || [{ciutat:'Girona'}];
+
+  const persBanc = seleccio.personatgeId
+   ? personatges.find(p => p.id === seleccio.personatgeId)
+    : personatges.find(p => p.genero === seleccio.genere) || personatges[0];
+
+  const ubi = seleccio.mon
+   ? ubicacions.find(u => u.ciutat === seleccio.mon)
+    : ubicacions[0];
+
+  const configBase = {
+    genere: seleccio.genere,
+    nom: persBanc?.banco_variables?.nom?.[0] || 'Protagonista',
+    tic: persBanc?.banco_variables?.tic?.[0] || 'es passa la mà per la barba',
+    ciutat: ubi.ciutat
+  };
+
+  // Hist compartit per evitar repetició entre crides
+  let hist = {ubicacions:[], olors:[], sons:[], emocions:[], frasesUsades:[], tensions:0, capActe:1};
+  const beats = config.estructura;
+  const escenes = [];
+
+  for (let i = 0; i < numEscenes; i++) {
+    const beatNom = beats[i % beats.length];
+    const numCap = Math.floor(i / config.escenesPerCap) + 1;
+    const numEsc = (i % config.escenesPerCap) + 1;
+
+    const resultat = generarEscenaMotor(
+      beatNom, configBase, bancs, hist, numCap, numEsc, config.numCapitols, config.paraulesPerEscena
+    );
+    hist = resultat.hist;
+
+    escenes.push({
+      beat: beatNom,
+      text: resultat.text,
+      paraules: resultat.text.trim().split(/\s+/).length
+    });
+  }
+
+  return {
+    escenes,
+    metadata: {
+      ritme: seleccio.ritme,
+      paraulesPerEscena: config.paraulesPerEscena,
+      totalParaules: escenes.reduce((sum, e) => sum + e.paraules, 0)
     }
   };
 }
