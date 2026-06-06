@@ -12,7 +12,6 @@ const urlsToCache = [
   './icon-512-maskable.png',
   './core/generadorlilibre.js',
   './data/loaderjson.js',
-  './data/banco_ecenes.json',
   './data/banco_emocions.json',
   './data/banco_escenarios.json',
   './data/banco_estructura.json',
