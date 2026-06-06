@@ -132,118 +132,111 @@
   </main>
 
   <script type="module">
-    import { generarLlibre } from './js/main.js';
-    import { loadAllBancs } from './data/loaderjson.js';
-
-    window.seleccio = {
-      titol: '',
-      genere: 'policiac',
-      estructura: 'Save the Cat',
-      ritme: 'Novel·la', // default 60k
-      pov: '1 Protagonista'
+  // Intentem carregar bancs, però si falla seguim igual
+  let BANCS = {};
+  let llibreGenerat = null;
+  
+  try {
+    const mod = await import('./data/loaderjson.js');
+    BANCS = await mod.loadAllBancs();
+  } catch (e) {
+    console.warn('No s\'han carregat bancs, usando fallback', e);
+    BANCS = {
+      banco_estructura: {'Save the Cat': Array(17).fill('Beat')},
+      banco_lectura: [
+        {tipus:'obertura', text:'{p0} va obrir els ulls.'},
+        {tipus:'accio', text:'{p0} va córrer.'},
+        {tipus:'dialog', text:'"Hola", va dir {p0}.'},
+        {tipus:'descripcio', text:'Plovia.'},
+        {tipus:'cliffhanger', text:'Però llavors...'},
+        {tipus:'tancament', text:'Fi.'}
+      ],
+      banco_personatge: [{nom:'Àlex'},{nom:'Marta'},{nom:'Oriol'}],
+      banco_ubicacion: [{ciutat:'Barcelona'}]
     };
+  }
 
-    let llibreGenerat = null;
-    let BANCS = {};
+  window.seleccio = {
+    titol: '',
+    genere: 'policiac',
+    estructura: 'Save the Cat',
+    ritme: 'Novel·la',
+    pov: '1 Protagonista'
+  };
 
-    loadAllBancs().then(b => { BANCS = b; });
+  window.openScreen = function(screenName) {
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('resultat').style.display = 'none';
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const screen = document.getElementById('screen-' + screenName);
+    if (screen) screen.classList.add('active');
+  };
 
-    window.openScreen = function(screenName) {
-      document.getElementById('menu').style.display = 'none';
-      document.getElementById('resultat').style.display = 'none';
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      const screen = document.getElementById('screen-' + screenName);
-      if (screen) screen.classList.add('active');
-    };
+  window.closeScreen = function() {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('menu').style.display = 'block';
+    document.getElementById('resultat').style.display = 'block';
+  };
 
-    window.closeScreen = function(returnTo = 'menu') {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      if (returnTo === 'menu') {
-        document.getElementById('menu').style.display = 'block';
-        document.getElementById('resultat').style.display = 'block';
-      } else {
-        document.getElementById(returnTo).classList.add('active');
-      }
-    };
+  window.selectGenere = g => {
+    seleccio.genere = g;
+    document.getElementById('genere-label').textContent = g.toUpperCase();
+    closeScreen();
+  };
 
-    window.selectGenere = g => {
-      seleccio.genere = g;
-      document.getElementById('genere-label').textContent = g.toUpperCase();
-      closeScreen();
-    };
+  window.selectEstructura = e => {
+    seleccio.estructura = e;
+    document.getElementById('estructura-label').textContent = e;
+    closeScreen();
+  };
 
-    window.selectEstructura = e => {
-      seleccio.estructura = e;
-      document.getElementById('estructura-label').textContent = e;
-      closeScreen();
-    };
+  window.selectRitme = r => {
+    seleccio.ritme = r;
+    document.getElementById('ritme-label').textContent = r;
+    closeScreen();
+  };
 
-    window.selectRitme = r => {
-      seleccio.ritme = r;
-      document.getElementById('ritme-label').textContent = r;
-      closeScreen();
-    };
+  window.selectPov = p => {
+    seleccio.pov = p;
+    document.getElementById('pov-label').textContent = p;
+    closeScreen();
+  };
 
-    window.selectPov = p => {
-      seleccio.pov = p;
-      document.getElementById('pov-label').textContent = p;
-      closeScreen();
-    };
-
-    // BOTONS VERDS - ja funcionen per 3 ritmes
-    document.getElementById('btn-generar').onclick = async () => {
-      document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${seleccio.ritme}...</p>`;
-      try {
-        llibreGenerat = await generarLlibre(seleccio, BANCS);
-        mostrarLlibre(llibreGenerat);
-      } catch (err) {
-        console.error(err);
-        document.getElementById('resultat').innerHTML =
-          `<p style="color:red;text-align:center">Error: ${err.message}</p>`;
-      }
-    };
-
-    document.getElementById('btn-preview').onclick = () => {
-      if (!llibreGenerat) return alert('Primer prem Generar Text');
+  // Botons verds amb fallback si main.js falla
+  document.getElementById('btn-generar').onclick = async () => {
+    document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${seleccio.ritme}...</p>`;
+    try {
+      const mod = await import('./js/main.js');
+      llibreGenerat = await mod.generarLlibre(seleccio, BANCS);
       mostrarLlibre(llibreGenerat);
-    };
-
-    document.getElementById('btn-exportar').onclick = () => {
-      if (!llibreGenerat) return alert('Primer prem Generar Text');
-      const text = llibreGenerat.capitols.map(c =>
-        `CAPÍTOL ${c.num}\n\n` + c.escenes.map(e => `${e.titol}\n${e.text}\n\n`).join('')
-      ).join('\n---\n\n');
-      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = (seleccio.titol || 'text') + '.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    };
-
-    function mostrarLlibre(llibre) {
-      const div = document.getElementById('lectura-content');
-      div.innerHTML = '';
-      llibre.capitols.forEach(cap => {
-        cap.escenes.forEach(esc => {
-          const el = document.createElement('div');
-          el.innerHTML = `<h3>${esc.titol}</h3><p>${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
-          div.appendChild(el);
-        });
-      });
+    } catch (err) {
+      console.error(err);
       document.getElementById('resultat').innerHTML =
-        `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
-      document.getElementById('menu').style.display = 'none';
-      document.getElementById('screen-lectura').classList.add('active');
+        `<p style="color:red;text-align:center">Error: ${err.message}</p>`;
     }
+  };
 
-    document.getElementById('btn-toc-toggle').onclick = () => {
-      document.getElementById('toc-container').classList.toggle('toc-hidden');
-    };
-  </script>
+  document.getElementById('btn-preview').onclick = () => {
+    if (!llibreGenerat) return alert('Primer prem Generar Text');
+    mostrarLlibre(llibreGenerat);
+  };
+
+  function mostrarLlibre(llibre) {
+    const div = document.getElementById('lectura-content');
+    div.innerHTML = '';
+    llibre.capitols.forEach(cap => {
+      cap.escenes.forEach(esc => {
+        const el = document.createElement('div');
+        el.innerHTML = `<h3>${esc.titol}</h3><p>${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
+        div.appendChild(el);
+      });
+    });
+    document.getElementById('resultat').innerHTML =
+      `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
+    document.getElementById('menu').style.display = 'none';
+    document.getElementById('screen-lectura').classList.add('active');
+  }
+</script>
 </body>
 </html>
 
