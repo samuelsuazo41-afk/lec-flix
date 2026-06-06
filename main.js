@@ -1,19 +1,48 @@
-// js/main.js - Lec-Flix V8: Estándar editorial Relat/Novel·la/Èpica
+// js/main.js - Lec-Flix V8.1: Estándar editorial amb retry de motor
 let BANCS = {};
 let generarEscenaMotor = null;
 
-try {
-  await import(new URL('../core/generadorLlibre.js', import.meta.url).href);
+// CARREGAR MOTOR AMB RETRY - evita "is not a function"
+async function cargarMotor() {
+  try {
+    // Intent 1: path relatiu des de /js/
+    await import(new URL('../core/generadorLlibre.js', import.meta.url).href);
+  } catch (e1) {
+    console.warn('⚠️ Intent 1 fallat, provant path absolut', e1.message);
+    try {
+      // Intent 2: path absolut des de root
+      await import('/core/generadorLlibre.js');
+    } catch (e2) {
+      console.error('❌ ERROR CRÍTIC: No es troba generadorLlibre.js', e2);
+      alert('ERROR: core/generadorLlibre.js no trobat. Revisa que el fitxer existeixi a /core/generadorLlibre.js sense export');
+      return false;
+    }
+  }
+
   generarEscenaMotor = window.generarEscena;
-  console.log('✅ Motor V8 Estándar carregat');
-} catch (e) {
-  console.error('❌ ERROR: Motor no carregat', e);
+
+  if (typeof generarEscenaMotor!== 'function') {
+    console.error('❌ ERROR: window.generarEscena no és funció', typeof window.generarEscena);
+    alert('ERROR: El motor es va carregar però no defineix window.generarEscena. Revisa core/generadorLlibre.js');
+    return false;
+  }
+
+  console.log('✅ Motor V8.1 carregat correctament');
+  return true;
 }
 
-export async function generarLlibre(seleccio, bancs) {
-  BANCS = bancs;
+// Carregar motor abans d'exportar funció
+await cargarMotor();
 
-  // ESTÀNDAR EDITORIAL
+export async function generarLlibre(seleccio, bancs) {
+  if (!generarEscenaMotor) {
+    throw new Error('Motor no carregat. Recarrega la pàgina amb Ctrl+F5');
+  }
+
+  BANCS = bancs;
+  console.log('📚 Bancs rebuts a main:', Object.keys(BANCS));
+
+  // ESTÀNDAR EDITORIAL V8.1
   let numCapitols, paraulesTotals, escenesPerCap, paraulesPerEscena;
 
   if (seleccio.ritme === 'Relat Curt') {
@@ -41,17 +70,26 @@ export async function generarLlibre(seleccio, bancs) {
   const personatges = BANCS.banco_personatge || [{id:'p1', genero:'policiac', banco_variables:{nom:['Inspector Martí Vallmitjana'], tic:['es passa la mà per la barba quan menteixen']} }];
   const ubicacions = BANCS.banco_ubicacion || [{ciutat:'Girona'}];
 
-  const persBanc = seleccio.personatgeId? personatges.find(p => p.id === seleccio.personatgeId) : personatges.find(p => p.genero === seleccio.genere) || personatges[0];
-  const ubi = seleccio.mon? ubicacions.find(u => u.ciutat === seleccio.mon) : ubicacions[0];
+  const persBanc = seleccio.personatgeId
+   ? personatges.find(p => p.id === seleccio.personatgeId)
+    : personatges.find(p => p.genero === seleccio.genere) || personatges[0];
+
+  const ubi = seleccio.mon
+   ? ubicacions.find(u => u.ciutat === seleccio.mon)
+    : ubicacions[0];
 
   const nom = persBanc?.banco_variables?.nom?.[0] || 'Protagonista';
   const tic = persBanc?.banco_variables?.tic?.[0] || 'es passa la mà per la barba';
   const ciutat = ubi.ciutat;
 
   const configBase = { genere: seleccio.genere, nom, tic, ciutat };
+
   let hist = {ubicacions:[], olors:[], sons:[], frasesUsades:[], tensions:0, capActe:1};
+
   const estructures = BANCS.banco_estructura || { beats: Array(numCapitols).fill({ nom: 'Beat' }) };
-  const beats = estructures.beats?.length? estructures.beats : Array(numCapitols).fill({ nom: 'Beat' });
+  const beats = estructures.beats?.length
+   ? estructures.beats
+    : Array(numCapitols).fill({ nom: 'Beat' });
 
   const capitols = [];
   for (let numCap = 1; numCap <= numCapitols; numCap++) {
@@ -59,7 +97,17 @@ export async function generarLlibre(seleccio, bancs) {
     const escenes = [];
 
     for (let numEsc = 1; numEsc <= escenesPerCap; numEsc++) {
-      const resultat = generarEscenaMotor(beat.nom, configBase, bancs, hist, numCap, numEsc, numCapitols, paraulesPerEscena);
+      // CRIDA AL MOTOR V8.1 amb 8 paràmetres
+      const resultat = generarEscenaMotor(
+        beat.nom,
+        configBase,
+        bancs,
+        hist,
+        numCap,
+        numEsc,
+        numCapitols,
+        paraulesPerEscena
+      );
       hist = resultat.hist;
       escenes.push({ titol: `Escena ${numEsc}`, text: resultat.text });
     }
