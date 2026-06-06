@@ -1,6 +1,5 @@
 export async function loadAllBancs() {
-  // loaderjson.js està dins /data/, així que la base és ./ 
-  const baseURL = new URL('./', import.meta.url).href;
+  const baseURL = new URL('./', import.meta.url).href; // era '../'
   
   const bancsFiles = [
     'banco_generes.json',
@@ -18,7 +17,7 @@ export async function loadAllBancs() {
 
   await Promise.all(bancsFiles.map(async (file) => {
     try {
-      const res = await fetch(baseURL + file); // sense afegir 'data/' extra
+      const res = await fetch(baseURL + file); // abans era baseURL + 'data/' + file
       if (!res.ok) throw new Error(`No s'ha pogut carregar ${file}`);
       const data = await res.json();
       const key = file.replace('.json', '');
