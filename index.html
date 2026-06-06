@@ -125,7 +125,9 @@
     </section>
   </main>
 
-  <script>
+  <script type="module">
+    import { generarLlibre } from './js/main.js';
+
     // Estat global
     window.seleccio = {
       titol: '',
@@ -145,6 +147,8 @@
       if (target) {
         target.classList.add('active');
         document.getElementById('menu').style.display = 'none';
+      } else {
+        console.error('No existe:', screenId);
       }
     };
 
@@ -178,23 +182,64 @@
       closeScreen();
     };
 
-    // Toggle índex lectura
-    document.getElementById('btn-toc-toggle').onclick = () => {
-      document.getElementById('toc-container').classList.toggle('toc-hidden');
-    };
-
-    // Botons - temporal, només per provar que obre
-    document.getElementById('btn-generar').onclick = () => {
-      document.getElementById('resultat').innerHTML = 
-        '<p style="text-align:center;color:var(--accent)">Les tabs ja obren! Ara cal connectar main.js</p>';
+    // Botons principals
+    document.getElementById('btn-generar').onclick = async () => {
+      document.getElementById('resultat').innerHTML = '<p>Generant...</p>';
+      try {
+        llibreGenerat = await generarLlibre(seleccio);
+        mostrarLlibre(llibreGenerat);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('resultat').innerHTML = 
+          '<p style="color:red;text-align:center">Error: ' + err.message + '</p>';
+      }
     };
 
     document.getElementById('btn-preview').onclick = () => {
-      alert('Primer prem Generar Novel·la');
+      if (!llibreGenerat) {
+        alert('Primer prem Generar Novel·la');
+        return;
+      }
+      mostrarLlibre(llibreGenerat);
     };
 
     document.getElementById('btn-exportar').onclick = () => {
-      alert('Primer prem Generar Novel·la');
+      if (!llibreGenerat) {
+        alert('Primer prem Generar Novel·la');
+        return;
+      }
+      const text = llibreGenerat.capitols.map(c => 
+        `CAPÍTOL ${c.num}\n\n` + c.escenes.map(e => `${e.titol}\n${e.text}\n\n`).join('')
+      ).join('\n---\n\n');
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = (seleccio.titol || 'novel·la') + '.txt';
+      a.click();
+    };
+
+    function mostrarLlibre(llibre) {
+      const div = document.getElementById('lectura-content');
+      div.innerHTML = '';
+      
+      llibre.capitols.forEach(cap => {
+        cap.escenes.forEach(esc => {
+          const el = document.createElement('div');
+          el.innerHTML = `<h3>${esc.titol}</h3><p>${esc.text}</p><hr>`;
+          div.appendChild(el);
+        });
+      });
+
+      document.getElementById('resultat').innerHTML = 
+        `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules aprox</p>`;
+      
+      openScreen('lectura');
+    }
+
+    // Toggle índex lectura
+    document.getElementById('btn-toc-toggle').onclick = () => {
+      document.getElementById('toc-container').classList.toggle('toc-hidden');
     };
   </script>
 </body>
