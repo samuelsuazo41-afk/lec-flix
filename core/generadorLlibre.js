@@ -1,4 +1,4 @@
-// core/generadorLlibre.js - Motor V8.1: Forzar window
+// core/generadorLlibre.js - Motor V8.1: Estándar editorial 400-500 paraules
 (function() {
   function generarEscena(beatNom, configBase, bancs, hist, numCap, numEsc, totalCaps, paraulesPerEscena) {
     hist = hist || {ubicacions:[], olors:[], sons:[], frasesUsades:[], tensions:0, capActe:1};
@@ -70,7 +70,6 @@
     return { text: parrafo, hist };
   }
 
-  // FORZAR A WINDOW 3 VECES POR SI ACASO
   window.generarEscena = generarEscena;
   self.generarEscena = generarEscena;
   this.generarEscena = generarEscena;
