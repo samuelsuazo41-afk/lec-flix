@@ -522,4 +522,4 @@ document.addEventListener('DOMContentLoaded', () => {
     const tocContainer = document.getElementById('toc-container');
     if (tocContainer) tocContainer.classList.toggle('toc-hidden');
   };
-});
+}); 
