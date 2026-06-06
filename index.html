@@ -24,16 +24,16 @@
                     border-radius:6px; text-align:center; font-size:15px;">
 
       <div class="tabs-container">
-        <div class="tab-btn" onclick="openScreen('screen-genere')">
+        <div class="tab-btn" onclick="openScreen('genere')">
           GÈNERE <span id="genere-label">▼</span>
         </div>
-        <div class="tab-btn" onclick="openScreen('screen-estructura')">
+        <div class="tab-btn" onclick="openScreen('estructura')">
           ESTRUCTURA <span id="estructura-label">▼</span>
         </div>
-        <div class="tab-btn" onclick="openScreen('screen-ritme')">
+        <div class="tab-btn" onclick="openScreen('ritme')">
           RITME <span id="ritme-label">▼</span>
         </div>
-        <div class="tab-btn" onclick="openScreen('screen-pov')">
+        <div class="tab-btn" onclick="openScreen('pov')">
           POV <span id="pov-label">▼</span>
         </div>
       </div>
@@ -139,10 +139,11 @@
 
     let llibreGenerat = null;
 
-    // Navegació pantalles
+    // Navegació pantalles - accepta 'genere' i el converteix a 'screen-genere'
     window.openScreen = id => {
+      const screenId = 'screen-' + id;
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+      document.getElementById(screenId).classList.add('active');
       document.getElementById('menu').style.display = 'none';
     };
 
@@ -222,7 +223,7 @@
       document.getElementById('resultat').innerHTML = 
         `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules aprox</p>`;
       
-      openScreen('screen-lectura');
+      openScreen('lectura');
     }
 
     // Toggle índex lectura
