@@ -385,7 +385,7 @@ function generarLectura() {
         text += `<h3 id="${idEscena}">Escena ${escena}</h3>`;
         let escenaText = '';
 
-        escenaText += fill(randNoRep('obertura', plantillesCombinades.obertura), data) + ';
+        escenaText += fill(randNoRep('obertura', plantillesCombinades.obertura), data) + ' ';
 
         const numAccions = tens > 0.7? 5 : 4;
         for (let i = 0; i < numAccions; i++) {
@@ -402,7 +402,7 @@ function generarLectura() {
         }
 
         escenaText += fill(randNoRep('descripcio', plantillesCombinades.descripcio), data) + ' ';
-        escenaText += fill(randNoRep('descripcio', plantillesCombinades.descripcio), data) + ';
+        escenaText += fill(randNoRep('descripcio', plantillesCombinades.descripcio), data) + ' ';
 
         if (totalPersonatges > 1 && Math.random() > 0.3) {
           escenaText += fill(randNoRep('dialog', plantillesCombinades.dialog), data) + ' ';
