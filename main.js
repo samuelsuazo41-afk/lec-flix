@@ -28,6 +28,7 @@ const MULT_POV = {
 const rand = arr => arr[Math.floor(Math.random() * arr.length)];
 
 const randNoRep = (arr, key, max = 20) => {
+  if (!arr ||!arr.length) return null;
   const f = arr.filter(x =>!HIST[key].includes(x.id || x));
   const pool = f.length? f : arr;
   const sel = rand(pool);
@@ -58,7 +59,9 @@ export async function generarLlibre(config) {
 
   const numCap = preset.cap;
   const escPerCap = Math.ceil(preset.escenesPerCap * multPOV);
-  const beats = BANCS.banco_estructura.beats;
+  const beats = BANCS.banco_estructura?.beats || [];
+
+  if (!beats.length) throw new Error('banco_estructura buit');
 
   const capitols = [];
 
@@ -69,59 +72,73 @@ export async function generarLlibre(config) {
       const idx = i * escPerCap + j;
       const beat = beats[idx % beats.length];
 
-      // 1. Ubicació - si l'usuari ha triat "mon", filtra per ciutat
-      let ubiPool = BANCS.banco_ubicacion.filter(u => u.tags.includes('catalunya'));
+      // 1. UBICACIÓ - respecta config.mon
+      let ubiPool = BANCS.banco_ubicacion?.filter(u => u.tags?.includes('catalunya')) || [];
       if (config.mon) {
         ubiPool = ubiPool.filter(u => u.ciutat === config.mon);
       }
-      const ubi = ubiPool.length? randNoRep(ubiPool, 'ubicacions') : rand(BANCS.banco_ubicacion);
+      const ubi = ubiPool.length? randNoRep(ubiPool, 'ubicacions') : rand(BANCS.banco_ubicacion || []);
 
-      // 2. Escenari concret - si l'usuari ha triat escenari, l'usa directe
+      if (!ubi) continue;
+
+      // 2. ESCENARI - respecta config.escenariId
       let esc;
       if (config.escenariId) {
-        esc = BANCS.banco_escenarios.find(e => e.id === config.escenariId) || rand(BANCS.banco_escenarios);
-      } else {
-        const escPool = BANCS.banco_escenarios.filter(e =>
-          e.ciutat === ubi.ciutat && e.genero.some(g => generos.includes(g))
-        );
-        esc = escPool.length? randNoRep(escPool, 'escenaris') : rand(BANCS.banco_escenarios);
+        esc = BANCS.banco_escenarios?.find(e => e.id === config.escenariId);
       }
+      if (!esc) {
+        const escPool = BANCS.banco_escenarios?.filter(e =>
+          e.ciutat === ubi.ciutat && e.genero?.some(g => generos.includes(g))
+        ) || [];
+        esc = escPool.length? randNoRep(escPool, 'escenaris') : rand(BANCS.banco_escenarios || []);
+      }
+      if (!esc) continue;
 
-      // 3. Plantilla de lectura - ja no fa fallback a banco_ecenes
-      const lectPool = BANCS.banco_lectura.filter(l => generos.includes(l.genero));
-      const plantBase = lectPool.length? randNoRep(lectPool, 'plantilles') : rand(BANCS.banco_lectura);
+      // 3. PLANTILLA - ja no usa banco_ecenes
+      const lectPool = BANCS.banco_lectura?.filter(l => generos.includes(l.genero)) || [];
+      const plantBase = lectPool.length? randNoRep(lectPool, 'plantilles') : rand(BANCS.banco_lectura || []);
+      if (!plantBase) continue;
 
-      // 4. Personatge - si l'usuari ha triat, l'usa
+      // 4. PERSONATGE - respecta config.personatgeId
       let persBanc;
       if (config.personatgeId) {
-        persBanc = BANCS.banco_personatge.find(p => p.id === config.personatgeId) || BANCS.banco_personatge[0];
-      } else {
-        persBanc = BANCS.banco_personatge.find(p => generos.includes(p.genero)) || BANCS.banco_personatge[0];
+        persBanc = BANCS.banco_personatge?.find(p => p.id === config.personatgeId);
       }
-      const nom = rand(persBanc.banco_variables.nom);
-      const tic = rand(persBanc.banco_variables.tic || ['']);
+      if (!persBanc) {
+        persBanc = BANCS.banco_personatge?.find(p => generos.includes(p.genero)) || BANCS.banco_personatge?.[0];
+      }
+      if (!persBanc) continue;
 
-      // 5. Emoció
-      const emoPool = BANCS.banco_emocions.filter(e => generos.includes(e.genero));
-      const emo = emoPool.length? rand(emoPool) : BANCS.banco_emocions[0];
-      const sensacio = rand(emo.banco_variables.sensacio || ['El cor em batega']);
-      const pensament = rand(emo.banco_variables.pensament || emo.banco_variables.dubte || ['Penso en tot això']);
-      const reaccio = rand(emo.banco_variables.reaccio || emo.banco_variables.paralisis || ['Em quedo quiet']);
+      const nom = rand(persBanc.banco_variables?.nom || ['Protagonista']);
+      const tic = rand(persBanc.banco_variables?.tic || ['']);
 
-      // 6. Olor + So - FIX: banco_sons és array, no objecte indexat
+      // 5. EMOCIÓ
+      const emoPool = BANCS.banco_emocions?.filter(e => generos.includes(e.genero)) || [];
+      const emo = emoPool.length? rand(emoPool) : BANCS.banco_emocions?.[0];
+      const sensacio = rand(emo?.banco_variables?.sensacio || ['El cor em batega']);
+      const pensament = rand(emo?.banco_variables?.pensament || emo?.banco_variables?.dubte || ['Penso en tot això']);
+      const reaccio = rand(emo?.banco_variables?.reaccio || emo?.banco_variables?.paralisis || ['Em quedo quiet']);
+
+      // 6. OLOR + SO - FIX: banco_sons és array
       const tipusOlor = tipusOlorPerBeat(idx);
-      const olorBanc = BANCS.banco_olors.find(o => o.id === `olor_${tipusOlor}`);
+      const olorBanc = BANCS.banco_olors?.find(o => o.id === `olor_${tipusOlor}`);
       const olor = olorBanc? rand(olorBanc.texto_base) : rand(ubi.banco_variables?.olor || ['aire fred']);
 
-      const soBanc = BANCS.banco_sons.find(s => s.id === `so_${tipusOlor}`);
+      const soBanc = BANCS.banco_sons?.find(s => s.id === `so_${tipusOlor}`);
       const so = soBanc? rand(soBanc.texto_base) : rand(ubi.banco_variables?.so || ['silenci']);
 
       // 7. Dades per omplir plantilla
       const data = {
-        ciutat: ubi.ciutat, so, olor, nom, tic,
+        ciutat: ubi.ciutat,
+        so,
+        olor,
+        nom,
+        tic,
         escenario: rand(plantBase.banco_variables?.escenario || [esc.nom]),
         objeto: rand(plantBase.banco_variables?.objeto || plantBase.banco_variables?.element || ['alguna cosa']),
-        sensacio, pensament, reaccio,
+        sensacio,
+        pensament,
+        reaccio,
         percepcio: rand(plantBase.banco_variables?.percepcio || ['Veig']),
         mirada: rand(plantBase.banco_variables?.mirada || ['La seva mirada em busca']),
         desig: rand(plantBase.banco_variables?.desig || ['Vull dir-li el seu nom']),
@@ -149,17 +166,19 @@ export async function generarLlibre(config) {
       });
     }
 
-    capitols.push({ num: i + 1, escenes });
+    if (escenes.length) {
+      capitols.push({ num: i + 1, escenes });
+    }
   }
 
-  const totalParaulesAprox = numCap * escPerCap * preset.paraulesPerEscena;
+  const totalParaulesAprox = capitols.length * escPerCap * preset.paraulesPerEscena;
 
   return {
     metadata: {
       genere: genereUI,
       ritme: config.ritme || 'Novel·la',
       pov: config.pov || '1 Protagonista',
-      nCapitols: numCap,
+      nCapitols: capitols.length,
       escenesPerCapitol: escPerCap,
       paraulesAprox: totalParaulesAprox,
       dataGeneracio: new Date().toISOString()
