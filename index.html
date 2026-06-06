@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0d0f12">
   <title>Lec-Flix Genèric</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="styles.css?v=11">
 </head>
 <body>
   <header>
@@ -48,7 +48,66 @@
       </section>
     </section>
 
-    <!-- PANTALLES SELECCIÓ... igual que abans -->
+    <!-- PANTALLA 2: GÈNERE -->
+    <section id="screen-genere" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>GÈNERE</h2>
+      </div>
+      <div class="screen-content" id="genere-content">
+        <button class="opt-btn" onclick="selectGenere('accio')">Acció</button>
+        <button class="opt-btn" onclick="selectGenere('romantic')">Romàntic</button>
+        <button class="opt-btn" onclick="selectGenere('terror')">Terror</button>
+        <button class="opt-btn" onclick="selectGenere('misteri')">Misteri</button>
+        <button class="opt-btn" onclick="selectGenere('fantasia')">Fantasia</button>
+        <button class="opt-btn" onclick="selectGenere('comedia')">Comèdia</button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: ESTRUCTURA -->
+    <section id="screen-estructura" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>ESTRUCTURA</h2>
+      </div>
+      <div class="screen-content" id="estructura-content">
+        <button class="opt-btn" onclick="selectEstructura('3 Actes')">3 Actes Clàssic</button>
+        <button class="opt-btn" onclick="selectEstructura('Save the Cat')">Save the Cat</button>
+        <button class="opt-btn" onclick="selectEstructura('No Lineal')">No Lineal</button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: RITME -->
+    <section id="screen-ritme" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>RITME</h2>
+      </div>
+      <div class="screen-content" id="ritme-content">
+        <button class="opt-btn" onclick="selectRitme('Relat Curt')">
+          Relat Curt ~5k<br><small style="color:var(--text-muted)">3-5 capítols</small>
+        </button>
+        <button class="opt-btn" onclick="selectRitme('Novel·la')">
+          Novel·la 60k<br><small style="color:var(--text-muted)">17 capítols</small>
+        </button>
+        <button class="opt-btn" onclick="selectRitme('Èpic')">
+          Èpic 100k<br><small style="color:var(--text-muted)">25 capítols</small>
+        </button>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: POV -->
+    <section id="screen-pov" class="screen">
+      <div class="screen-header">
+        <button onclick="closeScreen()">← Tornar</button>
+        <h2>POV</h2>
+      </div>
+      <div class="screen-content" id="pov-content">
+        <button class="opt-btn" onclick="selectPov('1 Protagonista')">1 Protagonista</button>
+        <button class="opt-btn" onclick="selectPov('3 POV Rotatius')">3 POV Rotatius</button>
+        <button class="opt-btn" onclick="selectPov('Omniscient')">Narrador Omniscient</button>
+      </div>
+    </section>
 
     <!-- PANTALLA 3: LECTURA -->
     <section id="screen-lectura" class="screen">
@@ -72,14 +131,12 @@
   </main>
 
   <script type="module">
+  // Ruta base robusta per GitHub Pages
   const baseURL = new URL('.', import.meta.url).href;
-
+  
   let BANCS = {};
   let llibreGenerat = null;
-  let currentCapIdx = 0;
-  let currentEscIdx = 0;
-  let flatScenes = [];
-
+  
   try {
     const mod = await import(baseURL + 'data/loaderjson.js');
     BANCS = await mod.loadAllBancs();
@@ -127,26 +184,30 @@
     document.getElementById('genere-label').textContent = g.toUpperCase();
     closeScreen();
   };
+
   window.selectEstructura = e => {
     seleccio.estructura = e;
     document.getElementById('estructura-label').textContent = e;
     closeScreen();
   };
+
   window.selectRitme = r => {
     seleccio.ritme = r;
     document.getElementById('ritme-label').textContent = r;
     closeScreen();
   };
+
   window.selectPov = p => {
     seleccio.pov = p;
     document.getElementById('pov-label').textContent = p;
     closeScreen();
   };
 
+  // BOTÓ GENERAR amb ruta robusta
   document.getElementById('btn-generar').onclick = async () => {
     document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${seleccio.ritme}...</p>`;
     try {
-      const mod = await import(baseURL + 'main.js');
+      const mod = await import(baseURL + 'js/main.js');
       llibreGenerat = await mod.generarLlibre(seleccio, BANCS);
       mostrarLlibre(llibreGenerat);
     } catch (err) {
@@ -178,88 +239,20 @@
   };
 
   function mostrarLlibre(llibre) {
-    // Aplanar escenes per navegació
-    flatScenes = [];
-    llibre.capitols.forEach((cap, capIdx) => {
-      cap.escenes.forEach((esc, escIdx) => {
-        flatScenes.push({capIdx, escIdx, cap, esc});
+    const div = document.getElementById('lectura-content');
+    div.innerHTML = '';
+    llibre.capitols.forEach(cap => {
+      cap.escenes.forEach(esc => {
+        const el = document.createElement('div');
+        el.innerHTML = `<h3>${esc.titol}</h3><p>${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
+        div.appendChild(el);
       });
     });
-    currentCapIdx = 0;
-    currentEscIdx = 0;
-
-    construirTOC(llibre);
-    renderEscenaActual();
-
     document.getElementById('resultat').innerHTML =
       `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
-
     document.getElementById('menu').style.display = 'none';
     document.getElementById('screen-lectura').classList.add('active');
   }
-
-  function construirTOC(llibre) {
-    const toc = document.getElementById('toc-content');
-    toc.innerHTML = '';
-
-    llibre.capitols.forEach((cap, capIdx) => {
-      const capDiv = document.createElement('div');
-      capDiv.className = 'toc-acte';
-      capDiv.textContent = `Capítol ${cap.num} - ${cap.beat}`;
-      capDiv.onclick = () => saltarA(capIdx, 0);
-      toc.appendChild(capDiv);
-
-      cap.escenes.forEach((esc, escIdx) => {
-        if (esc.titol) {
-          const escDiv = document.createElement('div');
-          escDiv.className = 'toc-escena';
-          escDiv.textContent = esc.titol;
-          escDiv.onclick = () => saltarA(capIdx, escIdx);
-          toc.appendChild(escDiv);
-        }
-      });
-    });
-  }
-
-  function saltarA(capIdx, escIdx) {
-    currentCapIdx = capIdx;
-    currentEscIdx = escIdx;
-    renderEscenaActual();
-    document.getElementById('toc-container').classList.add('toc-hidden');
-  }
-
-  function renderEscenaActual() {
-    const idx = flatScenes.findIndex(s => s.capIdx === currentCapIdx && s.escIdx === currentEscIdx);
-    if (idx === -1) return;
-
-    const {cap, esc} = flatScenes[idx];
-    const div = document.getElementById('lectura-content');
-    div.innerHTML = `<h3>Capítol ${cap.num} - ${esc.titol || 'Tancament'}</h3><p>${esc.text}</p>`;
-
-    document.getElementById('btn-prev-seccio').disabled = idx === 0;
-    document.getElementById('btn-next-seccio').disabled = idx === flatScenes.length - 1;
-  }
-
-  document.getElementById('btn-prev-seccio').onclick = () => {
-    if (currentEscIdx > 0) {
-      currentEscIdx--;
-    } else if (currentCapIdx > 0) {
-      currentCapIdx--;
-      currentEscIdx = llibreGenerat.capitols[currentCapIdx].escenes.length - 1;
-    }
-    renderEscenaActual();
-  };
-
-  document.getElementById('btn-next-seccio').onclick = () => {
-    const cap = llibreGenerat.capitols[currentCapIdx];
-    if (currentEscIdx < cap.escenes.length - 1) {
-      currentEscIdx++;
-    } else if (currentCapIdx < llibreGenerat.capitols.length - 1) {
-      currentCapIdx++;
-      currentEscIdx = 0;
-    }
-    renderEscenaActual();
-  };
 
   document.getElementById('btn-toc-toggle').onclick = () => {
     document.getElementById('toc-container').classList.toggle('toc-hidden');
