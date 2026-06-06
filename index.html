@@ -106,7 +106,7 @@
       </div>
     </section>
 
-    <!-- NUEVO: PERSONATGE -->
+    <!-- PERSONATGE -->
     <section id="screen-personatge" class="screen">
       <div class="screen-header">
         <button onclick="closeScreen()">← Tornar</button>
@@ -117,7 +117,7 @@
       </div>
     </section>
 
-    <!-- NUEVO: MÓN -->
+    <!-- MÓN -->
     <section id="screen-mon" class="screen">
       <div class="screen-header">
         <button onclick="closeScreen()">← Tornar</button>
@@ -128,7 +128,7 @@
       </div>
     </section>
 
-    <!-- NUEVO: ESCENARI -->
+    <!-- ESCENARI -->
     <section id="screen-escenari" class="screen">
       <div class="screen-header">
         <button onclick="closeScreen()">← Tornar</button>
@@ -189,45 +189,38 @@
     // Carregar bancs al iniciar per omplir submenús
     loadAllBancs().then(b => {
       BANCS = b;
+      console.log('Bancs carregats:', Object.keys(BANCS));
       omplirSubmenus();
+    }).catch(err => {
+      console.error('Error carregant bancs:', err);
+      document.getElementById('resultat').innerHTML =
+        '<p style="color:red;text-align:center">Error carregant dades. Mira F12→Consola</p>';
     });
 
     function omplirSubmenus() {
       // Personatges
       const persDiv = document.getElementById('personatge-content');
-      BANCS.banco_personatge.forEach(p => {
-        const nom = p.banco_variables.nom[0];
-        persDiv.innerHTML += `<button class="opt-btn" onclick="selectPersonatge('${p.id}', '${nom}')">${nom}</button>`;
-      });
+      if (BANCS.banco_personatge) {
+        BANCS.banco_personatge.forEach(p => {
+          const nom = p.banco_variables?.nom?.[0] || 'Sense nom';
+          persDiv.innerHTML += `<button class="opt-btn" onclick="selectPersonatge('${p.id}', '${nom}')">${nom}</button>`;
+        });
+      }
 
       // Mons
       const monDiv = document.getElementById('mon-content');
-      BANCS.banco_ubicacion.forEach(u => {
-        monDiv.innerHTML += `<button class="opt-btn" onclick="selectMon('${u.ciutat}', '${u.ciutat}')">${u.ciutat}</button>`;
-      });
-    }
-
-    // Navegació pantalles
-    window.openScreen = id => {
-      const screenId = 'screen-' + id;
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      const target = document.getElementById(screenId);
-      if (target) {
-        target.classList.add('active');
-        document.getElementById('menu').style.display = 'none';
-        // Omplir escenaris quan entres segons ciutat seleccionada
-        if (id === 'escenari') omplirEscenaris();
+      if (BANCS.banco_ubicacion) {
+        BANCS.banco_ubicacion.forEach(u => {
+          monDiv.innerHTML += `<button class="opt-btn" onclick="selectMon('${u.ciutat}', '${u.ciutat}')">${u.ciutat}</button>`;
+        });
       }
-    };
-
-    window.closeScreen = () => {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById('menu').style.display = 'block';
-    };
+    }
 
     function omplirEscenaris() {
       const escDiv = document.getElementById('escenari-content');
       escDiv.innerHTML = `<button class="opt-btn" onclick="selectEscenari(null, 'Aleatori')">Aleatori</button>`;
+      if (!BANCS.banco_escenarios) return;
+
       let escPool = BANCS.banco_escenarios;
       if (seleccio.mon) {
         escPool = escPool.filter(e => e.ciutat === seleccio.mon);
@@ -237,11 +230,23 @@
       });
     }
 
-    function marcarActiu(containerId, valor) {
-      const container = document.getElementById(containerId);
-      container.querySelectorAll('.opt-btn').forEach(btn => btn.classList.remove('active'));
-      event?.target.classList.add('active');
-    }
+    // Navegació pantalles
+    window.openScreen = id => {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('screen-' + id);
+      if (target) {
+        target.classList.add('active');
+        document.getElementById('menu').style.display = 'none';
+        if (id === 'escenari') omplirEscenaris();
+      } else {
+        console.error('No existeix screen-' + id);
+      }
+    };
+
+    window.closeScreen = () => {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('menu').style.display = 'block';
+    };
 
     // Selectors
     window.selectGenere = g => {
@@ -277,7 +282,7 @@
     window.selectMon = (ciutat, nom) => {
       seleccio.mon = ciutat;
       document.getElementById('mon-label').textContent = nom;
-      seleccio.escenariId = null; // reset escenari quan canvia ciutat
+      seleccio.escenariId = null;
       document.getElementById('escenari-label').textContent = '▼';
       closeScreen();
     };
