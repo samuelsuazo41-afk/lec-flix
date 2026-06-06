@@ -38,10 +38,11 @@ export async function generarLlibre(config, bancs) {
   const generos = mapGenere[genereTriat] || ['policiac'];
 
   // 2. Beats amb fallback
-  const beats = bancs.banco_estructura?.beats || Array(config.nCapitols).fill({id:1, nom:'Beat'});
-  const beatsPerCapitol = Math.ceil(beats.length / config.nCapitols);
+const beats = bancs.banco_estructura?.beats || Array(config.nCapitols).fill({id:1, nom:'Beat'});
+const beatsPerCapitol = Math.ceil(beats.length / config.nCapitols);
+  
 
-  const capitols = [];
+const capitols = [];
 
   for (let i = 0; i < config.nCapitols; i++) {
     const beatsDelCapitol = beats.slice(i * beatsPerCapitol, (i + 1) * beatsPerCapitol);
