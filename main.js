@@ -5,11 +5,11 @@ let generarEscenaMotor = null;
 // CARREGAR MOTOR AMB RETRY - evita "is not a function"
 async function cargarMotor() {
   try {
-    // FORZAR PATH ABSOLUT per GitHub Pages
-    await import('https://samuelsuazo41-afk.github.io/core/generadorLlibre.js?v=' + Date.now());
+    // Path dins de /js/ on GitHub Pages sí funciona
+    await import('./generadorLlibre.js?v=' + Date.now());
   } catch (e1) {
     console.error('❌ ERROR CRÍTIC:', e1);
-    alert('ERROR: No es pot carregar el motor. URL: https://samuelsuazo41-afk.github.io/core/generadorLlibre.js');
+    alert('ERROR: No es pot carregar /js/generadorLlibre.js. Revisa que existeixi');
     return false;
   }
 
@@ -18,7 +18,7 @@ async function cargarMotor() {
     alert('ERROR: window.generarEscena no és funció');
     return false;
   }
-  console.log('✅ Motor V8.2 carregat correctament');
+  console.log('✅ Motor V8.3 carregat des de /js/');
   return true;
 }
 
