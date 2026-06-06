@@ -70,7 +70,7 @@ export async function generarLlibre(config) {
 
       // 1. Ubicació Catalunya
       const ubiPool = BANCS.banco_ubicacion.filter(u => u.tags.includes('catalunya'));
-      const ubi = randNoRep(ubiPool, 'ubicacions');
+      const ubi = ubiPool.length? randNoRep(ubiPool, 'ubicacions') : rand(BANCS.banco_ubicacion);
 
       // 2. Escenari concret
       const escPool = BANCS.banco_escenarios.filter(e =>
@@ -80,7 +80,9 @@ export async function generarLlibre(config) {
 
       // 3. Plantilla de lectura - PRIO 1: banco_lectura, FALLBACK: banco_ecenes
       const lectPool = BANCS.banco_lectura.filter(l => generos.includes(l.genero));
-      const plantBase = lectPool.length? randNoRep(lectPool, 'plantilles') : rand(BANCS.banco_ecenes.filter(e => generos.includes(e.genero)));
+      const plantBase = lectPool.length
+       ? randNoRep(lectPool, 'plantilles')
+        : rand(BANCS.banco_ecenes.filter(e => generos.includes(e.genero)));
 
       // 4. Personatge
       const persBanc = BANCS.banco_personatge.find(p => generos.includes(p.genero)) || BANCS.banco_personatge[0];
@@ -97,8 +99,8 @@ export async function generarLlibre(config) {
       // 6. Olor + So segons beat
       const tipusOlor = tipusOlorPerBeat(beat.id);
       const olorBanc = BANCS.banco_olors.find(o => o.id === `olor_${tipusOlor}`);
-      const olor = olorBanc? rand(olorBanc.texto_base) : rand(ubi.banco_variables.olor || ['aire fred']);
-      const so = rand(BANCS.banco_sons?.[tipusOlor] || ubi.banco_variables.so || ['silenci']);
+      const olor = olorBanc? rand(olorBanc.texto_base) : rand(ubi.banco_variables?.olor || ['aire fred']);
+      const so = rand(BANCS.banco_sons?.[tipusOlor] || ubi.banco_variables?.so || ['silenci']);
 
       // 7. Dades per omplir plantilla
       const data = {
