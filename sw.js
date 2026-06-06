@@ -1,16 +1,16 @@
-const CACHE_NAME = 'lec-flix-test-v96';
-
+const CACHE_NAME = 'lec-flix-test-v98';
 const urlsToCache = [
   './',
   './index.html',
   './styles.css',
   './main.js',
+  './core/generadorLlibre.js', // ← motor de frases sense export
   './manifest.json',
   './sw.js',
   './icon-192.png',
   './icon-512.png',
   './icon-512-maskable.png',
-  './data/loaderjson.js',
+  './data/loadBancs.js', // ← FIX: era loaderjson.js
   './data/banco_emocions.json',
   './data/banco_escenarios.json',
   './data/banco_estructura.json',
@@ -32,7 +32,7 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys =>
+    caches.keys().then(keys => 
       Promise.all(keys.map(key => key !== CACHE_NAME ? caches.delete(key) : null))
     ).then(() => self.clients.claim())
   );
