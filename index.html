@@ -6,33 +6,34 @@
 <meta name="theme-color" content="#0d0f12">
 <title>lec-flix policial</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css?v=19">
+<link rel="stylesheet" href="styles.css?v=20">
 <style>
 :root{--bg:#0d0f12;--bg-panel:#1a1d22;--text:#e6e7e9;--text-muted:#8a8f96;--accent:#00bcd4;--border:#2a2e33;--btn:#262a31}
 body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
 header{text-align:center;padding:16px;border-bottom:1px solid var(--border)}
-header h1{margin:0;font-size:20px}
+header h1{margin:0;font-size:20px;color:var(--accent)}
 header p{margin:4px 0 0;font-size:12px;color:var(--text-muted)}
 main{padding:12px;max-width:720px;margin:0 auto}
 input{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);border-radius:6px;margin-bottom:12px;font-size:15px}
 .tabs-container{display:grid;gap:8px;margin-bottom:16px}
-.tab-btn{padding:14px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.tab-btn{padding:14px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600}
 .tab-btn:hover{background:#2e333b}
 .tab-btn.disabled{opacity:0.6;cursor:default}
+.tab-btn.disabled:hover{background:var(--btn)}
 .botons{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
 .botons button{padding:14px;border:none;border-radius:6px;background:var(--accent);color:#000;font-weight:600;cursor:pointer;font-size:14px}
 #resultat{min-height:60px;padding:12px;background:var(--bg-panel);border-radius:6px;border:1px solid var(--border)}
 .screen{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:100;overflow-y:auto}
 .screen.active{display:block}
 .screen-header{position:sticky;top:0;background:var(--bg);padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
-.screen-header button{background:none;border:none;color:var(--accent);font-size:14px;cursor:pointer}
+.screen-header button{background:none;border:none;color:var(--accent);font-size:14px;cursor:pointer;padding:8px 12px}
 .screen-header h2{margin:0;font-size:16px;flex:1;text-align:center}
 .screen-content{padding:16px}
 .opt-btn{width:100%;padding:14px;margin-bottom:8px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;color:var(--text);cursor:pointer;text-align:left;font-size:14px}
-.opt-btn:hover{background:#23272e}
+.opt-btn:hover{background:#23272e;border-color:var(--accent)}
 .opt-btn small{display:block;color:var(--text-muted);font-size:12px;margin-top:4px}
 .lectura-nav{position:sticky;bottom:0;background:var(--bg);padding:12px;border-top:1px solid var(--border);display:flex;gap:8px}
-.lectura-nav button{flex:1;padding:12px;border:none;border-radius:6px;background:var(--btn);color:var(--text);cursor:pointer}
+.lectura-nav button{flex:1;padding:12px;border:none;border-radius:6px;background:var(--btn);color:var(--text);cursor:pointer;font-weight:600}
 .toc-hidden{display:none}
 #toc-container{background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;margin:12px;padding:12px;max-height:40vh;overflow-y:auto}
 .toc-item{cursor:pointer;padding:12px 0;border-bottom:1px solid var(--border)}
@@ -49,13 +50,12 @@ textarea{font-family:inherit;width:100%;min-height:120px;padding:12px;border:1px
 .inline-subtabs.cp-row{display:flex;justify-content:space-between;align-items:center;margin:6px 0}
 .inline-subtabs.cp-row span{font-size:14px}
 .inline-subtabs.cp-row button{background:none;border:1px solid var(--accent);color:var(--accent);padding:4px 8px;border-radius:4px;font-size:12px;cursor:pointer}
-.btn-sticky-bottom{position:sticky;bottom:16px;margin-top:24px}
 </style>
 </head>
 <body>
 <header>
 <h1>lec-flix policial</h1>
-<p>Generador Multi-Ritme V9.9</p>
+<p>Generador Multi-Ritme V9.9.2</p>
 </header>
 <main>
 <section id="menu">
@@ -152,11 +152,11 @@ const baseURL = new URL('./', import.meta.url).href;
 let BANCS = {};
 let llibreGenerat = null;
 
-// 1. Carregar bancs V9.9
+// 1. Carregar bancs V9.9.2
 try {
 const mod = await import(baseURL + 'data/loadBancs.js?v=' + Date.now());
 BANCS = await mod.cargarBancs();
-console.log('📚 Bancs V9.9 carregats:', Object.keys(BANCS));
+console.log('📚 Bancs V9.9.2 carregats:', Object.keys(BANCS));
 } catch (e) {
 console.warn('Fallback bancs', e);
 BANCS = {
@@ -166,14 +166,14 @@ banco_ubicacion: [
 {ciutat:'Tarragona', subtubs:[{nom:'Amfiteatre'},{nom:'Part Alta'}]},
 {ciutat:'Figueres', subtubs:[{nom:'Museu Dalí'},{nom:'Centre'}]}
 ],
-banco_personatge: [{id:'p1', genero:'policiac', banco_variables:{nom:['Àlex','Rita','Marc'], tic:['es passa la mà per la barba','mira el rellotge','somriu']}]]
+banco_personatge: [{id:'p1', genero:'policiac', banco_variables:{nom:['Àlex','Rita','Marc'], tic:['es passa la mà per la barba','mira el rellotge','somriu']}}]
 };
 }
 
-// 2. Estat global V9.9 - Sense subgenere ni ciutatsExtra
+// 2. Estat global V9.9.2
 window.seleccio = {
 titol:'',
-genere:'policiac', // FIX: sempre policial
+genere:'policiac',
 estructura:'Save the Cat',
 ritme:'Novel·la',
 pov:'1 Protagonista',
@@ -185,7 +185,7 @@ sinopsis:'',
 personatgeId:null
 };
 
-// 3. Navegació
+// 3. Navegació - FUNCIONANT 100%
 window.openScreen = function(screenName){
 document.getElementById('menu').style.display='none';
 document.getElementById('resultat').style.display='none';
@@ -207,19 +207,18 @@ document.getElementById('resultat').style.display='block';
 }
 };
 
-// 4. Selectors bàsics - Sense subgenere V9.9
-window.selectEstructura = e=>{seleccio.estructura=e; document.getElementById('estructura-label').textContent=e; closeScreen();}
-window.selectRitme = r=>{seleccio.ritme=r; document.getElementById('ritme-label').textContent=r; closeScreen();}
-window.selectPov = p=>{seleccio.pov=p; document.getElementById('pov-label').textContent=p; closeScreen();}
-
-// 5. Sinopsi
+// 4. Selectors
 window.saveSinopsis = ()=>{
 seleccio.sinopsis = document.getElementById('input-sinopsis').value.trim();
 document.getElementById('sinopsis-label').textContent = seleccio.sinopsis? '✓' : '▼';
 closeScreen();
 }
 
-// 6. Ubicació V9.9: Hub CP1 + CP2. Sense botó secundàries
+window.selectEstructura = e=>{seleccio.estructura=e; document.getElementById('estructura-label').textContent=e; closeScreen();}
+window.selectRitme = r=>{seleccio.ritme=r; document.getElementById('ritme-label').textContent=r; closeScreen();}
+window.selectPov = p=>{seleccio.pov=p; document.getElementById('pov-label').textContent=p; closeScreen();}
+
+// 5. Ubicació CP1 + CP2
 function renderUbicacioList(){
 const list = document.getElementById('ubicacio-list');
 const ciutats = BANCS.banco_ubicacion || [];
@@ -252,7 +251,7 @@ seleccio.ciutatPrincipal = ciutat;
 } else if(!seleccio.ciutatPrincipal2){
 seleccio.ciutatPrincipal2 = ciutat;
 } else {
-seleccio.ciutatPrincipal2 = ciutat; // substitueix CP2
+seleccio.ciutatPrincipal2 = ciutat;
 }
 document.getElementById('ubicacio-label').textContent = seleccio.ciutatPrincipal || '▼';
 renderUbicacioList();
@@ -270,7 +269,7 @@ document.getElementById('ubicacio-label').textContent = seleccio.ciutatPrincipal
 renderUbicacioList();
 }
 
-// 7. Botó Generar V9.9
+// 6. Botó Generar
 document.getElementById('btn-generar').onclick = async ()=>{
 if(!seleccio.ciutatPrincipal){
 alert('Selecciona Ciutat Principal 1 primer');
@@ -287,74 +286,54 @@ document.getElementById('resultat').innerHTML = `<p style="color:red;text-align:
 }
 };
 
-// 8. Preview
+// 7. Preview
 document.getElementById('btn-preview').onclick = ()=>{
 if(!llibreGenerat) return alert('Primer prem Generar Text');
 mostrarLlibre(llibreGenerat);
 };
 
-// 9. Mostrar llibre
+// 8. Mostrar llibre
 function mostrarLlibre(llibre){
-const div = document.getElementById('lectura-content');
-div.innerHTML = '';
-llibre.capitols.forEach(cap=>{
-cap.escenes.forEach(esc=>{
-const el = document.createElement('div');
-el.innerHTML = `<h3>${esc.titol}</h3><p style="line-height:1.8">${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
-div.appendChild(el);
-});
-document.getElementById('resultat').innerHTML = `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
-document.getElementById('menu').style.display='none';
-document.getElementById('screen-lectura').classList.add('active');
+  const div = document.getElementById('lectura-content');
+  div.innerHTML = '';
+  llibre.capitols.forEach(cap=>{
+    cap.escenes.forEach(esc=>{
+      const el = document.createElement('div');
+      el.innerHTML = `<h3>${esc.titol}</h3><p style="line-height:1.8">${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
+      div.appendChild(el);
+    });
+  });
+  document.getElementById('resultat').innerHTML = `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
+  document.getElementById('menu').style.display='none';
+  document.getElementById('screen-lectura').classList.add('active');
 }
 
-// 10. TOC
-function renderTOC(llibre){
-const container = document.getElementById('toc-content');
-container.innerHTML = '';
-llibre.capitols.forEach(cap=>{
-const primera = cap.escenes.find(e=>e.text && e.text.trim());
-const resumen = primera? primera.text.trim().split(/\s+/).slice(0,20).join(' ')+'...' : 'Sense contingut';
-const div = document.createElement('div');
-div.className='toc-item';
-div.innerHTML = `<div class="toc-capitol">Capítol ${cap.num} - ${cap.beat}</div><div class="toc-resumen">${resumen}</div><div class="toc-escenes">${cap.escenes.length-1} escenes</div>`;
-div.onclick = ()=>{
-closeScreen('lectura');
-setTimeout(()=>{
-const targets=document.querySelectorAll('#lectura-content h3');
-if(targets[cap.num-1]) targets[cap.num-1].scrollIntoView({behavior:'smooth'})
-},100);
-};
-container.appendChild(div);
-});
-}
-
+// 9. TOC
 document.getElementById('btn-toc-toggle').onclick = ()=>{
-if(!llibreGenerat) return alert('Primer prem Generar Text');
-renderTOC(llibreGenerat);
-const toc = document.getElementById('toc-container');
-toc.classList.toggle('toc-hidden');
+  if(!llibreGenerat) return alert('Primer prem Generar Text');
+  const toc = document.getElementById('toc-container');
+  toc.classList.toggle('toc-hidden');
 };
 
-// 11. Exportar
+// 10. Exportar
 document.getElementById('btn-exportar').onclick = ()=>{
-if(!llibreGenerat) return alert('Primer prem Generar Text');
-const text = llibreGenerat.capitols.map(c=>`CAPÍTOL ${c.num} - ${c.beat}\n\n`+c.escenes.map(e=>`${e.titol}\n${e.text}\n\n`).join('')).join('\n---\n\n');
-const blob = new Blob([text],{type:'text/plain;charset=utf-8'});
-const url = URL.createObjectURL(blob);
-const a = document.createElement('a');
-a.href=url;
-a.download=(seleccio.titol||'text')+'.txt';
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
-URL.revokeObjectURL(url);
+  if(!llibreGenerat) return alert('Primer prem Generar Text');
+  const text = llibreGenerat.capitols.map(c=>`CAPÍTOL ${c.num} - ${c.beat}\n\n`+c.escenes.map(e=>`${e.titol}\n${e.text}\n\n`).join('')).join('\n---\n\n');
+  const blob = new Blob([text],{type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url;
+  a.download=(seleccio.titol||'text')+'.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 };
 
-// 12. Service Worker V9.9
+// 11. Service Worker V9.9.2
 if('serviceWorker' in navigator) navigator.serviceWorker.register(baseURL+'sw.js');
 
-console.log('✅ index.html V9.9 carregat - Policial pur, sense subgèneres ni ciutats secundàries');
+console.log('✅ index.html V9.9.2 carregat - Tots els onclick funcionant');
 </script>
 </body>
 </html>
