@@ -1,0 +1,162 @@
+[
+  {
+    "id": "cafe_frio",
+    "tipus": "respir",
+    "peso": 1.0,
+    "ratio": "20_policial_60_humano_20_personal",
+    "tags_enlace": ["rutina", "flaw_trabajo", "comisaria"],
+    "texto_base": "{{personatge}} va deixar el cafè a l'escriptori desordenat quan va sonar la trucada del beat 4. [POLICIAL] Va contestar, va apuntar notes al dossier polsós del cas antic i quan va tornar a la tassa, era fred. Com sempre. Com des de feia deu anys. [HUMANO] Va agafar la tassa igual, sense fer ganyotes. La camisa tenia taques de tres dies i la bugada podia esperar. Feia olor de {{olor}} i rutina de comissaria, cafè refredat i paper vell barrejat. {{so}} de {{ciutat}} despertant fora, els primers cotxes i la ràdio policia amb noms que ja no importaven. [PERSONAL] Va mirar la foto de cartera, vella i doblegada, que va caure mentre buscava un bolígraf. La germana somrient des de paper. 'Després la trucaré', es va prometre. Mentida que es repetia cada matí. Un minut de pau abans que el beat 5 el tornés a engolir amb dubtes."
+  },
+  {
+    "id": "bugada_oblidada",
+    "tipus": "humaniza", 
+    "peso": 0.8,
+    "ratio": "10_policial_70_humano_20_personal",
+    "tags_enlace": ["flaw_evitativo", "vida_solo", "casa"],
+    "texto_base": "La camisa que portava tenia taques de cafè fred del beat 1 i olor de {{olor}} i tabac vell del beat 8. [HUMANO] {{personatge}} la va mirar al mirall del lavabo de la comissaria, va sospirar i se la va tornar a posar. La bugada podia esperar. Sempre podia esperar quan hi havia un cadàver a {{escenari}}. [POLICIAL] El dossier polsós l'esperava sobre l'escriptori desordenat, amb la prova desapareguda marcada en vermell. [PERSONAL] Va pensar en la germana que sempre li deia 'Eres un desastre, hermano'. Tenia raó. {{so}} de la rentadora de la veïna del 1r sonava de fons, cicle d'esbandida. Olor de suavitzant que entrava per la finestra entreoberta. Imperfecte, real, humà. Flaw: addicte al treball i evitatiu amb la seva pròpia vida. Com el beat 3 havia plantat."
+  },
+  {
+    "id": "vecino_chismoso",
+    "tipus": "humano",
+    "peso": 0.9,
+    "ratio": "30_policial_50_humano_20_personal", 
+    "tags_enlace": ["secundario_vida_diaria", "comunidad", "casa"],
+    "texto_base": "El veí del 3r, el 'chismoso' que surt a totes hores, va obrir la porta quan {{personatge}} tornava de la patrulla nocturna del beat 1. [HUMANO] 'Otra vez a estas horas, inspector? Su madre me pregunta por usted'. Olor de {{olor}} i sopar de microones sortia del seu pis. {{so}} de la tele de fons, notícies de {{ciutat}}. [POLICIAL] {{personatge}} duia sota el braç el dossier del catalitzador del beat 4, amb fotos del cadàver encara humides. No va respondre, només va assentir cansat. [PERSONAL] El veí va tancar la porta però va deixar el pa calent a l'escala. 'Para que comas algo, hijo. Que estás muy flaco'. Gest petit que pesava més que qualsevol medalla de la comissaria. {{personatge}} va agafar el pa amb mans que tremolaven del beat 10. Connexió humana sense paraules, com la B_Story del beat 7."
+  },
+  {
+    "id": "llamada_madre",
+    "tipus": "personal",
+    "peso": 0.9,
+    "ratio": "10_policial_30_humano_60_personal",
+    "tags_enlace": ["fantasma_familiar", "culpa", "tema_beat2"],
+    "texto_base": "El mòbil va vibrar sobre l'escriptori desordenat just quan {{personatge}} llegia la lliçó del beat 2: 'La veritat sempre surt'. [PERSONAL] A la pantalla: 'Mamá'. Va mirar la foto de cartera, la va mirar a ella per vídeo trucada, i va penjar. Tres segons. Després va enviar missatge amb dits que tremolaven del beat 11: 'Estoy bien'. Mentida piadosa que tothom diu però que a ell li cremava la gola. [HUMANO] Feia olor de {{olor}} i culpa a l'oficina buida. {{so}} del missatge enviat va ressonar com una acusació. [POLICIAL] Sobre la taula, l'ordre d'arrest del beat 4 que ja no servia per res. La promesa trencada al pare mort del beat 12 pesava més que la placa. Va guardar el mòbil i va tornar al dossier polsós, però la culpa es va quedar asseguda a la cadira buida del davant."
+  },
+  {
+    "id": "nevera_vacia",
+    "tipus": "respir",
+    "peso": 0.8,
+    "ratio": "15_policial_70_humano_15_personal",
+    "tags_enlace": ["vida_solo", "rutina", "agotamiento"],
+    "texto_base": "{{personatge}} va obrir la nevera de casa després del beat 10 quan tot va fallar. [HUMANO] Res. Va tancar. Va obrir de nou com si hagués aparegut menjar per art de màgia. Només hi havia un iogurt caducat fa dos dies i una ampolla d'aigua mig buida. Va agafar el iogurt i va menjar dret a la cuina, amb la camisa bruta del beat 3 enganxada a l'esquena. Feia olor de {{olor}} i soledat absoluta. {{so}} del cullerot de plàstic raspant el pot buit va ser l'únic soroll. [POLICIAL] Al cap, el pla falla del beat 10 ressonava: aliat cau, prova destruïda, porta bloquejada. [PERSONAL] Va pensar en el pare: 'Has de cuidar-te, hijo'. No ho feia. Vida de solter policial que toca fons al beat 11. Va llençar el pot a la brossa i va tornar a la comissaria amb la panxa buida però el cap ple de l'arma lliurada."
+  },
+  {
+    "id": "bar_de_siempre",
+    "tipus": "humano",
+    "peso": 1.0,
+    "ratio": "40_policial_50_humano_10_personal",
+    "tags_enlace": ["ancla_realidad", "rutina", "comunidad"],
+    "texto_base": "El del bar de sota ja tenia el cafè calent quan {{personatge}} va entrar després del beat 8. [HUMANO] 'Lo de siempre?' sense ni mirar-lo, amb {{so}} de tasses xocant i gent parlant del partit de {{ciutat}}. Feia olor de {{olor}} i normalitat, cafè torrat i entrepans de pernil. [POLICIAL] {{personatge}} es va asseure a la cantonada, d'esquena a la porta com sempre. Sota la taula, la mà dreta tocava l'arma lliurada del beat 14. Sobre la barra, el dossier secret del beat 8 amb la pista falsa doblegada. [PERSONAL] Va mirar el mòbil. Cap missatge de la germana. Cap missatge de l'ex. Només silenci. Per 10 minuts no era inspector, era un client més amb ojeras i factures per pagar del beat 15. Va deixar 2 euros de propina. 'Para cuando ganes', va dir el del bar. Va somriure per primer cop des del beat 9."
+  },
+  {
+    "id": "columna_trafico",
+    "tipus": "respir",
+    "peso": 0.7,
+    "ratio": "30_policial_60_humano_10_personal",
+    "tags_enlace": ["ciudad", "impotencia", "tiempo"],
+    "texto_base": "{{personatge}} va quedar atrapat a la columna de cotxes de {{ciutat}} quan anava corrents a {{escenari}} pel beat 13. [HUMANO] Ningú avançava. Va tamborilejar els dits al volant amb {{tic}} nerviós del beat 1 i va somriure amarg. Feia olor de {{olor}} i gasolina cremada, clàxons impacients per tot arreu. {{so}} de la ràdio policia anunciant un accident a l'altre costat de la ciutat. [POLICIAL] Al seient del copilot, el dossier polsós obert a la pàgina de l'arma secreta del beat 13. Pla final, tot o res, però el trànsit no entenia d'urgències. [PERSONAL] Va mirar el rellotge: 4:32 AM, la mateixa hora que va signar la reobertura al beat 6. Ironia. Per 5 minuts va odiar {{ciutat}} més que a {{antagonista}}. Després va respirar fons i va acceptar. El temps s'esgota, però no es controla."
+  },
+  {
+    "id": "quiosco_diario",
+    "tipus": "humano",
+    "peso": 0.8,
+    "ratio": "40_policial_50_humano_10_personal",
+    "tags_enlace": ["ancla_realidad", "verdad", "tema_beat2"],
+    "texto_base": "El del quiosc, vell i amb ulls que ho han vist tot, li va donar el diari sense cobrar quan {{personatge}} passava després del beat 9. [HUMANO] 'Ya pagarás cuando resuelvas el caso, inspector. Hoy ganas tú'. Feia olor de {{olor}} i paper imprès, tinta fresca i cafè del thermos. {{so}} del quiosc tancant a les 10 PM mentre {{ciutat}} s'apagava. [POLICIAL] A la portada: notícia del cas antic amb foto manipulada del beat 9. Falsa victòria impresa en tinta. {{personatge}} va doblegar el diari i el va guardar a la gavardina, al costat de la prova definitiva del beat 14. [PERSONAL] 'La veritat sempre surt', va murmurar recordant el beat 2. El vell del quiosc va assentir sense dir res més. Paraules que no demanava però que necessitava sentir abans del beat 10."
+  },
+  {
+    "id": "lluvia_ventana",
+    "tipus": "respir",
+    "peso": 0.9,
+    "ratio": "20_policial_60_humano_20_personal",
+    "tags_enlace": ["reflexion", "noche_oscura", "paz"],
+    "texto_base": "Plovia fort sobre {{ciutat}} després del beat 11 quan tot es va perdre. [HUMANO] {{personatge}} va deixar l'informe a mitges i es va quedar mirant la pluja per la finestra entreoberta de la comissaria. {{so}} de gotes contra el vidre marcava el ritme del beat 12. Feia olor de {{olor}} i terra mullat, petricor que netejava l'aire de sang. [POLICIAL] Darrere seu, a l'escriptori desordenat, el dossier cremat del beat 11. Casa cremada, nom tacat, soledat absoluta. Però per 30 segons no va pensar en cadàvers ni en l'arma lliurada. [PERSONAL] Va tancar els ulls i va escoltar. La lliçó del beat 2 ressonava amb cada gota: 'Has de perdonar'. Havia de perdonar-se. La nit més fosca del beat 12 començava amb pluja netejant la finestra. Pau impossible abans de la tempesta final."
+  },
+  {
+    "id": "foto_cartera",
+    "tipus": "personal",
+    "peso": 0.9,
+    "ratio": "10_policial_30_humano_60_personal",
+    "tags_enlace": ["familia", "culpa", "promesa"],
+    "texto_base": "{{personatge}} va treure la cartera per pagar el cafè del bar del beat 7 i la foto de família va caure a terra. [PERSONAL] Vella, doblegada per la meitat, cantons gastats de tantes vegades treta i guardada. La germana petita somrient, el pare amb la mà a l'espatlla, ell amb 15 anys i ulls que encara no havien vist un cadàver. La va agafar amb dits que tremolaven del beat 10. Feia olor de {{olor}} i temps perdut, paper vell i records. {{so}} de la cartera tancant-se va sonar com una porta. [HUMANO] El del bar va fer veure que no mirava. Respecte silenciós. [POLICIAL] Va guardar la foto a la butxaca interior, al costat de la placa que deixaria al beat 15. Promesa no complerta: 'Vendré a comer el domingo'. Diumenge rere diumenge. Fantasma personal que el perseguia des del beat 3."
+  },
+  {
+    "id": "ultimo_cafe",
+    "tipus": "respir",
+    "peso": 1.0,
+    "ratio": "20_policial_60_humano_20_personal",
+    "tags_enlace": ["ritual", "paz", "imagen_inicial_final"],
+    "texto_base": "Era l'últim cafè del paquet quan {{personatge}} va tornar a casa després del beat 14. [HUMANO] Va mesurar el pols amb cura quirúrgica, com si fos prova definitiva. L'aigua va bullir, l'olor de {{olor}} i cafè torrat va omplir la cuina buida. {{so}} del cafè caient a la tassa esquerdada que usava des del beat 1. Es va asseure a la finestra i va mirar {{ciutat}} despertar amb posta sol del beat 15. [POLICIAL] No hi havia dossier sobre la taula. No hi havia arma sota la camisa. Cas tancat. [PERSONAL] Per 3 minuts no era inspector, no era l'home del beat 11 amb nom tacat. Era només home prenent cafè. Va despenjar el mòbil i va trucar: 'Hola, mamá. Sí, estoy bien. De verdad'. I era veritat per primer cop. Contrast total amb el cafè fred del beat 1. Nou començament, foto nova a la butxaca."
+  },
+  {
+    "id": "ropa_tendida",
+    "tipus": "humaniza",
+    "peso": 0.6,
+    "ratio": "10_policial_80_humano_10_personal",
+    "tags_enlace": ["normalidad", "envidia_sana", "ciudad"],
+    "texto_base": "La roba del veí del 4t portava tres dies al balcó de davant la comissaria. [HUMANO] {{personatge}} la veia des de la finestra entreoberta cada cop que sortia a fumar del beat 8. Llençols blancs movent-se al vent de {{ciutat}}. Feia olor de {{olor}} i suavitzant, normalitat que ell no tenia des del beat 1. {{so}} de pinces xocant entre elles. [POLICIAL] A l'escriptori desordenat l'esperava el dossier del beat 4 amb sang seca a la cantonada. [PERSONAL] Va envidiar aquell llençol blanc 2 segons. Gent que tenia vida fora del crim, fora de l'arma lliurada del beat 14. Després va tancar la finestra i va tornar a la prova desapareguda."
+  },
+  {
+    "id": "ascensor_averia",
+    "tipus": "respir",
+    "peso": 0.7,
+    "ratio": "30_policial_60_humano_10_personal",
+    "tags_enlace": ["impotencia", "tiempo", "comisaria"],
+    "texto_base": "L'ascensor de la comissaria es va quedar aturat entre pisos quan {{personatge}} pujava amb el dossier del beat 5 sota el braç. [HUMANO] Va prémer el botó d'alarma i va sospirar. {{so}} de la màquina parat i silenci incòmode. Feia olor de {{olor}} i metall vell, pols de anys sense manteniment. [POLICIAL] Al cap li ressonava el debat del beat 5: 'Si vaig, puc morir'. L'ascensor aturat era una metàfora barata però real. [PERSONAL] Va treure la foto de cartera del beat 10 i la va mirar a la llum d'emergència. 4 minuts esperant el tècnic. 4 minuts sense pensar en {{antagonista}}. Només impaciència i la promesa de trucar la germana quan sortís."
+  },
+  {
+    "id": "cigarrillo_ultimo",
+    "tipus": "humano",
+    "peso": 0.8,
+    "ratio": "40_policial_50_humano_10_personal",
+    "tags_enlace": ["ritual", "tension", "flaw_adiccion"],
+    "texto_base": "{{personatge}} va treure l'última cigarreta del paquet arrugat a la butxaca de la gavardina després del beat 8. [HUMANO] La va encendre lent, mirant {{ciutat}} des de {{escenari}} mentre baixava fum. Feia olor de {{olor}} i tabac vell, brasa cremant a la foscor. {{so}} de la ciutat llunyana de fons. [POLICIAL] A la mà esquerra subjectava la prova manipulada del beat 9. Falsa victòria. La cigarreta tremolava amb cada bocanada. [PERSONAL] Promesa repetida des del beat 3: 'dejo de fumar después de este caso'. Promesa que es trencava cada cas. Flaw: addicte al treball i al tabac. Va apagar la burilla al terra i va entrar a l'interrogatori final del beat 14."
+  },
+  {
+    "id": "facturas_mesa",
+    "tipus": "humaniza",
+    "peso": 0.8,
+    "ratio": "20_policial_70_humano_10_personal",
+    "tags_enlace": ["vida_real", "presion", "soledad"],
+    "texto_base": "Sobre la taula de casa, junt al dossier polsós del beat 6, hi havia factures sense obrir apilades. [HUMANO] Llum, aigua, lloguer, targeta. {{personatge}} les va apartar amb el colze per fer lloc al pla final del beat 13. Feia olor de {{olor}} i paper vell, deutes que no dormien. {{so}} del paper fregant la fusta vella. [POLICIAL] La veritat revelada del beat 13 no pagava factures, però les factures no deixaven de arribar cada mes. [PERSONAL] Va pensar en la germana que sempre li deia 'Busca un trabajo normal'. Aquest era normal per ell. Va agafar una factura i la va doblegar per marcar la pàgina del dossier. Prioritats: primer justícia, després pagar."
+  },
+  {
+    "id": "sueño_incompleto",
+    "tipus": "personal",
+    "peso": 0.9,
+    "ratio": "10_policial_30_humano_60_personal",
+    "tags_enlace": ["noche_oscura", "fantasma", "culpa"],
+    "texto_base": "{{personatge}} es va adormir sobre l'escriptori desordenat després del beat 10 amb la cara sobre l'informe de l'arma trencada. [PERSONAL] Va somniar amb el pare mort del beat 12. 'Hijo, has de perdonar. Has de confiar'. El pare sacsejava el cap amb decepció. Es va despertar amb un sobresalt i baba al paper, amb {{tic}} nerviós del beat 1. Feia olor de {{olor}} i culpa vella. {{so}} de la ràdio policia despertant-lo amb noms que no importaven. [HUMANO] Es va eixugar la boca amb la màniga bruta del beat 3. [POLICIAL] Davant seu, el dossier cremat del beat 11. Fantasmes que no deixen dormir des del beat 2. La nit fosca de l'ànima havia començat i el pare tenia raó."
+  },
+  {
+    "id": "paraguas_roto",
+    "tipus": "respir",
+    "peso": 0.6,
+    "ratio": "30_policial_60_humano_10_personal",
+    "tags_enlace": ["derrota_pequeña", "ciudad", "resiliencia"],
+    "texto_base": "Plovia a bots i barrals quan {{personatge}} va sortir de {{escenari}} després del beat 10 amb el pla falla al cap. [HUMANO] Va obrir el paraigua vell i es va trencar una vareta amb un 'crac' sec. Va sospirar, va maleir baix i va continuar sota la pluja igual. Feia olor de {{olor}} i derrota petita, aigua freda coll avall. {{so}} de la pluja picant al paraigua trencat i als cotxes de {{ciutat}}. [POLICIAL] A la butxaca, el dossier mullat del beat 10 amb la prova destruïda. Un problema més a la llista, ja n'hi havia prou amb l'aliat cau. [PERSONAL] Va pensar: si podia suportar això, podia suportar el beat 11. Toca fons però caminant. Resiliència barata de policia cansat."
+  },
+  {
+    "id": "mensaje_ex",
+    "tipus": "personal",
+    "peso": 0.8,
+    "ratio": "5_policial_35_humano_60_personal",
+    "tags_enlace": ["pasado", "soledad", "cadira_vacia"],
+    "texto_base": "Notificació al mòbil a les 3 AM durant el debat del beat 5: 'Espero que estés bien'. L'ex. [PERSONAL] {{personatge}} va mirar el missatge 5 segons sencers i va bloquejar la pantalla sense respondre. Els dits van dubtar sobre el teclat. Feia olor de {{olor}} i passat, perfume que encara recordava. {{so}} de la pantalla apagant-se va sonar com una porta tancant-se. [HUMANO] Va mirar la cadira buida del bar del beat 7 on anaven abans. Costum que costa trencar. [POLICIAL] Sobre la taula, el dossier del beat 5 amb 'No sóc l'heroi' subratllat. No era heroi per ella tampoc. Va guardar el mòbil i va tornar al dubte: puc confiar? I si fallo de nou?"
+  },
+  {
+    "id": "pan_caliente",
+    "tipus": "humano",
+    "peso": 0.9,
+    "ratio": "15_policial_70_humano_15_personal",
+    "tags_enlace": ["comunidad", "cuidado", "ancla"],
+    "texto_base": "La veïna del 1r va trucar suau a la porta quan {{personatge}} tornava del beat 9 amb la falsa victòria a la butxaca. [HUMANO] 'Hijo, te dejo pan caliente. Para celebrar, que te veo la cara'. Va deixar la bossa de paper i va marxar sense esperar gràcies ni explicacions. {{personatge}} va obrir la bossa amb mans que encara tremolaven del beat 10. Feia olor de {{olor}} i llar, forn de llenya i casa. {{so}} de la porta tancant-se suau al passadís. [POLICIAL] Dins la bossa, sota el pa, hi havia una nota: 'Cuídate'. Res més. [PERSONAL] Gest petit que pesava més que qualsevol medalla de la comissaria. Va partir un tros i es va menjar dempeus. Per primer cop des del beat 1, el pa no sabia a soledat."
+  },
+  {
+    "id": "diente_flojo",
+    "tipus": "humaniza",
+    "peso": 0.5,
+    "ratio": "5_policial_80_humano_15_personal",
+    "tags_enlace": ["cuerpo", "desgaste", "tiempo"],
+    "texto_base": "{{personatge}} es raspallava les dents a les 4 AM al lavabo de la comissaria després de l'interrogatori del beat 8. [HUMANO] Se li movia una molar. Va passar la llengua per sobre i va fer una ganyota al mirall esquerdat. Feia olor de {{olor}} i pasta de dents barata de màquina. {{so}} de l'aixeta tancant-se malament, degoteig constant. [PERSONAL] Cos que es trenca a poc a poc. Com l'ànima des del beat 11. Va escopir i va mirar la sang al lavabo. Signes que envelleix. [POLICIAL] Va tornar al despatx amb la boca sabor a ferro i al dossier del beat 12. La nit fosca de l'ànima també feia mal físic. Havia de perdonar-se abans que se li caiguessin totes les dents."
+  }
+]
