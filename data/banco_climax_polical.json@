@@ -842,4 +842,201 @@
       "Esposas clic en manos arrugadas",
       "{{personatge}}: 'La ley no tiene familia'"
     ],
-    "frases
+    "frases_accion": [
+      "Foto antigua en mesa: {{personatge}} niño con {{antagonista}}",
+      "Mano arrugada de {{antagonista}} tiembla al extenderla",
+      "Esposas clic en manos que le dieron de comer",
+      "{{personatge}} no mira la foto al salir",
+      "Ambulancia espera abajo. 80 años",
+      "Enfermera llora en pasillo sin decir nada",
+      "{{personatge}} deja chaqueta sobre silla de {{antagonista}}",
+      "Puerta de habitación 12 cerrándose despacio",
+      "Silencio roto solo por máquinas de oxígeno",
+      "{{antagonista}} aprieta mano de {{personatge}} una última vez",
+      "Placa sobre mesa de noche, junto a foto familiar",
+      "{{personatge}} respira hondo antes de hablar"
+    ],
+    "frases_emocion": [
+      "Dolor de arrestar a quien te crió",
+      "Culpa por cumplir la ley vs amor por sangre",
+      "Lágrima de {{personatge}} que no cae",
+      "{{antagonista}}: orgullo y vergüenza mezclados",
+      "No hay respuesta correcta. Solo ley",
+      "Abrazo que no se da. Esposas que sí",
+      "20 años de recuerdos vs 1 decisión",
+      "Perdón en ojos de {{antagonista}}",
+      "Dureza de {{personatge}} se quiebra 1 segundo",
+      "La ley no llora. Él casi sí",
+      "Madre/avi convertido en expediente",
+      "Familia perdida dos veces"
+    ],
+    "frases_final": [
+      "Última frase: 'La ley no tiene familia. Solo tiene casos'",
+      "Última frase: 'Te crié para esto. Te arresto por esto'",
+      "Última frase: 'Hijo primero. Policía siempre'",
+      "Última frase: 'Caso cerrado. Familia rota'"
+    ]
+  },
+  {
+    "id": "explosion_final",
+    "beat": 14,
+    "peso": 0.6,
+    "tipo": "profesional",
+    "escenario": "obra_construccion_piso_20",
+    "climax": "{{personatge}} i {{antagonista}} cauen. Només un agafa cable",
+    "frases_dialogo": [
+      "Suelo se rompe. Ambos caen al vacío",
+      "{{antagonista}}: 'Si caigo, caes conmigo'",
+      "{{personatge}}: 'Entonces caemos. Pero tú esposado'",
+      "{{antagonista}}: 'Suéltame o morimos los dos'",
+      "{{personatge}}: 'Prefiero morir que soltarte'",
+      "{{antagonista}}: *grita* 'Nooooo'",
+      "{{personatge}}: *jadea* 'Caso... cerrado'",
+      "Cable cruje. Aguanta 3 segundos",
+      "{{personatge}}: 'Adiós, {{antagonista}}'",
+      "Sirenas abajo. Llegan tarde",
+      "{{personatge}} sube solo, herido, vivo",
+      "Último grito de {{antagonista}} se apaga"
+    ],
+    "frases_accion": [
+      "Hormigón cede bajo sus pies",
+      "Ambos caen. {{personatge}} agarra cable de acero",
+      "{{antagonista}} agarra tobillo de {{personatge}}",
+      "{{personatge}} corta cable con cuchillo táctico",
+      "{{antagonista}} cae gritando 20 pisos",
+      "Cuerpo impacta en lona de obra abajo",
+      "{{personatge}} sube con fuerza en brazos",
+      "Sangre en manos por cable quemando",
+      "Polvo y escombros caen tras él",
+      "Helicóptero ilumina escena desde arriba",
+      "Bomberos recogen cuerpo de {{antagonista}}",
+      "{{personatge}} se desmaya en borde del edificio"
+    ],
+    "frases_emocion": [
+      "Adrenalina pura. Miedo a caer",
+      "Elegir entre su vida y la justicia",
+      "Si suelta, traiciona a {{victima}}",
+      "Si no suelta, mueren los dos",
+      "Última fuerza de voluntad",
+      "Alivio al tocar suelo firme",
+      "Victoria que sabe a casi-muerte",
+      "Cuerpo pide rendirse. Mente dice no",
+      "Dolor físico menor que dolor moral",
+      "Ganó. Pero casi no lo cuenta"
+    ],
+    "frases_final": [
+      "Última frase: 'Ganó. Pero casi muere ganando'",
+      "Última frase: '20 pisos. 1 cable. 0 segundas oportunidades'",
+      "Última frase: 'Caso cerrado. Yo sigo vivo'",
+      "Última frase: 'La gravedad no perdona. Yo tampoco'"
+    ]
+  },
+  {
+    "id": "justicia_poesia",
+    "beat": 14,
+    "peso": 0.1,
+    "tipo": "bèstia",
+    "escenario": "cementerio_noche_lluvia",
+    "climax": "{{personatge}} no mata ni arresta. Deixa {{antagonista}} viu amb culpa",
+    "frases_dialogo": [
+      "{{personatge}}: 'No te mato. Te dejo vivir con esto'",
+      "{{antagonista}}: 'Mátame. Es más fácil'",
+      "{{personatge}}: 'La muerte es fácil. Vivir con culpa no'",
+      "Lee 12 nombres. Uno por uno. En voz alta",
+      "{{antagonista}}: 'Para. Por favor para'",
+      "{{personatge}}: 'Esto sentían sus familias cada noche'",
+      "{{antagonista}}: 'Ya no puedo más'",
+      "{{personatge}}: 'Ellos tampoco pudieron. Ahora entiendes'",
+      "Deja lista de víctimas en pecho de {{antagonista}}",
+      "{{antagonista}}: '¿Por qué no me disparas?'",
+      "{{personatge}}: 'Porque sufrir es peor que morir'",
+      "Se va sin mirar atrás. Lluvia cae"
+    ],
+    "frases_accion": [
+      "Lápidas mojadas reflejan luz de luna",
+      "{{personatge}} clava lista en lápida de {{victima}}",
+      "{{antagonista}} de rodillas en barro",
+      "Lluvia lava nombres escritos en papel",
+      "{{personatge}} deja arma en suelo. No la usa",
+      "{{antagonista}} recoge lista con manos temblorosas",
+      "Silencio. Solo lluvia y respiración",
+      "No hay esposas. No hay disparo",
+      "{{personatge}} se aleja entre tumbas",
+      "{{antagonista}} grita al cielo. Nadie responde",
+      "Sirenas llegan 5 minutos después",
+      "Lista queda empapada pero legible"
+    ],
+    "frases_emocion": [
+      "Venganza sin sangre. Justicia cruel",
+      "{{personatge}} elige tortura psicológica sobre bala",
+      "Dolor de {{antagonista}} es real, no físico",
+      "Culpa como cadena perpetua",
+      "No hay final feliz. Solo final justo",
+      "Vacío en {{personatge}} después de hacerlo",
+      "Si mata, se iguala a él",
+      "Si perdona, traiciona a muertos",
+      "Tercera vía: hacerle vivir infierno",
+      "Alivio amargo"
+    ],
+    "frases_final": [
+      "Última frase: 'La peor cárcel es la memoria'",
+      "Última frase: 'Vive. Y recuerda cada nombre'",
+      "Última frase: 'No hay bala para la culpa'",
+      "Última frase: 'Justicia poética. Caso cerrado'"
+    ]
+  },
+  {
+    "id": "ciclo_se_cierra",
+    "beat": 14,
+    "peso": 0.3,
+    "tipo": "humano",
+    "escenario": "comisaria_mesa_4_17am",
+    "climax": "Tanca cercle: mateix lloc que beat 1. {{personatge}} deixa placa i agafa cas nou",
+    "frases_dialogo": [
+      "{{personatge}} deja placa en mesa 4:17 AM",
+      "Jefe: 'Caso cerrado, inspector. Descansa'",
+      "{{personatge}}: 'Descanso cuando {{ciutat}} descanse'",
+      "Abre cajón. Saca nueva carpeta: 'Caso 48'",
+      "{{personatge}}: 'Uno más. Siempre uno más'",
+      "Compañero: 'No duermes nunca, ¿eh?'",
+      "{{personatge}}: 'Dormiré cuando no haya más víctimas'",
+      "Café nuevo. Más negro que antes",
+      "{{personatge}} mira foto de {{victima}} en pared",
+      "{{personatge}}: 'Por ti. Y por los que vienen'",
+      "Jefe: 'Te quemas, hijo'",
+      "{{personatge}}: 'Me quemo. Pero ilumino'"
+    ],
+    "frases_accion": [
+      "Placa sobre mesa de madera gastada",
+      "Carpeta nueva con etiqueta roja: URGENTE",
+      "{{personatge}} se pone chaqueta vieja",
+      "Foto de {{victima}} pasa de 'activa' a 'resuelta'",
+      "Café humea en taza con grieta",
+      "Luces fluorescentes parpadean",
+      "Reloj marca 4:18 AM. Un minuto después",
+      "{{personatge}} apaga luz de escritorio",
+      "Sale a calle vacía. Niebla",
+      "Puerta de comisaria se cierra tras él",
+      "Ciudad duerme. Él no",
+      "Ciclo empieza de nuevo"
+    ],
+    "frases_emocion": [
+      "Cansancio acumulado de 20 casos",
+      "Orgullo por caso cerrado",
+      "Vacío porque siempre hay otro",
+      "Promesa silenciosa a {{victima}}",
+      "No hay final. Solo pausas",
+      "Adicción a justicia",
+      "Miedo a dejar de ser útil",
+      "Esperanza: caso 48 será el último",
+      "Sabe que miente",
+      "Sonríe por primera vez en días"
+    ],
+    "frases_final": [
+      "Última frase: 'Fin de este caso. Inicio del siguiente'",
+      "Última frase: 'Caso 47 cerrado. Caso 48 abierto'",
+      "Última frase: 'La ciudad duerme. Yo vigilo'",
+      "Última frase: 'No hay descanso para los que hacen justicia'"
+    ]
+  }
+]
