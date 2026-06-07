@@ -1,213 +1,171 @@
 {
+  "regla_motor": "60_policial_30_humano_10_personal",
+  "version": "v142_FINAL",
   "beats": [
     {
       "id": 1,
       "nom": "Imagen_inicial",
       "percent": 0.01,
-      "objectiu": "Mostrar el món normal del protagonista abans del caos. Mostrar el seu flaw principal.",
-      "emocions_permeses": ["calma", "rutina", "avorriment", "comoditat", "monotonia", "pau"],
-      "tipus_escena": "exposicio",
-      "preguntes_lectura": 2,
-      "vocab_generes": {
-        "policiac": ["comissaria", "paperassa", "cafè fred", "cas antic", "rutina", "informes", "arxiu", "patrulla nocturna", "ràdio policia", "escriptori desordenat", "dossier polsós", "tornada a casa tard"],
-        "misterio": ["casa gran", "silenci", "fotografia antiga", "porta tancada", "rellotge parat", "polseguera", "carta sense obrir", "gàbia buida", "mirall cobert", "calaix amb clau"],
-        "thriller": ["rellotge", "espera", "mirar per la finestra", "silenci tens", "telefonada tallada", "llum parpellejant", "pas al passadís", "porta entreoberta", "missatge esborrat", "ombra al mur"],
-        "drama": ["cuina", "conversa familiar", "feina", "factures", "taula parada", "sofà vell", "fotografia família", "discussió en veu baixa", "silenci incòmode", "menjar refredat"],
-        "romance": ["cafeteria", "missatge sense respondre", "caminar sol", "pluja", "banc al parc", "llibre a mitges", "cadira buida", "cançó a la ràdio", "mirar el mòbil", "cafè per dos"],
-        "aventura": ["mapa", "motxilla", "preparatius", "bitllet", "brúixola", "bota vella", "tenda de campanya", "guia de viatge", "passaport", "llista equipatge"],
-        "fantasia": ["llibre d’encanteris", "ciutat tranquil·la", "mercat", "aura màgica", "font encantada", "taverna", "cristall brillant", "pergamí", "bastó", "porta rúnica"],
-        "terror": ["casa buida", "passadís fosc", "mirall", "soroll llunyà", "porta que cruix", "ombra mòbil", "respiració al darrere", "fotografia borrosa", "ninot caigut", "gota freda al coll"]
-      }
+      "objectiu": "Món normal + flaw + vida diària abans del caos",
+      "ratio": "40_policial_50_humano_10_personal",
+      "plantilles_escena": [
+        "{{personatge}} arribava a la comissaria quan encara era fosc, les 5:47 AM marcades al rellotge de la paret. [POLICIAL] L'olor de cafè fred de tres dies enrere i paperassa vella omplia l'aire dens de l'oficina buida. El dossier polsós del cas antic l'esperava sobre l'escriptori desordenat, com cada nit des de feia sis mesos. Les pàgines estaven plenes de ratlles vermelles i notes que ningú més entenia. La cinta groga del cas estava mig desenganxada a la cantonada, com si la veritat volgués escapar sola. [HUMANO] La camisa tenia taques de tres dies i la bugada podia esperar una setmana més. Va obrir la nevera minúscula del despatx: res. Va agafar el iogurt caducat de feia dos dies i va menjar dret, sense cadira, mirant per la finestra. El pa de la veïna del 1r estava sobre la taula, dur com una pedra. Va beure aigua de l'aixeta perquè el cafè s'havia acabat. [PERSONAL] El mòbil va vibrar sobre la fusta: 'Mamá'. Va mirar la pantalla 3 segons llargs i va penjar sense respirar. Després va enviar 'Estoy bien' amb dits que tremolaven una mica. Mentida piadosa que es repetia cada diumenge. {{so}} de la ràdio policia va trencar el minut de pau amb un nom que no volia escoltar.",
+        "Rutina sagrada i maldita: patrulla nocturna, informes sense fi, tornar a casa tard quan {{ciutat}} ja no tenia nom. [POLICIAL] L'arxiu de la comissaria feia olor de pols, humitat i casos tancats que no ho estaven del tot. Els calaixos s'encallaven i les carpetes queien soles quan les tocava. El cas antic tenia el seu nom escrit amb llapis a la portada, esborrat i tornat a escriure tres cops. Cada nit passava per allà i comprovava que el pany seguís tancat. No ho estava mai del tot. [HUMANO] El veí del 3r va sortir al replà quan obria la porta amb les claus tremolant. 'Otra vez a estas horas, inspector?' amb olor de sopar de microones i pijama vell. {{so}} de la tele de fons amb un concurs que ningú mirava. Va assentir i va pujar sense dir res, com sempre. A l'escala feia olor de detergent barat i vida de gent que dormia. [PERSONAL] La foto de família al calaix del despatx el mirava sense dir res, com cada nit. Ell, més jove, somrient al costat del pare i la germana petita. El vidre estava esquerdat a la cantonada. Flaw: addicte al treball, incapaç de deixar anar, incapaç de perdonar-se. {{ciutat}} dormia fora i ell no, no dormia des de feia anys."
+      ]
     },
     {
       "id": 2,
       "nom": "Tema_plantejat",
       "percent": 0.05,
-      "objectiu": "Plantejar la lliçó moral del llibre a través d'un personatge secundari.",
-      "emocions_permeses": ["curiositat", "dubte", "reflexió", "sorpresa"],
-      "tipus_escena": "dialog",
-      "preguntes_lectura": 2,
-      "vocab_temes": [
-        "Ningú pot fugir del seu passat",
-        "La veritat sempre surt",
-        "L’amor val més que la por",
-        "La venjança no cura",
-        "Per guanyar has de perdre algo",
-        "La confiança es trenca un cop",
-        "El silenci també mata",
-        "Tothom amaga un secret",
-        "El coratge neix de la por",
-        "No pots salvar tothom"
+      "objectiu": "Lliçó moral via personatge normal",
+      "ratio": "30_policial_40_humano_30_personal",
+      "plantilles_escena": [
+        "\"La veritat sempre surt\", va dir el vell del quiosc mentre li donava el diari sense cobrar, com cada matí des de feia deu anys. [HUMANO] 'Ya pagarás cuando resuelvas el caso, inspector'. Feia olor de {{olor}} i paper de diari vell, tinta que tacava els dits. El vell no preguntava mai, només mirava i assentia. Darrere seu, la ràdio del quiosc parlava de futbol i de morts que ningú recordaria. [POLICIAL] {{personatge}} tenia el dossier polsós sota el braç, apretat contra el pit com un escut. Cas antic, mentides noves, noms que tornaven. La cinta groga de l'escena del crim estava doblegada dins la carpeta. Algú havia mentit aleshores i seguia mentint ara. [PERSONAL] El pare mort li va dir el mateix al somni de la nit anterior, amb la mateixa veu cansada. 'Hijo, has de perdonar abans que sigui tard'. Va despertar suant i amb la foto de família a la mà. {{so}} del quiosc tancant amb persiana de ferro va marcar la lliçó com una sentència. Ningú fuig del passat, ni tan sols ell que ho havia intentat tota la vida.",
+        "La germana va trucar i aquesta vegada va despenjar abans que sonés tres cops, amb el cor accelerat. [PERSONAL] 'Solo quería saber si estás bien, hermano. No me cuelgues'. Feia olor de {{olor}} i culpa a la línia telefònica, una culpa vella de deu anys sense visitar. Es van fer silenci els dos, incapaços de dir el que realment importava. Ella respirava a l'altre costat i ell comptava les seves pròpies respiracions. [HUMANO] Ell mirava la cadira buida del bar on anaven abans, quan eren joves i no hi havia cadàvers de por. El cambrer va deixar un got d'aigua sense dir res, sabent. [POLICIAL] Damunt la taula, amagada sota el diari, la fotografia compromesa del cas antic. La seva cara jove al lloc equivocat, amb la persona equivocada. La lliçó moral: el silenci també mata, i ell portava anys callant per protegir-se. La veritat crema més que la mentida, però cura."
       ]
     },
     {
       "id": 3,
       "nom": "Setup",
       "percent": 0.10,
-      "objectiu": "Presentar protagonista, flaw, objectiu, món i personatges secundaris clau.",
-      "emocions_permeses": ["esperança", "desig", "frustració", "ambició"],
-      "tipus_escena": "presentacio",
-      "preguntes_lectura": 2,
-      "vocab_flaws": ["impulsiv", "desconfiat", "orgullós", "poruc", "obsessiu", "cínic", "testarrut", "gelós", "naïf", "addicte al treball", "evitatiu", "venjatiu"],
-      "vocab_objectius": ["trobar", "escapar", "salvar", "descobrir", "venjar", "protegir", "recuperar", "exposar", "conquerir", "demostrar", "resoldre", "reunir"]
+      "objectiu": "Prota + flaw + objectiu + món + secundaris",
+      "ratio": "50_policial_30_humano_20_personal",
+      "plantilles_escena": [
+        "{{personatge}} era cínic i desconfiat, ho deia tothom a la comissaria sense por. [POLICIAL] Ho deien en veu baixa quan passava pel passadís amb el dossier antic sota el braç. El seu objectiu era simple i obsessiu: resoldre el cas antic i demostrar que no s'havia equivocat fa deu anys, quan van tancar massa ràpid. Escenari: escriptori desordenat, piles de paper fins al sostre, cafè fred en tasses amb cercles marrons. L'olor de {{olor}} i rutina el perseguia fins a casa. Cada calaix tenia un secret i cada secret pesava. [HUMANO] El del bar de sota li tenia el cafè calent preparat abans que baixés les escales. 'Lo de siempre, inspector?' encara que feia setmanes que no baixava abans de les 4 PM. {{so}} de tasses xocant contra el taulell de zinc. Li deixava el diari doblegat a la pàgina de successos. No parlaven, no calia. [PERSONAL] La promesa trencada al company mort pesava més que la placa a la butxaca. 'No dejaré que se quede así' li va jurar al taüt, amb pluja caient. Món: comissaria buida a les nits, {{ciutat}} que no dorm mai del tot, i ell al mig de les dues coses sense pertànyer a cap.",
+        "Orgullós i testarrut, incapaç de demanar ajuda ni quan s'estava ofegant. [PERSONAL] Així el va descriure l'ex al missatge de fa tres mesos que encara no havia esborrat: 'Sigues igual d'orgullós i sol'. No va respondre mai. La paraula 'sol' li va quedar clavada. [HUMANO] La rentadora de la veïna del 2n sonava a centrifugat a les 11 PM mentre ell tenia la camisa bruta de tres dies penjada a la cadira. No tenia temps per bugada, ni ganes. L'olor de {{olor}} i detergent barrejat amb cafè vell. [POLICIAL] Escenari complet: comissaria buida, arxiu amb pany trencat, patrulla nocturna sense company. Objectiu clar: salvar la testimoni que ningú creia perquè tenia passat. Secundaris col·locats: mentor jubilat que apareix quan plou, informant que només parla en passadissos foscos, companya nova que el mira massa."
+      ]
     },
     {
       "id": 4,
       "nom": "Catalitzador",
       "percent": 0.10,
-      "objectiu": "Trencar la normalitat. Incident que obliga al protagonista a actuar.",
-      "emocions_permeses": ["sorpresa", "por", "ràbia", "xoc", " incredulitat"],
-      "tipus_escena": "gir",
-      "preguntes_lectura": 3,
-      "vocab_generes": {
-        "policiac": ["cadàver", "trucada anònima", "prova desapareguda", "amenaza", "bossa amb diners", "arma al calaix", "fotografia compromesa", "testimoni mort", "ordre d’arrest", "xantatge"],
-        "misterio": ["carta anònima", "habitació buida", "objecte mogut", "veu", "clau nova", "passadís secret", "diari desaparegut", "finestra trencada", "petjada fangosa", "perfum estrany"],
-        "thriller": ["persecució", "bomba", "segrest", "filmació", "xip robat", "dossier classificat", "cotxe sense matrícula", "missatge codificat", "vení al cafè", "rastre de sang"],
-        "drama": ["diagnòstic", "traïció", "acomiadament", "secret", "embaràs inesperat", "deute", "carta d’advocat", "fotografia antiga", "confessió", "accident"],
-        "romance": ["ex apareix", "petó inesperat", "malentès", "proposta", "missatge erroni", "troballa al carrer", "confessió borratxo", "foto comprometedora", "viatge sorpresa", "gelosia"],
-        "aventura": ["mapa robat", "tempesta", "portal", "criatura", "terratrèmol", "vaixell enfonsat", "compàs trencat", "senyal fum", "caça recompensa", "runa antiga"],
-        "fantasia": ["profecia", "maledicció", "artefacte despertat", "drac", "portal màgic", "encanteri trencat", "orcle parla", "grial brillant", "torre cau", "fang fosc"],
-        "terror": ["assassinat", "aparició", "possessió", "ritual", "mirall trencat", "ninot parla", "sang a la paret", "porta s’obre sola", "veu al telèfon", "ombra sense cos"]
-      }
+      "objectiu": "Trencar normalitat. Incident obliga actuar",
+      "ratio": "80_policial_15_humano_5_personal",
+      "plantilles_escena": [
+        "Telèfon va sonar a les 3:17 AM amb un so sec que tallava els somnis. [POLICIAL] {{personatge}} va despenjar amb la veu adormida i només va sentir {{so}} de respiració pesada a l'altre costat. Res més. Després el soroll de cotxe allunyant-se i silenci. Una hora després, el cadàver va aparèixer a {{escenari}} amb les mans lligades i l'olor de {{olor}} i sang seca al terra fred. L'ordre d'arrest que tenia al calaix, precintada feia anys, ja no servia per res. Algú havia mogut les peces del tauler mentre ell dormia. La prova desapareguda del cas antic el mirava des de la bossa de proves oberta. [HUMANO] El cafè que havia deixat a mitges sobre l'escriptori es va refredar del tot mentre agafava la gavardina. Ja no tenia gust, només amarg. [PERSONAL] Va pensar en la germana que no va trucar diumenge passat i que potser no trucaria més. El món normal es va trencar en 3 segons i ja no hi havia marxa enrere.",
+        "Trucada anònima amb veu distorsionada: 'Mira sota el pont del riu, inspector'. [POLICIAL] Va penjar abans que pogués preguntar. Allà hi havia la bossa amb diners i l'arma al calaix que ell mateix havia precintat i guardat com a prova fa deu anys. Feia olor de {{olor}} i traïció, una olor metàl·lica que reconeixia. El testimoni mort del cas antic no podia haver trucat, estava enterrat. {{tic}} el va trair davant del mirall retrovisor: algú dins del cos el havia venut, algú que coneixia el pany del calaix. [HUMANO] La columna de cotxes aturada a {{ciutat}} no el deixava avançar. {{so}} de clàxons i gent cridant per la finestra. Per 2 minuts va odiar el trànsit més que el crim. Va mirar l'hora i va maldir. [PERSONAL] No tornaria a ser el mateix home que havia entrat a la comissaria. El catalitzador l'havia tocat i el canvi ja havia començat."
+      ]
     },
     {
       "id": 5,
       "nom": "Debat",
       "percent": 0.25,
-      "objectiu": "El protagonista dubta. 'Entro al món nou o no?'",
-      "emocions_permeses": ["por", "dubte", "ansietat", "negació", "paràlisi"],
-      "tipus_escena": "confrontacio_interna",
-      "preguntes_lectura": 3,
-      "vocab_dilemes": [
-        "Si vaig, puc morir",
-        "Si no vaig, perdré a algú",
-        "No estic preparat",
-        "No tinc elecció",
-        "Em creuran boig",
-        "Ja ho he intentat abans",
-        "No sóc l’heroi",
-        "El preu és massa alt",
-        "Puc confiar?",
-        "I si fallo de nou?"
+      "objectiu": "Dubte intern. Entro al món nou o no?",
+      "ratio": "40_policial_40_humano_20_personal",
+      "plantilles_escena": [
+        "\"Si vaig, puc morir\", va pensar {{personatge}} mirant l'arma sobre la taula, freda i negra. [POLICIAL] La trucada anònima encara ressonava al cap com un eco que no callava. Les paraules del sospitós: 'Tú tampoco eres limpio'. Feia olor de {{olor}} i por barata a l'oficina buida, una por que feia anys que no sentia. {{so}} de la pluja contra el vidre sonava com un compte enrere que s'acabava. No estava preparat, no tenia elecció, però si no anava perdria a algú innocent. [HUMANO] La nevera estava buida excepte per una ampolla d'aigua i el iogurt caducat. Va obrir, va tancar, va obrir de nou. Va agafar el iogurt i va menjar dret, sense gust, mirant la paret. {{so}} del cullerot raspant el plàstic va ser l'únic soroll. Va deixar el pot a la pica, sense rentar. [PERSONAL] 'No sóc l'heroi', va dir al mirall esquerdat del lavabo. La foto de família al calaix no el jutjava, només mirava amb ulls que no entenien. Si no anava a {{escenari}}, el cas moriria amb ell. Si anava, potser moria ell. Debat sense guanyador, només conseqüències.",
+        "{{personatge}} va agafar l'arma i la va deixar. La va agafar de nou i la va tornar a deixar. [POLICIAL] 'Ja ho he intentat abans i vaig fallar', es va dir a si mateix amb veu seca. Les mans suaven i l'arma relliscava. El dossier obert mostrava el seu error de fa deu anys amb tinta vermella. [HUMANO] El veí del 1r va picar suaument i li va deixar pa calent a la porta. 'Hijo, come algo. Te ves mal' sense preguntar res més. Feia olor de {{olor}} i llar, una olor que no tenia a casa seva. Va agafar el pa i va tancar la porta sense dir gràcies. [PERSONAL] La germana va tornar a trucar. Va mirar la pantalla i no va despenjar. Puc confiar en la companya nova? I si fallo de nou i algú més mor per culpa meva? El preu era massa alt, massa personal. {{so}} del rellotge de paret marcava segons que no tornarien mai. El debat el consumia per dins i no hi havia resposta correcta."
       ]
     },
     {
       "id": 6,
       "nom": "Punto_de_giro_1",
       "percent": 0.25,
-      "objectiu": "El protagonista decideix entrar al món nou. Fi de l'Acte 1.",
-      "emocions_permeses": ["determinació", "por", "valentia", "resignació"],
-      "tipus_escena": "decisio",
-      "preguntes_lectura": 2,
-      "vocab_accions": ["creuar porta", "agafar arma", "pujar al tren", "dir que sí", "saltar", "signar paper", "trucar número", "obrir carta", "encendre llum", "trencar promesa"]
+      "objectiu": "Decideix entrar. Fi Acte 1",
+      "ratio": "70_policial_20_humano_10_personal",
+      "plantilles_escena": [
+        "{{personatge}} va mirar el dossier polsós sobre la taula per última vegada abans de tancar-lo. [POLICIAL] Després va agafar l'arma, la va comprovar, es va posar la gavardina vella i va sortir a la pluja sense paraigües. Creuar la porta de la comissaria era creuar la línia que separava policia de venjança personal. Ja no era home seguint rutina, era home buscant veritat a qualsevol preu. Feia olor de {{olor}} i decisió a l'aire mullat. Darrere seu, {{ciutat}} dormia ignorant. Davant, només hi havia {{escenari}} i les preguntes sense resposta que el cremaven. [HUMANO] El del bar va aixecar la mà quan el va veure passar per davant. 'Cuídate, inspector'. No va respondre, només va assentir una mica. La porta del bar va sonar quan va tancar. [PERSONAL] Va deixar el mòbil a sobre la taula del despatx. Sense missatges de 'Mamá' per contestar. Punt de no retorn marcat amb tinta. Va sortir sabent que si tornava, seria diferent o no tornaria.",
+        "Va signar el paper de reobertura del cas a les 4:32 AM amb tinta que semblava sang. [POLICIAL] Ningú el veia, ningú l'aturava, ningú li preguntava. Va trucar al número que havia jurat no marcar mai més, el número de l'informant que havia desaparegut. 'Entro', va dir amb veu que no reconeixia, i va penjar sense esperar resposta. El punt de no retorn marcat amb foc. Feia olor de {{olor}} i risc a cada respiració mentre {{so}} de sirenes llunyanes li donava permís. [HUMANO] Va agafar el pa que li va deixar la veïna del 1r i se'l va menjar caminant sota la pluja. Feia olor de {{olor}} i casa, una olor que no tenia des de feia anys. Les molles queien a terra i la pluja les esborrava. [PERSONAL] Va pensar en el pare: 'Has de perdonar, hijo'. No perdonaria, però faria justícia. El món nou l'esperava a {{escenari}} i ell ja no podia girar enrere sense morir per dins."
+      ]
     },
     {
       "id": 7,
       "nom": "B_Story",
       "percent": 0.30,
-      "objectiu": "Introduir la subtrama emocional. Romance, amistat o mentor.",
-      "emocions_permeses": ["connexió", "atracció", "complicitat", "tendresa"],
-      "tipus_escena": "relacio",
-      "preguntes_lectura": 2,
-      "vocab_relacions": ["mentor", "company", "interès amorós", "amic infància", "antagonista redimit", "germà perdut", "veí curiós", "informant", "guia", "ombra protectora"]
+      "objectiu": "Subtrama emocional. Connexió humana",
+      "ratio": "30_policial_50_humano_20_personal",
+      "plantilles_escena": [
+        "El mentor va aparèixer a {{escenari}} quan {{personatge}} menys s'ho esperava, amb dues tasses de cafè calent i olor de tabac americà vell. [HUMANO] 'T'ho vaig dir fa deu anys', va murmurar mentre deixava una tassa sobre la taula esquerdada. No hi havia judici als seus ulls, només complicitat de vells que han vist massa. {{so}} de la pluja fora tapava el silenci incòmode entre ells dos. El mentor tenia les mans tacades i l'esquena corbada. [POLICIAL] Va treure de la butxaca interna la fotografia del dossier que faltava, la prova que ningú sabia que existia. La va deixar damunt la taula sense dir res. Prova nova, pista viva. [PERSONAL] 'El teu pare estaria orgullós de com ho fas', va dir baix, mirant per la finestra. Per primera vegada en anys, {{personatge}} no se sentia sol amb el pes del cas. Connexió sense paraules, només respecte i cafè calent compartit.",
+        "La companya nova va entrar al despatx de {{personatge}} sense trucar, amb l'informe que faltava i olor de {{olor}} i confiança que no demanava permís. [HUMANO] 'No t'ho diré dues vegades', va dir mentre deixava el dossier damunt l'escriptori desordenat i es quedava dreta, esperant. Portava roba mullada de pluja i els cabells enganxats a la cara. No va seure, no va preguntar. [POLICIAL] Dins de la carpeta hi havia el nom del soplón que buscaven feia mesos, amb adreça i hora. Dades que no estaven a cap base oficial. [PERSONAL] Es van quedar callats 30 segons llargs, mirant-se als ulls sense parpellejar. Dos cínics en un món de mentides que havien deixat de creure. La B_Story no era amor, era respecte professional que pesava més. I això, en el seu món, valia més que qualsevol declaració."
+      ]
     },
     {
       "id": 8,
       "nom": "Fun_and_Games",
       "percent": 0.50,
-      "objectiu": "La promesa del gènere. El gènere brilla aquí.",
-      "emocions_permeses": ["diversió", "aventura", "tensió", "eufòria"],
-      "tipus_escena": "desenvolupament",
-      "preguntes_lectura": 2,
-      "vocab_generes": {
-        "policiac": ["interrogatori", "persecució cotxe", "pista falsa", "autòpsia", "escorcoll", "tapadura", "rueda reconeixement", "soplón", "dossier secret", "batuda"],
-        "misterio": ["cerca pistes", "entrevista sospitós", "habitació secreta", "codi xifrat", "passadís ocult", "llibre amb anotacions", "retrat alterat", "objecte desaparegut"],
-        "thriller": ["bomba rellotge", "traïció", "cursa contra temps", "microfilm", "xip secret", "vení tòxic", "filmació incriminatòria", "doble agent"],
-        "drama": ["confrontació familiar", "judici", "reconciliació", "discurs", "carta llegida", "foto reveladora", "confessió plorant", "abraçada tardana"],
-        "romance": ["cita", "gelosia", "malentès còmic", "petó sota pluja", "ball lent", "carta amor", "viatge junts", "declaració borratxo", "gelosia infundada"],
-        "aventura": ["trampa", "tresor", "mapa", "monstre", "pont penjant", "tempesta mar", "cova fosca", "criatura alada", "duna mòbil", "runa guardada"],
-        "fantasia": ["duel màgic", "criatura mítica", "ciutat volant", "drac jove", "encanteri fallit", "poció explosiva", "portal inestable", "bastó robat"],
-        "terror": ["jumpscare", "persecució fosc", "possessió", "ritual", "mirall sagnant", "ninot mou cap", "veu al ràdio", "porta s’obre sola", "sombra s’allarga", "aire glaçat"]
-      }
+      "objectiu": "La promesa del gènere brilla",
+      "ratio": "70_policial_25_humano_5_personal",
+      "plantilles_escena": [
+        "Interrogatori va durar quatre hores seguides sense aigua ni pausa. [POLICIAL] {{personatge}} va seure davant del sospitós i va deixar que {{so}} del rellotge de paret fes tota la feina. Feia olor de {{olor}} i tabac vell impregnat a la paret. La pista falsa el va portar a l'autòpsia a les 3 AM, l'autòpsia el va portar a l'escorcoll il·legal, i l'escorcoll el va portar al dossier secret que no existia oficialment en cap registre. Cada porta oberta a {{escenari}} portava a una mentida més gran que l'anterior. [HUMANO] A mitja sessió va sortir al passadís a fumar un cigarret que no volia. El del quiosc li va donar foc sense dir res, només assentint. {{so}} de l'encenedor va ser l'únic so real en hores. 3 minuts de vida normal, de fum i silenci. Després va tornar a la sala. [PERSONAL] Va pensar en la germana: 'Estoy bien, de verdad'. Mentida que es repetia. Va tornar a la sala i va tancar la porta. El gènere brillava: mentides, sang, i una veritat que cremava més que la culpa.",
+        "Persecució cotxe va travessar {{ciutat}} sencera de punta a punta, amb sirenes i sense. [POLICIAL] {{personatge}} anava darrere del soplón que havia desaparegut fa anys, el que sabia on era l'arma. Roda reconeixement, batuda per barris sencers, tapadura a la sortida... tot va fallar una darrere l'altra. Feia olor de {{olor}} i gasolina cremada quan va entendre que la pista falsa era part del pla de {{antagonista}}. A {{escenari}} l'esperava la prova que no hauria d'existir perquè havia estat destruïda. [HUMANO] Van parar al semàfor en vermell i el venedor ambulant li va oferir aigua freda. Va comprar dues ampolles sense pensar. Una per ell, una per la companya que anava al costat. Ella va agafar la seva sense dir gràcies. [PERSONAL] Ella va somriure una mil·lèsima de segon. Primera vegada que el veia somriure des que havia arribat. A {{escenari}} l'esperava la prova i potser alguna cosa més."
+      ]
     },
     {
       "id": 9,
       "nom": "Punto_medio",
       "percent": 0.50,
-      "objectiu": "Falsa victòria o falsa derrota. Pujar l'aposta al màxim.",
-      "emocions_permeses": ["eufòria", "triomf", "tensió", "por", "il·lusió"],
-      "tipus_escena": "climax_parcial",
-      "preguntes_lectura": 3,
-      "vocab_girs": ["falsa victòria", "traïció", "revelació", "perdre aliats", "arma trobada", "pista falsa", "falsa mort", "doble agent descobert", "secret revelat", "prova manipulada"]
+      "objectiu": "Falsa victòria o derrota. Pujar aposta",
+      "ratio": "60_policial_30_humano_10_personal",
+      "plantilles_escena": [
+        "{{personatge}} va trobar l'arma amagada. La prova definitiva, l'arma lliurada al cas antic que tothom buscava. [POLICIAL] Va somriure per primera vegada en mesos, un somriure sec i sense alegria. Falsa victòria que sabia massa dolça. Feia olor de {{olor}} i eufòria barata a {{escenari}}, una eufòria que no confiava. {{so}} de sirenes llunyanes celebrava amb ell com si el cas ja estigués tancat. Va agafar l'arma amb guants i la va mirar a contrallum. [HUMANO] Va trucar al del bar des del mòbil: 'Guarda'm un cafè per quan torni, si us plau'. 'Lo de siempre, inspector?' 'Sí, doble'. Va penjar i va sentir esperança estúpida al pit. [PERSONAL] Va mirar la foto de família al calaix i va pensar 'ja està, ja ho tinc'. Però quan va obrir el calaix secret sota l'arma, va veure la fotografia manipulada amb la seva cara retocada. La traïció va arribar un segon després, freda. L'aposta havia pujat i ell no ho sabia fins ara.",
+        "El sospitós principal va confessar tot sense advocat, ràpid i brut. [POLICIAL] Dates, noms, llocs, tot amb detalls que només el culpable podia saber. {{personatge}} va sentir triomf al pit mentre posava les manilles metàl·liques als canells del home. Feia olor de {{olor}} i veritat finalment a l'interrogatori. {{ciutat}} sencera semblava respirar alleujada a través de la finestra. Va escriure a la llibreta: 'Caso cerrado'. [HUMANO] La companya li va tocar l'espatlla per darrere sense dir res. Un toc lleuger que volia dir 'ben fet'. Connexió professional que s'acostava a amistat. [PERSONAL] Va pensar que podria trucar a la germana quan acabés la paperassa. 'Perdona que no...' Però el secret revelat durant la confessió no quadrava amb el dossier polsós original. Faltava una hora, faltava un nom. Era pista falsa perfecta. {{so}} del telèfon va sonar al passadís: el veritable culpable encara era lliure i riure. Falsa victòria completa."
+      ]
     },
     {
       "id": 10,
       "nom": "Malos_se_acercan",
       "percent": 0.75,
-      "objectiu": "Complicacions. L'antagonista contraataca. El prota perd control.",
-      "emocions_permeses": ["pànic", "desesperació", "pressió", "impotència"],
-      "tipus_escena": "obstacle",
-      "preguntes_lectura": 3,
-      "vocab_obstacles": ["pla falla", "aliat cau", "temps s’esgota", "secret revelat", "arma trencada", "carta interceptada", "porta bloquejada", "pista esborrada", "prova destruïda", "testimoni silenci"]
+      "objectiu": "Antagonista contraataca. Prota perd control",
+      "ratio": "70_policial_20_humano_10_personal",
+      "plantilles_escena": [
+        "El pla falla. Tot el pla, peça per peça, sense avís. [POLICIAL] {{personatge}} va veure com l'aliat cau a terra a {{escenari}} amb olor de {{olor}} i sang calenta que no s'aturava. El temps s'esgota i el secret revelat surt a la ràdio policia abans d'hora. Porta bloquejada per fora, pista esborrada del servidor, prova destruïda al laboratori. {{so}} de passos s'acostava per darrere, lents i deliberats. L'antagonista contraatacava amb precisió quirúrgica i {{personatge}} havia perdut el control de cada variable. Només quedava córrer o morir. [HUMANO] La columna de cotxes aturada a l'avinguda no el deixava avançar ni retrocedir. {{so}} de clàxons i gent cridant insults per la finestra. Per 30 segons va odiar {{ciutat}} sencera més que al culpable. Va mirar per l'espill i va veure llums apropant-se. [PERSONAL] Va pensar en la germana: si moria avui aquí, ella mai sabria per què havia desaparegut de la seva vida. L'antagonista havia guanyat la ronda i ell ho sabia.",
+        "La carta interceptada va arribar a les mans equivocades abans que a les seves. [POLICIAL] {{personatge}} va comprovar l'arma però no hi havia bales al carregador, només el metall fred. L'arma trencada a la mà i el testimoni silenci per sempre sota una làpida. Feia olor de {{olor}} i impotència a {{escenari}}, una impotència que feia anys que no tastava. El pla que havia costat mesos de vigilància es va esmicolar en segons per una traïció interna. {{so}} del telèfon va sonar amb to especial: era {{antagonista}} rient a l'altre costat. 'Te lo dije'. [HUMANO] El mòbil va vibrar una altra vegada: 'Mamá'. No va poder despenjar amb mans que tremolaven. Va enviar 'Estoy bien' amb errors d'ortografia. Mentida desesperada. [PERSONAL] El pare al somni de la nit anterior va sacsejar el cap lentament. 'Hijo, no así'. {{so}} del pany tancant-se darrere seu va ser el so final. Els dolents s'acostaven i ell no tenia sortida."
+      ]
     },
     {
       "id": 11,
       "nom": "Todo_es_perdido",
       "percent": 0.75,
-      "objectiu": "Pitjor moment del protagonista. Toca fons.",
-      "emocions_permeses": ["desesperació", "derrota", "dolor", "buit"],
-      "tipus_escena": "caiguda",
-      "preguntes_lectura": 2,
-      "vocab_caiguda": ["mort aliats", "captura", "pèrdua objectiu", "traïció total", "arma lliurada", "secret publicat", "casa cremada", "nom tacat", "soledat absoluta", "promesa trencada"]
+      "objectiu": "Pitjor moment. Toca fons",
+      "ratio": "50_policial_30_humano_20_personal",
+      "plantilles_escena": [
+        "Mort aliats. El mentor jeia a terra a {{escenari}} amb olor de {{olor}} i fi inevitable als ulls oberts. [POLICIAL] Captura imminent, arma lliurada sobre la taula amb les mans alçades. {{personatge}} havia perdut objectiu, nom tacat als diaris, promesa trencada al mort. Soledat absoluta envoltant-lo com una paret. Feia olor de {{olor}} i buit absolut a l'aire, un buit que feia mal al pit. {{so}} del seu propi respir era l'únic so que quedava al món. Toca fons, el fons del pou sense escala. Pitjor moment de la seva vida professional i personal. [HUMANO] La nevera buida a casa, la camisa bruta penjada, el cafè fred a la taula. Tot sense sentit, tot inútil. Va seure a terra amb l'esquena contra la paret i va tancar els ulls. [PERSONAL] La foto de família al calaix, ara cremada i negra per les cantonades. Soledat absoluta sense ningú que truqués. Va acceptar el buit per primera vegada en deu anys.",
+        "Casa cremada fins als fonaments. [POLICIAL] Dins hi havia totes les proves, tota la veritat, tot el que havia lluitat deu anys. Secret publicat al diari de la tarda amb el seu nom, testimoni mort sense confessar, dossier polsós convertit en cendra negra. Feia olor de {{olor}} i derrota total, una derrota que sabia a cendra i fum. {{so}} del foc cremant el passat era ensordidor, més fort que qualsevol crit. [HUMANO] El del bar va deixar un missatge a la màquina contestadora: 'Cuando quieras el café, aquí estaré, inspector. Sin prisas'. No tornaria mai més a seure allà. [PERSONAL] La germana trucaria diumenge i no hi hauria ningú per despenjar. Casa cremada, nom tacat als diaris, soledat absoluta sense redempció. No quedava res més avall del pou. Toca fons definitiu."
+      ]
     },
     {
       "id": 12,
       "nom": "Noche_oscura_del_alma",
       "percent": 0.90,
-      "objectiu": "Reflexió. El protagonista entén la lliçó del Tema del beat 2.",
-      "emocions_permeses": ["reflexió", "tristesa", "comprensió", "pau"],
-      "tipus_escena": "revelacio_interna",
-      "preguntes_lectura": 1,
-      "vocab_revelacions": ["ha de perdonar", "ha de confiar", "ha de sacrificar-se", "ha de dir la veritat", "ha de deixar anar", "ha d’acceptar", "ha de tornar", "ha de demanar ajuda"]
+      "objectiu": "Reflexió. Entén lliçó del beat 2",
+      "ratio": "20_policial_40_humano_40_personal",
+      "plantilles_escena": [
+        "A la cel·la fosca i humida, {{personatge}} va entendre finalment després de hores de silenci. [PERSONAL] Havia de perdonar. Perdonar-se a ell mateix pel cas antic mal tancat, pel company mort que no va poder salvar, per l'orgull que el va cegar. Feia olor de {{olor}} i humitat de parets velles mentre {{so}} de gotes marcava el ritme lent del temps. Cada gota era un any perdut. [HUMANO] Va recordar el pa calent que li deixava la veïna del 1r cada matí. 'Hijo, come algo, que estás muy flaco'. Mai va donar les gràcies, mai va tornar el plat. La gent bona existia i ell no l'havia vist. [POLICIAL] La lliçó del beat 2 ressonava a la foscor: 'La veritat sempre surt, però abans has de dir la teva'. Però abans havia de dir la veritat ell, sobre el que va fer fa deu anys. Reflexió profunda, tristesa que netejava, i finalment comprensió dolorosa. La nit més fosca de l'ànima era abans de l'alba que vindria.",
+        "Assegut a terra fred de la cel·la, {{personatge}} va comprendre la lliçó que havia evitat. [PERSONAL] Havia de demanar ajuda. Orgullós i testarrut fins al final, però fins i tot els cínics més durs cauen de genolls quan toca fons. Feia olor de {{olor}} i derrota acceptada, una derrota que no feia tan mal com pensava. {{so}} de passos s'acostava pel passadís: no eren manilles ni botes, eren mans esteses i veus baixes. [HUMANO] Va pensar en el cafè del bar de sota que mai va pagar del tot. 'Lo de siempre, inspector'. La gent l'esperava, la gent bona. {{so}} de claus obrint la porta no sonava com presó, sonava com porta. [POLICIAL] Havia de confiar en la companya nova, havia de confiar en l'informant. Sol no podia guanyar aquesta guerra. La nit fosca de l'ànima acabava quan entenia que la força no era anar sol."
+      ]
     },
     {
       "id": 13,
       "nom": "Punto_de_giro_2",
       "percent": 0.90,
-      "objectiu": "El protagonista troba la solució. Fi de l'Acte 2.",
-      "emocions_permeses": ["esperança", "determinació", "claredat", "força"],
-      "tipus_escena": "pla",
-      "preguntes_lectura": 2,
-      "vocab_plans": ["pla final", "última oportunitat", "tot o res", "sacrifici", "trampa inversa", "aliança improbable", "arma secreta", "veritat revelada"]
+      "objectiu": "Troba solució. Fi Acte 2",
+      "ratio":         "60_policial_30_humano_10_personal",
+      "plantilles_escena": [
+        "4:13 AM. {{personatge}} va veure el pla. [POLICIAL] Pla final, tot o res, sacrifici. L'arma secreta era la veritat revelada amagada al cas antic. Olor de {{olor}} i claredat. {{so}} del llapis escrivint. [HUMANO] Va sortir de la cel·la i el del quiosc li va donar el diari. 'Hoy ganas tú'. Va somriure per primer cop real. [PERSONAL] Va marcar número de la germana. Aquesta vegada no penjaría. Última oportunitat. Fi Acte 2.",
+        "{{personatge}} va trucar l'aliat improbable. [POLICIAL] L'antagonista redimit. 'Necessito trampa inversa'. Olor de {{olor}} i esperança nova. {{so}} de pluja va parar quan va penjar. [HUMANO] Va passar pel bar de sota. El de sempre li va deixar cafè calent sense cobrar. 'Para después de ganar'. [PERSONAL] Va mirar la foto de família i va dir baix: 'Perdonaré després'. Determinació. L'Acte 2 s'acabava."
+      ]
     },
     {
       "id": 14,
       "nom": "Climax",
       "percent": 0.95,
-      "objectiu": "Enfrontament final amb l'antagonista. Aplica la lliçó del Tema.",
-      "emocions_permeses": ["valentia", "determinació", "ràbia", "triomf", "alliberament"],
-      "tipus_escena": "confrontacio_final",
-      "preguntes_lectura": 0,
-      "vocab_generes": {
-        "policiac": ["tiroteig", "interrogatori final", "confessió", "batuda", "detenció", "arma lliurada", "prova definitiva", "jutge entra"],
-        "misterio": ["revelació assassí", "habitació tancada", "trampa descoberta", "diari llegit", "clau gira", "mirall trencat"],
-        "thriller": ["bomba desactivada", "confrontació pont", "xip destruït", "cotxe cau", "tiroteig túnel", "missatge enviat"],
-        "drama": ["discurs final", "judici", "reconciliació", "abraçada plorant", "carta llegida", "perdó demanat"],
-        "romance": ["declaració", "carrera aeroport", "petó final", "anell lliurat", "carta amor", "ball final"],
-        "aventura": ["batalla final", "tresor obert", "portal tancat", "drac mort", "mapa cremat", "bandera hissada"],
-        "fantasia": ["duel màgic", "drac derrotat", "encanteri final", "corona posada", "portal tancat", "profecia complerta"],
-        "terror": ["exorcisme", "monstre mort", "fuga laberint", "mirall trencat", "ritual invertit", "porta segellada"]
-      }
+      "objectiu": "Enfrontament final. Aplica lliçó",
+      "ratio": "80_policial_15_humano_5_personal",
+      "plantilles_escena": [
+        "Ara o mai. [POLICIAL] {{personatge}} davant {{antagonista}} a {{escenari}} sense placa, sense reforços. Només veritat i arma lliurada amagada 10 anys. Tiroteig esclata quan {{so}} talla silenci. Olor de {{olor}} i pólvora. Confessió entre dents. Prova definitiva a la mà. [HUMANO] Va pensar en el cafè que el del bar li guardava. Després. [PERSONAL] Va murmurar 'Perdó, pare' abans de disparar. {{ciutat}} contenia respiració. Lliçó aplicada: veritat sempre surt.",
+        "Jutge entra. [POLICIAL] {{personatge}} deixa arma sobre taula i obre dossier. 'Ho saps tot' a {{antagonista}}. Interrogatori final sense crits. Olor de {{olor}} i fi inevitable. Detenció en silenci. [HUMANO] La companya al fons de la sala va assentir. Respecte. [PERSONAL] Va pensar en la germana que l'esperava fora. Aquesta vegada despenjaria. Lliçó del beat 2 complerta."
+      ]
     },
     {
       "id": 15,
       "nom": "Imagen_final",
       "percent": 1.00,
-      "objectiu": "Foto del món nou. Contrast directe amb la Imagen inicial del beat 1.",
-      "emocions_permeses": ["pau", "triomf", "nostàlgia", "satisfacció", "serenitat"],
-      "tipus_escena": "tancament",
-      "preguntes_lectura": 1,
-      "vocab_tancaments": ["posta sol", "somriure", "carta", "mirada lluny", "nou començament", "porta oberta", "camí lliure", "foto nova", "brindis", "silenci dolç"]
+      "objectiu": "Món nou. Contrast amb beat 1",
+      "ratio": "30_policial_50_humano_20_personal",
+      "plantilles_escena": [
+        "Cas tancat. [POLICIAL] {{personatge}} mira {{escenari}} buit per última vegada. Escriptori net, dossier guardat. Fora {{ciutat}} desperta amb posta sol i olor de {{olor}} i cafè fresc. [HUMANO] Va baixar al bar de sota. El de sempre li va posar 'lo de siempre' sense preguntar. Es va asseure. Va beure lent. {{so}} de tasses i conversa normal. [PERSONAL] Va despenjar el telèfon: 'Hola, mamá. Sí, estoy bien. De verdad'. I era veritat. Nou començament, foto nova, porta oberta. Contrast total amb beat 1.",
+        "{{personatge}} va deixar la placa sobre la taula i va sortir. [POLICIAL] No va mirar enrere. Olor de {{olor}} i pluja neta. Camí lliure. [HUMANO] La veïna del 1r li va donar pa calent. 'Para celebrar, hijo'. Va somriure. De veritat. {{so}} de {{ciutat}} despertant era diferent. [PERSONAL] Va trucar la germana: 'Quedamos a comer el domingo?' 'Sí, hermano'. Foto nova a la butxaca. Abans rutina i cafè fred, ara silenci dolç i llibertat."
+      ]
     }
   ]
-    }
+}
