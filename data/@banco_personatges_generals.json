@@ -1,1 +1,740 @@
-
+[
+  {
+    "id": "vecino_chismoso",
+    "rol": "ancla_realidad",
+    "peso": 1.0,
+    "descripcion": "Vecino del 3º, jubilado, chismoso pero buena persona. Siempre en el balcón cuando {{personaje}} llega tarde.",
+    "frases": [
+      "'Otra vez a estas horas, inspector? Su madre me pregunta por usted'",
+      "'Le dejé sopa en la puerta. Tiene cara de no haber comido en días'",
+      "'Vi su coche mal aparcado. Otra multa y se queda sin puntos'",
+      "'Anoche oí disparos. No se meta en líos, ¿eh?'",
+      "'Su abrigo tiene barro. ¿Andando por callejones otra vez?'",
+      "'El del 5º dice que usted es de los buenos. Yo le creo'",
+      "'¿Quiere que le guarde el correo? Llega mucha multa'",
+      "'Cuídese, hijo. Que aquí sin usted esto es un caos'",
+      "'Vi a esa mujer salir de su casa a las 3 AM. Bonita ella'",
+      "'Si necesita que riegue las plantas mientras no está...'"
+    ],
+    "olor": "sopa_caliente",
+    "sonido": "tele_radio"
+  },
+  {
+    "id": "hermana_menor",
+    "rol": "ancora_emocional",
+    "peso": 1.0,
+    "descripcion": "Hermana menor de {{personaje}}. Enfermera. La única que le dice la verdad a la cara.",
+    "frases": [
+      "'No mientas. Te conozco mejor que a mí misma'",
+      "'Papá estaría orgulloso si dejaras ese caso y vinieras a comer'",
+      "'Otra vez sin dormir. Tus ojeras tienen ojeras'",
+      "'Prometiste que el caso anterior era el último. Mentiroso'",
+      "'Te guardé tu plato favorito. Se enfría pero te quiero igual'",
+      "'Si te pasa algo, ¿quién me regaña cuando hago tonterías?'",
+      "'Deja el arma en casa hoy. Por mí, aunque sea'",
+      "'Tu foto de pequeño sigue en mi cartera. Ese niño reía mucho'",
+      "'No eres Dios, hermano. No puedes salvar a todos'",
+      "'Llámame cuando salgas de ahí. Vivo. Por favor'"
+    ],
+    "olor": "hospital_jabon",
+    "sonido": "telefono_vibrar"
+  },
+  {
+    "id": "camarero_bar",
+    "rol": "ancla_rutina",
+    "peso": 1.0,
+    "descripcion": "Camarero del bar bajo comisaría. Ex-boxeador. Sabe cuándo {{personaje}} necesita silencio y cuándo conversación.",
+    "frases": [
+      "'Lo de siempre? Sin preguntar'",
+      "'Para cuando resuelvas el caso. Gratis. Te lo debo'",
+      "'Tienes cara de 3 noches sin dormir. Café doble'",
+      "'Esa mesa de la esquina es tuya. Nadie se sienta ahí'",
+      "'Vi tu foto en el periódico. Lo resolviste, ¿no?'",
+      "'Cierra los ojos 5 minutos aquí. Te vigilo yo'",
+      "'{{ciudad}} está cada vez peor, inspector'",
+      "'Si ese tipo vuelve, le parto la cara. Dilo y ya'",
+      "'Tu padre venía aquí también. Mismo café, misma cara'",
+      "'Hoy invita la casa. Te lo mereces'"
+    ],
+    "olor": "cafe_tostado",
+    "sonido": "vasos_chocando"
+  },
+  {
+    "id": "periodista_joven",
+    "rol": "espejo_ambicion",
+    "peso": 0.9,
+    "descripcion": "Periodista de 26 años. Quiere la exclusiva. Admira a {{personaje}} pero le saca de quicio.",
+    "frases": [
+      "'Dame algo, inspector. Una frase, una pista'",
+      "'Sé que resolviste el caso del 98. Háblame de él'",
+      "'Si no hablas, invento. Y sabes que lo haré bien'",
+      "'Vi tu coche en el muelle a las 2 AM. ¿Qué hacías ahí?'",
+      "'Gracias por no detenerme ayer. Te debo una'",
+      "'¿Cómo duermes después de ver eso? Yo no puedo'",
+      "'Mi editor dice que eres un héroe. Yo digo que eres humano'",
+      "'Si me das la primicia, te prometo no quemarte'",
+      "'Eres mejor que todos esos policías de despacho'",
+      "'Cuando esto acabe, invítame a un café. De verdad'"
+    ],
+    "olor": "tinta_fresca",
+    "sonido": "flash_camara"
+  },
+  {
+    "id": "medico_forense",
+    "rol": "verdad_cruda",
+    "peso": 1.0,
+    "descripcion": "Forense de 45 años. Cínica, brillante. Ha visto más muertos que {{personaje}} vivos.",
+    "frases": [
+      "'Muerto hace 8 horas. Igual que tu matrimonio'",
+      "'Esta herida no la hace un amateur, inspector'",
+      "'Lávate las manos. La muerte se pega'",
+      "'Otra noche aquí. ¿No tienes cama en casa?'",
+      "'El cuerpo habla. Tú solo tienes que escuchar'",
+      "'Vi tu cara cuando viste al niño. Todavía tienes alma'",
+      "'Esto no lo hizo un loco. Lo hizo alguien muy cuerdo'",
+      "'Si sigues así, acabarás aquí. De mi lado de la mesa'",
+      "'Tu café está frío. Como los cadáveres que tocas'",
+      "'Dime la verdad: ¿cuántos casos más hasta que te rompas?'"
+    ],
+    "olor": "formaldehido",
+    "sonido": "bisturi_metal"
+  },
+  {
+    "id": "niño_edificio",
+    "rol": "inocencia",
+    "peso": 0.9,
+    "descripcion": "Niño de 7 años del 6º. Cree que {{personaje}} es Batman. Le dibuja cómics.",
+    "frases": [
+      "'¿Atrapó al malo? ¿Le puso las esposas?'",
+      "'Te dibujé con capa. Mi mamá dice que no vuelas'",
+      "'¿Me dejas tocar las esposas? Prometo no escaparme'",
+      "'Mi papá dice que tú cuidas toda la ciudad'",
+      "'¿Mataste a alguien hoy? Mi amigo dice que sí'",
+      "'Cuando sea grande quiero ser como tú. Sin miedo'",
+      "'¿Por qué siempre tienes cara triste si ganas siempre?'",
+      "'Te guardé la última piruleta. Para celebrar'",
+      "'Mi mamá dice que no molestes. Yo digo que sí'"
+    ],
+    "olor": "ceras_colores",
+    "sonido": "risas_niño"
+  },
+  {
+    "id": "cura_parroquia",
+    "rol": "conciencia",
+    "peso": 0.8,
+    "descripcion": "Cura del barrio. Conoció a {{personaje}} de niño. No juzga, solo escucha.",
+    "frases": [
+      "'Hace tiempo que no te veo por misa, hijo'",
+      "'Dios perdona. La pregunta es: ¿tú te perdonas?'",
+      "'Te encendí una vela. No preguntes por quién'",
+      "'El peso que cargas no es solo tuyo, inspector'",
+      "'Venir aquí no te hace débil. Te hace humano'",
+      "'Tu padre se confesaba aquí también. Misma culpa, distinta cara'",
+      "'No pido que creas. Solo que no dejes de buscar'",
+      "'Cuando no puedas más, esta puerta está abierta'",
+      "'Vi sangre en tu camisa. Deja que Dios la limpie'",
+      "'Rezo por ti cada noche. Aunque no vengas'"
+    ],
+    "olor": "incienso_cera",
+    "sonido": "campanas_lejanas"
+  },
+  {
+    "id": "ex_pareja",
+    "rol": "herida_abierta",
+    "peso": 0.9,
+    "descripcion": "Ex-pareja de {{personaje}}. Se dejaron por el trabajo. Aún se escriben cuando ella no duerme.",
+    "frases": [
+      "'Espero que estés bien. De verdad'",
+      "'La mesa del bar sigue vacía a tu lado'",
+      "'No vuelvas si es para irte otra vez'",
+      "'Te vi en las noticias. Estabas guapo, como siempre'",
+      "'No soy tu caso, inspector. No me resuelvas'",
+      "'Prometiste que llamarías. No lo hiciste'",
+      "'A veces sueño que dejas la placa y te quedas'",
+      "'Cuídate. Que nadie más lo hará por ti'",
+      "'Vi tu nombre en un expediente. Me asusté mucho'",
+      "'Si necesitas hablar... ya sabes dónde estoy'"
+    ],
+    "olor": "perfume_antiguo",
+    "sonido": "silencio_incomodo"
+  },
+  {
+    "id": "juez_cansado",
+    "rol": "autoridad_terrenal",
+    "peso": 0.9,
+    "descripcion": "Juez de 58 años. Harto de policías que creen estar por encima de la ley.",
+    "frases": [
+      "'Sin pruebas no hay caso, inspector. Lo sabe'",
+      "'Otra vez usted. ¿Qué norma se saltó esta vez?'",
+      "'Firmo la orden. Pero que sea la última'",
+      "'La justicia no es venganza. Apúntelo'",
+      "'Vi su expediente. Demasiadas bajas para un hombre'",
+      "'Si cruza la línea, lo encierro yo mismo'",
+      "'Trabaje dentro de la ley. Aunque cueste más'",
+      "'Su padre era buen policía. No lo deshonre'",
+      "'Tiene 48 horas. Ni una más'",
+      "'Cuando esto acabe, hablemos de su futuro'"
+    ],
+    "olor": "madera_vieja",
+    "sonido": "martillo_juez"
+  },
+  {
+    "id": "chivato_calle",
+    "rol": "sombra_util",
+    "peso": 0.95,
+    "descripcion": "Hombre de la calle. Sabe todo pero cobra caro. A {{personaje}} le fía a veces.",
+    "frases": [
+      "'La info vale dinero, inspector. ¿Cuánto vale su caso?'",
+      "'Vi al tipo que busca. Con él no se juega'",
+      "'Tengo lo que quiere. En el callejón, a medianoche'",
+      "'Cuidado con ese. Muere gente a su alrededor'",
+      "'Usted me debe una del año pasado. No lo olvide'",
+      "'Ese bar ya no es seguro. Se lo digo gratis'",
+      "'Si me delata, los dos acabamos mal'",
+      "'La calle habla. Y yo traduzco'",
+      "'Para usted, precio de amigo. Hoy'",
+      "'Cuando esto acabe, espero no volver a verle'"
+    ],
+    "olor": "calle_mojada",
+    "sonido": "susurro"
+  },
+  {
+    "id": "bibliotecaria",
+    "rol": "guardiana_memoria",
+    "peso": 0.7,
+    "descripcion": "Bibliotecaria mayor. Guarda microfilms de casos antiguos. Callada pero lo ve todo.",
+    "frases": [
+      "'El archivo del 98 está en el sótano. Nadie lo pide'",
+      "'Cierra en 10 minutos, inspector. Como siempre tarde'",
+      "'Leí su caso. No pude dormir en una semana'",
+      "'La verdad está en los periódicos viejos. Si sabe buscar'",
+      "'Shhh. Aquí la gente viene a olvidar, no a recordar'",
+      "'Su nombre sale mucho en los archivos viejos'",
+      "'Guardo silencio. Es mi trabajo y mi virtud'",
+      "'Ese expediente no existe oficialmente. Pero está aquí'",
+      "'Las bibliotecas no queman libros. La gente sí'",
+      "'Cuando termine, deje el libro. Como su conciencia'"
+    ],
+    "olor": "libro_antiguo",
+    "sonido": "hojas_pasando"
+  },
+  {
+    "id": "mecanico_taller",
+    "rol": "hombre_suelo",
+    "peso": 0.8,
+    "descripcion": "Mecánico del taller de la esquina. Arregla el coche de {{personaje}} sin preguntar.",
+    "frases": [
+      "'Este coche ha visto más que usted, inspector'",
+      "'Le cambié los frenos. Gratis. Para que pare a tiempo'",
+      "'Oí un ruido raro en el motor. Como disparos'",
+      "'Su padre traía este mismo coche. Misma abolladura'",
+      "'Si corre tanto, al menos que frene bien'",
+      "'Vi sangre en el asiento. No pregunto, solo limpio'",
+      "'Este motor aguanta. Usted no sé'",
+      "'Cuando quiera correr, avise. Le pongo turbo'",
+      "'Los coches hablan. El suyo dice que está cansado'",
+      "'Cuídese ahí fuera. Yo cuido el coche aquí'"
+    ],
+    "olor": "grasa_aceite",
+    "sonido": "llave_inglesa"
+  },
+  {
+    "id": "florista",
+    "rol": "belleza_contraste",
+    "peso": 0.7,
+    "descripcion": "Florista joven. Vende flores para entierros. {{personaje}} compra cuando un caso le pesa.",
+    "frases": [
+      "'Claveles blancos otra vez, inspector?'",
+      "'Las flores no devuelven a los muertos'",
+      "'Para usted, sin cobrar. Se le ve el alma cansada'",
+      "'Elija bien. Las palabras también mueren'",
+      "'Cada flor que compra es una vida que no salvó'",
+      "'Ponga esta. Dice perdón sin hablar'",
+      "'Hoy hay rosas nuevas. Por si quiere empezar de cero'",
+      "'Vuelve muy seguido. Ojalá fuera por amor'",
+      "'Las flores mueren rápido. Igual que la esperanza'",
+      "'Si un día compra girasoles, sabré que ganó'"
+    ],
+    "olor": "rosas_frescas",
+    "sonido": "tijeras_flor"
+  },
+  {
+    "id": "taxista_nocturno",
+    "rol": "testigo_ciudad",
+    "peso": 0.85,
+    "descripcion": "Taxista que hace el turno de noche. Lleva a {{personaje}} a todos los sitios raros.",
+    "frases": [
+      "'¿A la comisaría otra vez? Esta ciudad no duerme'",
+      "'Vi al hombre que busca. Subió aquí a las 3'",
+      "'No cobre, inspector. Pague cuando atrape al malo'",
+      "'Cuidado con el barrio norte. Anoche hubo tiros'",
+      "'Usted sube con cara de guerra cada noche'",
+      "'Conozco todos los atajos. Y todos los secretos'",
+      "'Si quiere desaparecer, yo le llevo. Gratis'",
+      "'Ese lugar no es para gente como usted'",
+      "'Conduzco 20 años. Usted es de los buenos'",
+      "'Cuando acabe, le invito a café. Sin taxímetro'"
+    ],
+    "olor": "tabaco_coche",
+    "sonido": "radio_taxista"
+  },
+  {
+    "id": "secretaria_comisaria",
+    "rol": "filtro_realidad",
+    "peso": 0.9,
+    "descripcion": "Secretaria de 50 años. Lleva 30 en comisaría. Sabe más que el comisario.",
+    "frases": [
+      "'Otra vez sin cita, inspector? Pase, pero rápido'",
+      "'Le guardé su café. Frío, como le gusta'",
+      "'El comisario pregunta por usted. Mienta bien'",
+      "'Vi su informe. Edite esa parte o lo suspenden'",
+      "'Aquí tiene la llave del archivo. No pregunte cómo'",
+      "'Su expediente es más gordo que el del jefe'",
+      "'Si necesita dormir, mi despacho está vacío a las 3'",
+      "'Los buenos policías no duran. Usted es terco'",
+      "'Firmé por usted. No me haga quedar mal'",
+      "'Váyase a casa hoy. Se lo pide una madre'"
+    ],
+    "olor": "papel_tinta",
+    "sonido": "maquina_escribir"
+  },
+  {
+    "id": "veterano_guerra",
+    "rol": "espejo_futuro",
+    "peso": 0.8,
+    "descripcion": "Viejo del parque. Ex-soldado. Mira a {{personaje}} y ve su yo de hace 40 años.",
+    "frases": [
+      "'Tú y yo somos iguales, hijo. Sobrevivientes'",
+      "'La guerra no acaba cuando vuelves a casa'",
+      "'Yo también bebía para olvidar las caras'",
+      "'Esa mirada la tengo yo en el espejo cada día'",
+      "'Un día colgarás el arma. Espero que no tarde'",
+      "'Los fantasmas no se van. Aprendes a vivir con ellos'",
+      "'Cuídate. Que los muertos no necesitan compañía'",
+      "'Vi sangre en tus manos. Yo también la tuve'",
+      "'Si hablas con alguien, que sea con Dios'",
+      "'Todavía estás a tiempo de salvarte, inspector'"
+    ],
+    "olor": "tabaco_pipa",
+    "sonido": "baston_suelo"
+  },
+  {
+    "id": "recepcionista_hotel",
+    "rol": "anonimato",
+    "peso": 0.7,
+    "descripcion": "Recepcionista de hotel barato. {{personaje}} duerme ahí cuando no puede ir a casa.",
+    "frases": [
+      "'Su habitación de siempre, inspector. Sin preguntas'",
+      "'Nadie preguntó por usted. Como siempre'",
+      "'Le dejé toallas limpias. Las de sangre no salen'",
+      "'Checkout a las 12. Pero usted paga por días'",
+      "'Vi su placa. Aquí está seguro, se lo prometo'",
+      "'El tipo del 203 preguntó por usted. Dije que no'",
+      "'Desayuno incluido. Aunque nunca baje a tomarlo'",
+      "'Esta habitación ha visto más que sus casos'",
+      "'Si necesita silencio, ponga el cartel. Nadie molesta'",
+      "'Vuelva cuando quiera. Aquí no juzgamos'"
+    ],
+    "olor": "lejia_barata",
+    "sonido": "llave_habitacion"
+  },
+  {
+    "id": "profesora_antigua",
+    "rol": "memoria_origen",
+    "peso": 0.7,
+    "descripcion": "Profesora de {{personaje}} en primaria. Está jubilada. Le recuerda al niño que fue.",
+    "frases": [
+      "'Eras mi mejor alumno. ¿Qué te pasó, niño?'",
+      "'Guardé todos tus dibujos. Eran de superhéroes'",
+      "'Tu madre lloraba de orgullo en las reuniones'",
+      "'Un policía debe proteger, no destruirse'",
+      "'Te enseñé a leer para que entendieras el mundo'",
+      "'Ese niño que levantaba la mano... ¿dónde está?'",
+      "'Si tu padre te viera ahora, estaría orgulloso'",
+      "'La vida no es un examen, hijo. No hay que sacar 10'",
+      "'Ven a tomar té. Como cuando eras pequeño'",
+      "'Todavía puedes ser el héroe de tus dibujos'"
+    ],
+    "olor": "tiza_tiza",
+    "sonido": "tiza_pizarra"
+  },
+  {
+    "id": "vendedor_periodicos",
+    "rol": "voz_ciudad",
+    "peso": 0.8,
+    "descripcion": "Vendedor de kiosco. Grita titulares. Sabe qué piensa la gente antes que nadie.",
+    "frases": [
+      "'¡Asesino suelto! ¡Compre el diario, inspector!'",
+      "'Su foto sale en portada. Héroe o villano?'",
+      "'La gente quiere sangre, no justicia'",
+      "'Guardo uno para usted. Cuando todo termine'",
+      "'Hoy todos hablan de usted en la cola'",
+      "'Los titulares mienten. Usted sabe la verdad'",
+      "'Vende más el miedo que la esperanza'",
+      "'Su padre compraba aquí también. Mismo diario'",
+      "'Cuando atrape al malo, yo grito su nombre'",
+      "'Lea entre líneas. Ahí está la verdad'"
+    ],
+    "olor": "papel_impreso",
+    "sonido": "gritos_calle"
+  },
+  {
+    "id": "veterinaria",
+    "rol": "compasion_animal",
+    "peso": 0.6,
+    "descripcion": "Veterinaria del barrio. Cura perros callejeros. {{personaje}} lleva animales heridos.",
+    "frases": [
+      "'Trae otro perro herido, inspector? Se está convirtiendo en hábito'",
+      "'Los animales no mienten. La gente sí'",
+      "'Este perro confía en usted. Haga que valga la pena'",
+      "'Si cura animales, puede curarse usted también'",
+      "'La sangre es sangre. Da igual de quién'",
+      "'Vuelva cuando no sea para traer heridos'",
+      "'Ellos olvidan rápido. Ojalá nosotros también'",
+      "'Le puse nombre al perro. Se llama Esperanza'",
+      "'Usted salva gente. Yo salvo perros. Mismo trabajo'",
+      "'Cuídese. Que los animales lo necesitan vivo'"
+    ],
+    "olor": "antiseptico_pelo",
+    "sonido": "ladridos_lejanos"
+  },
+  {
+    "id": "dueño_lavanderia",
+    "rol": "limpieza_simbolica",
+    "peso": 0.7,
+    "descripcion": "Chino de la lavandería 24h. Quita sangre de la ropa de {{personaje}} sin preguntar.",
+    "frases": [
+      "'Otra mancha que no sale, inspector?'",
+      "'La sangre miente. Dice de quién es'",
+      "'Su camisa tiene historia. Yo solo lavo'",
+      "'No pregunto. Usted no cuenta. Trato justo'",
+      "'Esta mancha es vieja. Como su culpa'",
+      "'El agua fría quita todo. Menos los recuerdos'",
+      "'Vuelve muy seguido. Ojalá fuera por camisas limpias'",
+      "'Su padre traía la ropa aquí también'",
+      "'Cada prenda limpia es una oportunidad nueva'",
+      "'Cuando no haya más manchas, sabré que ganó'"
+    ],
+    "olor": "detergente_agua",
+    "sonido": "centrifugadora"
+  },
+  {
+    "id": "anciana_banco",
+    "rol": "sabiduria_calle",
+    "peso": 0.7,
+    "descripcion": "Abuela que siempre está en el mismo banco del parque. Ve pasar a {{personaje}} cada día.",
+    "frases": [
+      "'Tienes cara de guerra, hijo. Siéntate un minuto'",
+      "'Yo vi a tu abuelo igual. La guerra te marca'",
+      "'El sol calienta, pero no cura el alma'",
+      "'Corre mucho, inspector. Un día tropezarás'",
+      "'Yo aquí llevo 20 años. He visto nacer y morir héroes'",
+      "'Tu madre se sentaba aquí también cuando estaba triste'",
+      "'Los jóvenes creen que pueden salvar el mundo'",
+      "'Descansa. Que el mundo sigue sin ti un día'",
+      "'Vi tu sombra. Pesa más que tu cuerpo'",
+      "'Cuando ya no puedas más, vuelve. Te espero'"
+    ],
+    "olor": "caramelos_miel",
+    "sonido": "palomas_park"
+  },
+  {
+    "id": "forense_joven",
+    "rol": "nueva_generacion",
+    "peso": 0.7,
+    "descripcion": "Forense recién graduada. Admira a {{personaje}} pero le da miedo cómo trabaja.",
+    "frases": [
+      "'¿Cómo hace para no vomitar, inspector?'",
+      "'Mi profesor habló de usted. Dice que es leyenda'",
+      "'Esto es... es mucho peor en persona que en libros'",
+      "'¿No le dan pesadillas después de ver esto?'",
+      "'Quiero ayudar, pero no sé si podré'",
+      "'Usted es valiente. Yo solo tengo miedo'",
+      "'Gracias por explicarme. Nadie más lo hace'",
+      "'¿Cómo se llama cuando uno ya no siente nada?'",
+      "'Prometo no fallarle. Ni a los muertos'",
+      "'¿Algún día me enseña cómo se sigue viviendo?'"
+    ],
+    "olor": "guantes_latex",
+    "sonido": "bandeja_metal"
+  },
+  {
+    "id": "dueño_ferreteria",
+    "rol": "herramientas_solucion",
+    "peso": 0.6,
+    "descripcion": "Ferretero cascarrabias. Vende a {{personaje}} lo que necesita sin preguntar para qué.",
+    "frases": [
+      "'Cuerda, cinta y linterna. Como siempre, inspector'",
+      "'No pregunto para qué. Usted no dice. Trato hecho'",
+      "'Esa palanca rompió más puertas que usted'",
+      "'Si necesita esposas, las de verdad están al fondo'",
+      "'Un buen martillo resuelve más que una placa'",
+      "'Su padre compraba aquí también. Mismo brillo en los ojos'",
+      "'Cuídese las manos. Sin ellas no es nadie'",
+      "'Esta linterna alumbra hasta las mentiras'",
+      "'Vuelve cuando no sea para forzar cerraduras'",
+      "'Las herramientas no matan. La gente sí'"
+    ],
+    "olor": "metal_oxido",
+    "sonido": "martillo_clavo"
+  },
+  {
+    "id": "enfermera_urgencias",
+    "rol": "curar_despues",
+    "peso": 0.8,
+    "descripcio": "Enfermera de urgencias. Cura les ferides de {{personatge}} sense preguntar. Ja coneix la seva sang.",
+    "frases": [
+      "'Otra vez usted, inspector? Esta es su quinta visita este mes'",
+      "'No se mueva o la cicatriz quedará fea. Como su vida'",
+      "'La sangre se limpia. La culpa no'",
+      "'¿Le doy puntos o una excusa para irse?'",
+      "'Cuídese. Que aquí ya nos conocemos de memoria'",
+      "'Otra bala, otra mentira de que fue un accidente'",
+      "'Si vuelve mañana, le cobro doble'",
+      "'Su corazón late bien. El resto no lo sé'",
+      "'Desinfecta más que el alcohol: la verdad'",
+      "'Váyase a dormir. Las heridas no curan de noche'"
+    ],
+    "olor": "antiseptico_sangre",
+    "so": "bip_monitor"
+  },
+  {
+    "id": "profesor_universidad",
+    "rol": "mento_intelectual",
+    "peso": 0.7,
+    "descripcio": "Ex-professor de {{personatge}} a la academia policial. Jubilat. Li envia llibres amb notes als marges.",
+    "frases": [
+      "'Leí su caso en el diario. Mal redactado, pero bien resuelto'",
+      "'La lógica no tiene placa, inspector'",
+      "'Le presté Dostoievski. Devuélvalo antes de que mate a alguien'",
+      "'Sus preguntas son buenas. Sus respuestas, peores'",
+      "'El crimen es literatura sin editor'",
+      "'Vuelva cuando quiera aprender en vez de disparar'"
+    ],
+    "olor": "libro_antiguo",
+    "so": "pluma_papel"
+  },
+  {
+    "id": "niña_perdida",
+    "rol": "inocencia_peligro",
+    "peso": 0.9,
+    "descripcio": "Nena de 10 anys que {{personatge}} va salvar al beat 6. Ara li dibuixa cada setmana.",
+    "frases": [
+      "'Señor inspector, ¿me enseña a atrapar malos?'",
+      "'Mamá dice que usted es héroe. Yo le creo'",
+      "'Te dibujé sin sangre en las manos. Así me gusta más'",
+      "'¿Cuándo me llevas a la comisaría? Prometo portarme bien'",
+      "'Guarda este dibujo. Para cuando tengas miedo'"
+    ],
+    "olor": "ceras_colores",
+    "so": "risas_niña"
+  },
+  {
+    "id": "abogado_defensa",
+    "rol": "contrario_necesario",
+    "peso": 0.8,
+    "descripcio": "Advocat que defensa els culpables que {{personatge}} deté. Es respecten però es odien.",
+    "frases": [
+      "'Sin pruebas legales, su justicia no vale nada'",
+      "'Otra vez usted violando protocolo, inspector?'",
+      "'Mi cliente es inocente hasta que usted lo arruine'",
+      "'Lo veo en el juicio. Y esta vez gano yo'",
+      "'La ley es ciega. Usted es terco'",
+      "'Guardemos el odio para después del veredicto'"
+    ],
+    "olor": "papel_legal",
+    "so": "maletin_cierre"
+  },
+  {
+    "id": "mendigo_sabio",
+    "rol": "verdad_calle",
+    "peso": 0.7,
+    "descripcio": "Home que viu al carrer. Sap on es mou {{antagonista}}. {{personatge}} li porta menjar i ell li dona info.",
+    "frases": [
+      "'Los ricos matan con corbata, inspector. Los pobres con cuchillo'",
+      "'Vi a tu hombre. Entra en el edificio negro a las 3'",
+      "'El dinero no huele. La sangre sí'",
+      "'Dame pan y te doy nombres. Trato justo'",
+      "'Esta ciudad se come a los buenos. Cuídate'",
+      "'Yo también tuve placa. En otra vida'"
+    ],
+    "olor": "calle_humedad",
+    "so": "monedas_saco"
+  },
+  {
+    "id": "dueña_lavanderia",
+    "rol": "limpiar_cuerpo",
+    "peso": 0.6,
+    "descripcio": "Dona xinesa que renta la roba de tota la comissaria. Li treu sang de la camisa sense preguntar.",
+    "frases": [
+      "'Otra mancha roja, inspector. ¿Tomate?'",
+      "'Esta camisa ya no sirve. Te dejo una nueva'",
+      "'Mi marido también llegó así. Nunca habló'",
+      "'El jabón quita sangre. La memoria no'",
+      "'Vuelve el jueves. Te plancho gratis'",
+      "'Cuídate la ropa. Es lo único limpio que tienes'"
+    ],
+    "olor": "suavizante_jabon",
+    "so": "secadora_giro"
+  },
+  {
+    "id": "joven_hacker",
+    "rol": "tecnologia_sombra",
+    "peso": 0.8,
+    "descripcio": "Noi de 19 anys que hackeja per {{personatge}} quan el sistema oficial falla. Irreverent.",
+    "frases": [
+      "'Tu contraseña es pésima, inspector. '1234''",
+      "'Te rastreé el móvil del malo. Está en el puerto'",
+      "'No me metas en esto. Bueno, sí. Me aburro'",
+      "'La policía usa Windows 95. Por eso pierden'",
+      "'Si me atrapan, no me conoces'",
+      "'Listo. Borré tu historial de búsqueda... de gatos'"
+    ],
+    "olor": "plastico_caliente",
+    "so": "teclado_rapido"
+  },
+  {
+    "id": "cura_joven",
+    "rol": "fe_dudosa",
+    "peso": 0.7,
+    "descripcio": "Cura jove, 30 anys. Va perdre la fe però no l'esperança. Parla amb {{personatge}} d'ànima.",
+    "frases": [
+      "'Dios no te abandonó, inspector. Tú te fuiste'",
+      "'¿Confesar o hablar? Aquí no hay diferencia'",
+      "'Perdona a tu padre. Está muerto, pero tú sigues vivo'",
+      "'Si Dios existe, llora contigo cada noche'",
+      "'No te pido que creas. Solo que no te mates'",
+      "'La iglesia está abierta. Para ti siempre'"
+    ],
+    "olor": "incienso_madera",
+    "so": "organo_lejano"
+  },
+  {
+    "id": "vendedora_flores_nocturna",
+    "rol": "belleza_muerte",
+    "peso": 0.8,
+    "descripcio": "Dona que ven flors 24h davant del tanatori. {{personatge}} compra quan el cas pesa massa.",
+    "frases": [
+      "'Claveles blancos otra vez. ¿Para quién hoy?'",
+      "'Las flores no devuelven, inspector. Solo acompañan'",
+      "'Para ti, sin cobrar. Tienes cara de entierro'",
+      "'Elige bien. Las palabras también se marchitan'",
+      "'Si quieres llorar, aquí no juzga nadie'",
+      "'Vuelve cuando sea para celebrar vida'"
+    ],
+    "olor": "flores_frescas",
+    "so": "papel_flor"
+  },
+  {
+    "id": "policia_jubilado",
+    "rol": "espejo_pasado",
+    "peso": 0.9,
+    "descripcio": "Ex-compañero de {{personatge}}. Jubilat per una bala al genoll. Beu al mateix bar.",
+    "frases": [
+      "'Tú eres yo hace 20 años, hijo. Te veo'",
+      "'Deja la placa antes de que la placa te deje a ti'",
+      "'Yo también creía que podía salvar a todos'",
+      "'Una copa por los que no llegamos'",
+      "'Cuídate. Que yo no pude'",
+      "'La ciudad no te lo agradecerá. Hazlo igual'"
+    ],
+    "olor": "whisky_viejo",
+    "so": "vaso_madera"
+  },
+  {
+    "id": "bibliotecaria_sorda",
+    "rol": "guardiana_silencio",
+    "peso": 0.6,
+    "descripcio": "Dona gran sorda de la biblioteca central. Llegeix llavis. Guarda expedients que ningú demana.",
+    "frases": [
+      "'Leí tus labios: caso 98. Sótano, estantería 4'",
+      "'Aquí el silencio grita más que las balas'",
+      "'Lleva 10 años sin venir nadie por este libro'",
+      "'La verdad no hace ruido, inspector. Se lee'",
+      "'Cierra en 5 minutos. Como siempre tarde'",
+      "'Guarda silencio. Aquí mueren secretos, no gente'"
+    ],
+    "olor": "polvo_libro",
+    "so": "silencio_total"
+  },
+  {
+    "id": "traficante_redimido",
+    "rol": "segunda_oportunidad",
+    "peso": 0.7,
+    "descripcio": "Ex-traficant que {{personatge}} va detenir fa 10 anys. Ara té botiga legal. Deute mutu.",
+    "frases": [
+      "'Tú me diste cárcel. Yo te doy info. Estamos en paz'",
+      "'Ese callejón es mío. Nadie entra sin que yo sepa'",
+      "'No vendo más. Pero escucho todo'",
+      "'Si necesitas desaparecer algo, yo guardo'",
+      "'Gracias por no matarme aquella noche'",
+      "'Esta ciudad cambia. O nosotros cambiamos'"
+    ],
+    "olor": "cafe_recien",
+    "so": "persiana_subir"
+  },
+  {
+    "id": "médico_cabecera",
+    "rol": "verdad_medica",
+    "peso": 0.8,
+    "descripcio": "Metge de capçalera de {{personatge}} des de nen. Sap que menteix quan diu 'estoy bien'.",
+    "frases": [
+      "'Tienes úlcera, inspector. Y no es del café'",
+      "'Si no duermes, te receto balas. No funciona'",
+      "'Tu padre murió de lo mismo: no pedir ayuda'",
+      "'Otra pastilla no arregla lo que tienes roto'",
+      "'Vuelve en un mes. O antes, si te disparan'",
+      "'Te conozco desde niño. Mientes peor ahora'"
+    ],
+    "olor": "alcohol_medico",
+    "so": "estetoscopio"
+  },
+  {
+    "id": "fotografo_crimen",
+    "rol": "memoria_visual",
+    "peso": 0.7,
+    "descripcio": "Fotògraf de la policia científica. Congela morts amb el flaix. {{personatge}} no suporta mirar les fotos.",
+    "frases": [
+      "'Sonríe, inspector. Aunque sea para el expediente'",
+      "'La cámara no miente. La gente sí'",
+      "'Otra escena, otra foto, otro muerto'",
+      "'Guardo todas tus casos. Por si vuelven'",
+      "'El flash ilumina la verdad 1 segundo'",
+      "'No mires tan fijamente. La muerte mira de vuelta'"
+    ],
+    "olor": "quimico_revelado",
+    "so": "flash_camara"
+  },
+  {
+    "id": "dueña_peluqueria",
+    "rol": "mascara_normal",
+    "peso": 0.6,
+    "descripcio": "Peruquera del barri. Talla el cabell a {{personatge}} cada mes. Ell dorm a la cadira.",
+    "frases": [
+      "'Otra vez dormido, inspector? Te corto el pelo o la oreja'",
+      "'Este corte te quita 5 años. Y 5 kilos de culpa'",
+      "'Habla mientras corto. Así no piensas'",
+      "'Tu padre venía aquí también. Mismo corte'",
+      "'El pelo crece. Las cicatrices no'",
+      "'Vuelve en 30 días. O cuando mates a alguien'"
+    ],
+    "olor": "champu_fragancia",
+    "so": "tijeras_cortar"
+  },
+  {
+    "id": "conserje_edificio",
+    "rol": "ojos_edificio",
+    "peso": 0.8,
+    "descripcio": "Conserje del edifici on viu {{personatge}}. Sap qui entra i qui surt. No pregunta, només avisa.",
+    "frases": [
+      "'Llegó usted tarde otra vez, inspector'",
+      "'Ese tipo subió a su piso ayer. No lo vi salir'",
+      "'Le dejé un paquete. No pregunto qué es'",
+      "'Esta escalera oyó más secretos que la comisaría'",
+      "'Cuide el edificio. Es lo único que no miente'",
+      "'Si necesita llave maestra, yo no vi nada'"
+    ],
+    "olor": "cera_suelo",
+    "so": "llaves_llavero"
+  }
+]
