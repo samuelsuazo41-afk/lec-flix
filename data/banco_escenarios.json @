@@ -1,629 +1,555 @@
 [
   {
-    "id": "esc_gir_cafe_001",
+    "id": "girona_comisaria_mercadal",
     "ciutat": "Girona",
-    "pais": "Espanya",
-    "nom": "Cafè La Rosaleda",
-    "texto_base": "Dins de {{nom}}, a {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Taules de fusta vella i cadires que grinyolen",
-        "Barra plena de gent amb diari i cafè",
-        "Finestra emboirada per la humitat",
-        "Ràdio de fons amb música catalana",
-        "Terrassa petita mirant al carreró",
-        "Miralls antics que reflecteixen el fum",
-        "Llibres apilats al taulell",
-        "Olor de croissant acabat de treure"
-      ],
-      "so": [
-        "Se sent el xoc de tasses", "De fons sona el trànsit de la Devesa",
-        "Algú riu a la taula del costat", "El cambrer crida una comanda",
-        "La porta s’obre i entra fred", "El mòlins de cafè grinyola",
-        "Una cullera xoca contra la tassa", "La ràdio canvia d’emissora"
-      ],
-      "olor": [
-        "Fa olor de cafè torrat i pa", "L’aire porta olor de pluja i pedra mullada",
-        "Fa olor de croissant calent", "L’olor de tabac vell s’enfila",
-        "Fa olor de netejador i cafè", "L’aire porta olor de mar",
-        "Fa olor de llet calenta", "L’olor de sucre cremat"
-      ]
-    },
-    "tags": ["interior", "public", "dia"],
-    "genero": ["policiac", "romance", "comedia"]
+    "zona": "Mercadal",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Comisaria del Mercadal. Humitat, café recalentat, arxius vells",
+    "frases_ambientacion": [
+      "Luces fluorescentes parpadeando sobre mesa de madera gastada",
+      "El murmuri del riu Onyar sota el Pont de Ferro arriba per la finestra",
+      "Olor de café torrat i croissant del Forn de Sant Narcís",
+      "Fred i humit a l’hivern amb boira del riu colant-se",
+      "Arxivers metàl·lics amb expedients de casos sense resoldre",
+      "Vent entre els plàtans de la Devesa colpejant els vidres",
+      "Olor de pedra mullada i riu quan plou torrencial",
+      "Reloj de pared marcant les 3:14 AM"
+    ],
+    "usos_beat": [1, 8, 14]
   },
   {
-    "id": "esc_gir_catedral_001",
+    "id": "girona_pont_pedra_nit",
     "ciutat": "Girona",
-    "pais": "Espanya",
-    "nom": "Catedral de Girona, Barri Vell",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Pedra freda i humida sota els peus",
-        "Vitalls que pinten el terra de colors",
-        "Bancs buits i silenci dens",
-        "Escales que pugen cap a la torre",
-        "Ombres llargues entre les columnes",
-        "Ciris encesos al fons",
-        "Porta de fusta massissa entreoberta",
-        "Ecos que reboten a la volta"
-      ],
-      "so": [
-        "Les campanes ressonen lluny", "Els passos ressonen a la nau",
-        "Un murmuri que no s’entén", "El vent xiula per les finestres",
-        "La porta grinyola en tancar-se", "Silenci que pesa",
-        "Un cop sec llunyà", "El so d’aigua que degota"
-      ],
-      "olor": [
-        "Fa olor d’encens i pedra vella", "L’aire és fred i humit",
-        "Fa olor de cera cremada", "L’olor de pols antiga",
-        "Fa olor de fusta mullada", "L’aire porta olor de pluja",
-        "Fa olor de ciris", "L’olor de pedra i temps"
-      ]
-    },
-    "tags": ["interior", "sagrat", "claustrofobic"],
-    "genero": ["terror", "policiac", "thriller"]
+    "zona": "Pont de Pedra",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Pont de Pedra sobre l'Onyar. Aigua negra, cases de colors",
+    "frases_ambientacion": [
+      "Aigua del riu Onyar tocant els pilars de pedra sota el pont",
+      "Olor de pedra mullada i riu Onyar pujant amb la boira",
+      "Cases de colors del Pont de les Peixateries reflexant a l'aigua",
+      "Humitat del riu Onyar a la nit calant als ossos",
+      "Eco als 90 graons de la Catedral ressonant",
+      "Vent de tramuntana seca que baixa del Pirineu",
+      "Llambordes mullades brillant sota la lluna",
+      "Silenci trencat pel so del tren de Rodalies R11"
+    ],
+    "usos_beat": [8, 14]
   },
   {
-    "id": "esc_bcn_metro_001",
+    "id": "barcelona_barceloneta_port",
     "ciutat": "Barcelona",
-    "pais": "Espanya",
-    "nom": "Metro Línia 3, Estació Passeig de Gràcia",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Andana plena, gent que corre",
-        "Vagó buit a mitja nit",
-        "Escales mecàniques aturades",
-        "Publicitat de perfum a la paret",
-        "Músic de carrer al passadís",
-        "Vent que ve del túnel",
-        "Llum fluorescent que parpelleja",
-        "Mapa del metro tacat"
-      ],
-      "so": [
-        "Se sent el xiscle del tren", "Anunci en català i castellà",
-        "La guitarra del músic", "El murmuri de la gent",
-        "El silenci quan s’aturen les portes", "Un cop sec al túnel",
-        "Passos que ressonen", "El pànic contingut"
-      ],
-      "olor": [
-        "Fa olor de fum i metall", "L’aire és calent i tancat",
-        "Fa olor de perfum barat", "L’olor de suor i metro",
-        "Fa olor de netejador i ferro", "L’aire porta olor de mar",
-        "Fa olor de plàstic calent", "L’olor de pols vella"
-      ]
-    },
-    "tags": ["transport", "public", "claustrofobic"],
-    "genero": ["thriller", "terror", "policiac"]
+    "zona": "Barceloneta",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Port Olímpic. Sal, gavines, magatzems, mar",
+    "frases_ambientacion": [
+      "Les ones trencant a la platja de la Barceloneta",
+      "Olor de sal i mar de la Barceloneta amb fum de graella",
+      "Gavines cridant al Port Olímpic buscant menjar",
+      "Humitat marina tot l’any enganxada a la roba",
+      "Calor asfixiant a l’agost de 40 graus rebotant",
+      "Vent de garbí a la tarda movent les barques",
+      "Magatzem abandonat amb porta metàl·lica oxidada",
+      "Sirena de vaixell llunyana a la nit"
+    ],
+    "usos_beat": [1, 14]
   },
   {
-    "id": "esc_bcn_barri_001",
+    "id": "besalu_pont_romanic",
+    "ciutat": "Besalú",
+    "zona": "Pont Romànic",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Pont Romànic de 12 arcs sobre el Fluvià. Pedra segle XII",
+    "frases_ambientacion": [
+      "El so del riu Fluvià sota el pont romànic de 12 arcs",
+      "Olor de pedra vella i humitat del Fluvià gelada",
+      "Fred sec a l’hivern de -2 graus calant als ossos",
+      "Boira matinal a la tardor al Fluvià cobrint la pedra",
+      "Aigua del riu tocant els pilars del pont del segle XII",
+      "Vent de tramuntana que baixa del Pirineu tallant",
+      "Gotes de pluja torrencial de llevant sobre pedra",
+      "Silenci medieval trencat pel murmuri del Fluvià de nit"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "cadaques_port_tramuntana",
+    "ciutat": "Cadaqués",
+    "zona": "Port",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Port de Cadaqués. Tramuntana 100km/h, pescadors, sal",
+    "frases_ambientacion": [
+      "El so de les ones trencant a la badia de Cadaqués",
+      "Vent de tramuntana forta de 100km/h entre cases blanques",
+      "Olor de peix fresc al port i xarxa de pescar mullada",
+      "Fred sec a l’hivern amb mar agitada al novembre",
+      "Crit de les gavines al matí sobre el moll",
+      "Olor de sal i mar de la badia amb fum de graella",
+      "Vent constant al port sacsejant amarres",
+      "Sol intens al juliol rebotant al mar pla"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "figueres_dali_tramuntana",
+    "ciutat": "Figueres",
+    "zona": "Teatre-Museu Dalí",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Teatre-Museu Dalí tancat. Tramuntana, cúpula d'ous",
+    "frases_ambientacion": [
+      "Silenci del Teatre-Museu Dalí a primera hora",
+      "El so de la tramuntana pels carrers de Figueres colpejant ous",
+      "Calor intensa a l’estiu de 38 graus a la pedra",
+      "Olor de pols i tramuntana seca",
+      "Vent constant tot l’any xiulant a la façana",
+      "Olor de terra seca de la plana quan bufa vent",
+      "Campanes de Sant Pere tocant a migdia lluny",
+      "Silenci del Dalí tancat només trencat pel vent"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "rupit_cascada_boira",
+    "ciutat": "Rupit",
+    "zona": "Cascada",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Cascada de Rupit. Aigua, roca mullada, boira muntanya",
+    "frases_ambientacion": [
+      "El so de la cascada de Rupit caient per la roca",
+      "Aigua caient per la roca esquitxant pedra mullada",
+      "Fred i humit tot l’any a la vall",
+      "Boira matinal a la vall cobrint el bosc de pins",
+      "Olor de molsa i aigua de cascada pujant",
+      "Olor de pi i romaní amb vent de muntanya",
+      "Murmuri del riu Ges de nit entre pins",
+      "Aire net de muntanya que cala als pulmons"
+    ],
+    "usos_beat": [8, 14]
+  },
+  {
+    "id": "tarragona_balco_mediterrani",
+    "ciutat": "Tarragona",
+    "zona": "Balcó del Mediterrani",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Balcó del Mediterrani. Vent garbí, mar, barana",
+    "frases_ambientacion": [
+      "El so de les ones al Balcó del Mediterrani trencant",
+      "Vent de garbí a la tarda bufant entre merlets romans",
+      "Humitat marina enganxada a la pedra romana",
+      "Olor de sal i mar pujant des del port",
+      "Sol intens al juliol escalfant pedra calenta",
+      "Olor de romaní i pins del mediterrani",
+      "Brisa de mar al vespre quan baixa el sol",
+      "Silenci de nit quan tanquen el passeig"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "vic_placa_dilluns",
+    "ciutat": "Vic",
+    "zona": "Plaça Major",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Plaça Major de Vic dilluns mercat. Porcs, porxos, pedra XVIII",
+    "frases_ambientacion": [
+      "El so de la plaça Major els dissabtes amb gent",
+      "Murmuri de venedors al mercat del dilluns cridant",
+      "So de porcs al mercat ressonant entre porxos",
+      "Fred sec a l’hivern de -3 graus sota porxos",
+      "Boira matinal a la tardor al Mèder colant-se",
+      "Olor de pedra vella i humitat de la plaça segle XVIII",
+      "Pluja torrencial de llevant colpejant teulada",
+      "Vent fort entre els porxos xiulant a bigues"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "sitges_platja_ribera",
+    "ciutat": "Sitges",
+    "zona": "Platja de la Ribera",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Platja de la Ribera. Ones, xiringuito, garbí 38 graus",
+    "frases_ambientacion": [
+      "El so de les ones trencant a la platja de la Ribera",
+      "Vent de garbí al passeig marítim movent sorra",
+      "Olor de sal i mar de la Ribera amb fum de graella",
+      "Calor asfixiant a l’agost de 38 graus a la sorra",
+      "Humitat marina tot l’any a la pell",
+      "Música de xiringuito a la platja arribant lluny",
+      "Brisa de mar a la Ribera al vespre",
+      "Crit de gavines al port proper"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "lleida_seu_vella_turo",
+    "ciutat": "Lleida",
+    "zona": "La Seu Vella",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "La Seu Vella al turó. Vent sec plana, calor 40 graus",
+    "frases_ambientacion": [
+      "Silenci de la Seu Vella al matí sense turistes",
+      "Calor sec a l’estiu de 40 graus a la pedra",
+      "Vent sec de ponent xiulant entre merlets",
+      "Olor de terra seca de la plana i pols",
+      "Fred intens a l’hivern de -5 graus a la nit",
+      "Boira matinal a la tardor al Segre tapant el riu",
+      "Campanes de la Seu Vella tocant a l'alba",
+      "Olor de pedra vella de la Seu i moixí"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "montserrat_monestir_cant",
+    "ciutat": "Montserrat",
+    "zona": "Monestir",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Monestir de Montserrat. Cant gregorià, incens, boira agulles",
+    "frases_ambientacion": [
+      "Cant gregorià de l’Escolania al matí ressonant",
+      "Silenci del monestir a primera hora amb boira",
+      "Olor de pedra i incens al monestir i resina de pi",
+      "Vent fort entre les agulles xiulant a 1236m",
+      "Fred intens al cim a l’hivern tallant cara",
+      "Olor de romaní i farigola silvestre de muntanya",
+      "Eco de les campanes a la muntanya arribant tard",
+      "Aire pur de muntanya que cala als pulmons"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "manresa_seu_campanes",
+    "ciutat": "Manresa",
+    "zona": "Seu",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "La Seu de Manresa. Campanes migdia, pedra gòtica, Cardener",
+    "frases_ambientacion": [
+      "Campanes de la Seu al migdia ressonant plaça",
+      "Silenci de la Seu a primera hora abans gent",
+      "Calor sec a l’estiu de 35 graus rebotant asfalt",
+      "Olor de pedra de la Seu i moixí antic",
+      "Humitat del Cardener a la nit pujant",
+      "Vent de ponent sec entre carrers del centre",
+      "Boira al matí a la tardor tapant el riu",
+      "Olor de pa de pagès al forn del carrer"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "mataro_platja_ones",
+    "ciutat": "Mataró",
+    "zona": "Platja",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Platja de Mataró. Ones, tren R1, sal, gavines",
+    "frases_ambientacion": [
+      "El so de les ones a la platja de Mataró trencant",
+      "Vent de mar constant movent sorra del passeig",
+      "Olor de sal i mar de la platja amb fum graella",
+      "Humitat alta a l’agost enganxada a la pell",
+      "So del tren de la línia R1 passant proper",
+      "Crit de gavines al port buscant menjar",
+      "Sol intens al juny rebotant a l'aigua",
+      "Mar plana al juliol sense onades"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "barcelona_raval_carreró",
     "ciutat": "Barcelona",
-    "pais": "Espanya",
-    "nom": "Carrerons del Born",
-    "texto_base": "Als {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Pedra mullada sota els peus",
-        "Balcons amb roba estesa",
-        "Finestres petites i llum groga",
-        "Portes de fusta vella",
-        "Gats que creuen corrents",
-        "Motos aparcades al pas",
-        "Graffiti a la paret",
-        "Testos amb flors als ampits"
-      ],
-      "so": [
-        "Algú parla en veu baixa", "El so de talons a la pedra",
-        "Una porta que es tanca", "El so llunyà de la Rambla",
-        "Un gos que borda", "El vent entre els cables",
-        "Una moto que s’allunya", "El silenci del carreró"
-      ],
-      "olor": [
-        "Fa olor de mar i pedra mullada", "L’aire porta olor de fregit",
-        "Fa olor de vi i fum", "L’olor de roba mullada",
-        "Fa olor de pa torrat", "L’aire porta olor de mar",
-        "Fa olor de pintura fresca", "L’olor de pols i pedra"
-      ]
-    },
-    "tags": ["exterior", "nocturn", "estret"],
-    "genero": ["policiac", "thriller", "romance", "terror"]
+    "zona": "Raval",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Carreró estret del Raval. Grafitis, humitat, sirenes",
+    "frases_ambientacion": [
+      "Sirenes d’ambulància al Raval ressonant murs",
+      "Olor de pintura fresca als murs del Raval",
+      "Fred que cala al Raval a les 4 matinada",
+      "Humitat del mar a la nit calant pedra",
+      "Porta de garatge metàl·lica cruixint",
+      "Olor de fum de metro i ferro Passeig Gràcia",
+      "Vent de garbí a la tarda entre edificis",
+      "Música de carrer a La Rambla arribant lluny"
+    ],
+    "usos_beat": [8, 14]
   },
   {
-    "id": "esc_mx_zocalo_001",
-    "ciutat": "Ciutat de Mèxic",
-    "pais": "Mèxic",
-    "nom": "Zòcalo",
-    "texto_base": "Al {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Plaça immensa amb gent asseguda",
-        "Bandera gegant onejant",
-        "Venedors de globus i paletes",
-        "Guàrdies al voltant del palau",
-        "Coloms que aixequen el vol",
-        "Font al centre amb aigua",
-        "Bancs de ferro vell",
-        "Músics amb guitarra"
-      ],
-      "so": [
-        "Música de mariachi llunyà", "El so dels autobusos",
-        "Venedors cridant", "El soroll de mil passes",
-        "El silenci quan passa la guàrdia", "Una trompeta desafina",
-        "El murmuri de la multitud", "Un crit llunyà"
-      ],
-      "olor": [
-        "Fa olor de tortilla i smog", "L’aire porta olor de flors de jacaranda",
-        "Fa olor de pluja sobre terra calenta", "L’olor de sucre i fregit",
-        "Fa olor de fum i pols", "L’aire porta olor de mar",
-        "Fa olor de cafè i sucre", "L’olor de pols i gent"
-      ]
-    },
-    "tags": ["exterior", "public", "multitud"],
-    "genero": ["policiac", "romance", "fantasia", "comedia"]
-  },
-  {
-    "id": "esc_mx_coyoacan_001",
-    "ciutat": "Ciutat de Mèxic",
-    "pais": "Mèxic",
-    "nom": "Coyoacán, Carrer Frida Kahlo",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Carrers empedrats i cases de colors",
-        "Murals a la paret",
-        "Cafès amb taules al carrer",
-        "Venedors d’artesania",
-        "Gossos dormint al sol",
-        "Flors a les finestres",
-        "Bicletes aparcades",
-        "Portes de fusta pintades"
-      ],
-      "so": [
-        "Música de guitarra", "El so dels nens jugant",
-        "Un venedor cridant", "El so dels talons a la pedra",
-        "El murmuri dels cafès", "Un gos que borda",
-        "El vent entre els arbres", "El silenci del carreró"
-      ],
-      "olor": [
-        "Fa olor de flors i cafè", "L’aire porta olor de pintura fresca",
-        "Fa olor de tortilla i xile", "L’olor de fusta vella",
-        "Fa olor de llibres vells", "L’aire porta olor de mar",
-        "Fa olor de sucre i canyella", "L’olor de pols i colors"
-      ]
-    },
-    "tags": ["exterior", "dia", "bohemi"],
-    "genero": ["romance", "policiac", "fantasia", "comedia"]
-  },
-  {
-    "id": "esc_ar_santelmo_001",
-    "ciutat": "Buenos Aires",
-    "pais": "Argentina",
-    "nom": "San Telmo, Carrer Defensa",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Pedra irregular sota els peus",
-        "Balcons amb reixa de ferro",
-        "Tango que surt d’un bar",
-        "Parada d’antiguitats al carrer",
-        "Graffiti a la paret",
-        "Cafè amb olor de crema",
-        "Portes de fusta vella",
-        "Farols antics encesos"
-      ],
-      "so": [
-        "El bandoneó del tanguero", "El so dels talons a la pedra",
-        "Algú cridant a la cantonada", "El murmuri del bar",
-        "Un taxi que frena", "El vent entre els balcons",
-        "El so d’un violí", "El silenci del carreró"
-      ],
-      "olor": [
-        "Fa olor de cafè i fum", "L’aire porta olor de pluja i pedra",
-        "Fa olor de cuir vell", "L’olor de vi i fum",
-        "Fa olor de pa calent", "L’aire porta olor de mar",
-        "Fa olor de perfum barat", "L’olor de pols i temps"
-      ]
-    },
-    "tags": ["exterior", "nocturn", "tango"],
-    "genero": ["romance", "policiac", "thriller", "comedia"]
-  },
-  {
-    "id": "esc_ar_boca_001",
-    "ciutat": "Buenos Aires",
-    "pais": "Argentina",
-    "nom": "La Boca, Caminito",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Cases de xapa de colors vius",
-        "Murals i banderes",
-        "Venedors de records",
-        "Ballarins de tango al carrer",
-        "Graffiti a cada paret",
-        "Cadires de plàstic al carrer",
-        "Gats dormint al sol",
-        "Portes de colors cridaners"
-      ],
-      "so": [
-        "Tango fort des d’un altaveu", "El so dels turistes",
-        "Un venedor cridant", "El murmuri de la gent",
-        "Un tambor llunyà", "El vent entre les xapes",
-        "Un gos que borda", "El silenci del carreró"
-      ],
-      "olor": [
-        "Fa olor de carn a la graella", "L’aire porta olor de pintura fresca",
-        "Fa olor de fum i graella", "L’olor de cuir vell",
-        "Fa olor de cafè i sucre", "L’aire porta olor de mar",
-        "Fa olor de pintura i fusta", "L’olor de pols i colors"
-      ]
-    },
-    "tags": ["exterior", "dia", "turistic"],
-    "genero": ["comedia", "romance", "policiac"]
-  },
-  {
-    "id": "esc_co_poblado_001",
-    "ciutat": "Medellín",
-    "pais": "Colòmbia",
-    "nom": "El Poblado, Parc Lleras",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Taules de bar al carrer",
-        "Gent jove rient",
-        "Música de reggaeton de fons",
-        "Venedors ambulants",
-        "Llum de neó als locals",
-        "Motos aparcades al voral",
-        "Flors als testos",
-        "Gent ballant al carrer"
-      ],
-      "so": [
-        "Reggaeton fort", "El so de les copes",
-        "Algú cridant el nom d’un amic", "El murmuri de la multitud",
-        "Una moto que accelera", "El vent entre els arbres",
-        "Un crit de felicitat", "El silenci entre cançons"
-      ],
-      "olor": [
-        "Fa olor de cervesa i fum", "L’aire porta olor de pluja i terra",
-        "Fa olor de carn a la graella", "L’olor de perfum barat",
-        "Fa olor de sucre i alcohol", "L’aire porta olor de flors",
-        "Fa olor de tabac i fum", "L’olor de pols i nit"
-      ]
-    },
-    "tags": ["exterior", "nocturn", "festa"],
-    "genero": ["romance", "policiac", "comedia", "thriller"]
-  },
-  {
-    "id": "esc_co_comuna13_001",
-    "ciutat": "Medellín",
-    "pais": "Colòmbia",
-    "nom": "Comuna 13, Escales Elèctriques",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Escales elèctriques entre cases de colors",
-        "Murals gegants a la paret",
-        "Nens jugant al carrer",
-        "Venedors d’aigua i fruita",
-        "Graffiti polític",
-        "Música que surt d’una finestra",
-        "Gossos dormint a l’ombra",
-        "Cables penjant per tot arreu"
-      ],
-      "so": [
-        "Reggaeton des d’una finestra", "El so dels nens jugant",
-        "Un venedor cridant", "El murmuri de la gent",
-        "El so de les escales", "El vent entre els cables",
-        "Un gos que borda", "El silenci del carreró"
-      ],
-      "olor": [
-        "Fa olor de pluja i terra mullada", "L’aire porta olor de fruita fresca",
-        "Fa olor de fum i graella", "L’olor de pintura fresca",
-        "Fa olor de cafè i sucre", "L’aire porta olor de flors",
-        "Fa olor de fum i pols", "L’olor de pols i colors"
-      ]
-    },
-    "tags": ["exterior", "dia", "pendent"],
-    "genero": ["policiac", "thriller", "romance"]
-  },
-  {
-    "id": "esc_gir_riu_001",
+    "id": "girona_call_jueu",
     "ciutat": "Girona",
-    "pais": "Espanya",
-    "nom": "Riu Onyar, Pont de Ferro",
-    "texto_base": "Al {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Aigua fosca sota el pont",
-        "Cases de colors reflectides",
-        "Vent que ve del riu",
-        "Turistes fent fotos",
-        "Ànecs nedant",
-        "Baranes de ferro vell",
-        "Pedra mullada",
-        "Silenci trencat per un cigne"
-      ],
-      "so": [
-        "L’aigua que xoca contra el pilar", "El so de les càmeres",
-        "Un cigne que bat les ales", "El murmuri dels turistes",
-        "El vent entre les bigues", "Un gos que borda lluny",
-        "El silenci del riu", "Un pas que ressona al pont"
-      ],
-      "olor": [
-        "Fa olor d’aigua i pedra mullada", "L’aire porta olor de mar",
-        "Fa olor de pa que tiren als ànecs", "L’olor de fum llunyà",
-        "Fa olor de ferro mullat", "L’aire porta olor de pluja",
-        "Fa olor de fang", "L’olor de pedra i aigua"
-      ]
-    },
-    "tags": ["exterior", "riu", "nocturn"],
-    "genero": ["policiac", "romance", "terror"]
+    "zona": "Call Jueu",
+    "tipo": "humano",
+    "peso": 0.3,
+    "descripcion": "Carreró estret Call Jueu. Pedra segle XII, silenci",
+    "frases_ambientacion": [
+      "Silenci absolut del Call Jueu carrer de la Força",
+      "Olor de pedra i pols del segle XII parets",
+      "Fred que cala als ossos al Call a l'hivern",
+      "Porta de fusta vella tancant-se carrer Calderers",
+      "Olor de fum de xemeneia hiverns del Call",
+      "Boira matinal primavera als ponts propers",
+      "Eco de passos ressonant murs estrets",
+      "Olor de terra i molsa després ploure"
+    ],
+    "usos_beat": [2, 8, 14]
   },
   {
-    "id": "esc_bcn_playa_001",
-    "ciutat": "Barcelona",
-    "pais": "Espanya",
-    "nom": "Platja de la Barceloneta",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Sorres humides i gent estirada",
-        "Ones que trenquen suaus",
-        "Venedors de cervesa",
-        "Nens jugant a la vora",
-        "Gavines cridant",
-        "Xiringuitos plens",
-        "Vent que ve del mar",
-        "Silenci a primera hora"
-      ],
-      "so": [
-        "El so de les ones", "Gavines que criden",
-        "Un venedor cridant", "El murmuri de la gent",
-        "El vent entre els para-sols", "Un nen que riu",
-        "El silenci del mar", "Una guitarra llunyana"
-      ],
-      "olor": [
-        "Fa olor de sal i mar", "L’aire porta olor de crema solar",
-        "Fa olor de fum de graella", "L’olor de peix fresc",
-        "Fa olor de cervesa freda", "L’aire porta olor de mar",
-        "Fa olor de sorra mullada", "L’olor de fum i sal"
-      ]
-    },
-    "tags": ["exterior", "dia", "mar"],
-    "genero": ["romance", "comedia", "policiac"]
+    "id": "besalu_call_medieval",
+    "ciutat": "Besalú",
+    "zona": "Call Jueu",
+    "tipo": "humano",
+    "peso": 0.3,
+    "descripcion": "Call medieval Besalú. Pedra segle XII, portes fusta",
+    "frases_ambientacion": [
+      "Silenci del call jueu medieval carrer Major",
+      "Olor de pols i temps al Call Jueu",
+      "Fred sec al desembre calant pedra",
+      "Porta de fusta vella cruixint carreró",
+      "Olor de fum de llenya hivern xemeneies",
+      "Vent fort entre cases medievals xiulant",
+      "Pedra segle XII freda al tacte",
+      "Silenci barri antic primera hora"
+    ],
+    "usos_beat": [2, 8]
   },
   {
-    "id": "esc_mx_mercat_001",
-    "ciutat": "Ciutat de Mèxic",
-    "pais": "Mèxic",
-    "nom": "Mercat de Coyoacán",
-    "texto_base": "Al {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Parades plenes de fruita",
-        "Gent que regateja",
-        "Olles bullint",
-        "Venedors cridant preus",
-        "Flors de colors vius",
-        "Passadissos estrets",
-        "Gats rondant",
-        "Llum que entra per les escletxes"
-      ],
-      "so": [
-        "Venedors cridant", "El so dels ganivets tallant",
-        "Música de ràdio", "El murmuri de la gent",
-        "Un nen que plora", "El so d’una balança",
-        "El silenci del passadís", "Un gos que borda"
-      ],
-      "olor": [
-        "Fa olor de xile i cilantre", "L’aire porta olor de fruita madura",
-        "Fa olor de fum i graella", "L’olor de flors fresques",
-        "Fa olor de carn crua", "L’aire porta olor de mar",
-        "Fa olor de sucre i canyella", "L’olor de pols i gent"
-      ]
-    },
-    "tags": ["interior", "dia", "multitud"],
-    "genero": ["policiac", "comedia", "romance"]
+    "id": "cadaques_cap_creus_far",
+    "ciutat": "Cadaqués",
+    "zona": "Cap de Creus",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Far Cap de Creus. Vent 100km/h, roques, mar agitada",
+    "frases_ambientacion": [
+      "Silenci del cap de Creus al far només vent",
+      "Vent de tramuntana forta 100km/h colpejant roques",
+      "Ones grosses octubre esclatant penya-segat",
+      "Olor de pins cap de Creus i roca calenta",
+      "Mar agitada tardor amb escuma blanca",
+      "Fred sec hivern a la punta",
+      "Crit gavines vespre llunyà",
+      "Silenci far Cala Nans s'apaga llum"
+    ],
+    "usos_beat": [14]
   },
   {
-    "id": "esc_ar_subte_001",
-    "ciutat": "Buenos Aires",
-    "pais": "Argentina",
-    "nom": "Subte Línia A, Estació Perú",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Andana antiga amb rajoles",
-        "Vagó de fusta vella",
-        "Gent apretada",
-        "Publicitat antiga a la paret",
-        "Vent que ve del túnel",
-        "Llum groga i feble",
-        "Músic amb bandoneó",
-        "Silenci quan s’aturen les portes"
-      ],
-      "so": [
-        "El xiscle del tren", "Anunci en castellà",
-        "El bandoneó del músic", "El murmuri de la gent",
-        "El silenci quan s’aturen les portes", "Un cop sec al túnel",
-        "Passos que ressonen", "El pànic contingut"
-      ],
-      "olor": [
-        "Fa olor de fum i metall", "L’aire és calent i tancat",
-        "Fa olor de perfum barat", "L’olor de suor i metro",
-        "Fa olor de netejador i ferro", "L’aire porta olor de mar",
-        "Fa olor de plàstic calent", "L’olor de pols vella"
-      ]
-    },
-    "tags": ["transport", "public", "claustrofobic"],
-    "genero": ["thriller", "terror", "policiac"]
+    "id": "tarragona_amfiteatre_roma",
+    "ciutat": "Tarragona",
+    "zona": "Amfiteatre",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Amfiteatre Romà. Pedra 2000 anys, eco, mar proper",
+    "frases_ambientacion": [
+      "Silenci de l’Amfiteatre buit eco 2000 anys",
+      "Vent entre columnes romanes xiulant grades",
+      "Olor de pedra romana calenta sol juliol",
+      "Humitat marina enganxada pedra antiga",
+      "Murmuri del Fòrum Romà llunyà fantasma",
+      "Olor pluja sobre pedra antiga llevant",
+      "Vent garbí tarda arribant grades",
+      "Olor maresia pujant mar proper"
+    ],
+    "usos_beat": [8, 14]
   },
   {
-    "id": "esc_co_metro_001",
-    "ciutat": "Medellín",
-    "pais": "Colòmbia",
-    "nom": "Metro de Medellín, Estació Poblado",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Andana neta i moderna",
-        "Gent jove amb motxilla",
-        "Música de fons",
-        "Publicitat de telèfons",
-        "Vent que ve del túnel",
-        "Llum blanca i forta",
-        "Músic amb guitarra",
-        "Silenci quan s’aturen les portes"
-      ],
-      "so": [
-        "Anunci en castellà", "El so del tren arribant",
-        "La guitarra del músic", "El murmuri de la gent",
-        "El silenci quan s’aturen les portes", "Un cop sec al túnel",
-        "Passos que ressonen", "El pànic contingut"
-      ],
-      "olor": [
-        "Fa olor de netejador i ferro", "L’aire és fresc i tancat",
-        "Fa olor de perfum barat", "L’olor de suor i metro",
-        "Fa olor de plàstic nou", "L’aire porta olor de muntanya",
-        "Fa olor de cafè fresc", "L’olor de pols vella"
-      ]
-    },
-    "tags": ["transport", "public", "modern"],
-    "genero": ["thriller", "policiac", "romance"]
+    "id": "vic_riu_meder_nit",
+    "ciutat": "Vic",
+    "zona": "Riu Mèder",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Riu Mèder nit. Aigua fosca, molsa, pont pedra",
+    "frases_ambientacion": [
+      "Murmuri del riu Mèder nit entre molsa pedra",
+      "Olor de riu Mèder i molsa humida",
+      "Humitat del riu al matí mullant riba",
+      "Fred que cala als ossos gener glaçada",
+      "Silenci Catedral llunyana només aigua",
+      "Olor pedra mullada després ploure",
+      "Vent ponent sec després pluja",
+      "Murmuri riu arrossegant fulles seques"
+    ],
+    "usos_beat": [8, 14]
   },
   {
-    "id": "esc_gir_call_001",
-    "ciutat": "Girona",
-    "pais": "Espanya",
-    "nom": "El Call Jueu",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Carrerons estrets i foscos",
-        "Pedra antiga sota els peus",
-        "Finestres petites i altes",
-        "Portes de fusta massissa",
-        "Silenci que pesa",
-        "Ombres llargues",
-        "Cartells històrics a la paret",
-        "Gats que creuen corrents"
-      ],
-      "so": [
-        "Els passos ressonen", "El vent xiula entre els murs",
-        "Una porta que grinyola", "El murmuri llunyà",
-        "El silenci dens", "Un cop sec llunyà",
-        "El so d’aigua que degota", "El silenci del carreró"
-      ],
-      "olor": [
-        "Fa olor de pedra vella i humitat", "L’aire és fred i tancat",
-        "Fa olor de fusta vella", "L’olor de pols antiga",
-        "Fa olor de fum llunyà", "L’aire porta olor de pluja",
-        "Fa olor de pedra i temps", "L’olor de silenci"
-      ]
-    },
-    "tags": ["exterior", "nocturn", "historic"],
-    "genero": ["terror", "policiac", "thriller"]
+    "id": "sitges_garraf_roques",
+    "ciutat": "Sitges",
+    "zona": "Garraf",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Massís Garraf. Roques, pins, mar avall, silenci",
+    "frases_ambientacion": [
+      "Ones a les roques del Garraf esclatant avall",
+      "Silenci del Garraf només trencat vent mar",
+      "Olor pins del Garraf i roca calenta",
+      "Vent llevant passeig arribant mar",
+      "Mar agitada novembre colpejant penya-segats",
+      "Calor asfixiant agost 38 graus roca",
+      "Olor mar i algues bufa garbí",
+      "Vent fort passeig sacsejant pins"
+    ],
+    "usos_beat": [8, 14]
   },
   {
-    "id": "esc_bcn_sagrada_001",
-    "ciutat": "Barcelona",
-    "pais": "Espanya",
-    "nom": "Sagrada Família, Façana del Naixement",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Torres que pugen al cel",
-        "Turistes amb càmeres",
-        "Escultures de pedra detallades",
-        "Llum que passa pels vitralls",
-        "Gent asseguda al parc",
-        "Obrers treballant a dalt",
-        "Coloms que volen",
-        "Silenci respectuós"
-      ],
-      "so": [
-        "El murmuri dels turistes", "El so de les eines lluny",
-        "Una guia explicant", "El vent entre les torres",
-        "El silenci respectuós", "Un nen que pregunta",
-        "El so d’una càmera", "El silenci de la pedra"
-      ],
-      "olor": [
-        "Fa olor de pedra i pols", "L’aire porta olor de pi",
-        "Fa olor de fum llunyà", "L’olor de turistes i sol",
-        "Fa olor de netejador", "L’aire porta olor de mar",
-        "Fa olor de pedra calenta", "L’olor de silenci"
-      ]
-    },
-    "tags": ["exterior", "dia", "monument"],
-    "genero": ["policiac", "romance", "fantasia", "thriller"]
+    "id": "lleida_riu_segre_pont",
+    "ciutat": "Lleida",
+    "zona": "Riu Segre",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Riu Segre nit pont ferro. Aigua fosca, canya, boira",
+    "frases_ambientacion": [
+      "El so del riu Segre sota pont ferro nit",
+      "Humitat del riu nit pujant boira",
+      "Olor riu Segre i canya mullada",
+      "Calor sec estiu 40 graus dia",
+      "Vent sec ponent movent canyes riba",
+      "Boira matinal tardor Segre tapant aigua",
+      "So pont ferro passa cotxe lluny",
+      "Olor riu fosc humitat al pont"
+    ],
+    "usos_beat": [8, 14]
   },
   {
-    "id": "esc_mx_cantona_001",
-    "ciutat": "Ciutat de Mèxic",
-    "pais": "Mèxic",
-    "nom": "Cantona, Piràmides",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Pedra volcànica sota els peus",
-        "Piràmides en silenci",
-        "Vent sec que ve de la muntanya",
-        "Guia explicant en veu baixa",
-        "Sol que crema",
-        "Silenci immens",
-        "Ocells que volen lluny",
-        "Ombres llargues"
-      ],
-      "so": [
-        "El vent entre les pedres", "El murmuri de la guia",
-        "El silenci immens", "Un ocell llunyà",
-        "El so dels passos a la pedra", "El silenci del desert",
-        "Un crit llunyà", "El silenci de la història"
-      ],
-      "olor": [
-        "Fa olor de pedra calenta i pols", "L’aire és sec i net",
-        "Fa olor de sol i terra", "L’olor de cactus i sec",
-        "Fa olor de fum llunyà", "L’aire porta olor de muntanya",
-        "Fa olor de pedra i temps", "L’olor de silenci"
-      ]
-    },
-    "tags": ["exterior", "dia", "historic"],
-    "genero": ["fantasia", "policiac", "thriller"]
+    "id": "montserrat_sant_jeroni_cim",
+    "ciutat": "Montserrat",
+    "zona": "Sant Jeroni",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Cim de Sant Jeroni amb vent fort i boira. Fred intens",
+    "frases_ambientacion": [
+      "Vent fort entre les agulles xiulant a 1236 metres",
+      "Fred intens al cim a l’hivern tallant la cara",
+      "Boira que cobreix el monestir des del cim",
+      "Olor de resina de pi de muntanya amb vent de mestral",
+      "Olor de pedra i incens pujant des del monestir",
+      "Sol i vent al cim cremant i congelant alhora",
+      "Aire pur de muntanya que cala als pulmons",
+      "Temperatura baixa a la nit sota les estrelles"
+    ],
+    "usos_beat": [14]
   },
   {
-    "id": "esc_ar_recoleta_001",
-    "ciutat": "Buenos Aires",
-    "pais": "Argentina",
-    "nom": "Cementiri de la Recoleta",
-    "texto_base": "A {{nom}}, {{ciutat}}. {{ambient}} {{so}} {{olor}}",
-    "banco_variables": {
-      "ambient": [
-        "Mausoleus de marbre blanc",
-        "Passadissos estrets entre tombes",
-        "Estàtues d’àngels",
-        "Flors fresques a les làpides",
-        "Silenci dens",
-        "Ombres llargues",
-        "Portes de ferro forjat",
-        "Gats que caminen entre tombes"
-      ],
-      "so": [
-        "Els passos ressonen", "El vent entre els xiprers",
-        "Una porta que grinyola", "El murmuri llunyà",
-        "El silenci dens", "Un cop sec llunyà",
-        "El so d’aigua que degota", "El silenci del cementiri"
-      ],
-      "olor": [
-        "Fa olor de flors fresques i marbre", "L’aire és fred i humit",
-        "Fa olor de cera cremada", "L’olor de pols antiga",
-        "Fa olor de fusta vella", "L’aire porta olor de pluja",
-        "Fa olor de pedra i temps", "L’olor de silenci"
-      ]
-    },
-    "tags": ["exterior", "dia", "sagrat"],
-    "genero": ["terror", "policiac", "thriller", "romance"]
+    "id": "montserrat_cami_cavall",
+    "ciutat": "Montserrat",
+    "zona": "Cami del Cavall Bernat",
+    "tipo": "humano",
+    "peso": 0.3,
+    "descripcion": "Camí del Cavall Bernat. Roca, pins, silenci, risc",
+    "frases_ambientacion": [
+      "Eco al camí del Cavall Bernat amb cada pas",
+      "Olor de romaní i farigola silvestre entre les roques",
+      "Vent entre les roques xiulant als revolts",
+      "Olor de terra seca i sol picant a la pedra",
+      "Silenci de la muntanya només trencat pel vent",
+      "Olor de pi i vent de muntanya bufant fort",
+      "Pedra calenta al sol al migdia de juliol",
+      "Olor de moixí i temps antic a les parets de roca"
+    ],
+    "usos_beat": [8, 14]
+  },
+  {
+    "id": "montserrat_monestir_alba",
+    "ciutat": "Montserrat",
+    "zona": "Monestir",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "Monestir de Montserrat a l'alba. Cant gregorià, boira, pedra",
+    "frases_ambientacion": [
+      "Cant gregorià de l’Escolania al matí ressonant a la basílica",
+      "Silenci del monestir a primera hora amb boira entre agulles",
+      "Eco de les campanes a la muntanya arribant tard",
+      "Vent entre les agulles de Montserrat xiulant",
+      "Murmuri dels pelegrins a l’escalinata pujant",
+      "Silenci sagrat quan para el cant",
+      "So del funicular pujant llunyà per la via",
+      "Olor de pedra i encens barrejats a l'aire"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "montserrat_santa_cova",
+    "ciutat": "Montserrat",
+    "zona": "Santa Cova",
+    "tipo": "humano",
+    "peso": 0.3,
+    "descripcion": "Santa Cova de Montserrat. Cova, espelmes, silenci, pregària",
+    "frases_ambientacion": [
+      "Silenci de la Santa Cova només trencat per espelmes",
+      "Eco a la cova quan cau una gota d'aigua",
+      "Murmurí de pregàries de pelegrins en veu baixa",
+      "Silenci de la Santa Cova de nit sense ningú",
+      "Vent entre els pins de la muntanya arribant a l'entrada",
+      "So de passos a les escales de pedra baixant",
+      "Silenci sagrat a la cova de Sant Ignasi",
+      "Murmurí del cor del monestir arribant llunyà"
+    ],
+    "usos_beat": [2, 8]
+  },
+  {
+    "id": "manresa_seu_migdia",
+    "ciutat": "Manresa",
+    "zona": "Seu",
+    "tipo": "profesional",
+    "peso": 0.6,
+    "descripcion": "La Seu de Manresa al migdia. Pedra gòtica, campanes, plaça",
+    "frases_ambientacion": [
+      "Campanes de la Seu al migdia ressonant a la Plaça Major",
+      "Silenci de la Seu a primera hora abans que arribi gent",
+      "Olor de pedra de la Seu i moixí antic",
+      "Murmuri de la Plaça Major arribant a la porta",
+      "So de passos a la Seu sobre pedra vella",
+      "Olor de fum de xemeneia al barri antic",
+      "Vent entre els carrers del centre movent fulles",
+      "Olor de pa de pagès al forn del carrer proper"
+    ],
+    "usos_beat": [1, 8, 14]
+  },
+  {
+    "id": "manresa_pont_vell_nit",
+    "ciutat": "Manresa",
+    "zona": "Pont Vell",
+    "tipo": "bèstia",
+    "peso": 0.1,
+    "descripcion": "Pont Vell sobre el Cardener de nit. Eco, aigua fosca, pedra",
+    "frases_ambientacion": [
+      "El so del riu Cardener sota el Pont Vell de nit",
+      "Eco al Pont Vell quan cau una pedra a l'aigua",
+      "Olor de riu Cardener i humitat sota els arcs",
+      "Silenci del riu només trencat per l'aigua",
+      "Murmuri del Cardener arrossegant branques",
+      "Olor de pedra vella del Pont mullada per la boira",
+      "Vent a Manresa bufant entre els arcs medievals",
+      "Silenci de la nit al pont sense cap cotxe"
+    ],
+    "usos_beat": [8, 14]
+  },
+  {
+    "id": "manresa_cova_ignasi",
+    "ciutat": "Manresa",
+    "zona": "Cova de Sant Ignasi",
+    "tipo": "humano",
+    "peso": 0.3,
+    "descripcion": "Cova de Sant Ignasi. Silenci, pedra, humitat, pregària",
+    "frases_ambientacion": [
+      "Silenci de la Cova de Sant Ignasi només trencat per espelmes",
+      "Olor de moixí a la Cova i pedra humida",
+      "Eco a la cova quan algú respira fort",
+      "Silenci del barri antic des de dins la cova",
+      "Olor de terra mullada i pedra vella",
+      "Campanes al vespre arribant com murmuri llunyà",
+      "Olor de fum de llenya dels masos propers",
+      "Silenci de migdia quan no hi ha pelegrins"
+    ],
+    "usos_beat": [2, 8]
   }
-    ]
+]
+
+    
