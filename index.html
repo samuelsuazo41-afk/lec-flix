@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0d0f12">
 <title>lec-flix policial</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css?v=18">
+<link rel="stylesheet" href="styles.css?v=19">
 <style>
 :root{--bg:#0d0f12;--bg-panel:#1a1d22;--text:#e6e7e9;--text-muted:#8a8f96;--accent:#00bcd4;--border:#2a2e33;--btn:#262a31}
 body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
@@ -18,6 +18,7 @@ input{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg
 .tabs-container{display:grid;gap:8px;margin-bottom:16px}
 .tab-btn{padding:14px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px}
 .tab-btn:hover{background:#2e333b}
+.tab-btn.disabled{opacity:0.6;cursor:default}
 .botons{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
 .botons button{padding:14px;border:none;border-radius:6px;background:var(--accent);color:#000;font-weight:600;cursor:pointer;font-size:14px}
 #resultat{min-height:60px;padding:12px;background:var(--bg-panel);border-radius:6px;border:1px solid var(--border)}
@@ -39,8 +40,8 @@ input{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg
 .toc-capitol{font-weight:600;color:var(--text)}
 .toc-resumen{font-size:13px;color:var(--text-muted);padding:4px 0 0 20px;line-height:1.4}
 .toc-escenes{font-size:12px;color:var(--accent);padding:2px 0 0 20px}
-textarea{font-family:inherit}
-.subtub-item{display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg-panel);border:1px solid var(--border);radius:6px;margin-bottom:6px}
+textarea{font-family:inherit;width:100%;min-height:120px;padding:12px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);border-radius:6px;font-size:15px}
+.subtub-item{display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;margin-bottom:6px}
 .subtub-item input{width:18px;height:18px;margin:0}
 .subtub-item label{flex:1;font-size:14px}
 .inline-subtabs{margin:16px 0;padding:12px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px}
@@ -54,13 +55,13 @@ textarea{font-family:inherit}
 <body>
 <header>
 <h1>lec-flix policial</h1>
-<p>Generador Multi-Ritme</p>
+<p>Generador Multi-Ritme V9.9</p>
 </header>
 <main>
 <section id="menu">
 <input id="input-titol" type="text" placeholder="Títol del llibre..." onchange="seleccio.titol = this.value">
 <div class="tabs-container">
-<div class="tab-btn" onclick="openScreen('genere')">GÈNERE <span id="genere-label">POLICIAL</span></div>
+<div class="tab-btn disabled">GÈNERE <span id="genere-label">POLICIAL</span></div>
 <div class="tab-btn" onclick="openScreen('sinopsis')">SINOPSI <span id="sinopsis-label">▼</span></div>
 <div class="tab-btn" onclick="openScreen('ubicacio')">UBICACIÓ <span id="ubicacio-label">▼</span></div>
 <div class="tab-btn" onclick="openScreen('estructura')">ESTRUCTURA <span id="estructura-label">Save the Cat</span></div>
@@ -77,21 +78,10 @@ textarea{font-family:inherit}
 </section>
 </section>
 
-<section id="screen-genere" class="screen">
-<div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>GÈNERE</h2></div>
-<div class="screen-content">
-<h3 style="color:var(--accent);padding:8px 0">Policial</h3>
-<button class="opt-btn" onclick="selectSubgenere('thriller')">Thriller Policial<br><small>Acció, ritme ràpid</small></button>
-<button class="opt-btn" onclick="selectSubgenere('psicologico')">Psicològic<br><small>Gat i ratolí mental</small></button>
-<button class="opt-btn" onclick="selectSubgenere('noir')">Noir<br><small>Foscor, corrupció</small></button>
-<button class="opt-btn" onclick="selectSubgenere('procedimental')">Procedimental<br><small>Forense, feina de policia</small></button>
-</div>
-</section>
-
 <section id="screen-sinopsis" class="screen">
 <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>SINOPSI</h2></div>
 <div class="screen-content">
-<textarea id="input-sinopsis" placeholder="Ex: Thriller psicològic. Un detectiu obsessionat persegueix un assassí que imita crims a Barcelona."></textarea>
+<textarea id="input-sinopsis" placeholder="Ex: Cadàver al moll de Barceloneta. Rita sospita del seu soci però té por de descobrir la veritat..."></textarea>
 <button class="opt-btn" onclick="saveSinopsis()">Guardar Sinopsi</button>
 </div>
 </section>
@@ -112,17 +102,6 @@ textarea{font-family:inherit}
 <button onclick="clearCP(2)" id="cp2-clear" style="display:none">X</button>
 </div>
 </div>
-<div class="btn-sticky-bottom">
-<button class="opt-btn" id="btn-llocs-secundaris" style="display:none;background:var(--accent);color:#000;font-weight:600" onclick="openLlocsSecundaris()">ELEGIR CIUTATS SECUNDÀRIES</button>
-</div>
-</div>
-</section>
-
-<section id="screen-llocs-secundaris" class="screen">
-<div class="screen-header"><button onclick="closeScreen('ubicacio')">← Tornar</button><h2>LLOCS SECUNDARIS</h2></div>
-<div class="screen-content">
-<div id="bloc-cp1"></div>
-<div id="bloc-cp2" style="margin-top:24px"></div>
 </div>
 </section>
 
@@ -139,8 +118,8 @@ textarea{font-family:inherit}
 <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>RITME</h2></div>
 <div class="screen-content">
 <button class="opt-btn" onclick="selectRitme('Relat Curt')">Relat Curt ~5k<br><small>3-4 capítols</small></button>
-<button class="opt-btn" onclick="selectRitme('Novel·la')">Novel·la 60k<br><small>17 capítols</small></button>
-<button class="opt-btn" onclick="selectRitme('Èpic')">Èpic 100k<br><small>25 capítols</small></button>
+<button class="opt-btn" onclick="selectRitme('Novel·la')">Novel·la 60k<br><small>20 capítols</small></button>
+<button class="opt-btn" onclick="selectRitme('Èpic')">Èpic 100k<br><small>30 capítols</small></button>
 </div>
 </section>
 
@@ -166,11 +145,6 @@ textarea{font-family:inherit}
 <button id="btn-next-seccio">Següent →</button>
 </div>
 </section>
-
-<section id="screen-toc" class="screen">
-<div class="screen-header"><button onclick="closeScreen('lectura')">← Tornar a Lectura</button><h2>ÍNDEX</h2></div>
-<div class="screen-content" id="toc-content"></div>
-</section>
 </main>
 
 <script type="module">
@@ -178,275 +152,209 @@ const baseURL = new URL('./', import.meta.url).href;
 let BANCS = {};
 let llibreGenerat = null;
 
-// 1. Carregar bancs
+// 1. Carregar bancs V9.9
 try {
-  const mod = await import(baseURL + 'data/loadBancs.js?v=' + Date.now());
-  BANCS = await mod.cargarBancs();
-  console.log('📚 Bancs carregats:', Object.keys(BANCS));
+const mod = await import(baseURL + 'data/loadBancs.js?v=' + Date.now());
+BANCS = await mod.cargarBancs();
+console.log('📚 Bancs V9.9 carregats:', Object.keys(BANCS));
 } catch (e) {
-  console.warn('Fallback bancs', e);
-  BANCS = {
-    banco_ubicacion: [
-      {ciutat:'Barcelona', subtubs:[{nom:'Gràcia'},{nom:'Barceloneta'},{nom:'Tibidabo'}]},
-      {ciutat:'Girona', subtubs:[{nom:'Pont de Pedra'},{nom:'Catedral'}]},
-      {ciutat:'Tarragona', subtubs:[{nom:'Amfiteatre'}]}
-    ],
-    banco_lectura: [{tipus:'obertura', genero:'policiac', texto_base:'{nom} va obrir els ulls a {subtub||ciutat}.'}],
-    banco_personatge: [{id:'p1', genero:'policiac', banco_variables:{nom:['Àlex'], tic:['somriu']}}],
-    banco_escenarios: [{nom:'Carrer', ciutat:'Barcelona', genero:['policiac']}],
-    banco_ecenes: [{genero:'policiac', texto_base:'{nom} caminava per {subtub||ciutat} amb {tic}.'}],
-    banco_olors:[], banco_sons:[], banco_emocions:[]
-  };
+console.warn('Fallback bancs', e);
+BANCS = {
+banco_ubicacion: [
+{ciutat:'Barcelona', subtubs:[{nom:'Gràcia'},{nom:'Barceloneta'},{nom:'Tibidabo'},{nom:'Gòtic'},{nom:'Eixample'}]},
+{ciutat:'Girona', subtubs:[{nom:'Pont de Pedra'},{nom:'Catedral'},{nom:'Call Jueu'}]},
+{ciutat:'Tarragona', subtubs:[{nom:'Amfiteatre'},{nom:'Part Alta'}]},
+{ciutat:'Figueres', subtubs:[{nom:'Museu Dalí'},{nom:'Centre'}]}
+],
+banco_personatge: [{id:'p1', genero:'policiac', banco_variables:{nom:['Àlex','Rita','Marc'], tic:['es passa la mà per la barba','mira el rellotge','somriu']}]]
+};
 }
 
-// 2. Estat global V9.6
+// 2. Estat global V9.9 - Sense subgenere ni ciutatsExtra
 window.seleccio = {
-  titol:'',
-  genere:'policiac',
-  subgenere:'thriller',
-  estructura:'Save the Cat',
-  ritme:'Novel·la',
-  pov:'1 Protagonista',
-  ciutatPrincipal:null,
-  ciutatPrincipal2:null,
-  ciutatsExtra:[],
-  subtubsPrincipal:[],
-  subtubsPrincipal2:[],
-  subtubsExtra:{},
-  sinopsis:'',
-  personatgeId:null,
-  mon:null,
-  escenariId:null
+titol:'',
+genere:'policiac', // FIX: sempre policial
+estructura:'Save the Cat',
+ritme:'Novel·la',
+pov:'1 Protagonista',
+ciutatPrincipal:null,
+ciutatPrincipal2:null,
+subtubsPrincipal:[],
+subtubsPrincipal2:[],
+sinopsis:'',
+personatgeId:null
 };
 
 // 3. Navegació
 window.openScreen = function(screenName){
-  document.getElementById('menu').style.display='none';
-  document.getElementById('resultat').style.display='none';
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const screen = document.getElementById('screen-'+screenName);
-  if(screen) screen.classList.add('active');
-  if(screenName==='sinopsis') document.getElementById('input-sinopsis').value = seleccio.sinopsis || '';
-  if(screenName==='ubicacio') renderUbicacioList();
-  if(screenName==='llocs-secundaris') renderLlocsSecundaris();
+document.getElementById('menu').style.display='none';
+document.getElementById('resultat').style.display='none';
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+const screen = document.getElementById('screen-'+screenName);
+if(screen) screen.classList.add('active');
+if(screenName==='sinopsis') document.getElementById('input-sinopsis').value = seleccio.sinopsis || '';
+if(screenName==='ubicacio') renderUbicacioList();
 };
 
 window.closeScreen = function(target='menu'){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  if(target==='lectura'){
-    document.getElementById('menu').style.display='none';
-    document.getElementById('screen-lectura').classList.add('active');
-  } else {
-    document.getElementById('menu').style.display='block';
-    document.getElementById('resultat').style.display='block';
-  }
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+if(target==='lectura'){
+document.getElementById('menu').style.display='none';
+document.getElementById('screen-lectura').classList.add('active');
+} else {
+document.getElementById('menu').style.display='block';
+document.getElementById('resultat').style.display='block';
+}
 };
 
-// 4. Selectors bàsics
-window.selectSubgenere = s=>{seleccio.subgenere=s; document.getElementById('genere-label').textContent='POLICIAL - '+s.toUpperCase(); closeScreen();}
+// 4. Selectors bàsics - Sense subgenere V9.9
 window.selectEstructura = e=>{seleccio.estructura=e; document.getElementById('estructura-label').textContent=e; closeScreen();}
 window.selectRitme = r=>{seleccio.ritme=r; document.getElementById('ritme-label').textContent=r; closeScreen();}
 window.selectPov = p=>{seleccio.pov=p; document.getElementById('pov-label').textContent=p; closeScreen();}
 
 // 5. Sinopsi
 window.saveSinopsis = ()=>{
-  seleccio.sinopsis = document.getElementById('input-sinopsis').value.trim();
-  document.getElementById('sinopsis-label').textContent = seleccio.sinopsis? '✓' : '▼';
-  closeScreen();
+seleccio.sinopsis = document.getElementById('input-sinopsis').value.trim();
+document.getElementById('sinopsis-label').textContent = seleccio.sinopsis? '✓' : '▼';
+closeScreen();
 }
 
-// 6. Ubicació V9.6: Hub amb selecció inline
+// 6. Ubicació V9.9: Hub CP1 + CP2. Sense botó secundàries
 function renderUbicacioList(){
-  const list = document.getElementById('ubicacio-list');
-  const ciutats = BANCS.banco_ubicacion || [];
-  list.innerHTML = ciutats.map(c=>{
-    let tags = [];
-    if(c.ciutat === seleccio.ciutatPrincipal) tags.push('CP1');
-    if(c.ciutat === seleccio.ciutatPrincipal2) tags.push('CP2');
-    const label = tags.length > 0? `${c.ciutat} (${tags.join(', ')})` : c.ciutat;
-    return `<button class="opt-btn" onclick="selectCiutatHub('${c.ciutat}')">${label}</button>`;
-  }).join('');
-  renderInlineSubtabs();
+const list = document.getElementById('ubicacio-list');
+const ciutats = BANCS.banco_ubicacion || [];
+list.innerHTML = ciutats.map(c=>{
+let tags = [];
+if(c.ciutat === seleccio.ciutatPrincipal) tags.push('CP1');
+if(c.ciutat === seleccio.ciutatPrincipal2) tags.push('CP2');
+const label = tags.length > 0? `${c.ciutat} (${tags.join(', ')})` : c.ciutat;
+return `<button class="opt-btn" onclick="selectCiutatHub('${c.ciutat}')">${label}</button>`;
+}).join('');
+renderInlineSubtabs();
 }
 
 function renderInlineSubtabs(){
-  const inline = document.getElementById('inline-subtabs');
-  const btnLlocs = document.getElementById('btn-llocs-secundaris');
-  if(seleccio.ciutatPrincipal || seleccio.ciutatPrincipal2){
-    inline.style.display='block';
-    document.getElementById('cp1-nom').textContent = seleccio.ciutatPrincipal || '-';
-    document.getElementById('cp2-nom').textContent = seleccio.ciutatPrincipal2 || '-';
-    document.getElementById('cp1-clear').style.display = seleccio.ciutatPrincipal? 'block':'none';
-    document.getElementById('cp2-clear').style.display = seleccio.ciutatPrincipal2? 'block':'none';
-    btnLlocs.style.display = (seleccio.ciutatPrincipal && seleccio.ciutatPrincipal2)? 'block':'none';
-  } else {
-    inline.style.display='none';
-    btnLlocs.style.display='none';
-  }
+const inline = document.getElementById('inline-subtabs');
+if(seleccio.ciutatPrincipal || seleccio.ciutatPrincipal2){
+inline.style.display='block';
+document.getElementById('cp1-nom').textContent = seleccio.ciutatPrincipal || '-';
+document.getElementById('cp2-nom').textContent = seleccio.ciutatPrincipal2 || '-';
+document.getElementById('cp1-clear').style.display = seleccio.ciutatPrincipal? 'block':'none';
+document.getElementById('cp2-clear').style.display = seleccio.ciutatPrincipal2? 'block':'none';
+} else {
+inline.style.display='none';
+}
 }
 
 window.selectCiutatHub = ciutat=>{
-  if(!seleccio.ciutatPrincipal){
-    seleccio.ciutatPrincipal = ciutat;
-    seleccio.mon = ciutat;
-  } else if(!seleccio.ciutatPrincipal2){
-    seleccio.ciutatPrincipal2 = ciutat;
-  } else {
-    seleccio.ciutatPrincipal2 = ciutat; // substitueix CP2
-  }
-  document.getElementById('ubicacio-label').textContent = seleccio.ciutatPrincipal || '▼';
-  renderUbicacioList(); // NO closeScreen, refresca inline
+if(!seleccio.ciutatPrincipal){
+seleccio.ciutatPrincipal = ciutat;
+} else if(!seleccio.ciutatPrincipal2){
+seleccio.ciutatPrincipal2 = ciutat;
+} else {
+seleccio.ciutatPrincipal2 = ciutat; // substitueix CP2
+}
+document.getElementById('ubicacio-label').textContent = seleccio.ciutatPrincipal || '▼';
+renderUbicacioList();
 }
 
 window.clearCP = num=>{
-  if(num===1){
-    seleccio.ciutatPrincipal = null;
-    seleccio.subtubsPrincipal = [];
-  } else {
-    seleccio.ciutatPrincipal2 = null;
-    seleccio.subtubsPrincipal2 = [];
-  }
-  document.getElementById('ubicacio-label').textContent = seleccio.ciutatPrincipal || '▼';
-  renderUbicacioList();
+if(num===1){
+seleccio.ciutatPrincipal = null;
+seleccio.subtubsPrincipal = [];
+} else {
+seleccio.ciutatPrincipal2 = null;
+seleccio.subtubsPrincipal2 = [];
+}
+document.getElementById('ubicacio-label').textContent = seleccio.ciutatPrincipal || '▼';
+renderUbicacioList();
 }
 
-window.openLlocsSecundaris = ()=>{
-  if(!seleccio.ciutatPrincipal ||!seleccio.ciutatPrincipal2){
-    alert('Tria CP1 i CP2 primer');
-    return;
-  }
-  openScreen('llocs-secundaris');
-}
-
-function renderLlocsSecundaris(){
-  const bloc1 = document.getElementById('bloc-cp1');
-  const bloc2 = document.getElementById('bloc-cp2');
-  bloc1.innerHTML = '';
-  bloc2.innerHTML = '';
-  if(seleccio.ciutatPrincipal){
-    const ubi1 = BANCS.banco_ubicacion.find(u=>u.ciutat===seleccio.ciutatPrincipal);
-    if(ubi1 && ubi1.subtubs){
-      bloc1.innerHTML = `<h4 style="color:var(--accent);margin:0 0 12px">CIUTAT PRINCIPAL 1 - ${seleccio.ciutatPrincipal}</h4>` +
-      ubi1.subtubs.map(s=>{
-        const checked = seleccio.subtubsPrincipal.includes(s.nom)? 'checked':'';
-        return `<div class="subtub-item"><input type="checkbox" id="cp1-${s.nom}" ${checked} onchange="toggleSubtubCP1('${s.nom}')"><label for="cp1-${s.nom}">${s.nom}</label></div>`;
-      }).join('');
-    }
-  }
-  if(seleccio.ciutatPrincipal2){
-    const ubi2 = BANCS.banco_ubicacion.find(u=>u.ciutat===seleccio.ciutatPrincipal2);
-    if(ubi2 && ubi2.subtubs){
-      bloc2.innerHTML = `<h4 style="color:var(--accent);margin:0 0 12px">CIUTAT PRINCIPAL 2 - ${seleccio.ciutatPrincipal2}</h4>` +
-      ubi2.subtubs.map(s=>{
-        const checked = seleccio.subtubsPrincipal2.includes(s.nom)? 'checked':'';
-        return `<div class="subtub-item"><input type="checkbox" id="cp2-${s.nom}" ${checked} onchange="toggleSubtubCP2('${s.nom}')"><label for="cp2-${s.nom}">${s.nom}</label></div>`;
-      }).join('');
-    }
-  }
-}
-
-window.toggleSubtubCP1 = subtub=>{
-  const idx = seleccio.subtubsPrincipal.indexOf(subtub);
-  if(idx>-1){
-    seleccio.subtubsPrincipal.splice(idx,1);
-  } else {
-    if(seleccio.subtubsPrincipal.length>=3){
-      closeScreen('menu'); // al marcar 3r, tanca
-      return;
-    }
-    seleccio.subtubsPrincipal.push(subtub);
-  }
-}
-
-window.toggleSubtubCP2 = subtub=>{
-  const idx = seleccio.subtubsPrincipal2.indexOf(subtub);
-  if(idx>-1){
-    seleccio.subtubsPrincipal2.splice(idx,1);
-  } else {
-    if(seleccio.subtubsPrincipal2.length>=3){
-      closeScreen('menu'); // al marcar 3r, tanca
-      return;
-    }
-    seleccio.subtubsPrincipal2.push(subtub);
-  }
-}
-
-// 7. Botó Generar
+// 7. Botó Generar V9.9
 document.getElementById('btn-generar').onclick = async ()=>{
-  document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${seleccio.ritme}...</p>`;
-  try{
-    const mod = await import(baseURL + 'main.js?v=' + Date.now());
-    llibreGenerat = await mod.generarLlibre(seleccio, BANCS);
-    mostrarLlibre(llibreGenerat);
-  }catch(err){
-    console.error(err);
-    document.getElementById('resultat').innerHTML = `<p style="color:red;text-align:center">Error: ${err.message}</p>`;
-  }
+if(!seleccio.ciutatPrincipal){
+alert('Selecciona Ciutat Principal 1 primer');
+return;
+}
+document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${seleccio.ritme} policial...</p>`;
+try{
+const mod = await import(baseURL + 'main.js?v=' + Date.now());
+llibreGenerat = await mod.generarLlibre(seleccio, BANCS);
+mostrarLlibre(llibreGenerat);
+}catch(err){
+console.error(err);
+document.getElementById('resultat').innerHTML = `<p style="color:red;text-align:center">Error: ${err.message}</p>`;
+}
 };
 
-// 8. Preview + Exportar
+// 8. Preview
 document.getElementById('btn-preview').onclick = ()=>{
-  if(!llibreGenerat) return alert('Primer prem Generar Text');
-  mostrarLlibre(llibreGenerat);
-};
-
-document.getElementById('btn-exportar').onclick = ()=>{
-  if(!llibreGenerat) return alert('Primer prem Generar Text');
-  const text = llibreGenerat.capitols.map(c=>`CAPÍTOL ${c.num} - ${c.beat}\n\n`+c.escenes.map(e=>`${e.titol}\n${e.text}\n\n`).join('')).join('\n---\n\n');
-  const blob = new Blob([text],{type:'text/plain;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href=url;
-  a.download=(seleccio.titol||'text')+'.txt';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+if(!llibreGenerat) return alert('Primer prem Generar Text');
+mostrarLlibre(llibreGenerat);
 };
 
 // 9. Mostrar llibre
 function mostrarLlibre(llibre){
-  const div = document.getElementById('lectura-content');
-  div.innerHTML = '';
-  llibre.capitols.forEach(cap=>{
-    cap.escenes.forEach(esc=>{
-      const el = document.createElement('div');
-      el.innerHTML = `<h3>${esc.titol}</h3><p style="line-height:1.8">${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
-      div.appendChild(el);
-    });
-  });
-  document.getElementById('resultat').innerHTML = `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
-  document.getElementById('menu').style.display='none';
-  document.getElementById('screen-lectura').classList.add('active');
+const div = document.getElementById('lectura-content');
+div.innerHTML = '';
+llibre.capitols.forEach(cap=>{
+cap.escenes.forEach(esc=>{
+const el = document.createElement('div');
+el.innerHTML = `<h3>${esc.titol}</h3><p style="line-height:1.8">${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
+div.appendChild(el);
+});
+document.getElementById('resultat').innerHTML = `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
+document.getElementById('menu').style.display='none';
+document.getElementById('screen-lectura').classList.add('active');
 }
 
 // 10. TOC
 function renderTOC(llibre){
-  const container = document.getElementById('toc-content');
-  container.innerHTML = '';
-  llibre.capitols.forEach(cap=>{
-    const primera = cap.escenes.find(e=>e.text && e.text.trim());
-    const resumen = primera? primera.text.trim().split(/\s+/).slice(0,20).join(' ')+'...' : 'Sense contingut';
-    const div = document.createElement('div');
-    div.className='toc-item';
-    div.innerHTML = `<div class="toc-capitol">Capítol ${cap.num} - ${cap.beat}</div><div class="toc-resumen">${resumen}</div><div class="toc-escenes">${cap.escenes.length-1} escenes</div>`;
-    div.onclick = ()=>{
-      closeScreen('lectura');
-      setTimeout(()=>{const targets=document.querySelectorAll('#lectura-content h3'); if(targets[cap.num-1]) targets[cap.num-1].scrollIntoView({behavior:'smooth'})},100);
-    };
-    container.appendChild(div);
-  });
+const container = document.getElementById('toc-content');
+container.innerHTML = '';
+llibre.capitols.forEach(cap=>{
+const primera = cap.escenes.find(e=>e.text && e.text.trim());
+const resumen = primera? primera.text.trim().split(/\s+/).slice(0,20).join(' ')+'...' : 'Sense contingut';
+const div = document.createElement('div');
+div.className='toc-item';
+div.innerHTML = `<div class="toc-capitol">Capítol ${cap.num} - ${cap.beat}</div><div class="toc-resumen">${resumen}</div><div class="toc-escenes">${cap.escenes.length-1} escenes</div>`;
+div.onclick = ()=>{
+closeScreen('lectura');
+setTimeout(()=>{
+const targets=document.querySelectorAll('#lectura-content h3');
+if(targets[cap.num-1]) targets[cap.num-1].scrollIntoView({behavior:'smooth'})
+},100);
+};
+container.appendChild(div);
+});
 }
 
 document.getElementById('btn-toc-toggle').onclick = ()=>{
-  if(!llibreGenerat) return alert('Primer prem Generar Text');
-  renderTOC(llibreGenerat);
-  closeScreen('toc');
+if(!llibreGenerat) return alert('Primer prem Generar Text');
+renderTOC(llibreGenerat);
+const toc = document.getElementById('toc-container');
+toc.classList.toggle('toc-hidden');
 };
 
-// 11. Service Worker
-if('serviceWorker' in navigator) navigator.serviceWorker.register(baseURL+'sw.js');
-</script>
+// 11. Exportar
+document.getElementById('btn-exportar').onclick = ()=>{
+if(!llibreGenerat) return alert('Primer prem Generar Text');
+const text = llibreGenerat.capitols.map(c=>`CAPÍTOL ${c.num} - ${c.beat}\n\n`+c.escenes.map(e=>`${e.titol}\n${e.text}\n\n`).join('')).join('\n---\n\n');
+const blob = new Blob([text],{type:'text/plain;charset=utf-8'});
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href=url;
+a.download=(seleccio.titol||'text')+'.txt';
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+URL.revokeObjectURL(url);
+};
 
+// 12. Service Worker V9.9
+if('serviceWorker' in navigator) navigator.serviceWorker.register(baseURL+'sw.js');
+
+console.log('✅ index.html V9.9 carregat - Policial pur, sense subgèneres ni ciutats secundàries');
+</script>
 </body>
 </html>
