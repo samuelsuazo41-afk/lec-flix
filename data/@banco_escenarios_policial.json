@@ -1,1 +1,763 @@
-
+[
+  {
+    "id": "comisaria_noche",
+    "nom": "Comissaria 4:17 AM",
+    "detall": "Escriptori desordenat, cafè fred, dossier polsós, llum fluorescent que zumba, olor de paper vell",
+    "olor": "cafe_fred_paper_vell",
+    "so": "radio_policia_lluny",
+    "frases": [
+      "La comissaria dormia però l'escriptori de {{personatge}} no. Cafè fred marcava cercles al dossier polsós.",
+      "Llum fluorescent que zumba. Cada 4 segons, com un metrònom de culpa.",
+      "{{ciutat}} fora seguia viva. Dins, només paper vell i promeses trencades.",
+      "{{personatge}} va tancar el calaix amb força. La placa va sonar contra la fusta.",
+      "Va obrir el dossier del cas antic. Sang seca a la cantonada, nom tacat amb retolador.",
+      "El telèfon va sonar una vegada i va parar. Nadie trucava a aquesta hora. O sí.",
+      "Olor de cafè fred barrejat amb paper vell i desesperació de torn de nit.",
+      "Olor de tinta barata i dossiers que ningú volia tornar a obrir.",
+      "{{so}} de la ràdio policia: 'Unitat 4, tot tranquil'. Mentida.",
+      "{{so}} de la cadira queixant-se quan {{personatge}} es va inclinar sobre el cas."
+    ]
+  },
+  {
+    "id": "escena_crim",
+    "nom": "Escena del crim {{escenari}}",
+    "detall": "Cinta policial groga, guix al terra dibuixant un cos, olor de sang seca, fotògrafs amb flaix",
+    "olor": "sang_seca_polvora",
+    "so": "sirenas_lejanas",
+    "frases": [
+      "Cinta groga. 'No pasar'. {{personatge}} la va passar igual. La veritat no esperava ordres.",
+      "Guix al terra dibuixant un cos que ja no hi era. Només l'ombra quedava.",
+      "Flaix de càmera cada 3 segons. La mort posava per foto una vegada més.",
+      "{{personatge}} es va agenollar al costat del guix. La sang seca li va tacar el genoll.",
+      "Va recollir una beata amb guants. Prova número 1. Potser l'única.",
+      "El fotògraf va dir 'No toqui res'. {{personatge}} ja havia tocat tot amb els ulls.",
+      "Olor de sang seca i pólvora. Olor que no s'anava ni amb tres dutxes.",
+      "Olor de mort recent. Dolça, metàl·lica, impossible d'oblidar.",
+      "{{so}} de sirenes lluny que s'apropaven i se n'anaven sense arribar.",
+      "{{so}} del flaix: blanc, negre, blanc, negre. Com la culpa."
+    ]
+  },
+  {
+    "id": "callejon",
+    "nom": "Callejón sense sortida",
+    "detall": "Parets de maó mullat, contenidors de brossa, única sortida bloquejada per un cotxe, pluja",
+    "olor": "humedad_basura",
+    "so": "gotas_pared",
+    "frases": [
+      "Callejón sense sortida. Literal i metafòrica. {{personatge}} ho sabia massa bé.",
+      "Parets de maó mullat que suaven com si el barri tingués febre.",
+      "Contenidor de brossa amb tapa mig oberta. Algú s'hi amagava o hi havia mort.",
+      "{{personatge}} va treure l'arma. Única sortida bloquejada per un cotxe cremat.",
+      "Va recolzar l'esquena a la paret. Pluja freda coll avall, com dits.",
+      "Passos darrere. Ràpids. {{personatge}} va comptar fins a 3 abans de girar-se.",
+      "Olor d'humitat i brossa podrida. Olor de secrets que ningú recollia.",
+      "Olor de gat mort sota la pluja. Barata i definitiva.",
+      "{{so}} de gotes picant contra el maó. Ritme de rellotge que s'esgotava.",
+      "{{so}} de rata corrent pel contenidor. Més intel·ligent que ell aquella nit."
+    ]
+  },
+  {
+    "id": "interrogatori",
+    "nom": "Sala d'interrogatoris",
+    "detall": "Taula metàl·lica cargolada al terra, cadira de plàstic, mirall de dues cares, llum que enlluerna",
+    "olor": "sudor_miedo",
+    "so": "reloj_pared",
+    "frases": [
+      "Taula metàl·lica. Freda com la veritat que buscava {{personatge}}.",
+      "Cadira de plàstic cargolada al terra. Ningú marxava d'allà sense parlar.",
+      "Mirall de dues cares. Darrere, {{antagonista}} somreia. Davant, {{personatge}} suava.",
+      "{{personatge}} va apagar el llum. Va encendre només la llum de la taula. Interrogatori clàssic.",
+      "Va deixar el dossier sobre la taula. 'Ho saps tot', va dir. Mentida.",
+      "El sospitós va creuar els braços. {{personatge}} va creuar la línia.",
+      "Olor de suor i por. Mescla barata però efectiva.",
+      "Olor de café fred de la màquina. Tercer cafè. Tercera mentida.",
+      "{{so}} del rellotge de paret. Cada tic era una hora de vida que perdien.",
+      "{{so}} de la cadira del sospitós arrossegant-se. Nervis o culpa."
+    ]
+  },
+  {
+    "id": "jutjat",
+    "nom": "Jutjat buit",
+    "detall": "Bancs de fusta vella, martell del jutge, bandera tacada, silenci que pesa més que la condemna",
+    "olor": "fusta_vella_polvo",
+    "so": "martillo_juez",
+    "frases": [
+      "Jutjat buit. Només {{personatge}} i la veritat que ningú volia sentir.",
+      "Bancs de fusta vella que havien vist mil culpables i pocs innocents.",
+      "Martell del jutge sobre la taula. Silenci abans de la condemna.",
+      "{{personatge}} va deixar el dossier sobre la taula del fiscal. 'Això és tot'.",
+      "Va mirar la bandera tacada darrere el jutge. Justícia bruta, com sempre.",
+      "El silenci pesava més que qualsevol sentència. {{personatge}} el va suportar.",
+      "Olor de fusta vella i pols. Olor de lleis que no havien canviat en 50 anys.",
+      "Olor de tinta de segell i paper timbrat. Paper que condemnava.",
+      "{{so}} del martell del jutge provant so. Tac, tac. Com un tret.",
+      "{{so}} de les seves sabates al terra buit. Eco de soledat."
+    ]
+  },
+  {
+    "id": "parking_subterraneo",
+    "nom": "Parking subterrani -3",
+    "detall": "Neons que parpellegen, cotxes abandonats, gotes d'oli al terra, única sortida amb barrera",
+    "olor": "gasolina_aceite",
+    "so": "eco_pasos",
+    "frases": [
+      "Parking -3. Últim nivell. Última opció. {{personatge}} va aparcar l'ànima aquí.",
+      "Neons que parpellegen. Cada foscor era un segon menys de vida.",
+      "Cotxe abandonat amb finestra trencada. Algú va fugir de pressa.",
+      "{{personatge}} va treure la pistola. {{so}} de metall contra cuir.",
+      "Única sortida amb barrera baixada. Per sortir, havia d'enfrontar-se.",
+      "Gota d'oli va caure al terra. Tic. Tic. Com un comptador.",
+      "Olor de gasolina i oli cremat. Olor de fugida i de trampa.",
+      "Olor de ferro fred i ciment humit. Soterrani que enterrava secrets.",
+      "{{so}} dels seus passos fent eco. Dos persones caminant, però anava sol.",
+      "{{so}} de cotxe arrencant lluny. Alguien marxava sense ell."
+    ]
+  },
+  {
+    "id": "muelle_abandonado",
+    "nom": "Muelle abandonat",
+    "detall": "Caixes de fusta podrida, aigua negra tocant les piles, xarxes trencades, vaixell rovellat",
+    "olor": "salitre_madera_podrida",
+    "so": "olas_madera",
+    "frases": [
+      "Muelle abandonat. L'aigua negra es menjava les piles de fusta com el temps les mentides.",
+      "Caixes de fusta podrida. Dins, res. Fora, tot el que {{personatge}} temia.",
+      "Vaixell rovellat lligat amb cordes que no aguantarían una tempesta.",
+      "{{personatge}} va caminar per les taules. Cruixen sota el seu pes i el de la culpa.",
+      "Xarxa trencada penjant com braços demanant ajuda que ningú donava.",
+      "Va mirar l'aigua. Negra, profunda. Com la seva consciència.",
+      "Olor de salitre i fusta podrida. Olor de coses que s'enfonsaven.",
+      "Olor de peix mort i gasolina vella. Mar que no perdonava.",
+      "{{so}} de les onades pegant a la fusta. Ploc, ploc. Com cops de porta.",
+      "{{so}} de cable metàl·lic tensant-se amb el vent. Gemec de vaixell morint."
+    ]
+  },
+  {
+    "id": "azotea_ciudad",
+    "nom": "Azotea edifici 40 pisos",
+    "detall": "Vent fort, ciutat sencera sota els peus, antenes, únic accés per porta metàl·lica",
+    "olor": "viento_altura",
+    "so": "viento_antenes",
+    "frases": [
+      "Azotea 40 pisos. {{ciutat}} sencera sota els peus i {{personatge}} sense sòl.",
+      "Vent fort que empenyia cap al buit. Tentació barata però real.",
+      "Antenes tallant el cel com ganivets. Senyals que ningú escoltava.",
+      "{{personatge}} es va acostar a la vora. Un pas més i tot s'acabava.",
+      "Única porta metàl·lica darrere. Tancada. Sortida bloquejada.",
+      "Va mirar avall. Cotxes com formigues. Vides que no eren la seva.",
+      "Olor de vent d'altura i pols de formigó. Olor de decisió.",
+      "Olor de pluja llunyana que encara no havia arribat a {{ciutat}}.",
+      "{{so}} del vent entre les antenes. Xiulit de mort anunciada.",
+      "{{so}} de la seva respiració. Ràpida. Massa ràpida per pensar."
+    ]
+  },
+  {
+    "id": "hospital_psiquiatrico",
+    "nom": "Hospital psiquiàtric ala tancada",
+    "detall": "Parets acolchades, portes amb visor, olor de medicaments, crits llunyans controlats",
+    "olor": "antiseptico_locura",
+    "so": "gritos_controlados",
+    "frases": [
+      "Ala tancada. Parets acolchades perquè els crits no sortissin. Ni la veritat.",
+      "Porta amb visor de vidre gruixut. {{personatge}} va mirar dins i es va veure.",
+      "Olor de medicaments que apagaven pensaments i consciències.",
+      "{{personatge}} va trucar a la porta. 'Inspector'. La infermera no va somriure.",
+      "Crit llunyà, controlat, medicat. Com el que {{personatge}} portava dins.",
+      "Passadís llarg amb llums que zumben. Cada bombeta una mentida legal.",
+      "Olor d'antiseptico barrejat amb bogeria continguda.",
+      "Olor de llençols nets i pell que no veia el sol feia mesos.",
+      "{{so}} de crits llunyans que algú tapava amb medicació.",
+      "{{so}} de claus girant a la porta. Llibertat tenia so de metall."
+    ]
+  },
+  {
+    "id": "taller_mecanico",
+    "nom": "Taller mecànic nocturn",
+    "detall": "Cotxe aixecat, eines a terra, greix a les mans, llum de bombeta penjant",
+    "olor": "aceite_metal",
+    "so": "llave_inglesa",
+    "frases": [
+      "Taller nocturn. Cotxe aixecat com pacient a taula d'operacions.",
+      "Eines a terra. Cada una podia ser arma o prova. {{personatge}} va triar amb cura.",
+      "Bombeta penjant que ballava amb cada cop de porta. Llum insegura.",
+      "{{personatge}} es va embrutar les mans de greix. Per netejar la culpa cal embrutar-se.",
+      "Motor obert, entranyes a la vista. Com el cas que investigava.",
+      "Va agafar la clau anglesa. Pesava. Com les decisions.",
+      "Olor d'oli i metall calent. Olor de treball brut i honest.",
+      "Olor de gasolina i fum de soldadura. Olor de coses que es fonen.",
+      "{{so}} de clau anglesa picant metall. Tac, tac. Ritme d'interrogatori.",
+      "{{so}} de compressor d'aire bufant. Suspir mecànic."
+    ]
+  },
+  {
+    "id": "cementerio_noche",
+    "nom": "Cementiri 3 AM",
+    "detall": "Làpides velles, boira baixa, corbelles al xiprer, únic fanal parpellejant",
+    "olor": "tierra_humeda",
+    "so": "cuervos_lejanos",
+    "frases": [
+      "Cementiri 3 AM. Hora on els morts parlen i els vius callen.",
+      "Làpides velles amb noms esborrats per la pluja i el temps.",
+      "Boira baixa que tapava els peus de {{personatge}}. Com si caminés sobre núvols de morts.",
+      "{{personatge}} es va aturar davant una tomba sense nom. 'Com jo', va pensar.",
+      "Corbelles al xiprer. Mirant, esperant, jutjant.",
+      "Únic fanal parpellejant. Llum que dubtava si viure o morir.",
+      "Olor de terra humida i flors podrides. Olor de final.",
+      "Olor d'humitat i pedra freda. Fred que entrava als ossos.",
+      "{{so}} de corbelles llunyanes. Risses de mort.",
+      "{{so}} del vent movent les branques. Mans de morts saludant."
+    ]
+  },
+  {
+    "id": "biblioteca_sotano",
+    "nom": "Biblioteca soterrani arxius",
+    "detall": "Prestateries fins al sostre, microfilms, pols, única finestra petita a nivell de carrer",
+    "olor": "polvo_libro",
+    "so": "paginas_hojas",
+    "frases": [
+      "Soterrani de biblioteca. Aquí s'enterraven els secrets que feien mal.",
+      "Prestateries fins al sostre. Cada llibre un cas tancat i oblidat.",
+      "Pols de anys sense tocar. {{personatge}} va deixar empremta amb el dit.",
+      "{{personatge}} va buscar al catàleg. Cas 1998. 'Desaparegut'.",
+      "Microfilm amb màquina que feia soroll de motor vell. Memòria mecànica.",
+      "Única finestra petita a nivell de carrer. Peus passant per sobre sense veure'l.",
+      "Olor de pols i paper vell. Olor de veritat dormint.",
+      "Olor de tinta seca i cuir vell. Olor de temps que no tornava.",
+      "{{so}} de pàgines girant. Paper que delatava secrets.",
+      "{{so}} de microfilm avançant. Tic, tic. Memòria que no oblidava."
+    ]
+  },
+  {
+    "id": "motel_carretera",
+    "nom": "Motel carretera km 47",
+    "detall": "Habitació 12, llit desfet, cortines brutes, nevera mini amb ampolla mig buida",
+    "olor": "moho_toallas",
+    "so": "aire_acondicionado",
+    "frases": [
+      "Motel km 47. Lloc per desaparèixer sense deixar rastre. O per morir.",
+      "Habitació 12. Número de mala sort. {{personatge}} va entrar igual.",
+      "Llit desfet amb llençols que havien vist massa. Massa de tot.",
+      "{{personatge}} va tancar la porta amb pany i cadena. Seguretat barata.",
+      "Cortines brutes que no deixaven passar llum. Ni esperança.",
+      "Nevera mini amb ampolla mig buida. Res més. Soledat líquida.",
+      "Olor de motlle i tovalloles humides. Olor de gent que passava i no tornava.",
+      "Olor de tabac vell impregnat a les parets. Pecats antics.",
+      "{{so}} de l'aire condicionat trencat. Bru, bru. Respiració de màquina morint.",
+      "{{so}} de cotxe passant per carretera. Vida que seguia sense ell."
+    ]
+  },
+  {
+    "id": "metro_cerrado",
+    "nom": "Estació metro tancada",
+    "detall": "Andana buida, escales mecàniques aturades, grafitis, olor de ferro i orina",
+    "olor": "hierro_orina",
+    "so": "viento_tunel",
+    "frases": [
+      "Estació tancada. Andana buida com la consciència de {{personatge}}.",
+      "Escales mecàniques aturades. Ni amunt ni avall. Estancat.",
+      "Grafitis a la paret: 'La veritat mata'. {{personatge}} va assentir.",
+      "{{personatge}} va caminar pel mig de les vies. Tren no passava des de fa hores.",
+      "Cartell amb horari esborrat. Temps que no importava aquí baix.",
+      "Va sentir soroll al túnel. Tren fantasma o culpa arribant.",
+      "Olor de ferro i orina. Olor de ciutat que no dormia net.",
+      "Olor de cable cremat i pols de fre. Olor de parada brusca.",
+      "{{so}} de vent del túnel. Bru, bru. Respiració de terra.",
+      "{{so}} de rata corrent per les vies. Supervivent millor que ell."
+    ]
+  },
+  {
+    "id": "fabrica_abandonada",
+    "nom": "Fàbrica tèxtil abandonada",
+    "detall": "Màquines rovellades, vidres trencats, coloms, sostre amb forats on entra la lluna",
+    "olor": "moho_hierro",
+    "so": "viento_ventanas",
+    "frases": [
+      "Fàbrica abandonada. Màquines que van cosir roba i ara cosien silenci.",
+      "Vidres trencats a terra. Cada trepitjada era un crit de vidre.",
+      "Coloms volant dins. Els únics treballadors que quedaven.",
+      "{{personatge}} va enfocar amb la llanterna. Ombres gegants a la paret.",
+      "Sostre amb forats. Lluna entrava com focus de interrogatori diví.",
+      "Cintes transportadores rovellades. Res es movia des de feia anys.",
+      "Olor de motlle i ferro rovellat. Olor de indústria morta.",
+      "Olor de cotó vell i oli ranci. Olor de feina que no tornaria.",
+      "{{so}} de vent entrant per finestres trencades. Xiulit de fantasma.",
+      "{{so}} de xapa movent-se al sostre. Taca-taca de mort anunciada."
+    ]
+  },
+  {
+    "id": "bar_sucio",
+    "nom": "Bar de mala mort",
+    "detall": "Taula enganxosa, llum vermella, música bassa, porta amb cartell 'Prohibido entrar'",
+    "olor": "alcohol_vomito",
+    "so": "musica_baja",
+    "frases": [
+      "Bar de mala mort. Nom que ho deia tot i {{personatge}} hi entrava igual.",
+      "Taula enganxosa. Algun líquid que no era cervesa feia anys.",
+      "Llum vermella que feia tothom culpable. Inclusa la innocència.",
+      "{{personatge}} es va asseure a la cantonada. D'esquena a la porta. Sempre.",
+      "Música baixa de rock vell. Cançó que parlava de traïció.",
+      "Cartell a la porta: 'Prohibido entrar'. {{personatge}} va empènyer.",
+      "Olor d'alcohol barat i vòmit sec. Olor de nits que acabaven malament.",
+      "Olor de tabac i suor de gent que no tenia res a perdre.",
+      "{{so}} de música baixa que no tapava els crits de la barra.",
+      "{{so}} de got de vidre trencant-se. Soroll de final de nit."
+    ]
+  },
+  {
+    "id": "colegio_noche",
+    "nom": "Col·legi buit de nit",
+    "detall": "Passadissos llargs, pupitres apilats, pissarra amb guix, eco de passos",
+    "olor": "tiza_madera",
+    "so": "eco_pasos",
+    "frases": [
+      "Col·legi buit de nit. Passadissos que recordaven crits de nens que ja no hi eren.",
+      "Pupitres apilats a la cantonada. Escoles tancades, ments tancades.",
+      "Pissarra amb guix: 'Qui va ser?'. Pregunta que {{personatge}} es feia cada dia.",
+      "{{personatge}} va caminar pel passadís. {{so}} dels seus passos multiplicats.",
+      "Aules buides amb cadires sobre taules. Ordre després del caos.",
+      "Va obrir una aula. Bancs buits mirant-lo com acusant-lo.",
+      "Olor de guix i fusta vella. Olor d'infància perduda.",
+      "Olor de neteja i desinfectant. Intent de tapar el que va passar.",
+      "{{so}} dels seus passos fent eco. Un home, mil fantasmes.",
+      "{{so}} de porta tancant-se sola per corrent d'aire. Adéu."
+    ]
+  },
+  {
+    "id": "banco_caja_fuerte",
+    "nom": "Banc càmera cuirassada",
+    "detall": "Porta d'acer de 1 metre, caixes de seguretat, llum freda, alarma connectada",
+    "olor": "metal_frio",
+    "so": "zumbido_alarma",
+    "frases": [
+      "Càmera cuirassada. Porta d'acer d'un metre. Dins, diners. Fora, {{personatge}} amb la veritat.",
+      "Caixes de seguretat alineades com tombes. Cada una guardava un secret.",
+      "Llum freda de tub fluorescent. No hi havia ombres on amagar-se.",
+      "{{personatge}} va mirar la porta. Combinació, iris, empremta. Res per a ell.",
+      "Alarma connectada amb llum vermella. Un pas mal fet i tot sonava.",
+      "Va obrir una caixa amb ordre judicial. Dins, fotos. No diners.",
+      "Olor de metall fred i paper moneda. Olor de poder brut.",
+      "Olor de tinta de segell i plàstic nou. Olor de diners que no circulaven.",
+      "{{so}} de zumbido d'alarma constant. Mosca elèctrica al cervell.",
+      "{{so}} de porta d'acer tancant-se. Soroll de presó de luxe."
+    ]
+  },
+  {
+    "id": "puente_ferrocarril",
+    "nom": "Pont de tren abandonat",
+    "detall": "Travessers de fusta podrida, riu 50 metres avall, tren no passa des de fa anys",
+    "olor": "madera_mojada",
+    "so": "viento_hierro",
+    "frases": [
+      "Pont de tren abandonat. Travessers que no aguantarien ni el pes de la culpa.",
+      "Riu 50 metres avall. Aigua negra esperant amb boca oberta.",
+      "Tren no passa des de fa anys. Només passava {{personatge}} amb les seves ombres.",
+      "{{personatge}} va caminar pel mig. Cada pas una aposta amb la mort.",
+      "Ferros rovellats que cruixien com ossos vells.",
+      "Va mirar avall. Caure era fàcil. Viure era el difícil.",
+      "Olor de fusta mullada i ferro rovellat. Olor de pont que moría.",
+      "Olor de riu i fang. Olor de final líquid.",
+      "{{so}} de vent passant entre els ferros. Cant de mort.",
+      "{{so}} de fusta cruixint sota el seu pes. Advertència."
+    ]
+  },
+  {
+    "id": "apartamento_victima",
+    "nom": "Pis de la víctima",
+    "detall": "Plats bruts a l'aigüera, fotos a la paret, porta forçada, olor de menjar podrit",
+    "olor": "comida_podrida",
+    "so": "nevera_zumbido",
+    "frases": [
+      "Pis de la víctima. Vida interrompuda a mig menjar, a mig riure.",
+      "Plats bruts a l'aigüera. Últim sopar que no va acabar.",
+      "Fotos a la paret: família somrient. {{personatge}} va tocar el vidre.",
+      "Porta forçada amb peus de cabra. Violència que no demanava permís.",
+      "{{personatge}} va obrir la nevera. Menjar podrit. Temps que no perdonava.",
+      "Va agafar un marc de fotos. Darrere, nota amagada. 'Tinc por'.",
+      "Olor de menjar podrit i llet agra. Olor de vida que es podria.",
+      "Olor de sang seca sota l'alfombra. La víctima va intentar netejar.",
+      "{{so}} de la nevera zumbant. Única cosa viva al pis.",
+      "{{so}} de rellotge de paret parat a 3:14. Hora de la mort."
+    ]
+  },
+  {
+    "id": "iglesia_confesionario",
+    "nom": "Església confessionari",
+    "detall": "Fusta fosca, reixa al mig, olor d'encens, llum de espelma parpellejant",
+    "olor": "incienso_madera",
+    "so": "susurro_reja",
+    "frases": [
+      "Fusta fosca que ha sentit mil pecats. Cap com aquest.",
+      "Reixa al mig. Veritat d'un costat, mentida de l'altre.",
+      "Olor d'encens tapant l'olor de culpa.",
+      "Espelma parpellejant. Déu mira, però no jutja encara.",
+      "{{personatge}} va agenollar-se. No per pregar, per aguantar.",
+      "'Perdó, pare'. Va dir. No sabia a qui.",
+      "Silenci. El que no es confessa, pesa més.",
+      "La reixa va cruixir. Alguien escoltava des de l'altre costat.",
+      "Encens cremant. Com les proves del cas.",
+      "{{so}} de susurro darrere la reixa. 'Sé qui eres, inspector'"
+    ]
+  },
+  {
+    "id": "estacion_trenes",
+    "nom": "Estació trens andana 7",
+    "detall": "Anunci de megafonia distorsionat, maletes abandonades, rellotge aturat a 3:14",
+    "olor": "humo_tren",
+    "so": "megafonia_distorsionada",
+    "frases": [
+      "Andana 7. Últim tren no va arribar mai.",
+      "Maleta abandonada. Etiqueta amb nom fals.",
+      "Rellotge parat a 3:14. Hora exacta del crim.",
+      "Megafonia distorsionada: 'Tren amb destí a... silenci'",
+      "{{personatge}} va tocar la maleta. Freda. Com el cadàver.",
+      "Vapor del tren fantasma. Olor de ferrocarril i mort.",
+      "Passos que no eren de ningú ressonant al túnel.",
+      "Cartell: 'Prohibido pasar'. {{antagonista}} va passar igual.",
+      "{{so}} de megafonia: 'Atención pasajeros'. Però no hi havia passatgers.",
+      "Únic banc. Sang seca a sota. Algú va esperar massa"
+    ]
+  },
+  {
+    "id": "laboratorio_forense",
+    "nom": "Laboratori forense",
+    "detall": "Bates blancs, microscòpis, mostres en pots, olor de formaldehid i cafè fred",
+    "olor": "formaldehido",
+    "so": "centrifuga",
+    "frases": [
+      "Bates blancs. La veritat es mira, no es toca.",
+      "Pot amb mostra 34B. Sang de la víctima i de {{antagonista}}.",
+      "Microscopi enfocant. La culpa es veu a 1000x.",
+      "Olor de formaldehid. La mort conserva secrets.",
+      "Cafè fred de la forense. Porta 8 hores aquí.",
+      "{{personatge}} va mirar la radiografia. Bala del seu propi calibre.",
+      "Centrifuga girant. Separant veritat de mentida.",
+      "Etiqueta: 'No obrir'. {{personatge}} la va obrir.",
+      "Guants tacats de blau. La ciència també s'embruta.",
+      "{{so}} de màquina. 'Coincidència 99.8%'. La veritat numèrica"
+    ]
+  },
+  {
+    "id": "carretera_desierta",
+    "nom": "Carretera comarcal km 88",
+    "detall": "Línia discontínua, única gasolinera tancada, cotxe parat amb capó obert, boira",
+    "olor": "asfalto_mojado",
+    "so": "grillos_noche",
+    "frases": [
+      "Km 88. Ningú passa. Ningú sobreviu.",
+      "Línia discontínua. Com la vida de la víctima.",
+      "Gasolinera tancada. Últim client: {{antagonista}}.",
+      "Capó obert. Motor mort. Com el del cotxe.",
+      "Boira baixa. {{personatge}} no veia a 2 metres.",
+      "Grills cantant. Únics testimonis vius.",
+      "Asfalt mullat. Petjades que portaven al barranc.",
+      "Únic fanal. Parpellejant codi Morse: SOS.",
+      "{{so}} de grills tallat per trets. Després silenci.",
+      "Cotxe buit. Clau posada. Alguien va baixar i no va tornar"
+    ]
+  },
+  {
+    "id": "desguace_coches",
+    "nom": "Desguàs de cotxes",
+    "detall": "Muntanyes de cotxes xafats, grua penjant, gos guardià lligat, fang fins als turmells",
+    "olor": "hierro_oxidado",
+    "so": "grua_cadena",
+    "frases": [
+      "Muntanyes de ferralla. Cementiri de cotxes i secrets.",
+      "Grua penjant. Preta aixafar proves.",
+      "Gos guardià lligat. Va bordar quan {{antagonista}} va passar.",
+      "Fang fins als turmells. Cada pas enfonsava més.",
+      "{{personatge}} va obrir el maleter. Dins: matrícula de la víctima.",
+      "Olor de ferro oxidat i oli cremat.",
+      "{{so}} de grua arrossegant xassís. Amagant el cos.",
+      "Número pintat: 47. El cotxe de l'accident del 98.",
+      "Vídeo càmera girant. Va gravar tot però ningú mira.",
+      "Únic cotxe sencer. Amb sang al seient del copilot"
+    ]
+  },
+  {
+    "id": "prision_visitas",
+    "nom": "Presó sala de visites",
+    "detall": "Vidre gruixut, telèfon vell, cadira cargolada, guàrdia mirant darrere",
+    "olor": "sudor_miedo",
+    "so": "telefono_moneda",
+    "frases": [
+      "Vidre gruixut. Separant culpable de veritat.",
+      "Telèfon vell amb cable. Única connexió amb fora.",
+      "Cadira cargolada al terra. Ningú marxa abans d'hora.",
+      "Guàrdia darrere. Escoltava cada paraula.",
+      "{{personatge}} va despenjar. A l'altre costat: {{antagonista}}.",
+      "'Tinc info'. Va dir el pres. 'Tinc bales' va respondre ell.",
+      "Olor de suor i por. Tots dos.",
+      "{{so}} de moneda caient. Temps de visita acabat.",
+      "Llavi del pres contra el vidre. 'Tu també cauràs'.",
+      "Porta metàl·lica tancant-se. Eco de condemna"
+    ]
+  },
+  {
+    "id": "supermercado_noche",
+    "nom": "Supermercat 24h 2 AM",
+    "detall": "Passadissos buits, llum fluorescent, caixera badallant, càmera seguretat girant",
+    "olor": "plastico_frio",
+    "so": "cinta_caja",
+    "frases": [
+      "Passadís 4. Cereals. Sang esquitxada a les caixes.",
+      "Llum fluorescent que zumba. Com el cervell de {{personatge}}.",
+      "Caixera badallant. Va veure tot però no va dir res.",
+      "Càmera seguretat girant 360°. Va gravar a {{antagonista}}.",
+      "{{personatge}} va agafar un ganivet de cuina. Per tallar pa. O venes.",
+      "Olor de plàstic fred i menjar congelat.",
+      "{{so}} de cinta de caixa. Última compra: cinta americana.",
+      "Cartell: 'Cuidado suelo mojado'. Sang, no aigua.",
+      "Nevera oberta. Dins: cap d'una joguina. Avís.",
+      "Porta automàtica. Va obrir quan {{antagonista}} va sortir corrent"
+    ]
+  },
+  {
+    "id": "oficina_anticuario",
+    "nom": "Oficina anticuario {{antagonista}}",
+    "detall": "Quadres vells, pols, caixa forta darrere quadre, olor de diners vells",
+    "olor": "papel_dinero",
+    "so": "reloj_antiguo",
+    "frases": [
+      "Quadre de Rembrandt fals. Darrere: caixa forta.",
+      "Pols de 20 anys. {{antagonista}} no neteja proves.",
+      "Caixa forta oberta. Dins: fotos de {{personatge}} nen.",
+      "Olor de paper antic i diners que no es gasten.",
+      "{{personatge}} va girar el rellotge antic. Clic. Porta secreta.",
+      "{{so}} de tic-tac lent. Temps de {{antagonista}} s'acaba.",
+      "Mapa a la paret amb xinxetes. Totes a {{ciutat}}.",
+      "Llibre de comptes. Nombres que compren policies.",
+      "Tinta fresca a la ploma. Va signar la sentència de mort avui.",
+      "Quadre caient. Darrere: mirall. {{personatge}} va veure's a ell"
+    ]
+  },
+  {
+    "id": "hotel_lujo_suite",
+    "nom": "Suite hotel 5 estrelles",
+    "detall": "Vistes a {{ciutat}}, mini-bar, bany de marbre, sang a la tovallola blanca",
+    "olor": "perfume_caro",
+    "so": "aire_acondicionado",
+    "frases": [
+      "Vistes a {{ciutat}} sencera. {{antagonista}} mirava des de dalt.",
+      "Mini-bar buit. Ampolles de whisky car. I pastilles.",
+      "Bany de marbre. Tovallola blanca tacada de vermell.",
+      "Olor de perfume car tapant l'olor de por.",
+      "{{personatge}} va mirar per la finestra. 40 pisos avall.",
+      "{{so}} de aire acondicionado. Amagant els crits.",
+      "Llit desfet. Dues almohades. Una amb cabell llarg.",
+      "Targeta clau a terra. Nom: {{victima}}.",
+      "Nota al mirall amb pintallavis: 'Lo siento'.",
+      "Porta amb cadena posada. Des de dins. Suïcidi impossible"
+    ]
+  },
+  {
+    "id": "sotano_casa",
+    "nom": "Soterrani casa abandonada",
+    "detall": "Bombeta pelada, parets amb humitat, taula metàl·lica amb corretges, calaix ple d'eines",
+    "olor": "humedad_sangre",
+    "so": "goteo_agua",
+    "frases": [
+      "Bombeta pelada penjant. Llum que enlluerna i amaga.",
+      "Parets amb humitat dibuixant cares. Totes patint.",
+      "Taula metàl·lica amb corretges. No era per descansar.",
+      "Calaix ple d'eines. Alicates, serra, cinta americana.",
+      "{{personatge}} va baixar. Cada esglaó cruixia condemna.",
+      "Olor d'humitat i sang seca de anys.",
+      "{{so}} de goteig rítmic. Compta enrere.",
+      "Cercle al terra. Guix. Ritual o tortura?",
+      "Fotos a la paret. Totes de {{victima}} abans de morir.",
+      "Porta sense pany. Perquè ningú volia sortir"
+    ]
+  },
+  {
+    "id": "pista_atletismo",
+    "nom": "Pista atletisme 4 AM",
+    "detall": "Carrils buits, grades buides, llum de focus, xiulet del entrenador a terra",
+    "olor": "caucho_zapatillas",
+    "so": "viento_pista",
+    "frases": [
+      "Carril 1 buit. El 8 amb sang. Meta creuada sola.",
+      "Grades buides. 10.000 persones que no van aplaudir.",
+      "Focus encesos. {{personatge}} corria sense perseguidor.",
+      "Xiulet a terra. Entrenador no va tornar.",
+      "Olor de cautxú cremat i suor de por.",
+      "{{so}} de vent buit. Silenci de estadi mort.",
+      "Línia de sortida amb guix. I una mà dibuixada.",
+      "Marcador aturat a 3:14. Mateixa hora del crim.",
+      "Sabates d'atleta abandonades. Peus descalços van fugir.",
+      "Únic banc. Nota enganxada: 'Corre o mueres'"
+    ]
+  },
+  {
+    "id": "archivo_municipal",
+    "nom": "Arxiu municipal any 1950",
+    "detall": "Caixes de cartró, expedients amb cordill, pols, rata creuant per terra",
+    "olor": "papel_viejo",
+    "so": "cuerda_nudo",
+    "frases": [
+      "Caixa 34. Expedient tancat el 1950. Reobert avui.",
+      "Cordill lligant papers. Nus que {{personatge}} no podia desfer.",
+      "Pols de 70 anys. Cada fulla una mentida enterrada.",
+      "Rata creuant. Única viva entre morts de paper.",
+      "{{personatge}} va obrir carpeta. Dins: foto de son pare jove.",
+      "Olor de paper vell i tinta que no s'esborra.",
+      "{{so}} de corda estirant-se. Nus de la veritat.",
+      "Segell vermell: 'Confidencial'. Per això va morir qui el va obrir.",
+      "Mapa de {{ciutat}} 1950. Túnels que ja no existeixen.",
+      "Últim full. Signatura: {{antagonista}}. Amb 20 anys"
+    ]
+  },
+  {
+    "id": "granja_aislada",
+    "nom": "Granja aïllada 10km",
+    "detall": "Galliner buit, tractor rovellat, casa de fusta, gos lladruca lluny",
+    "olor": "estiércol_hierba",
+    "so": "grillo_noche",
+    "frases": [
+      "Galliner buit. Plomes a terra. No van fugir volant.",
+      "Tractor rovellat. Última vegada usat per enterrar coses.",
+      "Casa de fusta. Finestra trencada. Algú va sortir corrent.",
+      "Gos lladruca a 1 km. Va olorar mort abans que {{personatge}}.",
+      "Olor d'excrement i herba tallada fa hores.",
+      "{{so}} de grills. Silenci trencat per tret llunyà.",
+      "Sot a terra fresc. Terra remoguda de fa poc.",
+      "Cadena al pal. Sense gos. Però amb sang.",
+      "{{personatge}} va trobar medalla policial al fang.",
+      "Únic llum encès. Cuina. Sopar servit per dos"
+    ]
+  },
+  {
+    "id": "galeria_arte",
+    "nom": "Galeria d'art tancada",
+    "detall": "Quadres coberts amb llençol, terra de parquet, alarma infraroja, guàrdia dormint",
+    "olor": "pintura_oleo",
+    "so": "alarma_infraroja",
+    "frases": [
+      "Quadres coberts. Sota cada llençol un secret.",
+      "Parquet brillant. Petjades de sabata cara de {{antagonista}}.",
+      "Alarma infraroja. {{personatge}} va passar per sota corrent.",
+      "Guàrdia dormint. Sedat. Amb dibuix de {{victima}} a la mà.",
+      "Olor de pintura d'oli i diners rentats.",
+      "{{so}} de alarma a punt de sonar. 3 segons.",
+      "Escultura trencada. Dins: USB amb comptes bancaris.",
+      "Quadre tallat. Darrere: passadís secret.",
+      "Signatura a l'obra: {{antagonista}}. També era artista.",
+      "Únic quadre descobert. Retrat de {{personatge}} nen"
+    ]
+  },
+  {
+    "id": "clinica_privada",
+    "nom": "Clínica privada planta 6",
+    "detall": "Habitació 604, monitor bip-bip, flors marcides, finestra amb reixa",
+    "olor": "antiseptico_flores",
+    "so": "bip_monitor",
+    "frases": [
+      "Habitació 604. {{victima}} va morir aquí ahir.",
+      "Monitor bip-bip. Línia plana des de les 3:14.",
+      "Flors marcides. Regals de qui la va matar.",
+      "Finestra amb reixa. No per evitar que entrin, per evitar que surti.",
+      "{{personatge}} va agafar la història clínica. Pàgines arrancades.",
+      "Olor d'antiseptico tapant l'olor de mort lenta.",
+      "{{so}} de bip constant. Cor que no va tornar.",
+      "Sabana amb forma de cos. Cos ja no hi era.",
+      "Caluix obert. Flascó buit de morfina.",
+      "Nota infermera: 'Paciente decía que {{antagonista}} la visitó'"
+    ]
+  },
+  {
+    "id": "obra_construccion",
+    "nom": "Obra construcció pis 20",
+    "detall": "Grua aturada, ciment fresc, cascos a terra, buit sense barana",
+    "olor": "cemento_polvo",
+    "so": "viento_altura",
+    "frases": [
+      "Pis 20 sense barana. Caiguda de 60 metres garantida.",
+      "Grua aturada a mig camí. Com la vida de {{victima}}.",
+      "Ciment fresc. Petjades de {{antagonista}} cap al buit.",
+      "Cascos a terra. Obrers van fugir abans del crim.",
+      "{{personatge}} va mirar avall. {{ciutat}} semblava de joguina.",
+      "Olor de ciment i pols que asfixia.",
+      "{{so}} de vent fort. Empentava cap al buit.",
+      "Tauló travessant el buit. Únic camí cap a l'altre grua.",
+      "Nota al casco: 'Perdó'. Lletra de {{victima}}.",
+      "Ciment encara tou. Dins: anell de compromís"
+    ]
+  },
+  {
+    "id": "lavanderia_24h",
+    "nom": "Rentadora 24h",
+    "detall": "Rentadores girant, vapor, banc de plàstic, olor de suavitzant i sang",
+    "olor": "suavizante_sangre",
+    "so": "secadora_giro",
+    "frases": [
+      "Rentadora 7 girant. Dins: camisa de {{personatge}} tacada.",
+      "Vapor omplint el local. Amagant cares.",
+      "Banc de plàstic. Sang seca a sota. Algú va esperar aquí.",
+      "Olor de suavitzant llavanda tapant l'olor metàl·lica.",
+      "{{personatge}} va obrir secadora. Calor i olor de crema.",
+      "{{so}} de tambor girant. Esborrant ADN.",
+      "Cistella abandonada. Dins: ganivet embolicat.",
+      "Monedes a terra. Últims 2 euros de {{victima}}.",
+      "Cartell: 'No dejar ropa sin vigilar'. Sang no compta.",
+      "Porta de darrere forçada. Sortida d'emergència usada"
+    ]
+  },
+  {
+    "id": "casino_clandestino",
+    "nom": "Casino clandestí soterrani",
+    "detall": "Taula de pòquer, fum de cigars, home amb escopeta a la porta, diners en maletí",
+    "olor": "humo_cigarro",
+    "so": "fichas_poker",
+    "frases": [
+      "Taula de pòquer. {{antagonista}} va perdre tot menys la vida.",
+      "Fum de cigar dens. No es veia qui disparava.",
+      "Home amb escopeta a la porta. No deixava sortir ningú.",
+      "Maletí obert a taula. Diners bruts de {{ciutat}}.",
+      "{{personatge}} va seure. Primera mà: assos. Trampa.",
+      "Olor de fum i suor de jugadors desesperats.",
+      "{{so}} de fitxes xocant. Apostant vides, no diners.",
+      "Carta sota taula. As de piques. Signatura de mort.",
+      "Porta secreta darrere quadre. Ruta d'escapada.",
+      "Última aposta: 'Tu contra mi, inspector'. Va dir ell"
+    ]
+  },
+  {
+    "id": "central_electrica",
+    "nom": "Central elèctrica abandonada",
+    "detall": "Transformadors gegants, cables penjant, senyal 'Alto voltaje', silenci elèctric",
+    "olor": "ozono_metal",
+    "so": "zumbido_transformador",
+    "frases": [
+      "Transformadors gegants. 20.000 voltios de silenci.",
+      "Cables penjant com serps mortes. O vives.",
+      "Cartell 'Alto voltaje'. {{personatge}} no va parar.",
+      "Silenci elèctric. El pitjor soroll que hi ha.",
+      "Olor d'ozó i metall cremat. Olor de mort ràpida.",
+      "{{so}} de zumbido constant. Dent de serra al cervell.",
+      "Escala metàl·lica fins dalt. Cada graó vibra.",
+      "Quadre elèctric obert. Cables tallats a tisores.",
+      "Sola a terra amb fums. No va ser accident.",
+      "Interruptor gran vermell. OFF. {{ciutat}} a fosques en 3 segons"
+    ]
+  },
+  {
+    "id": "residencia_ancianos",
+    "nom": "Residència d'ancians planta 3",
+    "detall": "Passadís llarg, portes amb noms, televisió encesa sense volum, cadira de rodes buida",
+    "olor": "antiseptico_vejez",
+    "so": "tele_sin_volumen",
+    "frases": [
+      "Passadís llarg de 30 portes. Totes amb noms de morts.",
+      "Porta 314. Nom: {{victima}}. Habitació buida.",
+      "Televisió encesa sense volum. Notícies del crim mut.",
+      "Cadira de rodes buida al mig. Va rodar sola.",
+      "{{personatge}} va obrir calaix. Dins: foto de {{antagonista}} nen.",
+      "Olor d'antiseptico i vellesa que no perdona.",
+      "{{so}} de televisió sense so. Crits que ningú escolta.",
+      "Àlbum de fotos a taula. Última foto: ahir amb {{antagonista}}.",
+      "Pastilles a terra. 20 pastilles. Dosi letal.",
+      "Finestra amb vista a {{ciutat}}. Va saltar o la van tirar?"
+    ]
+  }
+]
+    
