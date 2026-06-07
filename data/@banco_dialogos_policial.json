@@ -1,1 +1,611 @@
-
+[
+  {
+    "id": "interrogatorio_sala",
+    "context": "beat_8_interrogatorio",
+    "tipo": "profesional_60",
+    "peso": 1.0,
+    "detall": "Taula metàl·lica, mirall dues cares, llum que enlluerna, {{personatge}} davant {{sospitos}}",
+    "frases": [
+      "{{personatge}}: 'Nombre completo. Sin apodos.'",
+      "{{sospitos}}: 'No tengo por qué hablar'",
+      "{{personatge}}: 'Artículo 118. Puedes hablar ahora o hablar después ante el juez'",
+      "{{personatge}}: '3:14 AM. GPS de tu coche dice muelle. Mientes'",
+      "{{sospitos}}: 'Me incriminan'",
+      "{{personatge}}: 'La verdad no necesita coartada. La mentira sí'",
+      "{{personatge}}: 'Tenemos tu ADN bajo las uñas de la víctima'",
+      "{{sospitos}}: *suda* 'Fue defensa propia'",
+      "{{personatge}}: 'La víctima tenía 3 puñaladas por la espalda. Explica eso'",
+      "{{personatge}}: 'Última oportunidad antes de que venga el fiscal y no negocie'"
+    ]
+  },
+  {
+    "id": "escena_crim_callejon",
+    "context": "beat_4_escena",
+    "tipo": "profesional_60",
+    "peso": 1.0,
+    "detall": "Cinta policial, guix al terra, sang seca, fotògrafs amb flaix, pluja",
+    "frases": [
+      "{{personatge}}: 'Nadie pisa la cinta. Nadie toca nada'",
+      "Compañero: 'Llueve. Las pruebas se van'",
+      "{{personatge}}: 'Entonces trabaja más rápido. La lluvia no espera'",
+      "Forense: 'Muerte hace 4-6 horas. Bala 9mm'",
+      "{{personatge}}: 'Mi arma está en funda. Busca calibre igual'",
+      "{{personatge}}: 'Rastros neumáticos. Medir y fotografiar ya'",
+      "Compañero: 'Solo hay una huella. Talla 44'",
+      "{{personatge}}: 'La mía es 43. Seguimos buscando'",
+      "{{personatge}}: 'La víctima intentó correr. Mira el guix arrastrado'",
+      "{{personatge}}: 'Cinta doble. Esto es escena, no parking'"
+    ]
+  },
+  {
+    "id": "comisaria_briefing_noche",
+    "context": "beat_1_inicio",
+    "tipo": "profesional_60",
+    "peso": 1.0,
+    "detall": "4:17 AM, escriptori desordenat, cafè fred, dossier, llum fluorescent",
+    "frases": [
+      "Jefe: '48 horas antes de que prensa lo destripe'",
+      "{{personatge}}: '48 horas es suficiente si trabajamos limpio'",
+      "Jefe: 'Sin errores, inspector. Tu placa está en juego'",
+      "{{personatge}}: 'Mi placa no resuelve. Yo resuelvo'",
+      "Jefe: 'Necesito resultados, no cadáveres'",
+      "{{personatge}}: 'Los cadáveres dan resultados. Si sabes leerlos'",
+      "{{personatge}}: 'Necesito equipo completo y sin filtros'",
+      "Jefe: 'No prometo nada'",
+      "{{personatge}}: 'No pido promesas. Pido acceso'",
+      "{{personatge}}: 'Este caso no duerme. Yo tampoco'"
+    ]
+  },
+  {
+    "id": "vecino_chismoso_portal",
+    "context": "beat_2_ancla",
+    "tipo": "humano_30",
+    "peso": 0.9,
+    "detall": "Vecí del 3r, pijama, xafarder però bon fons, {{personatge}} torna tard",
+    "frases": [
+      "Vecino: 'Otra vez a estas horas, inspector?'",
+      "{{personatge}}: 'El crimen no hace horario, don Manuel'",
+      "Vecino: 'Te dejé sopa. Estás en los huesos'",
+      "{{personatge}}: 'Gracias. Pero no como cuando hay muerto'",
+      "Vecino: 'Vi camisa manchada ayer. Cuidado con esos casos'",
+      "{{personatge}}: 'Era café. Lo prometo'",
+      "Vecino: 'Mientes como tu padre. Dios lo tenga en gloria'",
+      "{{personatge}}: *sonríe triste* 'De tal palo...'",
+      "Vecino: 'Tu madre preguntaba por ti'",
+      "{{personatge}}: 'Dígale que estoy bien. Es mentira, pero dígale'"
+    ]
+  },
+  {
+    "id": "hermana_llamada_medianoche",
+    "context": "beat_6_fantasma",
+    "tipo": "humano_30",
+    "peso": 0.9,
+    "detall": "Telèfon sonant, {{personatge}} sol, germana petita enfermera",
+    "frases": [
+      "{{personatge}}: *despenja* '¿Qué pasa?'",
+      "Hermana: 'Solo quería saber si sigues vivo'",
+      "{{personatge}}: 'Sigo. No prometo por cuánto'",
+      "Hermana: 'Papá estaría orgulloso si dejaras ese caso'",
+      "{{personatge}}: 'Papá murió por un caso. Yo no muero por el mismo'",
+      "Hermana: 'Vuelve a casa. Por mí, aunque sea'",
+      "{{personatge}}: 'Cuando atrape al malo. Lo juro'",
+      "Hermana: 'Mientes mal, hermano. Siempre'",
+      "{{personatge}}: *cuelga* 'Perdón, hermanita'",
+      "Hermana: 'Cuídate. Que si te pasa algo me quedo sola'"
+    ]
+  },
+  {
+    "id": "del_bar_rutina",
+    "context": "beat_5_rutina",
+    "tipo": "humano_30",
+    "peso": 0.9,
+    "detall": "Bar sota comissaria, cambrer ex-boxejador, cafè, 3 AM",
+    "frases": [
+      "Camarero: 'Lo de siempre? Sin preguntar'",
+      "{{personatge}}: 'Café negro. Doble. Gracias'",
+      "Camarero: 'Llevas 3 días sin dormir. Se te nota en los ojos'",
+      "{{personatge}}: 'Dormiré cuando atrape al hijo de puta'",
+      "Camarero: 'Para cuando ganes, te guardo el café gratis'",
+      "{{personatge}}: 'Si gano, invito yo a todo el bar'",
+      "Camarero: 'Cuídate, que {{ciutat}} se está poniendo fea'",
+      "{{personatge}}: 'Siempre lo estuvo. Ahora solo lo veo'",
+      "Camarero: 'Tu padre venía aquí también. Mismo café'",
+      "{{personatge}}: 'Por eso vengo. Para recordarlo vivo'"
+    ]
+  },
+  {
+    "id": "humor_negro_forense",
+    "context": "beat_7_respir",
+    "tipo": "humor_10",
+    "peso": 0.8,
+    "detall": "Laboratori, cadàver a taula, forense cínica, {{personatge}} mirant",
+    "frases": [
+      "Forense: 'Otra vez tú aquí, inspector?'",
+      "{{personatge}}: 'Otra vez tú abriendo gente'",
+      "Forense: 'Alguien tiene que hacerlo. Tú solo cierras casos'",
+      "{{personatge}}: 'Yo cierro cajones. Tú los abres'",
+      "Forense: 'Muerto hace 6 horas. Frío como tu café'",
+      "{{personatge}}: 'Mi café está frío. El cadáver también. Estamos en racha'",
+      "Forense: 'Bala entró por aquí, salió por aquí'",
+      "{{personatge}}: 'Gracias por el tour. ¿Hay descuento por cliente frecuente?'",
+      "Forense: 'Tú y yo tenemos el peor trabajo de {{ciutat}}'",
+      "{{personatge}}: 'Sí. Pero el tuyo no dispara de vuelta'"
+    ]
+  },
+  {
+    "id": "tension_antagonista_azotea",
+    "context": "beat_13_climax",
+    "tipo": "tension_10",
+    "peso": 1.0,
+    "detall": "Azotea 40 pisos, vent, {{personatge}} vs {{antagonista}}, buit darrere",
+    "frases": [
+      "{{antagonista}}: 'Tú y yo somos iguales, inspector'",
+      "{{personatge}}: 'No. Tú matas por placer. Yo por justicia'",
+      "{{antagonista}}: 'La diferencia es solo una palabra en el informe'",
+      "{{personatge}}: 'La diferencia es que yo duermo de noche. Mal, pero duermo'",
+      "{{antagonista}}: *ríe* 'Mírate las ojeras. No duermes desde hace años'",
+      "{{personatge}}: 'Ojeras de no dormir. No de no tener alma'",
+      "{{antagonista}}: 'Da un paso y muere. O dispara y vive con eso'",
+      "{{personatge}}: 'Ya vivo con eso. Tu turno'",
+      "{{antagonista}}: 'La ciudad no te lo agradecerá'",
+      "{{personatge}}: 'No lo hago por ella. Lo hago por los muertos'"
+    ]
+  },
+  {
+    "id": "parking_subterraneo_persecucion",
+    "context": "beat_11_persecucion",
+    "tipo": "profesional_60",
+    "peso": 1.0,
+    "detall": "Parking -3, neons parpellejant, cotxes, eco de passos, {{personatge}} corrent",
+    "frases": [
+      "{{personatge}}: '¡Alto! Policía. Manos donde pueda verlas'",
+      "{{sospitos}}: *corre* '¡No me coges!'",
+      "{{personatge}}: *por radio* 'Unidad 4, parking subterrani, salida norte bloqueada'",
+      "{{personatge}}: 'Tus neumáticos dejan rastro. No huyes, dibujas'",
+      "{{sospitos}}: *disparo* '¡Quédate atrás!'",
+      "{{personatge}}: *se cubre* 'Eso fue advertencia. La próxima no'",
+      "{{personatge}}: 'Te quedan dos salidas. Las dos vigiladas'",
+      "{{sospitos}}: *jadea* 'Tengo rehenes'",
+      "{{personatge}}: 'Mientes. Los oí gritar hace 2 minutos'",
+      "{{personatge}}: 'Última oportunidad: de rodillas, manos en nuca'"
+    ]
+  },
+  {
+    "id": "ex_pareja_barrio",
+    "context": "beat_9_herida",
+    "tipo": "humano_30",
+    "peso": 0.8,
+    "detall": "Barri vell, {{personatge}} es troba ex per casualitat, silenci pesat",
+    "frases": [
+      "Ex: 'Vi tu nombre en el diario. Otra vez'",
+      "{{personatge}}: '¿Me llamas para felicitarme o para regañarme?'",
+      "Ex: 'Te llamo para decirte que tengas cuidado. Por última vez'",
+      "{{personatge}}: 'El cuidado no atrapa asesinos. El riesgo sí'",
+      "Ex: 'La silla del bar sigue vacía. La tuya'",
+      "{{personatge}}: *silencio* 'No puedo volver. Ya no soy ese'",
+      "Ex: 'Lo sé. Por eso te llamo. Para despedirme bien'",
+      "{{personatge}}: 'Gracias. De verdad. Lo necesitaba'",
+      "Ex: 'Cuídate. Aunque sé que no lo harás'",
+      "{{personatge}}: 'Si sobrevivo, te invito a café. Si no, cuida mi planta'"
+    ]
+  },
+  {
+    "id": "niño_edificio_superheroe",
+    "context": "beat_3_inocencia",
+    "tipo": "humano_30",
+    "peso": 0.8,
+    "detall": "Portal edifici, nen 8 anys amb dibuix, {{personatge}} torna de cas",
+    "frases": [
+      "Niño: 'Señor inspector, ¿atrapó al malo hoy?'",
+      "{{personatge}}: 'Todavía no, campeón. Pero estoy cerca'",
+      "Niño: 'Te dibujé con capa. Mamá dijo que no vuelas'",
+      "{{personatge}}: *sonríe* 'No vuelo. Pero corro más rápido que los malos'",
+      "Niño: '¿Me enseñas las esposas? Prometo no escaparme'",
+      "{{personatge}}: 'Cuando seas mayor. Ahora prométeme que estudiarás mucho'",
+      "Niño: 'Lo prometo. Para ser como tú cuando crezca'",
+      "{{personatge}}: 'Sé mejor que yo. No cometas mis errores, ¿vale?'",
+      "Niño: '¿Los malos son como los del cole?'",
+      "{{personatge}}: 'Peores. Por eso existo yo. Para que tú no tengas que serlo'"
+    ]
+  },
+  {
+    "id": "jefe_suspension",
+    "context": "beat_10_conflicto",
+    "tipo": "profesional_60",
+    "peso": 1.0,
+    "detall": "Despatx jefe, {{personatge}} sense placa, tensió, ordre directa",
+    "frases": [
+      "Jefe: 'Entrega tu arma y placa, inspector. Orden directa'",
+      "{{personatge}}: 'No entrego mi arma en medio de una investigación activa'",
+      "Jefe: 'Estás suspendido. Es protocolo tras disparos'",
+      "{{personatge}}: 'Suspendido no es muerto. El caso sigue abierto'",
+      "Jefe: 'Te destruiré la carrera si sigues'",
+      "{{personatge}}: 'Mi carrera es atrapar malos. Ya estoy destruido por dentro'",
+      "Jefe: 'Última orden: vete a casa'",
+      "{{personatge}}: *deja placa en mesa* 'Me voy. Pero vuelvo cuando tenga al culpable'",
+      "Jefe: 'Eso es insubordinación'",
+      "{{personatge}}: 'No. Es justicia. Hay diferencia'"
+    ]
+  },
+  {
+    "id": "medico_cabecera_consulta",
+    "context": "beat_12_cuerpo",
+    "tipo": "humano_30",
+    "peso": 0.8,
+    "detall": "Consulta mèdica, {{personatge}} obligat, metge des de nen",
+    "frases": [
+      "Doctor: 'Tienes úlcera, inspector. Y no es del café'",
+      "{{personatge}}: 'El café no mata. Los casos sí'",
+      "Doctor: 'Si no duermes, te receto balas. No funciona, ya lo sé'",
+      "{{personatge}}: 'Duermo cuando los muertos dejan de hablarme'",
+      "Doctor: 'Tu padre murió de lo mismo: no pedir ayuda'",
+      "{{personatge}}: 'Mi padre no pidió ayuda. Yo no la quiero'",
+      "Doctor: 'Otra pastilla no arregla lo que tienes roto por dentro'",
+      "{{personatge}}: 'Nada lo arregla, doctor. Solo atrapar al que lo rompió'",
+      "Doctor: 'Vuelve en un mes. O antes si te disparan otra vez'",
+      "{{personatge}}: 'Apunte: probable'"
+    ]
+  },
+  {
+    "id": "confesion_final",
+    "context": "beat_14_cierre",
+    "tipo": "tension_10",
+    "peso": 1.0,
+    "detall": "Sala interrogatoris, {{antagonista}} esposat, {{personatge}} davant, veritat",
+    "frases": [
+      "{{personatge}}: 'Tengo dos noticias para ti: la mala y la peor'",
+      "{{antagonista}}: *sonríe* 'Dime la mala primero'",
+      "{{personatge}}: 'Te voy a arrestar. Cadena perpetua'",
+      "{{antagonista}}: '¿Y la peor?'",
+      "{{personatge}}: 'Sin esposas. Se me perdieron en el caso anterior. Manos atrás igual'",
+      "{{antagonista}}: *ríe* 'Eres un hijo de puta, inspector'",
+      "{{personatge}}: 'Sí. Pero soy tu hijo de puta. Te detengo igual'",
+      "{{antagonista}}: 'La ciudad te odiará por esto'",
+      "{{personatge}}: 'La ciudad me odia desde el caso 98. Sigo aquí'",
+      "{{personatge}}: 'Lee tus derechos. Los conoces mejor que yo'"
+    ]
+  },
+  {
+    "id": "taxista_nocturno_info",
+    "context": "beat_5_testigo",
+    "tipo": "humano_30",
+    "peso": 0.8,
+    "detall": "Taxi nit, taxista porta {{personatge}}, sap coses de {{ciutat}}",
+    "frases": [
+      "Taxista: '¿A la comisaría otra vez? Esta ciudad no duerme'",
+      "{{personatge}}: 'Y yo menos desde que llegué'",
+      "Taxista: 'Vi a ese tipo que buscas. Subió aquí hace dos horas'",
+      "{{personatge}}: '¿Hacia dónde fue? Esto es importante'",
+      "Taxista: 'Muelle. Calle 34. Pero cuidado, inspector'",
+      "{{personatge}}: '¿Por qué?'",
+      "Taxista: 'Porque ese hombre no va solo. Nunca'",
+      "{{personatge}}: 'Gracias. No cobres'",
+      "Taxista: 'Pague cuando atrape al malo. Trato hecho'",
+      "{{personatge}}: 'Trato hecho. Y gracias por no mirar'"
+    ]
+  },
+  {
+    "id": "compañera_archivo_secretos",
+    "context": "beat_6_aliada",
+    "tipo": "humano_30",
+    "peso": 0.8,
+    "detall": "Arxius comissaria, funcionària jove, dossiers antics, {{personatge}} busca pista",
+    "frases": [
+      "Compañera: 'Aquí tienes caso 98. Nadie lo había pedido en años'",
+      "{{personatge}}: *sorpresa* '¿Cómo lo encontraste tan rápido?'",
+      "Compañera: 'Sé lo que buscas antes de que lo pidas'",
+      "{{personatge}}: '¿Por qué me ayudas? Podrías tener problemas'",
+      "Compañera: 'Porque alguien debe guardar las copias que 'se pierden''",
+      "{{personatge}}: 'Tu café está en mi mesa. Frío, como te gusta'",
+      "Compañera: 'Cuidado con el jefe. Está preguntando por ti'",
+      "{{personatge}}: 'Gracias. Te debo una'",
+      "Compañera: 'Cóbrame cuando atrape al malo. Sin placa'",
+      "{{personatge}}: 'Trato hecho. Y guarda esto bien'"
+    ]
+  },
+  {
+    "id": "periodista_presion",
+    "context": "beat_7_prensa",
+    "tipo": "profesional_60",
+    "peso": 0.8,
+    "detall": "Davant comissaria, periodista jove insisteix, {{personatge}} surt",
+    "frases": [
+      "Periodista: 'Dame algo, inspector. Solo una línea para portada'",
+      "{{personatge}}: 'Sin comentarios. Procedimiento'",
+      "Periodista: 'Sé que resolviste caso 98. Háblame de él'",
+      "{{personatge}}: 'Ese caso está cerrado. Este también lo estará'",
+      "Periodista: 'Si no me dices nada, inventaré. Y sabes que lo haré'",
+      "{{personatge}}: 'Inventa. Pero si mientes, te demando'",
+      "Periodista: 'Gracias por no detenerme ayer'",
+      "{{personatge}}: 'Te debo una. Pero no me la cobres con titulares falsos'",
+      "Periodista: 'Trato: yo no miento, tú no me escondes todo'",
+      "{{personatge}}: 'Trato. Pero cuando yo diga. No antes'"
+    ]
+  },
+  {
+    "id": "sacerdote_confesion",
+    "context": "beat_9_conciencia",
+    "tipo": "humano_30",
+    "peso": 0.8,
+    "detall": "Església buida, confessionari, {{personatge}} no per fe, per culpa",
+    "frases": [
+      "Sacerdote: 'Hace tiempo que no te veo por misa, hijo'",
+      "{{personatge}}: 'No vengo por Dios, padre. Vengo por mí'",
+      "Sacerdote: 'Dios perdona. Pero tú debes perdonarte primero'",
+      "{{personatge}}: 'No puedo. Vi demasiado'",
+      "Sacerdote: 'Te encendí una vela. Por si te sirve de algo'",
+      "{{personatge}}: 'Sirve. Más que las balas'",
+      "Sacerdote: 'El peso que cargas no es solo tuyo. Déjalo aquí'",
+      "{{personatge}}: 'No puedo. Es lo único que me mantiene en pie'",
+      "Sacerdote: 'Entonces quédate. La iglesia no cierra para ti'",
+      "{{personatge}}: 'Gracias, padre. No rezo. Pero vuelvo'"
+    ]
+  },
+  {
+    "id": "informante_callejon_trato",
+    "context": "beat_6_sombra",
+    "tipo": "profesional_60",
+    "peso": 0.9,
+    "detall": "Callejón fosc, informant, diners, {{personatge}} negocia info",
+    "frases": [
+      "Informante: 'La info cuesta, inspector. ¿Cuánto vale tu caso?'",
+      "{{personatge}}: 'Vale una vida. La tuya si mientes'",
+      "Informante: 'Te vi con el malo. Cuidado, ese muerde y no suelta'",
+      "{{personatge}}: 'Yo muerdo más fuerte. Habla'",
+      "Informante: 'Tengo lo que buscas. En el callejón, a medianoche'",
+      "{{personatge}}: 'Si me fallas, no hay segunda vez'",
+      "Informante: 'No fallo. Que yo no fallo a nadie. Excepto a la policía'",
+      "{{personatge}}: *deja dinero* 'Cuenta. Y reza para que sea verdad'",
+      "Informante: 'Rezo por los dos. Por ti más'",
+      "{{personatge}}: 'Guárdate las oraciones. Dame nombres'"
+    ]
+  },
+  {
+    "id": "veterano_guerra_banco",
+    "context": "beat_3_espejo",
+    "tipo": "humano_30",
+    "peso": 0.7,
+    "detall": "Banc plaça, vell ex-militar, {{personatge}} s'asseu sense parlar",
+    "frases": [
+      "Veterano: 'Tú y yo somos iguales, hijo. Sobrevivimos'",
+      "{{personatge}}: *no responde* 'No lo sé, viejo'",
+      "Veterano: 'La guerra no acaba cuando vuelves a casa. Sigue aquí'",
+      "{{personatge}}: 'Señala la cabeza' 'Lo sé. Cada noche'",
+      "Veterano: 'Yo también bebía para olvidar. No funciona, ¿verdad?'",
+      "{{personatge}}: 'Funciona 3 horas. Después vuelve peor'",
+      "Veterano: 'Un día dejarás el arma. Espero que no sea tarde'",
+      "{{personatge}}: 'Cuando atrape al último malo. Entonces'",
+      "Veterano: 'No hay último malo, hijo. Solo el próximo'",
+      "{{personatge}}: *se levanta* 'Gracias por no preguntar'"
+    ]
+  },
+  {
+    "id": "mecanico_garage_coche",
+    "context": "beat_4_cuerpo",
+    "tipo": "humano_30",
+    "peso": 0.7,
+    "detall": "Taller, cotxe {{personatge}} aixecat, mecànic greix mans",
+    "frases": [
+      "Mecánico: 'Este coche ha visto más que tú, inspector'",
+      "{{personatge}}: 'Y sobrevivió a más'",
+      "Mecánico: 'Te cambié pastillas. Gratis. Para que frenes a tiempo'",
+      "{{personatge}}: 'No freno. Solo esquivo'",
+      "Mecánico: 'Oí ruido raro en motor. Cuidado en persecuciones'",
+      "{{personatge}}: 'El ruido soy yo acelerando'",
+      "Mecánico: 'Mi hermano era policía también. Se fue joven'",
+      "{{personatge}}: 'Lo siento. De verdad'",
+      "Mecánico: 'No lo sientas. Haz que su muerte sirva para algo'",
+      "{{personatge}}: 'Cada caso. Cada muerto. Gracias, amigo'"
+    ]
+  },
+  {
+    "id": "lavandera_camisa_sangre",
+    "context": "beat_4_detall",
+    "tipo": "humano_30",
+    "peso": 0.6,
+    "detall": "Rentadora, dona renta camisa {{personatge}} tacada sang",
+    "frases": [
+      "Lavandera: 'Otra mancha roja, inspector. ¿Tomate?'",
+      "{{personatge}}: 'Tomate. Mucho tomate'",
+      "Lavandera: 'Esta camisa ya no sirve. Te dejo una nueva'",
+      "{{personatge}}: 'Gracias. La otra guárdala. Es evidencia'",
+      "Lavandera: 'Mi marido también llegaba así. Nunca habló'",
+      "{{personatge}}: 'Yo tampoco hablo. Solo pregunto'",
+      "Lavandera: 'El jabón quita sangre. La memoria no, ¿verdad?'",
+      "{{personatge}}: 'No. La memoria es la mancha que no sale'",
+      "Lavandera: 'Vuelve jueves. Te plancho gratis'",
+      "{{personatge}}: 'Vuelvo. Si sigo vivo el jueves'"
+    ]
+  },
+  {
+    "id": "juez_cansado_orden",
+    "context": "beat_10",
+    "tipo": "profesional_60",
+    "peso": 0.6,
+    "detall": "Jutge cansat, martell, sala buida, {{personatge}} demana ordre",
+    "frases": [
+      "Juez: 'Sin pruebas no hay caso, inspector. Lo sabes'",
+      "{{personatge}}: 'Tengo sospechas. Necesito 24 horas'",
+      "Juez: 'Otra vez tú aquí. ¿Qué rompiste esta vez?'",
+      "{{personatge}}: 'La puerta del callejón. Tenía pruebas dentro'",
+      "Juez: 'Te firmo la orden. Pero que sea la última'",
+      "{{personatge}}: 'Prometo que atraparé al malo. Lo juro'",
+      "Juez: 'La justicia no es venganza. Recuérdalo'",
+      "{{personatge}}: 'Para la víctima, juez. No es venganza. Es deuda'",
+      "Juez: 'Martillo baja. Tienes tu orden'",
+      "{{personatge}}: 'Gracias. Por creer, aunque sea un poco'"
+    ]
+  },
+  {
+    "id": "compañero_archivo_30",
+    "context": "beat_6",
+    "tipo": "humano_30",
+    "peso": 0.3,
+    "detall": "Companya d'arxius ajuda {{personatge}} sense que li demani",
+    "frases": [
+      "Compañera: 'Aquí tienes el caso del 98. Nadie lo había pedido'",
+      "{{personatge}}: '¿Cómo sabías que lo necesitaba?'",
+      "Compañera: 'Porque siempre pides lo mismo: la verdad'",
+      "{{personatge}}: 'Gracias. Me salvaste otra vez'",
+      "Compañera: 'Te guardé copia. Por si se pierde otra vez'",
+      "{{personatge}}: '¿Por qué lo haces? Te puedes meter en líos'",
+      "Compañera: 'Porque tú no duermes hasta resolverlo. Yo tampoco'",
+      "{{personatge}}: 'Tu café está en mi mesa. Frío, como te gusta'",
+      "Compañera: 'Vuelve vivo. O te mato yo'",
+      "{{personatge}}: 'Trato hecho. Una vida por otra'"
+    ]
+  },
+  {
+    "id": "del_bar_ultimo_cafe_30",
+    "context": "beat_5",
+    "tipo": "humano_30",
+    "peso": 0.3,
+    "detall": "Cambrer sap que {{personatge}} no dormirà fins acabar",
+    "frases": [
+      "Camarero: 'Llevas 40 horas despierto. Cierra los ojos 5 minutos'",
+      "{{personatge}}: 'No puedo. El muerto no duerme'",
+      "Camarero: 'Para cuando ganes, inspector. El café te lo guardo'",
+      "{{personatge}}: 'Si gano, te invito a ti'",
+      "Camarero: 'Cuídate, que {{ciutat}} se está poniendo fea'",
+      "{{personatge}}: 'Siempre lo estuvo. Solo que ahora lo veo claro'",
+      "Camarero: 'Vi que llegaste con ojeras. Peores que ayer'",
+      "{{personatge}}: 'Las ojeras no matan. Las balas sí'",
+      "Camarero: 'Te dejé una silla. Para cuando vuelvas'",
+      "{{personatge}}: 'Volveré. Con el caso cerrado o no vuelvo'"
+    ]
+  },
+  {
+    "id": "psiquiatra_obligatoria_30",
+    "context": "beat_9",
+    "tipo": "humano_30",
+    "peso": 0.3,
+    "detall": "Psiquiatra obligatoria de comissaria parla amb {{personatge}}",
+    "frases": [
+      "Psiquiatra: 'Siéntese, inspector. Otra vez'",
+      "{{personatge}}: 'No tengo tiempo para terapia'",
+      "Psiquiatra: '¿Duerme? No mienta. Veo sus ojeras'",
+      "{{personatge}}: 'Duermo cuando el caso se duerme'",
+      "Psiquiatra: 'El caso no es su padre. Ya lo superó... ¿no?'",
+      "{{personatge}}: 'Superar no es olvidar, doctora'",
+      "Psiquiatra: 'Si no habla, no puedo ayudarle. Firma aquí'",
+      "{{personatge}}: *firma* 'Apto para servicio. Mentira para mí'",
+      "Psiquiatra: 'Vuelva en un mes. O antes, si dispara'",
+      "{{personatge}}: 'Volveré. Siempre vuelvo. Es mi condena'"
+    ]
+  },
+  {
+    "id": "informante_calle_60",
+    "context": "beat_7",
+    "tipo": "profesional_60",
+    "peso": 0.6,
+    "detall": "Informant de carrer ven info a {{personatge}}",
+    "frases": [
+      "Informante: 'La info cuesta, inspector. ¿Cuánto vale tu caso?'",
+      "{{personatge}}: 'Te debo una. Pero esta vez pago'",
+      "Informante: 'Vi a tu hombre. Entra en edificio negro a las 3'",
+      "{{personatge}}: 'Descripción. Ropa. Arma. Todo'",
+      "Informante: 'Cuidado, ese muerde. Y no suelta'",
+      "{{personatge}}: 'Yo muerdo más fuerte. Dame la dirección'",
+      "Informante: 'Tengo lo que buscas. En el callejón, medianoche'",
+      "{{personatge}}: 'Si me mientes, te entrego yo'",
+      "Informante: 'No me falles. Que yo no fallo a nadie'",
+      "{{personatge}}: 'Trato hecho. Tu vida por tu boca cerrada'"
+    ]
+  },
+  {
+    "id": "medico_forense_negro_10",
+    "context": "beat_4",
+    "tipo": "humor_10",
+    "peso": 0.1,
+    "detall": "Humor negre entre {{personatge}} i forense",
+    "frases": [
+      "Forense: 'Muerto hace 6 horas. Igual que tu última novia'",
+      "{{personatge}}: 'Mi novia se fue. Este no puede irse más'",
+      "Forense: 'Esta herida no la hace un amateur, inspector'",
+      "{{personatge}}: 'Los amateurs matan por accidente. Este no'",
+      "Forense: 'Lávate las manos. La muerte se pega'",
+      "{{personatge}}: 'Ya me pegó hace años. No hace diferencia'",
+      "Forense: 'Otra vez tú aquí. ¿No tienes vida fuera?'",
+      "{{personatge}}: 'Mi vida está en esa mesa. Fría y callada'",
+      "Forense: 'Te guardo un café. Negro, como tu humor'",
+      "{{personatge}}: 'Gracias. Necesito algo caliente entre tantos muertos'"
+    ]
+  },
+  {
+    "id": "antagonista_espejo_10",
+    "context": "beat_13",
+    "tipo": "tension_10",
+    "peso": 0.1,
+    "detall": "Cara a cara {{personatge}} vs {{antagonista}} abans del final",
+    "frases": [
+      "{{antagonista}}: 'Tú y yo somos iguales, inspector'",
+      "{{personatge}}: 'No. Tú matas por placer. Yo por justicia'",
+      "{{antagonista}}: 'La diferencia es solo una palabra en el informe'",
+      "{{personatge}}: 'La diferencia es que yo duermo de noche. Tú no'",
+      "{{antagonista}}: *ríe* '¿De verdad? Mírate las ojeras'",
+      "{{personatge}}: 'Ojeras de no dormir. No de no tener alma'",
+      "{{antagonista}}: 'Baja el arma. Hablemos como civilizados'",
+      "{{personatge}}: 'Tú mataste civilizados. Yo hablo con balas'",
+      "{{antagonista}}: 'Siempre fuiste mi mejor obra'",
+      "{{personatge}}: 'Y tú serás mi último caso. Lo prometo'"
+    ]
+  },
+  {
+    "id": "niña_dibujo_30",
+    "context": "beat_3",
+    "tipo": "humano_30",
+    "peso": 0.3,
+    "detall": "Nena que {{personatge}} va salvar li dona dibuix",
+    "frases": [
+      "Niña: 'Señor inspector, ¿me enseña a atrapar malos?'",
+      "{{personatge}}: 'Cuando seas mayor. Ahora ve a casa'",
+      "Niña: 'Te dibujé sin sangre en las manos. Así me gustas más'",
+      "{{personatge}}: *guarda dibujo* 'Lo guardo. Para cuando tenga miedo'",
+      "Niña: 'Mamá dice que usted es héroe. Yo le creo'",
+      "{{personatge}}: 'Los héroes no existen, campeona. Solo gente cansada'",
+      "Niña: 'Guarda este dibujo. Para cuando todo acabe'",
+      "{{personatge}}: 'Prométeme que estudiarás. Para ser mejor que yo'",
+      "Niña: 'Lo prometo. Para ser como usted'",
+      "{{personatge}}: 'No. Sé mejor. No cometas mis errores'"
+    ]
+  },
+  {
+    "id": "jefe_suspension_60",
+    "context": "beat_10",
+    "tipo": "profesional_60",
+    "peso": 0.6,
+    "detall": "Jefe suspende {{personatge}} però ell segueix",
+    "frases": [
+      "Jefe: 'Entrega tu placa y arma, inspector. Estás suspendido'",
+      "{{personatge}}: 'Suspendido no es muerto. Sigo investigando'",
+      "Jefe: 'Es orden directa. Sin placa no eres nadie'",
+      "{{personatge}}: 'Sin placa sigo siendo inspector. En mi cabeza'",
+      "Jefe: 'Te destruiré la carrera si sigues'",
+      "{{personatge}}: 'Mi carrera es atrapar malos. Ya estoy destruido'",
+      "Jefe: 'Última advertencia. Fuera de mi comisaría'",
+      "{{personatge}}: *deja placa* 'Me la devolverá cuando atrape al malo'",
+      "Jefe: 'Estás solo en esto'",
+      "{{personatge}}: 'Siempre estuve solo. Por eso soy bueno'"
+    ]
+  },
+  {
+    "id": "confesion_final_10",
+    "context": "beat_14",
+    "tipo": "humor_10",
+    "peso": 0.1,
+    "detall": "Humor negre al moment de detenir {{antagonista}}",
+    "frases": [
+      "{{personatge}}: 'Tengo dos noticias: la mala y la peor'",
+      "{{antagonista}}: 'Dime la mala primero'",
+      "{{personatge}}: 'Te voy a arrestar. Cadena perpetua'",
+      "{{antagonista}}: '¿Y la peor?'",
+      "{{personatge}}: 'Sin esposas. Se me perdieron en el caso anterior'",
+      "{{antagonista}}: *ríe* 'Eres un hijo de puta'",
+      "{{personatge}}: 'Pero tu hijo de puta. Date la vuelta'",
+      "{{antagonista}}: '¿Sabes que esto no acaba aquí?'",
+      "{{personatge}}: 'Acaba hoy. Para ti. Para mí, mañana hay otro'",
+      "{{personatge}}: 'Caso cerrado. Siguiente'"
+    ]
+  }
+]
+    
