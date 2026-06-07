@@ -5,7 +5,6 @@ const urlsToCache = [
   './index.html',
   './styles.css',
   './js/main.js',
-  './js/generadorLlibre.js',
   './js/loadBancs.js',
   './data/banco_generes.json',
   './data/banco_estructura.json',
