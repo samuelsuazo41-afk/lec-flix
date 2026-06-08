@@ -1,6 +1,4 @@
 // generaparagraf.js - Motor Paràgraf V9.9.4.1 lec-flix policial
-// Fix: concatenacions netes + 15 bancs + 500 paraules objectiu
-
 let histGlobal = { ubicacions: [], emocions: [], frasesUsades: [], paraulesTotals: 0 };
 
 export async function resetEstructura() {
@@ -8,12 +6,10 @@ export async function resetEstructura() {
   console.log('🔄 Estructura V9.9.4.1 resetejada');
 }
 
-// Comptar paraules
 function contarPalabras(texto) {
   return texto.trim().split(/\s+/).filter(w => w.length > 0).length;
 }
 
-// Pick random sense repetir últims 4
 function pickNoRepetit(arr, hist) {
   if (!arr || arr.length === 0) return null;
   const disponibles = arr.filter(item =>!hist.frasesUsades.includes(item.texto_base?.substring(0,40)));
@@ -21,13 +17,11 @@ function pickNoRepetit(arr, hist) {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-// Generar paràgraf V9.9.4.1 - 500 paraules objectiu
 export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
   hist = hist || histGlobal;
   const { nom, ciutat, subtubActual, beatActual, sinopsis, pauta } = config;
   const paraulesObjectiu = config.paraulesObjectiu || 500;
 
-  // 1. ESCENARI AMB SUBTUB - Sense repetir
   const escenaris = (bancs.banco_escenarios || []).filter(e => e.ciutat === ciutat && (!subtubActual || e.nom?.toLowerCase().includes(subtubActual.toLowerCase())));
   let escDisp = escenaris.filter(e =>!hist.ubicacions.slice(-4).includes(e.nom));
   if (escDisp.length === 0) {
@@ -37,14 +31,11 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const escenari = escDisp[Math.floor(Math.random() * escDisp.length)];
   hist.ubicacions.push(escenari.nom);
 
-  // 2. CARREGAR 15 BANCS V9.9.4.1
   const lectures = bancs.banco_lectura || [];
   const olors = (bancs.banco_olors || []).filter(o => o.genero?.includes('policiac'));
   const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
   const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
-  const dialogos = bancs.banco_dialogos_policial || [];
 
-  // 3. SENSORIAL + EMOCIÓ
   const olorObj = pickNoRepetit(olors, hist);
   const soObj = pickNoRepetit(sons, hist);
   const emocioObj = pickNoRepetit(emocions, hist);
@@ -52,11 +43,9 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const so = soObj? soObj.texto_base[0] : 'silenci';
   const emocio = emocioObj? emocioObj.texto_base[0] : 'inquietud';
 
-  // 4. ACTE SEGONS PROGRÉS
   const progress = numCap / totalCaps;
   let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
 
-  // 5. FRASE INICIAL SEGONS BEAT
   const inicios = {
     'hook': `${nom} va obrir els ulls a ${escenari.nom} amb ${emocio} corrent-li per la sang. L'olor de ${olor} li omplia els pulmons mentre el ${so} llunyà li recordava que ${ciutat} guardava secrets. ${sinopsis.substring(0,60)}...`,
     'plantejament': `A ${escenari.nom} ${nom} va sentir ${emocio} quan va comprendre que el cas era més profund. Cada racó feia olor de ${olor} i el ${so} el seguia com una ombra.`,
@@ -73,23 +62,17 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   let parrafo = inicios[beatActual] || inicios['default'];
   let paraulesComptades = contarPalabras(parrafo);
 
-  // 6. BUCLE 500 PARAULES AMB BANCS - FIX CONCANTENACIONS
   let intents = 0;
   let bancLecturaUsat = [...lectures];
   while (paraulesComptades < paraulesObjectiu && intents < 80) {
     intents++;
 
-    // PRIORITAT 1: banco_lectura
     if (bancLecturaUsat.length > 0) {
       const lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
       let text = lectura.texto_base || lectura.text || '';
-      text = text.replace(/{p0}/g, nom)
-                .replace(/{esc}/g, escenari.nom)
-                .replace(/{olor}/g, olor)
-                .replace(/{so}/g, so)
-                .replace(/{ciutat}/g, ciutat)
-                .replace(/{emocio}/g, emocio)
-                .replace(/\n/g, ' ').trim();
+      text = text.replace(/{p0}/g, nom).replace(/{esc}/g, escenari.nom).replace(/{olor}/g, olor)
+               .replace(/{so}/g, so).replace(/{ciutat}/g, ciutat).replace(/{emocio}/g, emocio)
+               .replace(/\n/g, ' ').trim();
       if (text.length > 30 &&!hist.frasesUsades.includes(text.substring(0,40))) {
         parrafo += ` ${text}`;
         hist.frasesUsades.push(text.substring(0,40));
@@ -98,7 +81,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       }
     }
 
-    // PRIORITAT 2: emocions
     if (emocions.length > 0) {
       const emo = emocions[Math.floor(Math.random() * emocions.length)].texto_base[0];
       parrafo += ` ${nom} sentia ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
@@ -106,7 +88,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       continue;
     }
 
-    // PRIORITAT 3: olors
     if (olors.length > 0) {
       const olor2 = olors[Math.floor(Math.random() * olors.length)].texto_base[0];
       parrafo += ` L'olor de ${olor2} s'enfilava per les parets de ${escenari.nom}, barrejant-se amb ${olor}.`;
@@ -114,7 +95,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       continue;
     }
 
-    // PRIORITAT 4: sons
     if (sons.length > 0) {
       const so2 = sons[Math.floor(Math.random() * sons.length)].texto_base[0];
       parrafo += ` El ${so2} ressonava llunyà entre els carrers de ${ciutat}, acompanyant el ${so}.`;
@@ -123,7 +103,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     }
   }
 
-  // 7. FINAL CLIFFHANGER
   if (capActe === 2 && numEsc % 2 === 0) {
     parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys.`;
   } else if (capActe === 3 && numEsc === config.escenesPerCap) {
@@ -150,4 +129,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.4.1 carregat - 15 bancs + 500 paraules + concatenacions fixes');
+console.log('✅ Motor Paràgraf V9.9.4.1 carregat');
