@@ -1,5 +1,6 @@
 // js/main.js - MOTOR V9.9.4 lec-flix policial FINAL
-import { generaParagraf, resetEstructura } from './generaparagraf.js?v=' + Date.now();
+const baseURL = new URL('./', import.meta.url).href;
+const { generaParagraf, resetEstructura } = await import(baseURL + 'generaparagraf.js?v=' + Date.now());
 
 function hashSinopsi(text) {
   let hash = 0;
