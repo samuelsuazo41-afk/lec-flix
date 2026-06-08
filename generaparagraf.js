@@ -61,8 +61,8 @@ function netejaEspais(text) {
 
 function forçaPassat(text) {
   return text.replace(/\bMira\b/g, 'Va mirar')
-          .replace(/\bOlía\b/g, 'Feia olor')
-          .replace(/\bSe le congeló\b/g, 'Se li va gelar');
+         .replace(/\bOlía\b/g, 'Feia olor')
+         .replace(/\bSe le congeló\b/g, 'Se li va gelar');
 }
 
 function safeReplace(text, vars) {
@@ -151,7 +151,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
     'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
     'climax': beatAnterior === 'crisi'
-    ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
+   ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
       : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
     'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
     'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
@@ -246,7 +246,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       temps: temps?.any + '/' + temps?.mes
     }
   };
-} // <- CIERRE DE LA FUNCION QUE TE FALTABA
+}
 
 window.generarEscena = generaParagraf;
 console.log('✅ Motor Paràgraf V9.9.10 carregat - anti-{} + ritme + anti-repetició');
