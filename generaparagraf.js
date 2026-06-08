@@ -76,7 +76,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
               .replace(/{so}/g, so).replace(/{ciutat}/g, ciutat).replace(/{emocio}/g, emocio)
               .replace(/\n/g, ' ').trim();
       if (text.length > 30 &&!hist.frasesUsades.includes(text.substring(0,40))) {
-        parrafo += ' ' + text;
+        parrafo += '+' text;
         hist.frasesUsades.push(text.substring(0,40));
         paraulesComptades = contarPalabras(parrafo);
         continue;
