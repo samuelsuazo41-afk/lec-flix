@@ -1,11 +1,11 @@
-// generaparagraf.js - Motor Paràgraf V9.9.4.3 lec-flix policial
-// Fix: suporta texto_base com string o array + concatenacions netes
+// generaparagraf.js - Motor Paràgraf V9.9.5 lec-flix policial
+// Novetats: suport banco_lectura_aux + fallback + safeReplace per evitar placeholders visibles
 
 let histGlobal = { ubicacions: [], emocions: [], frasesUsades: [], paraulesTotals: 0 };
 
 export async function resetEstructura() {
   histGlobal = { ubicacions: [], emocions: [], frasesUsades: [], paraulesTotals: 0 };
-  console.log('🔄 Estructura V9.9.4.3 resetejada');
+  console.log('🔄 Estructura V9.9.5 resetejada');
 }
 
 function contarPalabras(texto) {
@@ -29,6 +29,11 @@ function pickNoRepetit(arr, hist) {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
+function pronomPerNom(nom) {
+  // Detecció bàsica. Si vols precisió afegeix gènere al banco_personatge
+  return /^[AEIOUaeiou]/.test(nom)? 'Ella' : 'Ell';
+}
+
 export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
   hist = hist || histGlobal;
   const { nom, ciutat, subtubActual, beatActual, sinopsis, pauta } = config;
@@ -44,6 +49,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   hist.ubicacions.push(escenari.nom);
 
   const lectures = bancs.banco_lectura || [];
+  const lecturesAux = bancs.banco_lectura_aux || []; // NOU
   const olors = (bancs.banco_olors || []).filter(o => o.genero?.includes('policiac'));
   const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
   const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
@@ -74,22 +80,51 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 
   let parrafo = inicios[beatActual] || inicios['default'];
   let paraulesComptades = contarPalabras(parrafo);
+  let fraseIndex = 0;
+
+  function safeReplace(text) {
+    const vars = {
+      '{p0}': nom,
+      '{esc}': escenari.nom,
+      '{olor}': olor,
+      '{so}': so,
+      '{ciutat}': ciutat,
+      '{emocio}': emocio
+    };
+    let out = text;
+    for (const [k,v] of Object.entries(vars)) {
+      out = out.replaceAll(k, v);
+    }
+    // Neteja qualsevol placeholder que hagi quedat per evitar "proholder"
+    out = out.replace(/\{[a-z0-9_]+\}/gi, '').replace(/\s+/g,' ').trim();
+    return out;
+  }
 
   let intents = 0;
   let bancLecturaUsat = [...lectures];
+  let bancAuxUsat = [...lecturesAux];
+
   while (paraulesComptades < paraulesObjectiu && intents < 80) {
     intents++;
 
+    let lectura = null;
     if (bancLecturaUsat.length > 0) {
-      const lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
-      let text = getTextoBase(lectura);
-      text = text.replace(/{p0}/g, nom).replace(/{esc}/g, escenari.nom).replace(/{olor}/g, olor)
-             .replace(/{so}/g, so).replace(/{ciutat}/g, ciutat).replace(/{emocio}/g, emocio)
-             .replace(/\n/g, ' ').trim();
-      if (text.length > 30 &&!hist.frasesUsades.includes(text.substring(0,40))) {
+      lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
+    } else if (bancAuxUsat.length > 0) {
+      lectura = bancAuxUsat.splice(Math.floor(Math.random() * bancAuxUsat.length), 1)[0];
+    }
+
+    if (lectura) {
+      let text = safeReplace(getTextoBase(lectura));
+      if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
+        // Evita repetir el nom a cada frase
+        if (fraseIndex > 0) {
+          text = text.replace(new RegExp(`\\b${nom}\\b`, 'g'), pronomPerNom(nom));
+        }
         parrafo += ` ${text}`;
         hist.frasesUsades.push(text.substring(0,40));
         paraulesComptades = contarPalabras(parrafo);
+        fraseIndex++;
         continue;
       }
     }
@@ -98,6 +133,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       const emo = getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]);
       parrafo += ` ${nom} sentia ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
       paraulesComptades = contarPalabras(parrafo);
+      fraseIndex++;
       continue;
     }
 
@@ -105,6 +141,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       const olor2 = getTextoBase(olors[Math.floor(Math.random() * olors.length)]);
       parrafo += ` L'olor de ${olor2} s'enfilava per les parets de ${escenari.nom}, barrejant-se amb ${olor}.`;
       paraulesComptades = contarPalabras(parrafo);
+      fraseIndex++;
       continue;
     }
 
@@ -112,6 +149,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       const so2 = getTextoBase(sons[Math.floor(Math.random() * sons.length)]);
       parrafo += ` El ${so2} ressonava llunyà entre els carrers de ${ciutat}, acompanyant el ${so}.`;
       paraulesComptades = contarPalabras(parrafo);
+      fraseIndex++;
       continue;
     }
   }
@@ -142,4 +180,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.4.3 carregat - Fix texto_base array + concatenacions');
+console.log('✅ Motor Paràgraf V9.9.5 carregat - banco_lectura_aux + safeReplace + pronom alternatiu');
