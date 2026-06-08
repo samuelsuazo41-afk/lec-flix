@@ -256,4 +256,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.12 carregat - bucle arreglat');
+console.log('✅ Motor Paràgraf V9.9.12 carregat - bucle arreglat'); 
