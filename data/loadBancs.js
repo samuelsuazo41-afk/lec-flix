@@ -1,12 +1,11 @@
-// data/loadBancs.js - Carregador V9.9.1 lec-flix policial
-// Carrega els 15 bancs JSON + fusió banco_escenarios + normalització per main.js V9.9
+// data/loadBancs.js - Carregador V9.9.2 lec-flix policial
+// Carrega els 16 bancs JSON + fusió banco_escenarios + normalització per main.js V9.9
 
 export async function cargarBancs() {
-  // FIX: Els JSON estan a /data/ i aquest arxiu també està a /data/
   const baseURL = new URL('./', import.meta.url).href;
 
   const bancsFiles = [
-    // 15 BANCS COMPLETS V9.9
+    // 16 BANCS COMPLETS V9.9.2
     'banco_generes.json',
     'banco_estructura.json',
     'banco_personatge.json',
@@ -14,6 +13,7 @@ export async function cargarBancs() {
     'banco_escenarios.json',
     'banco_escenarios_policial.json',
     'banco_lectura.json',
+    'banco_lectura_aux.json', // NOU: farciment + transicions
     'banco_emocions.json',
     'banco_olors.json',
     'banco_sons.json',
@@ -44,7 +44,6 @@ export async function cargarBancs() {
 
       // NORMALITZACIÓ V9.9: Assegurar format correcte per main.js
       if (key === 'banco_estructura') {
-        // main.js espera data.beats per iterar 9 beats
         if (Array.isArray(data)) {
           data = { beats: data };
         } else if (!data.beats && data.beat) {
@@ -57,7 +56,6 @@ export async function cargarBancs() {
 
       // NORMALITZACIÓ: Assegurar que tots els bancs siguin array
       if (!Array.isArray(data) && key!== 'banco_estructura') {
-        // Si ve com objecte, convertir a array de valors
         data = Object.values(data);
       }
 
@@ -81,11 +79,14 @@ export async function cargarBancs() {
   ];
   console.log(`🗺️ Escenaris totals fusionats: ${bancs.banco_escenarios.length}`);
 
-  console.log('📚 Bancs V9.9.1 carregats:', Object.keys(bancs));
+  // LOG AUX
+  console.log(`🆘 Frases aux carregades: ${bancs.banco_lectura_aux?.length || 0}`);
+
+  console.log('📚 Bancs V9.9.2 carregats:', Object.keys(bancs));
 
   // VALIDACIONS CRÍTIQUES V9.9
   if (!bancs.banco_lectura || bancs.banco_lectura.length === 0) {
-    console.warn('⚠️ ATENCIÓ V9.9: banco_lectura.json buit. Les escenes seran curtes i genèriques');
+    console.warn('⚠️ ATENCIÓ V9.9: banco_lectura.json buit. S\'usarà banco_lectura_aux com a fallback');
   }
 
   if (!bancs.banco_ubicacion || bancs.banco_ubicacion.length === 0) {
@@ -103,7 +104,7 @@ export async function cargarBancs() {
   if (errors.length > 0) {
     console.warn(`⚠️ Bancs amb error: ${errors.join(', ')}`);
   } else {
-    console.log('✅ Tots els 15 bancs V9.9.1 carregats correctament');
+    console.log('✅ Tots els 16 bancs V9.9.2 carregats correctament');
   }
 
   return bancs;
