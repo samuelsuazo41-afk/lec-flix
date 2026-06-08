@@ -1,20 +1,30 @@
-// generaparagraf.js - Motor Paràgraf V9.9.4.2 lec-flix policial
-// Fix final: concatenacions netes amb += template literal
+// generaparagraf.js - Motor Paràgraf V9.9.4.3 lec-flix policial
+// Fix: suporta texto_base com string o array + concatenacions netes
 
 let histGlobal = { ubicacions: [], emocions: [], frasesUsades: [], paraulesTotals: 0 };
 
 export async function resetEstructura() {
   histGlobal = { ubicacions: [], emocions: [], frasesUsades: [], paraulesTotals: 0 };
-  console.log('🔄 Estructura V9.9.4.2 resetejada');
+  console.log('🔄 Estructura V9.9.4.3 resetejada');
 }
 
 function contarPalabras(texto) {
   return texto.trim().split(/\s+/).filter(w => w.length > 0).length;
 }
 
+function getTextoBase(item) {
+  const tb = item.texto_base;
+  if (Array.isArray(tb)) return tb[0] || '';
+  if (typeof tb === 'string') return tb;
+  return item.text || '';
+}
+
 function pickNoRepetit(arr, hist) {
   if (!arr || arr.length === 0) return null;
-  const disponibles = arr.filter(item =>!hist.frasesUsades.includes(item.texto_base?.substring(0,40)));
+  const disponibles = arr.filter(item => {
+    const txt = getTextoBase(item);
+    return txt &&!hist.frasesUsades.includes(txt.substring(0,40));
+  });
   const pool = disponibles.length > 0? disponibles : arr;
   return pool[Math.floor(Math.random() * pool.length)];
 }
@@ -41,9 +51,10 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const olorObj = pickNoRepetit(olors, hist);
   const soObj = pickNoRepetit(sons, hist);
   const emocioObj = pickNoRepetit(emocions, hist);
-  const olor = olorObj? olorObj.texto_base[0] : 'aire fred';
-  const so = soObj? soObj.texto_base[0] : 'silenci';
-  const emocio = emocioObj? emocioObj.texto_base[0] : 'inquietud';
+
+  const olor = olorObj? getTextoBase(olorObj) : 'aire fred';
+  const so = soObj? getTextoBase(soObj) : 'silenci';
+  const emocio = emocioObj? getTextoBase(emocioObj) : 'inquietud';
 
   const progress = numCap / totalCaps;
   let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
@@ -71,10 +82,10 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 
     if (bancLecturaUsat.length > 0) {
       const lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
-      let text = lectura.texto_base || lectura.text || '';
+      let text = getTextoBase(lectura);
       text = text.replace(/{p0}/g, nom).replace(/{esc}/g, escenari.nom).replace(/{olor}/g, olor)
-              .replace(/{so}/g, so).replace(/{ciutat}/g, ciutat).replace(/{emocio}/g, emocio)
-              .replace(/\n/g, ' ').trim();
+             .replace(/{so}/g, so).replace(/{ciutat}/g, ciutat).replace(/{emocio}/g, emocio)
+             .replace(/\n/g, ' ').trim();
       if (text.length > 30 &&!hist.frasesUsades.includes(text.substring(0,40))) {
         parrafo += ` ${text}`;
         hist.frasesUsades.push(text.substring(0,40));
@@ -84,21 +95,21 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     }
 
     if (emocions.length > 0) {
-      const emo = emocions[Math.floor(Math.random() * emocions.length)].texto_base[0];
+      const emo = getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]);
       parrafo += ` ${nom} sentia ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
       paraulesComptades = contarPalabras(parrafo);
       continue;
     }
 
     if (olors.length > 0) {
-      const olor2 = olors[Math.floor(Math.random() * olors.length)].texto_base[0];
+      const olor2 = getTextoBase(olors[Math.floor(Math.random() * olors.length)]);
       parrafo += ` L'olor de ${olor2} s'enfilava per les parets de ${escenari.nom}, barrejant-se amb ${olor}.`;
       paraulesComptades = contarPalabras(parrafo);
       continue;
     }
 
     if (sons.length > 0) {
-      const so2 = sons[Math.floor(Math.random() * sons.length)].texto_base[0];
+      const so2 = getTextoBase(sons[Math.floor(Math.random() * sons.length)]);
       parrafo += ` El ${so2} ressonava llunyà entre els carrers de ${ciutat}, acompanyant el ${so}.`;
       paraulesComptades = contarPalabras(parrafo);
       continue;
@@ -131,4 +142,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.4.2 carregat - Concatenacions fixes');
+console.log('✅ Motor Paràgraf V9.9.4.3 carregat - Fix texto_base array + concatenacions');
