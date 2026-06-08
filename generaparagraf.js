@@ -114,16 +114,20 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
   const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
 
-  const olorObj = pickNoRepetit(olors, hist, 'olor');
-  const soObj = pickNoRepetit(sons, hist, 'so');
+  if (olorObj) hist.usosOlor = (hist.usosOlor || 0) + 1;
+if (soObj) hist.usosSo[so] = (hist.usosSo[so] || 0) + 1;
   const emocioObj = pickNoRepetit(emocions, hist);
 
-  const olor = olorObj? getTextoBase(olorObj) : 'aire fred';
-  const so = soObj? getTextoBase(soObj) : 'silenci';
-  const emocio = emocioObj? getTextoBase(emocioObj) : 'inquietud';
+  const olorObj = pickNoRepetit(olors, hist, 'olor');
+const soObj = pickNoRepetit(sons, hist, 'so');
+const emocioObj = pickNoRepetit(emocions, hist);
 
-  if (olorObj) hist.usosOlor = (hist.usosOlor || 0) + 1;
-  if (soObj) hist.usosSo[so] = (hist.usosSo[so] || 0) + 1;
+const olor = olorObj? getTextoBase(olorObj) : 'aire fred';
+const so = soObj? getTextoBase(soObj) : 'silenci';
+const emocio = emocioObj? getTextoBase(emocioObj) : 'inquietud';
+
+if (olorObj) hist.usosOlor = (hist.usosOlor || 0) + 1;
+if (soObj) hist.usosSo[so] = (hist.usosSo[so] || 0) + 1;
 
   const progress = numCap / totalCaps;
   let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
