@@ -61,8 +61,8 @@ function netejaEspais(text) {
 
 function forçaPassat(text) {
   return text.replace(/\bMira\b/g, 'Va mirar')
-           .replace(/\bOlía\b/g, 'Feia olor')
-           .replace(/\bSe le congeló\b/g, 'Se li va gelar');
+          .replace(/\bOlía\b/g, 'Feia olor')
+          .replace(/\bSe le congeló\b/g, 'Se li va gelar');
 }
 
 function safeReplace(text, vars) {
@@ -151,7 +151,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
     'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
     'climax': beatAnterior === 'crisi'
-     ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
+    ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
       : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
     'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
     'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
@@ -195,3 +195,58 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
         continue;
       }
     }
+
+    if (emocions.length > 0) {
+      const emo = forçaPassat(safeReplace(getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]), varsTemps));
+      parrafo += ` ${pronomPerNom(nom)} va sentir ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
+      paraulesComptades = contarPalabras(parrafo);
+      fraseIndex++;
+      continue;
+    }
+
+    if (olors.length > 0) {
+      const olor2 = forçaPassat(safeReplace(getTextoBase(olors[Math.floor(Math.random() * olors.length)]), varsTemps));
+      parrafo += ` L'olor de ${olor2} s'enfilava per les parets de ${escenari.nom}, barrejant-se amb ${olor}.`;
+      paraulesComptades = contarPalabras(parrafo);
+      fraseIndex++;
+      continue;
+    }
+
+    if (sons.length > 0) {
+      const so2 = forçaPassat(safeReplace(getTextoBase(sons[Math.floor(Math.random() * sons.length)]), varsTemps));
+      parrafo += ` El ${so2} ressonava llunyà entre els carrers de ${ciutat}, acompanyant el ${so}.`;
+      paraulesComptades = contarPalabras(parrafo);
+      fraseIndex++;
+      continue;
+    }
+  }
+
+  if (capActe === 2 && numEsc % 2 === 0) {
+    parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys.`;
+  } else if (capActe === 3 && numEsc === config.escenesPerCap) {
+    parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor.`;
+  } else {
+    parrafo += ` I va saber que ja no hi havia volta enrere.`;
+  }
+
+  paraulesComptades = contarPalabras(parrafo);
+  hist.paraulesTotals += paraulesComptades;
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules`);
+
+  return {
+    text: parrafo.trim(),
+    hist,
+    metadata: {
+      paraules: paraulesComptades,
+      ubicacio: escenari.nom,
+      emocio: emocio,
+      beat: beatActual,
+      beatAnterior: beatAnterior,
+      acte: capActe,
+      temps: temps?.any + '/' + temps?.mes
+    }
+  };
+} // <- CIERRE DE LA FUNCION QUE TE FALTABA
+
+window.generarEscena = generaParagraf;
+console.log('✅ Motor Paràgraf V9.9.10 carregat - anti-{} + ritme + anti-repetició');
