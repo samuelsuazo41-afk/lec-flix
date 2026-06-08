@@ -41,7 +41,7 @@ input{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg
 .toc-capitol{font-weight:600;color:var(--text)}
 .toc-resumen{font-size:13px;color:var(--text-muted);padding:4px 0 0 20px;line-height:1.4}
 .toc-escenes{font-size:12px;color:var(--accent);padding:2px 0 0 20px}
-textarea{font-family:inherit;width:100%;min-height:120px;padding:12px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);border-radius:6px;font-size:15px}
+textarea{font-family:inherit;width:100%;min-height:160px;padding:12px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);border-radius:6px;font-size:15px}
 .subtub-item{display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;margin-bottom:6px}
 .subtub-item input{width:18px;height:18px;margin:0}
 .subtub-item label{flex:1;font-size:14px}
@@ -50,12 +50,17 @@ textarea{font-family:inherit;width:100%;min-height:120px;padding:12px;border:1px
 .inline-subtabs.cp-row{display:flex;justify-content:space-between;align-items:center;margin:6px 0}
 .inline-subtabs.cp-row span{font-size:14px}
 .inline-subtabs.cp-row button{background:none;border:1px solid var(--accent);color:var(--accent);padding:4px 8px;border-radius:4px;font-size:12px;cursor:pointer}
+
+/* CANVI 1: Tabs de plantilles sinopsi */
+.plantilla-tabs{display:flex;gap:6px;margin-bottom:12px}
+.plantilla-tab{flex:1;padding:10px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;text-align:center}
+.plantilla-tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
 </style>
 </head>
 <body>
 <header>
 <h1>lec-flix policial</h1>
-<p>Generador Multi-Ritme V9.9.2</p>
+<p>Generador Multi-Ritme V9.9.9</p>
 </header>
 <main>
 <section id="menu">
@@ -81,7 +86,9 @@ textarea{font-family:inherit;width:100%;min-height:120px;padding:12px;border:1px
 <section id="screen-sinopsis" class="screen">
 <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>SINOPSI</h2></div>
 <div class="screen-content">
-<textarea id="input-sinopsis" placeholder="Ex: Cadàver al moll de Barceloneta. Rita sospita del seu soci però té por de descobrir la veritat..."></textarea>
+<!-- CANVI 2: Tabs de plantilles editables -->
+<div class="plantilla-tabs" id="plantilla-tabs"></div>
+<textarea id="input-sinopsis" placeholder="Selecciona una plantilla o escriu la teva sinopsi..."></textarea>
 <button class="opt-btn" onclick="saveSinopsis()">Guardar Sinopsi</button>
 </div>
 </section>
@@ -117,7 +124,7 @@ textarea{font-family:inherit;width:100%;min-height:120px;padding:12px;border:1px
 <section id="screen-ritme" class="screen">
 <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>RITME</h2></div>
 <div class="screen-content">
-<button class="opt-btn" onclick="selectRitme('Relat Curt')">Relat Curt ~5k<br><small>3-4 capítols</small></button>
+<button class="opt-btn" onclick="selectRitme('Relat Curt')">Relat Curt ~10k<br><small>5 capítols</small></button>
 <button class="opt-btn" onclick="selectRitme('Novel·la')">Novel·la 60k<br><small>20 capítols</small></button>
 <button class="opt-btn" onclick="selectRitme('Èpic')">Èpic 100k<br><small>30 capítols</small></button>
 </div>
@@ -152,11 +159,11 @@ const baseURL = new URL('./', import.meta.url).href;
 let BANCS = {};
 let llibreGenerat = null;
 
-// 1. Carregar bancs V9.9.2
+// 1. Carregar bancs + main.js V9.9.9
 try {
 const mod = await import(baseURL + 'data/loadBancs.js?v=' + Date.now());
 BANCS = await mod.cargarBancs();
-console.log('📚 Bancs V9.9.2 carregats:', Object.keys(BANCS));
+console.log('📚 Bancs V9.9.9 carregats:', Object.keys(BANCS));
 } catch (e) {
 console.warn('Fallback bancs', e);
 BANCS = {
@@ -170,7 +177,7 @@ banco_personatge: [{id:'p1', genero:'policiac', banco_variables:{nom:['Àlex','R
 };
 }
 
-// 2. Estat global V9.9.2
+// 2. Estat global V9.9.9
 window.seleccio = {
 titol:'',
 genere:'policiac',
@@ -185,14 +192,17 @@ sinopsis:'',
 personatgeId:null
 };
 
-// 3. Navegació - FUNCIONANT 100%
+// 3. Navegació
 window.openScreen = function(screenName){
 document.getElementById('menu').style.display='none';
 document.getElementById('resultat').style.display='none';
 document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 const screen = document.getElementById('screen-'+screenName);
 if(screen) screen.classList.add('active');
-if(screenName==='sinopsis') document.getElementById('input-sinopsis').value = seleccio.sinopsis || '';
+if(screenName==='sinopsis'){
+document.getElementById('input-sinopsis').value = seleccio.sinopsis || '';
+renderPlantillaTabs(); // CANVI 3: pinta tabs quan obres sinopsi
+}
 if(screenName==='ubicacio') renderUbicacioList();
 };
 
@@ -217,6 +227,27 @@ closeScreen();
 window.selectEstructura = e=>{seleccio.estructura=e; document.getElementById('estructura-label').textContent=e; closeScreen();}
 window.selectRitme = r=>{seleccio.ritme=r; document.getElementById('ritme-label').textContent=r; closeScreen();}
 window.selectPov = p=>{seleccio.pov=p; document.getElementById('pov-label').textContent=p; closeScreen();}
+
+// CANVI 4: Render tabs de plantilles editables
+function renderPlantillaTabs(){
+const container = document.getElementById('plantilla-tabs');
+const plantilles = window.PLANTILLES_SINOPSI || {};
+const noms = Object.keys(plantilles);
+container.innerHTML = noms.map(nom=>{
+return `<div class="plantilla-tab" onclick="loadPlantilla('${nom}')">${nom}</div>`;
+}).join('');
+}
+
+// CANVI 5: Carrega plantilla al textarea per editar
+window.loadPlantilla = nom=>{
+const plantilles = window.PLANTILLES_SINOPSI || {};
+const textarea = document.getElementById('input-sinopsis');
+textarea.value = plantilles[nom] || '';
+document.querySelectorAll('.plantilla-tab').forEach(tab=>{
+tab.classList.remove('active');
+if(tab.textContent === nom) tab.classList.add('active');
+});
+}
 
 // 5. Ubicació CP1 + CP2
 function renderUbicacioList(){
@@ -330,10 +361,10 @@ document.getElementById('btn-exportar').onclick = ()=>{
   URL.revokeObjectURL(url);
 };
 
-// 11. Service Worker V9.9.2
+// 11. Service Worker V9.9.9
 if('serviceWorker' in navigator) navigator.serviceWorker.register(baseURL+'sw.js');
 
-console.log('✅ index.html V9.9.2 carregat - Tots els onclick funcionant');
+console.log('✅ index.html V9.9.9 carregat - Tabs plantilles sinopsi actius');
 </script>
 </body>
 </html>
