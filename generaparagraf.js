@@ -204,22 +204,18 @@ while (paraulesComptades < paraulesObjectiu && intents < 80) {
   }
 
   if (olors.length > 0) {
-    const olorsDisp = olors.filter(o => {
-      const txt = getTextoBase(o);
-      return (hist.usosOlor[txt] || 0) < 2;
-    });
+  const olorsDisp = olors.filter(o => {
+    const txt = getTextoBase(o);
+    return (hist.usosOlor[txt] || 0) < 2;
+  });
 
-    if (olorsDisp.length > 0) {
-      const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
-      const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
+  if (olorsDisp.length > 0) {
+    const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
+    const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
 
-      hist.usosOlor = (hist.usosOlor || 0) + 1;
+    hist.usosOlor = (hist.usosOlor || 0) + 1; // <- ESTO LO ROMPE
 
-      parrafo += ` L'olor de ${olor2} s'enfilava per les parets de ${escenari.nom}, barrejant-se amb ${olor}.`;
-      paraulesComptades = contarPalabras(parrafo);
-      fraseIndex++;
-      continue;
-    }
+    parrafo += ` L'olor de ${olor2} s'enfilava...`;
   }
 }
 
