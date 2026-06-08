@@ -249,4 +249,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.10 carregat - anti-{} + ritme + anti-repetició');
+console.log('✅ Motor Paràgraf V9.9.10 carregat - anti-{} + ritme + anti-repetició'); 
