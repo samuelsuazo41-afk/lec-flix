@@ -1,9 +1,11 @@
-// generaparagraf.js - Motor Paràgraf V9.9.4.1 lec-flix policial
+// generaparagraf.js - Motor Paràgraf V9.9.4.2 lec-flix policial
+// Fix final: concatenacions netes amb += template literal
+
 let histGlobal = { ubicacions: [], emocions: [], frasesUsades: [], paraulesTotals: 0 };
 
 export async function resetEstructura() {
   histGlobal = { ubicacions: [], emocions: [], frasesUsades: [], paraulesTotals: 0 };
-  console.log('🔄 Estructura V9.9.4.1 resetejada');
+  console.log('🔄 Estructura V9.9.4.2 resetejada');
 }
 
 function contarPalabras(texto) {
@@ -71,8 +73,8 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       const lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
       let text = lectura.texto_base || lectura.text || '';
       text = text.replace(/{p0}/g, nom).replace(/{esc}/g, escenari.nom).replace(/{olor}/g, olor)
-               .replace(/{so}/g, so).replace(/{ciutat}/g, ciutat).replace(/{emocio}/g, emocio)
-               .replace(/\n/g, ' ').trim();
+              .replace(/{so}/g, so).replace(/{ciutat}/g, ciutat).replace(/{emocio}/g, emocio)
+              .replace(/\n/g, ' ').trim();
       if (text.length > 30 &&!hist.frasesUsades.includes(text.substring(0,40))) {
         parrafo += ` ${text}`;
         hist.frasesUsades.push(text.substring(0,40));
@@ -129,4 +131,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.4.1 carregat');
+console.log('✅ Motor Paràgraf V9.9.4.2 carregat - Concatenacions fixes');
