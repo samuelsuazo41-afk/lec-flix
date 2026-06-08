@@ -1,10 +1,28 @@
 // generaparagraf.js - Motor Paràgraf V9.9.10 lec-flix policial
 // Fixes: anti-{} + anti-repetició olor/so + ritme 3-2-3
 
-let histGlobal = { ubicacions: [], emocions: [], frasesUsades: [], frasesUsadesCap: [], combinacionsUsades: new Set(), paraulesTotals: 0, usosOlor: {}, usosSo: {} };
+let histGlobal = {
+  ubicacions: [],
+  emocions: [],
+  frasesUsades: [],
+  frasesUsadesCap: [],
+  combinacionsUsades: new Set(),
+  paraulesTotals: 0,
+  usosOlor: {},
+  usosSo: {}
+};
 
 export async function resetEstructura() {
-  histGlobal = { ubicacions: [], emocions: [], frasesUsades: [], frasesUsadesCap: [], combinacionsUsades: new Set(), paraulesTotals: 0, usosOlor: {}, usosSo: {} };
+  histGlobal = {
+    ubicacions: [],
+    emocions: [],
+    frasesUsades: [],
+    frasesUsadesCap: [],
+    combinacionsUsades: new Set(),
+    paraulesTotals: 0,
+    usosOlor: {},
+    usosSo: {}
+  };
   console.log('🔄 Estructura V9.9.10 resetejada');
 }
 
@@ -19,14 +37,14 @@ function getTextoBase(item) {
   return item.text || '';
 }
 
-function pickNoRepetit(arr, hist, tipus, valor) {
+function pickNoRepetit(arr, hist, tipus) {
   if (!arr || arr.length === 0) return null;
   const disponibles = arr.filter(item => {
     const txt = getTextoBase(item);
     if (!txt) return false;
     if (hist.frasesUsades.includes(txt.substring(0,40))) return false;
-    if (tipus === 'olor' && hist.usosOlor[valor] >= 2) return false;
-    if (tipus === 'so' && hist.usosSo[valor] >= 2) return false;
+    if (tipus === 'olor' && hist.usosOlor[txt] >= 2) return false;
+    if (tipus === 'so' && hist.usosSo[txt] >= 2) return false;
     return true;
   });
   const pool = disponibles.length > 0? disponibles : arr;
@@ -42,10 +60,9 @@ function netejaEspais(text) {
 }
 
 function forçaPassat(text) {
-  // Passa presents comuns a passat perifràstic català
   return text.replace(/\bMira\b/g, 'Va mirar')
-            .replace(/\bOlía\b/g, 'Feia olor')
-            .replace(/\bSe le congeló\b/g, 'Se li va gelar');
+           .replace(/\bOlía\b/g, 'Feia olor')
+           .replace(/\bSe le congeló\b/g, 'Se li va gelar');
 }
 
 function safeReplace(text, vars) {
@@ -71,9 +88,12 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 
   const escenaris = (bancs.banco_escenarios || []).filter(e => {
     const matchCiutat = e.ciutat === ciutat;
-    const matchSubtub =!subtubActual || e.nom?.toLowerCase().includes(subtubActual.toLowerCase()) || subtubActual.toLowerCase().includes(e.nom?.toLowerCase());
+    const matchSubtub =!subtubActual ||
+      e.nom?.toLowerCase().includes(subtubActual.toLowerCase()) ||
+      subtubActual.toLowerCase().includes(e.nom?.toLowerCase());
     return matchCiutat && matchSubtub;
   });
+
   let escDisp = escenaris.filter(e =>!hist.ubicacions.slice(-4).includes(e.nom));
   if (escDisp.length === 0) {
     hist.ubicacions = [];
@@ -94,20 +114,33 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
   const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
 
-  const olorObj = pickNoRepetit(olors, hist, 'olor', null);
-  const soObj = pickNoRepetit(sons, hist, 'so', null);
+  const olorObj = pickNoRepetit(olors, hist, 'olor');
+  const soObj = pickNoRepetit(sons, hist, 'so');
   const emocioObj = pickNoRepetit(emocions, hist);
 
   const olor = olorObj? getTextoBase(olorObj) : 'aire fred';
   const so = soObj? getTextoBase(soObj) : 'silenci';
   const emocio = emocioObj? getTextoBase(emocioObj) : 'inquietud';
-  if (olorObj) hist.usosOlor[olor] = 1;
-  if (soObj) hist.usosSo[so] = 1;
+
+  if (olorObj) hist.usosOlor[olor] = (hist.usosOlor[olor] || 0) + 1;
+  if (soObj) hist.usosSo[so] = (hist.usosSo[so] || 0) + 1;
 
   const progress = numCap / totalCaps;
   let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
 
-  const varsTemps = { '{any}': temps?.any || '2024', '{mes}': temps?.mes || 'gener', '{dia}': temps?.dia || '1', '{event}': temps?.event || '', '{p0}': nom, '{esc}': escenari.nom, '{olor}': olor, '{so}': so, '{ciutat}': ciutat, '{emocio}': emocio, '{tic}': ticActual };
+  const varsTemps = {
+    '{any}': temps?.any || '2024',
+    '{mes}': temps?.mes || 'gener',
+    '{dia}': temps?.dia || '1',
+    '{event}': temps?.event || '',
+    '{p0}': nom,
+    '{esc}': escenari.nom,
+    '{olor}': olor,
+    '{so}': so,
+    '{ciutat}': ciutat,
+    '{emocio}': emocio,
+    '{tic}': ticActual
+  };
 
   const inicios = {
     'hook': `${nom} va obrir els ulls a ${escenari.nom} amb ${emocio} corrent-li per la sang. ${ticActual}. L'olor de ${olor} li omplia els pulmons mentre el ${so} llunyà li recordava que ${ciutat} guardava secrets.`,
@@ -117,7 +150,9 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
     'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
     'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
-    'climax': beatAnterior === 'crisi'? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.` : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
+    'climax': beatAnterior === 'crisi'
+     ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
+      : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
     'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
     'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
   };
@@ -133,7 +168,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     intents++;
     let lectura = null;
 
-    // Prioritat banc principal, després auxiliar
     if (bancLecturaUsat.length > 0) {
       lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
     } else if (bancAuxUsat.length > 0) {
@@ -146,10 +180,9 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 
         // RITME 3-2-3: frase curta cada 3 frases
         if (fraseIndex % 3 === 2 && contarPalabras(text) > 15) {
-          text = text.split('.')[0] + '.'; // talla a primera frase
+          text = text.split('.')[0] + '.';
         }
 
-        // Canvia nom per pronom a partir de frase 1
         if (fraseIndex >= 1) {
           text = text.replace(new RegExp(`\\b${nom}\\b`, 'g'), pronomPerNom(nom));
         }
@@ -162,43 +195,3 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
         continue;
       }
     }
-
-    // Fallback amb comptadors d'ús
-    if (emocions.length > 0) {
-      const emo = forçaPassat(safeReplace(getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]), varsTemps));
-      parrafo += ` ${pronomPerNom(nom)} va sentir ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
-      paraulesComptades = contarPalabras(parrafo);
-      fraseIndex++;
-      continue;
-    }
-  }
-
-  if (capActe === 2 && numEsc % 2 === 0) {
-    parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys.`;
-  } else if (capActe === 3 && numEsc === config.escenesPerCap) {
-    parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor.`;
-  } else {
-    parrafo += ` I va saber que ja no hi havia volta enrere.`;
-  }
-
-  paraulesComptades = contarPalabras(parrafo);
-  hist.paraulesTotals += paraulesComptades;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules`);
-
-  return {
-    text: parrafo.trim(),
-    hist,
-    metadata: {
-      paraules: paraulesComptades,
-      ubicacio: escenari.nom,
-      emocio: emocio,
-      beat: beatActual,
-      beatAnterior: beatAnterior,
-      acte: capActe,
-      temps: temps?.any + '/' + temps?.mes
-    }
-  };
-}
-
-window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.10 carregat - anti-{} + ritme + anti-repetició'); 
