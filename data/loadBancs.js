@@ -1,5 +1,5 @@
-// data/loadBancs.js - Carregador V9.9 lec-flix policial
-// Carrega els 15 bancs JSON + normalització per main.js V9.9
+// data/loadBancs.js - Carregador V9.9.1 lec-flix policial
+// Carrega els 15 bancs JSON + fusió banco_escenarios + normalització per main.js V9.9
 
 export async function cargarBancs() {
   // FIX: Els JSON estan a /data/ i aquest arxiu també està a /data/
@@ -74,7 +74,14 @@ export async function cargarBancs() {
     }
   }));
 
-  console.log('📚 Bancs V9.9 carregats:', Object.keys(bancs));
+  // FUSIÓ CRÍTICA V9.9.1: Unificar escenaris policial + generals
+  bancs.banco_escenarios = [
+   ...(bancs.banco_escenarios || []),
+   ...(bancs.banco_escenarios_policial || [])
+  ];
+  console.log(`🗺️ Escenaris totals fusionats: ${bancs.banco_escenarios.length}`);
+
+  console.log('📚 Bancs V9.9.1 carregats:', Object.keys(bancs));
 
   // VALIDACIONS CRÍTIQUES V9.9
   if (!bancs.banco_lectura || bancs.banco_lectura.length === 0) {
@@ -89,10 +96,14 @@ export async function cargarBancs() {
     console.warn('⚠️ ATENCIÓ: banco_personatge.json buit. S\'usarà nom per defecte');
   }
 
+  if (!bancs.banco_escenarios || bancs.banco_escenarios.length === 0) {
+    console.error('❌ CRÍTIC: No hi ha escenaris després de la fusió');
+  }
+
   if (errors.length > 0) {
     console.warn(`⚠️ Bancs amb error: ${errors.join(', ')}`);
   } else {
-    console.log('✅ Tots els 15 bancs V9.9 carregats correctament');
+    console.log('✅ Tots els 15 bancs V9.9.1 carregats correctament');
   }
 
   return bancs;
