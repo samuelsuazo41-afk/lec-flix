@@ -205,12 +205,25 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     }
 
     if (olors.length > 0) {
-      const olor2 = forçaPassat(safeReplace(getTextoBase(olors[Math.floor(Math.random() * olors.length)]), varsTemps));
-      parrafo += ` L'olor de ${olor2} s'enfilava per les parets de ${escenari.nom}, barrejant-se amb ${olor}.`;
-      paraulesComptades = contarPalabras(parrafo);
-      fraseIndex++;
-      continue;
-    }
+  // Filtra olores ya usados 2 veces
+  const olorsDisp = olors.filter(o => {
+    const txt = getTextoBase(o);
+    return (hist.usosOlor[txt] || 0) < 2;
+  });
+
+  if (olorsDisp.length > 0) {
+    const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
+    const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
+
+    // REGISTRA el uso para que no repita
+    hist.usosOlor = (hist.usosOlor || 0) + 1;
+
+    parrafo += ` L'olor de ${olor2} s'enfilava per les parets de ${escenari.nom}, barrejant-se amb ${olor}.`;
+    paraulesComptades = contarPalabras(parrafo);
+    fraseIndex++;
+    continue;
+  }
+}
 
     if (sons.length > 0) {
       const so2 = forçaPassat(safeReplace(getTextoBase(sons[Math.floor(Math.random() * sons.length)]), varsTemps));
