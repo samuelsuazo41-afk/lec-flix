@@ -108,17 +108,13 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     ticActual = tics[Math.floor(Math.random() * tics.length)];
   }
 
-  const lectures = bancs.banco_lectura || [];
-  const lecturesAux = bancs.banco_lectura_aux || [];
-  const olors = (bancs.banco_olors || []).filter(o => o.genero?.includes('policiac'));
-  const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
-  const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
+ const lectures = bancs.banco_lectura || [];
+const lecturesAux = bancs.banco_lectura_aux || [];
+const olors = (bancs.banco_olors || []).filter(o => o.genero?.includes('policiac'));
+const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
+const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
 
-  if (olorObj) hist.usosOlor = (hist.usosOlor || 0) + 1;
-if (soObj) hist.usosSo[so] = (hist.usosSo[so] || 0) + 1;
-  const emocioObj = pickNoRepetit(emocions, hist);
-
-  const olorObj = pickNoRepetit(olors, hist, 'olor');
+const olorObj = pickNoRepetit(olors, hist, 'olor');
 const soObj = pickNoRepetit(sons, hist, 'so');
 const emocioObj = pickNoRepetit(emocions, hist);
 
@@ -129,114 +125,103 @@ const emocio = emocioObj? getTextoBase(emocioObj) : 'inquietud';
 if (olorObj) hist.usosOlor = (hist.usosOlor || 0) + 1;
 if (soObj) hist.usosSo[so] = (hist.usosSo[so] || 0) + 1;
 
-  const progress = numCap / totalCaps;
-  let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
+const progress = numCap / totalCaps;
+let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
 
-  const varsTemps = {
-    '{any}': temps?.any || '2024',
-    '{mes}': temps?.mes || 'gener',
-    '{dia}': temps?.dia || '1',
-    '{event}': temps?.event || '',
-    '{p0}': nom,
-    '{esc}': escenari.nom,
-    '{olor}': olor,
-    '{so}': so,
-    '{ciutat}': ciutat,
-    '{emocio}': emocio,
-    '{tic}': ticActual
-  };
+const varsTemps = {
+  '{any}': temps?.any || '2024',
+  '{mes}': temps?.mes || 'gener',
+  '{dia}': temps?.dia || '1',
+  '{event}': temps?.event || '',
+  '{p0}': nom,
+  '{esc}': escenari.nom,
+  '{olor}': olor,
+  '{so}': so,
+  '{ciutat}': ciutat,
+  '{emocio}': emocio,
+  '{tic}': ticActual
+};
 
-  const inicios = {
-    'hook': `${nom} va obrir els ulls a ${escenari.nom} amb ${emocio} corrent-li per la sang. ${ticActual}. L'olor de ${olor} li omplia els pulmons mentre el ${so} llunyà li recordava que ${ciutat} guardava secrets.`,
-    'plantejament': `A ${escenari.nom} ${nom} va sentir ${emocio} quan va comprendre que el cas era més profund. ${ticActual}. Cada racó feia olor de ${olor} i el ${so} el seguia com una ombra.`,
-    'setup': `${nom} es va moure per ${escenari.nom} amb ${emocio}, intentant ordenar pensaments mentre l'olor de ${olor} el perseguia. ${ticActual}. El ${so} li deia que el temps s'esgotava.`,
-    'giro1': `El ${so} va trencar el silenci de ${escenari.nom} amb força. ${nom} va sentir ${emocio} quan l'olor de ${olor} s'intensificava fins a ofegar-lo. ${ticActual}.`,
-    'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
-    'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
-    'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
-    'climax': beatAnterior === 'crisi'
-  ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
-      : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
-    'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
-    'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
-  };
+const inicios = {
+  'hook': `${nom} va obrir els ulls a ${escenari.nom} amb ${emocio} corrent-li per la sang. ${ticActual}. L'olor de ${olor} li omplia els pulmons mentre el ${so} llunyà li recordava que ${ciutat} guardava secrets.`,
+  'plantejament': `A ${escenari.nom} ${nom} va sentir ${emocio} quan va comprendre que el cas era més profund. ${ticActual}. Cada racó feia olor de ${olor} i el ${so} el seguia com una ombra.`,
+  'setup': `${nom} es va moure per ${escenari.nom} amb ${emocio}, intentant ordenar pensaments mentre l'olor de ${olor} el perseguia. ${ticActual}. El ${so} li deia que el temps s'esgotava.`,
+  'giro1': `El ${so} va trencar el silenci de ${escenari.nom} amb força. ${nom} va sentir ${emocio} quan l'olor de ${olor} s'intensificava fins a ofegar-lo. ${ticActual}.`,
+  'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
+  'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
+  'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
+  'climax': beatAnterior === 'crisi'
+   ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
+    : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
+  'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
+  'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
+};
 
-  let parrafo = forçaPassat(safeReplace(inicios[beatActual] || inicios['default'], varsTemps));
-  let paraulesComptades = contarPalabras(parrafo);
-  let fraseIndex = 0;
-  let intents = 0;
-  let bancLecturaUsat = [...lectures];
-  let bancAuxUsat = [...lecturesAux];
+let parrafo = forçaPassat(safeReplace(inicios[beatActual] || inicios['default'], varsTemps));
+let paraulesComptades = contarPalabras(parrafo);
+let fraseIndex = 0;
+let intents = 0;
+let bancLecturaUsat = [...lectures];
+let bancAuxUsat = [...lecturesAux];
 
-  while (paraulesComptades < paraulesObjectiu && intents < 80) {
-    intents++;
-    let lectura = null;
+while (paraulesComptades < paraulesObjectiu && intents < 80) {
+  intents++;
+  let lectura = null;
 
-    if (bancLecturaUsat.length > 0) {
-      lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
-    } else if (bancAuxUsat.length > 0) {
-      lectura = bancAuxUsat.splice(Math.floor(Math.random() * bancAuxUsat.length), 1)[0];
-    }
+  if (bancLecturaUsat.length > 0) {
+    lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
+  } else if (bancAuxUsat.length > 0) {
+    lectura = bancAuxUsat.splice(Math.floor(Math.random() * bancAuxUsat.length), 1)[0];
+  }
 
-    if (lectura) {
-      let text = forçaPassat(safeReplace(getTextoBase(lectura), varsTemps));
-      if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
+  if (lectura) {
+    let text = forçaPassat(safeReplace(getTextoBase(lectura), varsTemps));
+    if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
 
-        // RITME 3-2-3: frase curta cada 3 frases
-        if (fraseIndex % 3 === 2 && contarPalabras(text) > 15) {
-          text = text.split('.')[0] + '.';
-        }
-
-        if (fraseIndex >= 1) {
-          text = text.replace(new RegExp(`\\b${nom}\\b`, 'g'), pronomPerNom(nom));
-        }
-
-        parrafo += ` ${text}`;
-        hist.frasesUsades.push(text.substring(0,40));
-        hist.frasesUsadesCap.push(text.substring(0,40));
-        paraulesComptades = contarPalabras(parrafo);
-        fraseIndex++;
-        continue;
+      if (fraseIndex % 3 === 2 && contarPalabras(text) > 15) {
+        text = text.split('.')[0] + '.';
       }
-    }
 
-    if (emocions.length > 0) {
-      const emo = forçaPassat(safeReplace(getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]), varsTemps));
-      parrafo += ` ${pronomPerNom(nom)} va sentir ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
+      if (fraseIndex >= 1) {
+        text = text.replace(new RegExp(`\\b${nom}\\b`, 'g'), pronomPerNom(nom));
+      }
+
+      parrafo += ` ${text}`;
+      hist.frasesUsades.push(text.substring(0,40));
+      hist.frasesUsadesCap.push(text.substring(0,40));
       paraulesComptades = contarPalabras(parrafo);
       fraseIndex++;
       continue;
     }
+  }
 
-    if (olors.length > 0) {
-  // Filtra olores ya usados 2 veces
-  const olorsDisp = olors.filter(o => {
-    const txt = getTextoBase(o);
-    return (hist.usosOlor[txt] || 0) < 2;
-  });
-
-  if (olorsDisp.length > 0) {
-    const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
-    const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
-
-    // REGISTRA el uso para que no repita
-    hist.usosOlor = (hist.usosOlor || 0) + 1;
-
-    parrafo += ` L'olor de ${olor2} s'enfilava per les parets de ${escenari.nom}, barrejant-se amb ${olor}.`;
+  if (emocions.length > 0) {
+    const emo = forçaPassat(safeReplace(getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]), varsTemps));
+    parrafo += ` ${pronomPerNom(nom)} va sentir ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
     paraulesComptades = contarPalabras(parrafo);
     fraseIndex++;
     continue;
   }
-}
 
-    if (sons.length > 0) {
-      const so2 = forçaPassat(safeReplace(getTextoBase(sons[Math.floor(Math.random() * sons.length)]), varsTemps));
-      parrafo += ` El ${so2} ressonava llunyà entre els carrers de ${ciutat}, acompanyant el ${so}.`;
+  if (olors.length > 0) {
+    const olorsDisp = olors.filter(o => {
+      const txt = getTextoBase(o);
+      return (hist.usosOlor[txt] || 0) < 2;
+    });
+
+    if (olorsDisp.length > 0) {
+      const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
+      const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
+
+      hist.usosOlor = (hist.usosOlor || 0) + 1;
+
+      parrafo += ` L'olor de ${olor2} s'enfilava per les parets de ${escenari.nom}, barrejant-se amb ${olor}.`;
       paraulesComptades = contarPalabras(parrafo);
       fraseIndex++;
       continue;
     }
   }
+}
 
   if (capActe === 2 && numEsc % 2 === 0) {
     parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys.`;
