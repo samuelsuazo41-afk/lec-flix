@@ -177,6 +177,7 @@ export async function generarLlibre(seleccio, bancs) {
   };
   const capitols = [];
   const beats = config.beats;
+  let tempsFinal = null; // <- FIX: guardar l'últim temps per metadata
 
   for (let numCap = 1; numCap <= config.numCapitols; numCap++) {
     const beatNom = beats[(numCap - 1) % beats.length];
@@ -185,6 +186,7 @@ export async function generarLlibre(seleccio, bancs) {
     if (numCap % 3 === 0) hist.frasesUsadesCap = [];
 
     const temps = calculaTemps(bancs, progress, rand);
+    tempsFinal = temps; // <- GUARDAR
 
     let ciutatActual = configBase.ciutat;
     let subtubsActuals = configBase.subtubsActius;
@@ -206,7 +208,7 @@ export async function generarLlibre(seleccio, bancs) {
     for (let numEsc = 1; numEsc <= config.escenesPerCap; numEsc++) {
       const subtub = pickSubtub(subtubsActuals, hist);
       const configEscena = {
-       ...configBase,
+      ...configBase,
         ciutat: ciutatActual,
         subtubActual: subtub || ciutatActual,
         beatActual: beatNom,
@@ -259,7 +261,7 @@ export async function generarLlibre(seleccio, bancs) {
       subtubs2: configBase.subtubsActius2,
       pauta: pauta,
       paraulesPerEscena: config.paraulesPerEscena,
-      temps: temps?.any + '/' + temps?.mes,
+      temps: tempsFinal?.any + '/' + tempsFinal?.mes, // <- FIX: ara tempsFinal existeix
       complert: hist.paraulesTotals >= config.paraulesTotals * 0.95
     }
   };
@@ -273,4 +275,4 @@ export async function generarLectura(seleccio, bancs, numEscenes = 6) {
 
 window.generarLlibre = generarLlibre;
 window.generarLectura = generarLectura;
-console.log('✅ Motor V9.9.9 carregat - 100% camps editables a plantilles'); 
+console.log('✅ Motor V9.9.9 carregat - 100% camps editables a plantilles');
