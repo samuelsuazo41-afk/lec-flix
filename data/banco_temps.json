@@ -1,0 +1,74 @@
+[
+  {
+    "id": "temps_modern_pulitzer",
+    "label": "Modern Pulitzer - 2020-2026",
+    "anyInici": 2020,
+    "anyFi": 2026,
+    "mesos": [
+      "gener","febrer","març","abril","maig","juny",
+      "juliol","agost","setembre","octubre","novembre","desembre"
+    ],
+    "datesClau": [
+      {"dia": 1, "mes": "gener", "event": "Any Nou"},
+      {"dia": 6, "mes": "gener", "event": "Reis"},
+      {"dia": 14, "mes": "febrer", "event": "Sant Valentí"},
+      {"dia": 1, "mes": "maig", "event": "Festa del Treball"},
+      {"dia": 24, "mes": "juny", "event": "Sant Joan"},
+      {"dia": 15, "mes": "agost", "event": "Assumpció"},
+      {"dia": 11, "mes": "setembre", "event": "Diada"},
+      {"dia": 12, "mes": "octubre", "event": "Pilar"},
+      {"dia": 1, "mes": "novembre", "event": "Tots Sants"},
+      {"dia": 25, "mes": "desembre", "event": "Nadal"},
+      {"dia": 31, "mes": "desembre", "event": "Cap d'Any"}
+    ],
+    "plantilles": [
+      "El {dia} de {mes} del {any}",
+      "{dia}/{mesNum}/{any}",
+      "Aquell {mes} del {any}",
+      "Tardor del {any}",
+      "Principis de {any}",
+      "La nit del {event} del {any}",
+      "{dia} de {mes}, {any} - {event}"
+    ]
+  },
+  {
+    "id": "temps_noir_50s",
+    "label": "Noir - Anys 50",
+    "anyInici": 1952,
+    "anyFi": 1957,
+    "mesos": [
+      "gener","febrer","març","abril","maig","juny",
+      "juliol","agost","setembre","octubre","novembre","desembre"
+    ],
+    "datesClau": [
+      {"dia": 25, "mes": "desembre", "event": "Nadal"},
+      {"dia": 1, "mes": "maig", "event": "Festa del Treball"}
+    ],
+    "plantilles": [
+      "Aquell {mes} del {any}",
+      "El {dia} d'{mes} de {any}",
+      "Hivern del {any}",
+      "La nit del {event}, {any}"
+    ]
+  },
+  {
+    "id": "temps_cas_fred",
+    "label": "Cas Fred - Anys 90 vs Ara",
+    "anyInici": 1994,
+    "anyFi": 2024,
+    "mesos": [
+      "gener","febrer","març","abril","maig","juny",
+      "juliol","agost","setembre","octubre","novembre","desembre"
+    ],
+    "datesClau": [
+      {"dia": 1, "mes": "gener", "event": "tancament del cas"},
+      {"dia": 15, "mes": "setembre", "event": "reobertura del cas"}
+    ],
+    "plantilles": [
+      "El {dia} de {mes} de {any}",
+      "{any} - trenta anys després",
+      "Aquell {mes} del {any}, quan tot va començar",
+      "2024, trenta anys després del {event}"
+    ]
+  }
+]
