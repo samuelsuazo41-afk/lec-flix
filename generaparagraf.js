@@ -52,7 +52,6 @@ function safeReplace(text, vars) {
   for (const [k,v] of Object.entries(vars)) {
     out = out.replaceAll(k, v);
   }
-  // Neteja qualsevol placeholder que hagi quedat
   out = out.replace(/\{[a-z0-9_\/]+\}/gi, '').replace(/\s+/g,' ').trim();
   return out;
 }
@@ -73,12 +72,12 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 
   const paraulesObjectiu = config.paraulesObjectiu || 500;
 
-  // CANVI 1: Anti-repetició cada 3 capítols
+  // Anti-repetició cada 3 capítols
   if (numEsc === 1 && numCap % 3 === 0) {
     hist.frasesUsadesCap = [];
   }
 
-  // CANVI 2: Usar subtubActual en lloc de filtrar només per ciutat
+  // Usar subtubActual en lloc de filtrar només per ciutat
   const escenaris = (bancs.banco_escenarios || []).filter(e => {
     const matchCiutat = e.ciutat === ciutat;
     const matchSubtub =!subtubActual ||
@@ -95,7 +94,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const escenari = escDisp[Math.floor(Math.random() * escDisp.length)];
   hist.ubicacions.push(escenari.nom);
 
-  // CANVI 3: Tics des de banco_personatge variables
+  // Tics des de banco_personatge variables
   let ticActual = tic || 'es passa la mà per la barba';
   if (bancs.banco_personatge && bancs.banco_personatge[0]?.banco_variables?.tic) {
     const tics = bancs.banco_personatge[0].banco_variables.tic;
@@ -119,7 +118,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const progress = numCap / totalCaps;
   let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
 
-  // CANVI 4: Variables de temps per safeReplace
+  // Variables de temps per safeReplace
   const varsTemps = {
     '{any}': temps?.any || '2024',
     '{mes}': temps?.mes || 'gener',
@@ -134,28 +133,19 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     '{tic}': ticActual
   };
 
-  // CANVI 5: Hooks que recorden beatAnterior
+  // Hooks que recorden beatAnterior
   const inicios = {
     'hook': `${nom} va obrir els ulls a ${escenari.nom} amb ${emocio} corrent-li per la sang. ${ticActual}. L'olor de ${olor} li omplia els pulmons mentre el ${so} llunyà li recordava que ${ciutat} guardava secrets.`,
-
     'plantejament': `A ${escenari.nom} ${nom} va sentir ${emocio} quan va comprendre que el cas era més profund. ${ticActual}. Cada racó feia olor de ${olor} i el ${so} el seguia com una ombra.`,
-
     'setup': `${nom} es va moure per ${escenari.nom} amb ${emocio}, intentant ordenar pensaments mentre l'olor de ${olor} el perseguia. ${ticActual}. El ${so} li deia que el temps s'esgotava.`,
-
     'giro1': `El ${so} va trencar el silenci de ${escenari.nom} amb força. ${nom} va sentir ${emocio} quan l'olor de ${olor} s'intensificava fins a ofegar-lo. ${ticActual}.`,
-
     'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
-
     'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
-
     'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
-
     'climax': beatAnterior === 'crisi'
      ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
       : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
-
     'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
-
     'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
   };
 
@@ -180,7 +170,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     if (lectura) {
       let text = safeReplace(getTextoBase(lectura), varsTemps);
       if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
-        // Evita repetir el nom a cada frase
         if (fraseIndex > 0) {
           text = text.replace(new RegExp(`\\b${nom}\\b`, 'g'), pronomPerNom(nom));
         }
@@ -218,7 +207,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     }
   }
 
-  // CANVI 6: Tancament segons acte i beatAnterior
+  // Tancament segons acte i beatAnterior
   if (capActe === 2 && numEsc % 2 === 0) {
     parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys.`;
   } else if (capActe === 3 && numEsc === config.escenesPerCap) {
@@ -241,7 +230,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       beat: beatActual,
       beatAnterior: beatAnterior,
       acte: capActe,
-      temps: temps?.any + ' + temps?.mes
+      temps: temps?.any + '/' + temps?.mes // <- FIX token tancat
     }
   };
 }
