@@ -85,4 +85,4 @@ export async function cargarBancs() {
 
   console.log('✅ Tots els bancs V9.9.9 carregats i normalitzats');
   return bancs;
-}
+} 
