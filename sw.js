@@ -1,7 +1,7 @@
-// sw.js - Service Worker V9.9 lec-flix policial
-// Cachea tots els arxius + 15 bancs data per funcionar offline
+// sw.js - Service Worker V9.9.9 lec-flix policial
+// Cachea tots els arxius + 19 bancs data per funcionar offline
 
-const CACHE_NAME = 'lec-flix-v9.22';
+const CACHE_NAME = 'lec-flix-v9.9.9';
 
 const urlsToCache = [
   './',
@@ -17,7 +17,7 @@ const urlsToCache = [
   // JS data loader
   './data/loadBancs.js',
   
-  // 15 BANCS JSON COMPLETS V9.9
+  // 19 BANCS JSON COMPLETS V9.9.9
   './data/banco_generes.json',
   './data/banco_estructura.json',
   './data/banco_personatge.json',
@@ -25,23 +25,26 @@ const urlsToCache = [
   './data/banco_escenarios.json',
   './data/banco_escenarios_policial.json',
   './data/banco_lectura.json',
+  './data/banco_lectura_aux.json', // NOU V9.9
   './data/banco_emocions.json',
   './data/banco_olors.json',
   './data/banco_sons.json',
   './data/banco_ubicacion.json',
   './data/banco_climax_polical.json',
-  './data/banco_dialogos_policial.json',
-  './data/banco_giros_policial.json',
-  './data/banco_situaciones_diarias.json'
+  './data/banco_dialogos_policial.json', // NOU V9.9
+  './data/banco_giros_policial.json', // NOU V9.9
+  './data/banco_situaciones_diarias.json',
+  './data/banco_temps.json' // NOU V9.9.7: temps any/mes/dia/event
+  // './data/banco_terror.json' EXCLÒS per ara
 ];
 
 // INSTAL·LAR: cachear tot + forçar activació
 self.addEventListener('install', event => {
-  console.log('SW V9.9 Installing... Cache:', CACHE_NAME);
+  console.log('SW V9.9.9 Installing... Cache:', CACHE_NAME);
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('Cachejant arxius V9.9 - 15 bancs + JS nous');
+        console.log('Cachejant arxius V9.9.9 - 19 bancs + JS nous');
         return cache.addAll(urlsToCache);
       })
       .then(() => self.skipWaiting())
@@ -49,9 +52,9 @@ self.addEventListener('install', event => {
   );
 });
 
-// ACTIVAR: borrar cachés vells V139, V117, V116, etc
+// ACTIVAR: borrar cachés vells V9.22, V9.9, etc
 self.addEventListener('activate', event => {
-  console.log('SW V9.9 Activating... Borrant cachés vells');
+  console.log('SW V9.9.9 Activating... Borrant cachés vells');
   event.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(
@@ -63,35 +66,4 @@ self.addEventListener('activate', event => {
         })
       );
     }).then(() => self.clients.claim())
-  );
-});
-
-// FETCH: cache first, si falla va a xarxa
-self.addEventListener('fetch', event => {
-  // Ignorar peticions que no són GET
-  if (event.request.method !== 'GET') return;
-  
-  event.respondWith(
-    caches.match(event.request)
-      .then(res => {
-        if (res) {
-          return res;
-        }
-        return fetch(event.request).then(response => {
-          // Només cachejar responses OK i del mateix origen
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseToCache);
-          });
-          return response;
-        });
-      })
-      .catch(() => {
-        // Fallback: si no hi ha xarxa ni caché, torna index
-        return caches.match('./index.html');
-      })
-  );
-});
+ 
