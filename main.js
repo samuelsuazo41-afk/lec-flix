@@ -182,7 +182,7 @@ export async function generarLlibre(seleccio, bancs) {
     const beatNom = beats[(numCap - 1) % beats.length];
     const progress = numCap / config.numCapitols;
 
-    if (numEsc === 1 && numCap % 3 === 0) hist.frasesUsadesCap = [];
+    if (numCap % 3 === 0) hist.frasesUsadesCap = [];
 
     const temps = calculaTemps(bancs, progress, rand);
 
@@ -206,7 +206,7 @@ export async function generarLlibre(seleccio, bancs) {
     for (let numEsc = 1; numEsc <= config.escenesPerCap; numEsc++) {
       const subtub = pickSubtub(subtubsActuals, hist);
       const configEscena = {
-   ...configBase,
+       ...configBase,
         ciutat: ciutatActual,
         subtubActual: subtub || ciutatActual,
         beatActual: beatNom,
@@ -259,6 +259,7 @@ export async function generarLlibre(seleccio, bancs) {
       subtubs2: configBase.subtubsActius2,
       pauta: pauta,
       paraulesPerEscena: config.paraulesPerEscena,
+      temps: temps?.any + '/' + temps?.mes,
       complert: hist.paraulesTotals >= config.paraulesTotals * 0.95
     }
   };
