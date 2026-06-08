@@ -273,4 +273,4 @@ export async function generarLectura(seleccio, bancs, numEscenes = 6) {
 
 window.generarLlibre = generarLlibre;
 window.generarLectura = generarLectura;
-console.log('✅ Motor V9.9.9 carregat - 100% camps editables a plantilles');
+console.log('✅ Motor V9.9.9 carregat - 100% camps editables a plantilles'); 
