@@ -47,16 +47,14 @@ function pickSubtub(subtubs, hist) {
   return pool[idx];
 }
 
-// NOVA FUNC: Selecciona 1-2 ciutats extra automàticament
+// Auto 1-2 ciutats extra per desenvolupament
 function pickCiutatsExtra(bancs, cp1, cp2, random) {
   const totes = (bancs.banco_ubicacion || []).map(c => c.ciutat);
   const disponibles = totes.filter(c => c!== cp1 && c!== cp2);
   if (disponibles.length === 0) return [];
-
-  const n = Math.floor(random() * 2) + 1; // 1 o 2 ciutats
+  const n = Math.floor(random() * 2) + 1;
   const extra = [];
   const pool = [...disponibles];
-
   for(let i = 0; i < n && pool.length > 0; i++) {
     const idx = Math.floor(random() * pool.length);
     extra.push(pool.splice(idx, 1)[0]);
@@ -74,7 +72,6 @@ export async function generarLlibre(seleccio, bancs) {
   const pauta = llegirPauta(seleccio.sinopsis);
   const config = getConfigEditorial(seleccio.ritme);
 
-  // NOVA LÒGICA: El generador tria 1-2 ciutats extra automàtic
   const ciutatsExtra = pickCiutatsExtra(bancs, seleccio.ciutatPrincipal, seleccio.ciutatPrincipal2, rand);
   console.log('🗺️ Ciutats extra auto:', ciutatsExtra);
 
@@ -99,7 +96,6 @@ export async function generarLlibre(seleccio, bancs) {
     const beatNom = beats[(numCap - 1) % beats.length];
     const progress = numCap / config.numCapitols;
 
-    // ROTACIÓ INTEL·LIGENT: CP1 1-5, CP2 6-10, Extra 11-15, Extra2 16-20
     let ciutatActual = configBase.ciutat;
     let subtubsActuals = configBase.subtubsActius;
 
