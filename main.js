@@ -1,35 +1,26 @@
-// main.js - Lec-Flix Policial V12.1.1 Híbrid
-// Controlador UI + Cableado con generaparagraf.js V12.1.1 y generarllibre.js
+// main.js - Lec-Flix Policial V12.1.2 Híbrid
+// Controlador UI + Cableado amb generarllibre.js V1.0.2 i generaparagraf.js V12.1.1
 
 let bancs = {};
 let configActual = {};
 let histActual = null;
 let mod = null;
 
-// CARGA INICIAL DEL MOTOR HÍBRIDO
+// CARREGA INICIAL DEL MOTOR HÍBRID
 async function initMotor() {
   try {
-    // CAMBIO CLAVE: importamos generarllibre.js en vez de generaparagraf.js
     mod = await import('./generarllibre.js');
-    console.log('✅ Motor Híbrido V1.0 cargado - generarLlibre disponible');
+    console.log('✅ Motor Híbrid V1.0.2 carregat - generarLlibre disponible');
   } catch (e) {
-    console.error('❌ Error cargando motor:', e);
-    mostrarError('Error: No se pudo cargar el motor de generación');
+    console.error('❌ Error carregant motor:', e);
+    mostrarError('Error: No es va poder carregar el motor de generació');
   }
 }
 
-// CARGA DE BANCS JSON
+// CARREGA DE BANCS JSON
 async function cargarBancs() {
   try {
-    const [
-      escenarios,
-      personatge,
-      lectura,
-      lecturaAux,
-      olors,
-      sons,
-      emocions
-    ] = await Promise.all([
+    const [escenarios, personatge, lectura, lecturaAux, olors, sons, emocions] = await Promise.all([
       fetch('./bancs/banco_escenarios.json').then(r => r.json()),
       fetch('./bancs/banco_personatge.json').then(r => r.json()),
       fetch('./bancs/banco_lectura.json').then(r => r.json()),
@@ -48,15 +39,14 @@ async function cargarBancs() {
       banco_sons: sons,
       banco_emocions: emocions
     };
-    
     console.log('✅ Bancs carregats:', Object.keys(bancs));
   } catch (e) {
     console.error('❌ Error carregant bancs:', e);
-    mostrarError('Error: No se pudieron cargar los bancos de datos');
+    mostrarError('Error: No es van poder carregar els bancs de dades');
   }
 }
 
-// LEE CONFIG DESDE UI
+// LLEGEIX CONFIG DES DE UI
 function leerConfigUI() {
   const nom = document.getElementById('input-nom')?.value || 'Rita';
   const nom2 = document.getElementById('input-nom2')?.value || 'Víctor';
@@ -67,42 +57,28 @@ function leerConfigUI() {
   const paraulesObjectiu = parseInt(document.getElementById('input-paraules')?.value) || 500;
   const escenesPerCap = parseInt(document.getElementById('input-escenes')?.value) || 3;
   const totalCaps = parseInt(document.getElementById('input-caps')?.value) || 12;
-  const modo = document.getElementById('select-modo')?.value || 'escena'; // NUEVO SELECT
+  const modo = document.getElementById('select-modo')?.value || 'escena';
 
   configActual = {
-    nom,
-    nom2,
-    ciutat,
-    subtubActual,
-    beatActual,
+    nom, nom2, ciutat, subtubActual, beatActual,
     beatAnterior: histActual?.beatAnterior || null,
-    tic,
-    paraulesObjectiu,
-    escenesPerCap,
-    totalCaps,
-    modo, // 'escena', 'capitol', 'llibre'
-    temps: {
-      any: '2024',
-      mes: 'gener',
-      dia: '1',
-      event: ''
-    },
-    beatsCap: ['setup', 'giro1', 'midpoint', 'giro2', 'crisi', 'climax', 'resolucio'] // Para modo capitol
+    tic, paraulesObjectiu, escenesPerCap, totalCaps, modo,
+    temps: { any: '2024', mes: 'gener', dia: '1', event: '' },
+    beatsCap: ['setup', 'giro1', 'midpoint', 'giro2', 'crisi', 'climax', 'resolucio']
   };
-
   return configActual;
 }
 
-// GENERAR TEXTO - BOTÓN PRINCIPAL
+// GENERAR TEXTO - BOTÓ PRINCIPAL
 async function generarText() {
   if (!mod) {
-    mostrarError('Error: Motor no cargado. Recarga la página.');
+    mostrarError('Error: Motor no carregat. Recarrega la pàgina.');
     return;
   }
 
   const btn = document.getElementById('btn-generar');
   const output = document.getElementById('output-text');
-  
+
   btn.disabled = true;
   btn.textContent = 'Generant...';
   output.textContent = 'Generant text...';
@@ -114,39 +90,39 @@ async function generarText() {
 
     console.log(`🚀 Generant modo: ${config.modo}`, { numCap, numEsc });
 
-    // RESET si es libro completo
     if (config.modo === 'llibre') {
       await mod.resetEstructura();
       histActual = null;
     }
 
-    // LLAMADA HÍBRIDA: generarLlibre decide qué hacer según config.modo
-    const resultado = await mod.generarLlibre(
-      config,
-      bancs,
-      histActual,
-      numCap,
-      numEsc,
-      config.totalCaps
-    );
-
-    // Actualizar hist para siguiente generación
+    const resultado = await mod.generarLlibre(config, bancs, histActual, numCap, numEsc, config.totalCaps);
     histActual = resultado.hist;
 
-    // Mostrar resultado
-    output.textContent = resultado.text;
-    
-    // Metadata
+    // RENDER BLINDAT segons tipo
+    if (resultado.metadata.tipo === 'escena') {
+      output.textContent = resultado.text;
+    } else if (resultado.metadata.tipo === 'capitol') {
+      output.textContent = resultado.capitols[0].escenes.map(e => e.text).join('\n\n');
+    } else if (resultado.metadata.tipo === 'llibre') {
+      output.textContent = resultado.capitols.map(c =>
+        `=== CAPÍTOL ${c.num} - ${c.beat.toUpperCase()} ===\n\n` +
+        c.escenes.map(e => e.text).join('\n\n')
+      ).join('\n\n');
+    }
+
+    // METADATA
     const meta = document.getElementById('output-meta');
     if (meta && resultado.metadata) {
-      const { paraules, ubicacio, emocio, beat, acte, tipo } = resultado.metadata;
+      const { tipo, paraulesAprox, paraules, ubicacio, emocio, beat, acte, nCapitols, escenes } = resultado.metadata;
       meta.innerHTML = `
-        <strong>Tipo:</strong> ${tipo || 'escena'} | 
-        <strong>Paraules:</strong> ${paraules} | 
-        <strong>Ubicació:</strong> ${ubicacio} | 
-        <strong>Emoció:</strong> ${emocio} | 
-        <strong>Beat:</strong> ${beat} | 
-        <strong>Acte:</strong> ${acte}
+        <strong>Tipus:</strong> ${tipo || 'escena'} |
+        <strong>Paraules:</strong> ${paraulesAprox || paraules} |
+        ${ubicacio? `<strong>Ubicació:</strong> ${ubicacio} | ` : ''}
+        ${emocio? `<strong>Emoció:</strong> ${emocio} | ` : ''}
+        ${beat? `<strong>Beat:</strong> ${beat} | ` : ''}
+        ${acte? `<strong>Acte:</strong> ${acte} | ` : ''}
+        ${nCapitols? `<strong>Capítols:</strong> ${nCapitols} | ` : ''}
+        ${escenes? `<strong>Escenes:</strong> ${escenes}` : ''}
       `;
     }
 
@@ -171,7 +147,7 @@ async function resetearHist() {
   console.log('🔄 Hist resetejat');
 }
 
-// PREVIEW - Muestra config sin generar
+// PREVIEW
 function mostrarPreview() {
   const config = leerConfigUI();
   const preview = document.getElementById('output-text');
@@ -182,10 +158,9 @@ function mostrarPreview() {
 function exportarTxt() {
   const text = document.getElementById('output-text').textContent;
   if (!text || text.startsWith('PREVIEW') || text.startsWith('Generant')) {
-    mostrarError('No hay texto para exportar');
+    mostrarError('No hi ha text per exportar');
     return;
   }
-  
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -210,11 +185,9 @@ function mostrarError(msg) {
 document.addEventListener('DOMContentLoaded', async () => {
   await initMotor();
   await cargarBancs();
-  
   document.getElementById('btn-generar')?.addEventListener('click', generarText);
   document.getElementById('btn-preview')?.addEventListener('click', mostrarPreview);
   document.getElementById('btn-exportar')?.addEventListener('click', exportarTxt);
   document.getElementById('btn-reset')?.addEventListener('click', resetearHist);
-  
   console.log('✅ App Lec-Flix iniciada');
 });
