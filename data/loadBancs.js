@@ -1,4 +1,4 @@
-// data/loadBancs.js - Carregador V9.9.9 lec-flix policial
+// data/loadBancs.js - Carregador V12.1.1 lec-flix policial
 // Carrega els 19 bancs JSON + fusió banco_escenarios + normalització per main.js V9.9.9
 
 export async function cargarBancs() {
