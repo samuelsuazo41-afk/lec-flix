@@ -1,4 +1,4 @@
-// sw.js - Service Worker V9.9.12 lec-flix policial
+// sw.js - Service Worker V12.12.1 lec-flix policial
 // Cachea tots els arxius + 19 bancs data per funcionar offline
 
 const CACHE_NAME = 'lec-flix-v12.1.1';
