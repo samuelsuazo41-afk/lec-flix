@@ -1,5 +1,6 @@
-// generaparagraf.js - Motor Paràgraf V9.9.15 lec-flix policial FINAL REPARAT
-// FIX ÚNIC: const txt definit a anti-acaparament olor - ReferenceError solucionat
+// generaparagraf.js - Motor Paràgraf V9.9.16 lec-flix policial BLINDAT
+// Fixes: ReferenceError txt, anti-bucle 200 intents, fallbacks llargs,
+// hist autoinit, window.generarLlibre fallback
 
 let histGlobal = {
   ubicacions: [],
@@ -25,7 +26,7 @@ export async function resetEstructura() {
     usosSo: {},
     olorUsadaEscena: false
   };
-  console.log('🔄 Estructura V9.9.15 resetejada');
+  console.log('🔄 Estructura V9.9.16 resetejada');
 }
 
 function contarPalabras(texto) {
@@ -59,20 +60,20 @@ function pronomPerNom(nom) {
 
 function netejaEspais(text) {
   return text
-.replace(/\s+/g,' ')
-.replace(/\s+([.,])/g,'$1')
-.replace(/\bel una\b/gi, 'una')
-.replace(/\bla una\b/gi, 'una')
-.trim();
+   .replace(/\s+/g,' ')
+   .replace(/\s+([.,])/g,'$1')
+   .replace(/\bel una\b/gi, 'una')
+   .replace(/\bla una\b/gi, 'una')
+   .trim();
 }
 
 function forçaPassat(text) {
   return text
-.replace(/\bMira\b/g, 'Va mirar')
-.replace(/\bOlía\b/g, 'Feia olor')
-.replace(/\bSe le congeló\b/g, 'Se li va gelar')
-.replace(/\bSiente\b/g, 'Va sentir')
-.replace(/\bCamina\b/g, 'Va caminar');
+   .replace(/\bMira\b/g, 'Va mirar')
+   .replace(/\bOlía\b/g, 'Feia olor')
+   .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+   .replace(/\bSiente\b/g, 'Va sentir')
+   .replace(/\bCamina\b/g, 'Va caminar');
 }
 
 function safeReplace(text, vars) {
@@ -96,8 +97,19 @@ function safeReplace(text, vars) {
 
 const CONNECTORS = ['Però', 'De cop', 'Mentrestant', 'Aleshores', 'Sense avís'];
 
+// AUTO-INIT hist si falta alguna clau
+function blindarHist(hist) {
+  hist.usosOlor = hist.usosOlor || {};
+  hist.usosSo = hist.usosSo || {};
+  hist.olorUsadaEscena = hist.olorUsadaEscena!== undefined? hist.olorUsadaEscena : false;
+  hist.frasesUsades = hist.frasesUsades || [];
+  hist.frasesUsadesCap = hist.frasesUsadesCap || [];
+  return hist;
+}
+
 export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
-  hist = hist || histGlobal;
+  hist = blindarHist(hist || histGlobal);
+
   const { nom, tic, ciutat, subtubActual, beatActual, beatAnterior, sinopsis, pauta, temps } = config;
   const paraulesObjectiu = config.paraulesObjectiu || 500;
 
@@ -138,13 +150,13 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
   const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
 
-  // ANTI-ACAPARAMENT OLOR - màxim 1 per escena + 30% probabilitat
+  // ANTI-ACAPARAMENT OLOR
   let olor = 'aire fred';
   let olorObj = null;
   if (!hist.olorUsadaEscena && Math.random() < 0.3) {
     olorObj = pickNoRepetit(olors, hist, 'olor');
     if (olorObj) {
-      const txt = getTextoBase(olorObj); // ← FIX ÚNIC: definir txt abans d'usar-lo
+      const txt = getTextoBase(olorObj);
       olor = txt;
       hist.usosOlor[txt] = (hist.usosOlor[txt] || 0) + 1;
       hist.olorUsadaEscena = true;
@@ -201,7 +213,8 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   let bancLecturaUsat = [...lectures];
   let bancAuxUsat = [...lecturesAux];
 
-  while (paraulesComptades < paraulesObjectiu && intents < 80) {
+  // BLINDAT: 200 intents + fallbacks llargs per tallar bucle
+  while (paraulesComptades < paraulesObjectiu && intents < 200) {
     intents++;
     let lectura = null;
     if (bancLecturaUsat.length > 0) {
@@ -252,25 +265,26 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
         const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
         hist.usosOlor[olor2] = (hist.usosOlor[olor2] || 0) + 1;
         hist.olorUsadaEscena = true;
-        parrafo += ` L'olor de ${olor2} s'enfilava...`;
+        parrafo += ` L'olor de ${olor2} s'enfilava per l'aire dens de ${escenari.nom}.`;
         paraulesComptades = contarPalabras(parrafo);
         fraseIndex++;
         continue;
       }
     }
 
+    // FALLBACK LLARG BLINDAT
     if (capActe === 2 && numEsc % 2 === 0) {
-      parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys.`;
+      parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys sense que ningú li hagués advertit del perill real que s'amagava darrere de cada pista falsa.`;
     } else if (capActe === 3 && numEsc === config.escenesPerCap) {
-      parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor.`;
+      parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor acumulat durant tant de temps perdut buscant respostes que sempre havien estat davant dels seus ulls.`;
     } else {
-      parrafo += ` I va saber que ja no hi havia volta enrere.`;
+      parrafo += ` I va saber que ja no hi havia volta enrere possible per a ningú dels dos després de tot el que havien descobert aquella nit fosca a ${escenari.nom}.`;
     }
     paraulesComptades = contarPalabras(parrafo);
   }
 
   hist.paraulesTotals += paraulesComptades;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.15`);
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.16`);
 
   return {
     text: parrafo.trim(),
@@ -287,5 +301,10 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   };
 }
 
+// BLINDAT: exposo generarLlibre aquí també per si el main crida mod.generarLlibre
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.15 carregat - REPARAT ReferenceError txt');
+window.generarLlibre = async function(seleccio, bancs) {
+  console.error('⚠️ generarLlibre cridat des de generaparagraf.js. Hauria d\'estar al main.js');
+  return { capítols: [], metadata: { error: 'Crida generarLlibre al main.js, no aquí' } };
+};
+console.log('✅ Motor Paràgraf V9.9.16 carregat - BLINDAT anti-error');
