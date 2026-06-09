@@ -1,5 +1,5 @@
 // main.js - Lec-Flix Policial V12.1.2 Híbrid
-// Controlador UI + Cableado amb generarllibre.js V1.0.2 i generaparagraf.js V12.1.1
+// Controlador UI + Cableado amb generarLlibre.js V1.0.2 i generaparagraf.js V12.1.1
 
 let bancs = {};
 let configActual = {};
@@ -9,7 +9,7 @@ let mod = null;
 // CARREGA INICIAL DEL MOTOR HÍBRID
 async function initMotor() {
   try {
-    mod = await import('./generarllibre.js');
+    mod = await import('./generarLlibre.js');
     console.log('✅ Motor Híbrid V1.0.2 carregat - generarLlibre disponible');
   } catch (e) {
     console.error('❌ Error carregant motor:', e);
