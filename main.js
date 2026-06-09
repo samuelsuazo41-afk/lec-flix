@@ -164,17 +164,19 @@ export async function generarLlibre(seleccio, bancs) {
   };
 
   let hist = {
-    ubicacions: [],
-    escenarisUsats: [],
-    emocions: [],
-    frasesUsades: [],
-    frasesUsadesCap: [],
-    combinacionsUsades: new Set(),
-    pauta: pauta,
-    plantilla: configBase.plantilla,
-    paraulesTotals: 0,
-    beatAnterior: null
-  };
+  ubicacions: [],
+  escenarisUsats: [],
+  emocions: [],
+  frasesUsades: [],
+  frasesUsadesCap: [],
+  combinacionsUsades: new Set(),
+  pauta: pauta,
+  plantilla: configBase.plantilla,
+  paraulesTotals: 0,
+  beatAnterior: null,
+  usosOlor: {}, 
+  usosSo: {}    
+};
   const capitols = [];
   const beats = config.beats;
   let tempsFinal = null; // <- FIX: guardar l'últim temps per metadata
