@@ -1,5 +1,5 @@
-// generaparagraf.js - Motor Paràgraf V9.9.15 BLINDAT
-// Fixes: txt definit, intents 200, fallbacks llargs 20+ paraules, hist autoinit blindat
+// generaparagraf.js - Motor Paràgraf V9.9.14 BLINDAT
+// Fixes: txt definit, intents 200, fallbacks llargs, hist autoinit
 
 let histGlobal = {
   ubicacions: [],
@@ -9,6 +9,7 @@ let histGlobal = {
   combinacionsUsades: new Set(),
   paraulesTotals: 0,
   usosOlor: {},
+  usosSo: {},
   olorUsadaEscena: false
 };
 
@@ -21,9 +22,10 @@ export async function resetEstructura() {
     combinacionsUsades: new Set(),
     paraulesTotals: 0,
     usosOlor: {},
+    usosSo: {},
     olorUsadaEscena: false
   };
-  console.log('🔄 Estructura V9.9.15 BLINDADA resetejada');
+  console.log('🔄 Estructura V9.9.14 BLINDADA resetejada');
 }
 
 function contarPalabras(texto) {
@@ -39,30 +41,16 @@ function getTextoBase(item) {
 
 function pickNoRepetit(arr, hist, tipus) {
   if (!arr || arr.length === 0) return null;
-
-  // Inicialitzar arrays si no existeixen
-  hist.frasesUsades = hist.frasesUsades || [];
-  hist.frasesUsadesCap = hist.frasesUsadesCap || [];
-
   const disponibles = arr.filter(item => {
     const txt = getTextoBase(item);
     if (!txt) return false;
     if (hist.frasesUsades.includes(txt.substring(0,40))) return false;
-    if (tipus === 'olor' && hist.usosOlor[txt]) return false;
+    if (tipus === 'olor' && (hist.usosOlor[txt] || 0) >= 2) return false;
+    if (tipus === 'so' && (hist.usosSo[txt] || 0) >= 2) return false;
     return true;
   });
-
   const pool = disponibles.length > 0? disponibles : arr;
-  const seleccionat = pool[Math.floor(Math.random() * pool.length)];
-
-  // Marcar com usat
-  const txtSel = getTextoBase(seleccionat);
-  if (txtSel) {
-    hist.frasesUsades.push(txtSel.substring(0,40));
-    if (tipus === 'olor') hist.usosOlor[txtSel] = true;
-  }
-
-  return seleccionat;
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
 function pronomPerNom(nom) {
@@ -71,36 +59,71 @@ function pronomPerNom(nom) {
 
 function netejaEspais(text) {
   return text
-   .replace(/\s+/g,' ')
-   .replace(/\s+([.,])/g,'$1')
-   .replace(/\bel una\b/gi, 'una')
-   .trim();
+  .replace(/\s+/g,' ')
+  .replace(/\s+([.,])/g,'$1')
+  .replace(/\bel una\b/gi, 'una')
+  .replace(/\bla una\b/gi, 'una')
+  .trim();
 }
 
 function forçaPassat(text) {
   return text
-   .replace(/\bMira\b/g, 'Va mirar')
-   .replace(/\bOlía\b/g, 'Feia olor')
-   .replace(/\bSe le congeló\b/g, 'Se li va gelar')
-   .replace(/\bCamina\b/g, 'Va caminar');
+  .replace(/\bMira\b/g, 'Va mirar')
+  .replace(/\bOlía\b/g, 'Feia olor')
+  .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+  .replace(/\bSiente\b/g, 'Va sentir')
+  .replace(/\bCamina\b/g, 'Va caminar');
+}
+
+function safeReplace(text, vars) {
+  let out = text;
+  const nom = vars['{p0}'] || 'Rita';
+  const nom2 = vars['{p1}'] || 'Víctor';
+  out = out.replace(/\bmotor\s+de\s+la\s+moto\b/gi, 'motor');
+  out = out.replace(/(\buna moto accelerant fort\b|\bmotor\b)\s*,\s*sec i fred/gi, '$1 sec i fred');
+  out = out.replace(/\bell\b/gi, nom2);
+  out = out.replace(/\bella\b/gi, nom);
+  out = out.replace(/\bEll\b/gi, nom2);
+  out = out.replace(/\bElla\b/gi, nom);
+  out = out.replace(/\{\}/g, nom);
+  for (const [k,v] of Object.entries(vars)) {
+    out = out.replaceAll(k, v);
+  }
+  out = out.replace(/\{[^}]*\}/g, '').trim();
+  out = netejaEspais(out);
+  return out.length > 10? out : '';
 }
 
 const CONNECTORS = ['Però', 'De cop', 'Mentrestant', 'Aleshores', 'Sense avís'];
 
-export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
-  // BLINDAT: autoinit hist si ve null
-  hist = blindarHist(hist || histGlobal);
+function blindarHist(hist) {
+  hist.usosOlor = hist.usosOlor || {};
+  hist.usosSo = hist.usosSo || {};
+  hist.olorUsadaEscena = hist.olorUsadaEscena!== undefined? hist.olorUsadaEscena : false;
+  hist.frasesUsades = hist.frasesUsades || [];
+  hist.frasesUsadesCap = hist.frasesUsadesCap || [];
+  hist.ubicacions = hist.ubicacions || [];
+  return hist;
+}
 
-  const { nom, tic, ciutat, subtubActual, beatActual } = config;
+export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
+  hist = blindarHist(hist || histGlobal);
+  const { nom, tic, ciutat, subtubActual, beatActual, beatAnterior, sinopsis, pauta, temps } = config;
   const paraulesObjectiu = config.paraulesObjectiu || 500;
 
   if (numEsc === 1 && numCap % 3 === 0) {
     hist.frasesUsadesCap = [];
+    hist.usosOlor = {};
+    hist.usosSo = {};
+  }
+
+  if (numEsc === 1) {
+    hist.olorUsadaEscena = false;
   }
 
   const escenaris = (bancs.banco_escenarios || []).filter(e => {
     const matchCiutat = e.ciutat === ciutat;
-    const matchSubtub =!subtubActual || e.nom?.toLowerCase().includes(subtubActual.toLowerCase());
+    const matchSubtub =!subtubActual || e.nom?.toLowerCase().includes(subtubActual.toLowerCase()) || subtubActual.toLowerCase().includes(e.nom?.toLowerCase());
     return matchCiutat && matchSubtub;
   });
 
@@ -133,6 +156,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     if (olorObj) {
       const txt = getTextoBase(olorObj); // <- FIX CRÍTIC
       olor = txt;
+      hist.usosOlor[txt] = (hist.usosOlor[txt] || 0) + 1;
       hist.olorUsadaEscena = true;
     }
   }
@@ -141,6 +165,11 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const emocioObj = pickNoRepetit(emocions, hist);
   const so = soObj? getTextoBase(soObj) : 'silenci';
   const emocio = emocioObj? getTextoBase(emocioObj) : 'inquietud';
+
+  if (soObj) {
+    const txt = getTextoBase(soObj);
+    hist.usosSo[txt] = (hist.usosSo[txt] || 0) + 1;
+  }
 
   const progress = numCap / totalCaps;
   let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
@@ -168,7 +197,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
     'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
     'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
-    'climax': `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`,
+    'climax': beatAnterior === 'crisi'? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.` : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
     'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
     'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
   };
@@ -182,11 +211,10 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   let bancLecturaUsat = [...lectures];
   let bancAuxUsat = [...lecturesAux];
 
-  // BLINDAT: 200 intents + fallbacks llargs 20+ paraules
+  // BLINDAT: 200 intents + fallbacks de 20+ paraules
   while (paraulesComptades < paraulesObjectiu && intents < 200) {
     intents++;
     let lectura = null;
-
     if (bancLecturaUsat.length > 0) {
       lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
     } else if (bancAuxUsat.length > 0) {
@@ -196,20 +224,21 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     if (lectura) {
       let text = safeReplace(getTextoBase(lectura), varsTemps);
       text = forçaPassat(text);
-
-      // BLINDAT: només afegir si té 20+ paraules per tallar bucle
       if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
         if (fraseIndex % 3 === 2) {
           const connector = CONNECTORS[Math.floor(Math.random() * CONNECTORS.length)];
-          text = connector + ', ' + text.split('.')[0] + '.';
+          if (contarPalabras(text) > 15) {
+            text = connector + ', ' + text.split('.')[0] + '.';
+          } else {
+            text = connector + '. ' + text;
+          }
         }
-
         if (fraseIndex >= 1) {
           text = text.replace(new RegExp(`\\b${nom}\\b`, 'g'), pronomPerNom(nom));
         }
-
         parrafo += ` ${text}`;
         hist.frasesUsades.push(text.substring(0,40));
+        hist.frasesUsadesCap.push(text.substring(0,40));
         paraulesComptades = contarPalabras(parrafo);
         fraseIndex++;
         continue;
@@ -243,17 +272,17 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 
     // FALLBACK LLARG per tallar bucle
     if (capActe === 2 && numEsc % 2 === 0) {
-      parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys sense que ningú li hagués advertit del perill real que s'amagava darrere de cada ombra a ${escenari.nom}.`;
+      parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys sense que ningú li hagués advertit del perill real.`;
     } else if (capActe === 3 && numEsc === config.escenesPerCap) {
-      parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor acumulat durant tant de temps perdut entre els carrers de ${ciutat} buscant respostes que ningú volia donar.`;
+      parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor acumulat durant tant de temps perdut.`;
     } else {
-      parrafo += ` I va saber que ja no hi havia volta enrere possible per a ningú després del que havien descobert a ${escenari.nom} aquella nit sense lluna ni estrelles que poguessin guiar-los.`;
+      parrafo += ` I va saber que ja no hi havia volta enrere possible per a ningú després del que havien descobert a ${escenari.nom}.`;
     }
     paraulesComptades = contarPalabras(parrafo);
   }
 
   hist.paraulesTotals += paraulesComptades;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.15 BLINDADA`);
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.14 BLINDADA`);
 
   return {
     text: parrafo.trim(),
@@ -270,14 +299,5 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   };
 }
 
-function blindarHist(hist) {
-  hist.usosOlor = hist.usosOlor || {};
-  hist.olorUsadaEscena = hist.olorUsadaEscena!== undefined? hist.olorUsadaEscena : false;
-  hist.frasesUsades = hist.frasesUsades || [];
-  hist.frasesUsadesCap = hist.frasesUsadesCap || [];
-  hist.ubicacions = hist.ubicacions || [];
-  return hist;
-}
-
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.15 BLINDADA carregada - zero bucles');
+console.log('✅ Motor Paràgraf V9.9.14 BLINDADA carregada - zero bucles');
