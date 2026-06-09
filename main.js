@@ -1,31 +1,16 @@
-// js/main.js - MOTOR V9.9.9 lec-flix policial FINAL
+// js/main.js - MOTOR V9.9.13 lec-flix policial FINAL
+// Integració: 7 regles V9.9.10 + motor V9.9.13 + anti-error toque frases
+
 const baseURL = new URL('./', import.meta.url).href;
 const { generaParagraf, resetEstructura } = await import(baseURL + 'generaparagraf.js?v=' + Date.now());
 
 // CANVI: TOTS els camps editables entre []
 const PLANTILLES_SINOPSI = {
-  "Relat Curt": `[Protagonista] té [dies] dies per resoldre [element clau] a [ciutat].
-Dia 1: troba [pista].
-Dia [dies]: enfrontament final a [lloc].
-Motiu: [diners/venjança/gelosia].`,
-
-  "Novel·la": `[Protagonista] té [dies] dies per trobar [element clau].
-Dia 1: troba [pista] a [ciutat1].
-Dia [dies/2]: descobreix que [gir].
-Dia [dies]: enfrontament final a [ciutat2].
-Motiu: [diners/venjança/gelosia].`,
-
-  "Èpic": `[Protagonista] té [dies] dies per resoldre [element clau].
-Dia 1: troba [pista] a [ciutat1].
-Dia [dies/5]: primer gir - [gir1].
-Dia [dies/2]: descobreix que [gir2].
-Dia [dies-2]: crisi a [lloc].
-Dia [dies]: enfrontament final a [ciutat2].
-Motiu: [diners/venjança/gelosia].
-Complica: [complicacio].`
+  "Relat Curt": `[Protagonista] té [dies] dies per resoldre [element clau] a [ciutat]. Dia 1: troba [pista]. Dia [dies]: enfrontament final a [lloc]. Motiu: [diners/venjança/gelosia].`,
+  "Novel·la": `[Protagonista] té [dies] dies per trobar [element clau]. Dia 1: troba [pista] a [ciutat1]. Dia [dies/2]: descobreix que [gir]. Dia [dies]: enfrontament final a [ciutat2]. Motiu: [diners/venjança/gelosia].`,
+  "Èpic": `[Protagonista] té [dies] dies per resoldre [element clau]. Dia 1: troba [pista] a [ciutat1]. Dia [dies/5]: primer gir - [gir1]. Dia [dies/2]: descobreix que [gir2]. Dia [dies-2]: crisi a [lloc]. Dia [dies]: enfrontament final a [ciutat2]. Motiu: [diners/venjança/gelosia]. Complica: [complicacio].`
 };
 
-// Exposa les plantilles al window perquè la UI pugui fer tabs editables
 window.PLANTILLES_SINOPSI = PLANTILLES_SINOPSI;
 
 function hashSinopsi(text) {
@@ -47,31 +32,28 @@ function seededRandom(seed) {
   };
 }
 
+// REGLA 1: Anti-{} + fallback dies = 7
 function llegirPauta(sinopsi, seed) {
   const text = (sinopsi || '').toLowerCase();
-
-  const ciutatForçada =
-    text.includes('barceloneta')? 'barceloneta' :
+  const ciutatForçada = text.includes('barceloneta')? 'barceloneta' :
     text.includes('gotic') || text.includes('gòtic')? 'barri_gotic' :
     text.includes('tibidabo')? 'tibidabo' :
     text.includes('eixample')? 'eixample' :
     text.includes('girona')? 'girona' :
     text.includes('sants')? 'sants' : null;
 
-  const toForçat =
-    text.includes('por') || text.includes('miedo')? 'emo_pol_tensio' :
+  const toForçat = text.includes('por') || text.includes('miedo')? 'emo_pol_tensio' :
     text.includes('sospita') || text.includes('sospecha')? 'emo_pol_desconfianca' :
     text.includes('ira') || text.includes('furia') || text.includes('ràbia')? 'emo_pol_furia' :
     text.includes('obsessio') || text.includes('obsesión')? 'emo_pol_obsessio' : null;
 
-  const motiu =
-    text.includes('diners') || text.includes('dinero')? 'diners' :
+  const motiu = text.includes('diners') || text.includes('dinero')? 'diners' :
     text.includes('gelosia') || text.includes('celos')? 'gelosia' :
     text.includes('venjança') || text.includes('venganza')? 'venjança' :
     text.includes('drogues') || text.includes('drogas')? 'drogues' : 'poder';
 
   const diesMatch = text.match(/(\d+)\s*dies?/);
-  const dies = diesMatch? parseInt(diesMatch[1]) : null;
+  const dies = diesMatch? parseInt(diesMatch[1]) : 7; // REGLA 1: fallback 7 si no hi ha {dies}
 
   const elements = [];
   if (text.includes('tatuatge') || text.includes('tatuaje')) elements.push('tatuatge');
@@ -122,17 +104,19 @@ function pickCiutatsExtra(bancs, cp1, cp2, random) {
 function calculaTemps(bancs, progress, rand) {
   const tempsBank = bancs.banco_temps?.find(t => t.id === 'temps_modern_pulitzer');
   if (!tempsBank) return null;
-
   const anyActual = Math.floor(tempsBank.anyInici + (tempsBank.anyFi - tempsBank.anyInici) * progress);
   const mesActual = tempsBank.mesos[Math.floor(rand() * 12)];
   const diaActual = Math.floor(rand() * 28) + 1;
   const mesNum = tempsBank.mesos.indexOf(mesActual) + 1;
-
   let event = '';
   const dateClau = tempsBank.datesClau?.find(d => d.mes === mesActual && d.dia === diaActual);
   if (dateClau) event = dateClau.event;
-
   return { any: anyActual, mes: mesActual, dia: diaActual, mesNum, event };
+}
+
+// REGLA 1: Anti-{} neteja extra al main
+function netejaPlaceholders(text) {
+  return text.replace(/\{[a-z0-9_\/]+\}/gi, '').replace(/\s+/g,' ').trim();
 }
 
 export async function generarLlibre(seleccio, bancs) {
@@ -144,8 +128,8 @@ export async function generarLlibre(seleccio, bancs) {
 
   const pauta = llegirPauta(seleccio.sinopsis, seed);
   const config = getConfigEditorial(seleccio.ritme);
-
   const ciutatsExtra = pickCiutatsExtra(bancs, seleccio.ciutatPrincipal, seleccio.ciutatPrincipal2, rand);
+
   console.log('🗺️ Ciutats extra auto:', ciutatsExtra);
   console.log('📋 Pauta detectada:', pauta);
 
@@ -164,31 +148,37 @@ export async function generarLlibre(seleccio, bancs) {
   };
 
   let hist = {
-  ubicacions: [],
-  escenarisUsats: [],
-  emocions: [],
-  frasesUsades: [],
-  frasesUsadesCap: [],
-  combinacionsUsades: new Set(),
-  pauta: pauta,
-  plantilla: configBase.plantilla,
-  paraulesTotals: 0,
-  beatAnterior: null,
-  usosOlor: {}, 
-  usosSo: {}    
-};
+    ubicacions: [],
+    escenarisUsats: [],
+    emocions: [],
+    frasesUsades: [],
+    frasesUsadesCap: [],
+    combinacionsUsades: new Set(),
+    pauta: pauta,
+    plantilla: configBase.plantilla,
+    paraulesTotals: 0,
+    beatAnterior: null,
+    usosOlor: {},
+    usosSo: {}
+  };
+
   const capitols = [];
   const beats = config.beats;
-  let tempsFinal = null; // <- FIX: guardar l'últim temps per metadata
+  let tempsFinal = null;
 
   for (let numCap = 1; numCap <= config.numCapitols; numCap++) {
     const beatNom = beats[(numCap - 1) % beats.length];
     const progress = numCap / config.numCapitols;
 
-    if (numCap % 3 === 0) hist.frasesUsadesCap = [];
+    // REGLA 7: Reset cada 3 caps sincronitzat amb motor
+    if (numCap % 3 === 0) {
+      hist.frasesUsadesCap = [];
+      hist.usosOlor = {};
+      hist.usosSo = {};
+    }
 
     const temps = calculaTemps(bancs, progress, rand);
-    tempsFinal = temps; // <- GUARDAR
+    tempsFinal = temps;
 
     let ciutatActual = configBase.ciutat;
     let subtubsActuals = configBase.subtubsActius;
@@ -209,8 +199,9 @@ export async function generarLlibre(seleccio, bancs) {
     const escenes = [];
     for (let numEsc = 1; numEsc <= config.escenesPerCap; numEsc++) {
       const subtub = pickSubtub(subtubsActuals, hist);
+
       const configEscena = {
-      ...configBase,
+       ...configBase,
         ciutat: ciutatActual,
         subtubActual: subtub || ciutatActual,
         beatActual: beatNom,
@@ -226,7 +217,15 @@ export async function generarLlibre(seleccio, bancs) {
       const resultat = await generaParagraf(configEscena, bancs, hist, numCap, numEsc, config.numCapitols);
       hist = resultat.hist;
       hist.paraulesTotals += resultat.metadata.paraules;
-      escenes.push({ titol: `Escena ${numEsc} - ${beatNom}`, text: resultat.text, metadata: resultat.metadata });
+
+      // REGLA 1: Anti-{} doble filtre per seguretat
+      const textNet = netejaPlaceholders(resultat.text);
+
+      escenes.push({
+        titol: `Escena ${numEsc} - ${beatNom}`,
+        text: textNet,
+        metadata: resultat.metadata
+      });
     }
 
     hist.beatAnterior = beatNom;
@@ -238,6 +237,7 @@ export async function generarLlibre(seleccio, bancs) {
     } else {
       escenes.push({ titol: '', text: `<em>Acte 3: Només queda enfrontar-se al que ha descobert...</em>` });
     }
+
     capitols.push({ num: numCap, beat: beatNom, escenes });
   }
 
@@ -263,7 +263,7 @@ export async function generarLlibre(seleccio, bancs) {
       subtubs2: configBase.subtubsActius2,
       pauta: pauta,
       paraulesPerEscena: config.paraulesPerEscena,
-      temps: tempsFinal?.any + '/' + tempsFinal?.mes, // <- FIX: ara tempsFinal existeix
+      temps: tempsFinal?.any + '/' + tempsFinal?.mes,
       complert: hist.paraulesTotals >= config.paraulesTotals * 0.95
     }
   };
@@ -272,9 +272,12 @@ export async function generarLlibre(seleccio, bancs) {
 export async function generarLectura(seleccio, bancs, numEscenes = 6) {
   const res = await generarLlibre(seleccio, bancs);
   const primerCap = res.capitols[0];
-  return { escenes: primerCap.escenes.slice(0, numEscenes), metadata: res.metadata };
+  return {
+    escenes: primerCap.escenes.slice(0, numEscenes),
+    metadata: res.metadata
+  };
 }
 
 window.generarLlibre = generarLlibre;
 window.generarLectura = generarLectura;
-console.log('✅ Motor V9.9.9 carregat - 100% camps editables a plantilles');
+console.log('✅ Motor V9.9.13 carregat - 7 regles + anti-error toque frases integrades');
