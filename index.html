@@ -20,8 +20,9 @@ input{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg
 .tab-btn:hover{background:#2e333b}
 .tab-btn.disabled{opacity:0.6;cursor:default}
 .tab-btn.disabled:hover{background:var(--btn)}
-.botons{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.botons{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px}
 .botons button{padding:14px;border:none;border-radius:6px;background:var(--accent);color:#000;font-weight:600;cursor:pointer;font-size:14px}
+.botons button.btn-secondary{background:var(--btn);color:var(--text)}
 #resultat{min-height:60px;padding:12px;background:var(--bg-panel);border-radius:6px;border:1px solid var(--border)}
 .screen{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:100;overflow-y:auto}
 .screen.active{display:block}
@@ -51,20 +52,61 @@ textarea{font-family:inherit;width:100%;min-height:160px;padding:12px;border:1px
 .inline-subtabs.cp-row span{font-size:14px}
 .inline-subtabs.cp-row button{background:none;border:1px solid var(--accent);color:var(--accent);padding:4px 8px;border-radius:4px;font-size:12px;cursor:pointer}
 
-/* CANVI 1: Tabs de plantilles sinopsi */
+/* Tabs de plantilles sinopsi */
 .plantilla-tabs{display:flex;gap:6px;margin-bottom:12px}
 .plantilla-tab{flex:1;padding:10px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;text-align:center}
 .plantilla-tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
+
+/* NUEVO: Selector modo híbrido */
+.modo-hibrid{margin:16px 0;padding:12px;background:var(--bg-panel);border:1px solid var(--accent);border-radius:6px}
+.modo-hibrid h4{margin:0 0 12px;font-size:13px;color:var(--accent)}
+.modo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.modo-btn{padding:10px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;text-align:center}
+.modo-btn.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.modo-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.modo-inputs label{font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px}
+.modo-inputs input{margin-bottom:0}
+.error-banner{position:fixed;top:60px;left:12px;right:12px;background:#ff4444;color:#fff;padding:12px;border-radius:6px;z-index:200;text-align:center}
+.metadata{font-size:12px;color:var(--text-muted);padding:8px 12px;background:var(--bg-panel);border-radius:6px;margin:12px 0}
 </style>
 </head>
 <body>
 <header>
 <h1>lec-flix policial</h1>
-<p>Generador Multi-Ritme V9.9.9</p>
+<p>Generador Multi-Ritme V12.1.1 HÍBRID</p>
 </header>
 <main>
 <section id="menu">
 <input id="input-titol" type="text" placeholder="Títol del llibre..." onchange="seleccio.titol = this.value">
+
+<!-- NUEVO: Selector modo híbrido -->
+<div class="modo-hibrid">
+<h4>MODO GENERACIÓ</h4>
+<div class="modo-grid">
+<div class="modo-btn active" data-modo="escena" onclick="selectModo('escena')">1 Escena</div>
+<div class="modo-btn" data-modo="capitol" onclick="selectModo('capitol')">Capítol</div>
+<div class="modo-btn" data-modo="llibre" onclick="selectModo('llibre')">Llibre</div>
+</div>
+<div class="modo-inputs">
+<div>
+<label>Total Capítols</label>
+<input id="input-caps" type="number" value="12" min="1" max="50" onchange="seleccio.totalCaps = parseInt(this.value)">
+</div>
+<div>
+<label>Escenes/Cap</label>
+<input id="input-escenes" type="number" value="3" min="1" max="10" onchange="seleccio.escenesPerCap = parseInt(this.value)">
+</div>
+<div>
+<label>Cap Actual</label>
+<input id="input-cap" type="number" value="1" min="1" onchange="seleccio.numCap = parseInt(this.value)">
+</div>
+<div>
+<label>Escena Actual</label>
+<input id="input-esc" type="number" value="1" min="1" onchange="seleccio.numEsc = parseInt(this.value)">
+</div>
+</div>
+</div>
+
 <div class="tabs-container">
 <div class="tab-btn disabled">GÈNERE <span id="genere-label">POLICIAL</span></div>
 <div class="tab-btn" onclick="openScreen('sinopsis')">SINOPSI <span id="sinopsis-label">▼</span></div>
@@ -77,6 +119,7 @@ textarea{font-family:inherit;width:100%;min-height:160px;padding:12px;border:1px
 <button id="btn-preview">Preview</button>
 <button id="btn-generar">Generar Text</button>
 <button id="btn-exportar">Exportar.txt</button>
+<button id="btn-reset" class="btn-secondary">Reset</button>
 </div>
 <section id="resultat">
 <p style="color:var(--text-muted);text-align:center">Selecciona Ubicació + Ritme per començar</p>
@@ -86,7 +129,6 @@ textarea{font-family:inherit;width:100%;min-height:160px;padding:12px;border:1px
 <section id="screen-sinopsis" class="screen">
 <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>SINOPSI</h2></div>
 <div class="screen-content">
-<!-- CANVI 2: Tabs de plantilles editables -->
 <div class="plantilla-tabs" id="plantilla-tabs"></div>
 <textarea id="input-sinopsis" placeholder="Selecciona una plantilla o escriu la teva sinopsi..."></textarea>
 <button class="opt-btn" onclick="saveSinopsis()">Guardar Sinopsi</button>
@@ -154,18 +196,26 @@ textarea{font-family:inherit;width:100%;min-height:160px;padding:12px;border:1px
 </section>
 </main>
 
+<div id="error-msg" class="error-banner" style="display:none;"></div>
+
 <script type="module">
 const baseURL = new URL('./', import.meta.url).href;
 let BANCS = {};
 let llibreGenerat = null;
+let mod = null;
+let histActual = null;
 
-// 1. Carregar bancs + main.js V9.9.9
+// 1. Carregar bancs + generarllibre.js V1.0
 try {
-const mod = await import(baseURL + 'data/loadBancs.js?v=' + Date.now());
-BANCS = await mod.cargarBancs();
-console.log('📚 Bancs V9.9.9 carregats:', Object.keys(BANCS));
+const bancMod = await import(baseURL + 'data/loadBancs.js?v=' + Date.now());
+BANCS = await bancMod.cargarBancs();
+console.log('📚 Bancs V12.1.1 carregats:', Object.keys(BANCS));
+
+// CAMBIO CLAVE: importamos generarllibre.js en vez de generaparagraf.js
+mod = await import(baseURL + 'generarllibre.js?v=' + Date.now());
+console.log('✅ Motor Híbrid V1.0 carregat - generarLlibre disponible');
 } catch (e) {
-console.warn('Fallback bancs', e);
+console.warn('Fallback bancs/motor', e);
 BANCS = {
 banco_ubicacion: [
 {ciutat:'Barcelona', subtubs:[{nom:'Gràcia'},{nom:'Barceloneta'},{nom:'Tibidabo'},{nom:'Gòtic'},{nom:'Eixample'}]},
@@ -175,9 +225,10 @@ banco_ubicacion: [
 ],
 banco_personatge: [{id:'p1', genero:'policiac', banco_variables:{nom:['Àlex','Rita','Marc'], tic:['es passa la mà per la barba','mira el rellotge','somriu']}}]
 };
+mostrarError('Error cargando motor. Usa fallback.');
 }
 
-// 2. Estat global V9.9.9
+// 2. Estat global V12.1.1 HÍBRID
 window.seleccio = {
 titol:'',
 genere:'policiac',
@@ -189,10 +240,28 @@ ciutatPrincipal2:null,
 subtubsPrincipal:[],
 subtubsPrincipal2:[],
 sinopsis:'',
-personatgeId:null
+personatgeId:null,
+// NUEVO: Campos híbridos
+modo:'escena',
+totalCaps:12,
+escenesPerCap:3,
+numCap:1,
+numEsc:1,
+temps:{any:'2024',mes:'gener',dia:'1',event:''},
+beatsCap:['setup','giro1','midpoint','giro2','crisi','climax','resolucio']
 };
 
-// 3. Navegació
+// 3. Selector modo híbrido
+window.selectModo = modo=>{
+seleccio.modo = modo;
+document.querySelectorAll('.modo-btn').forEach(btn=>{
+btn.classList.remove('active');
+if(btn.dataset.modo === modo) btn.classList.add('active');
+});
+console.log('🎯 Modo:', modo);
+}
+
+// 4. Navegació
 window.openScreen = function(screenName){
 document.getElementById('menu').style.display='none';
 document.getElementById('resultat').style.display='none';
@@ -201,7 +270,7 @@ const screen = document.getElementById('screen-'+screenName);
 if(screen) screen.classList.add('active');
 if(screenName==='sinopsis'){
 document.getElementById('input-sinopsis').value = seleccio.sinopsis || '';
-renderPlantillaTabs(); // CANVI 3: pinta tabs quan obres sinopsi
+renderPlantillaTabs();
 }
 if(screenName==='ubicacio') renderUbicacioList();
 };
@@ -217,7 +286,7 @@ document.getElementById('resultat').style.display='block';
 }
 };
 
-// 4. Selectors
+// 5. Selectors
 window.saveSinopsis = ()=>{
 seleccio.sinopsis = document.getElementById('input-sinopsis').value.trim();
 document.getElementById('sinopsis-label').textContent = seleccio.sinopsis? '✓' : '▼';
@@ -225,20 +294,33 @@ closeScreen();
 }
 
 window.selectEstructura = e=>{seleccio.estructura=e; document.getElementById('estructura-label').textContent=e; closeScreen();}
-window.selectRitme = r=>{seleccio.ritme=r; document.getElementById('ritme-label').textContent=r; closeScreen();}
+window.selectRitme = r=>{
+seleccio.ritme=r;
+document.getElementById('ritme-label').textContent=r;
+// Auto-ajuste caps según ritme
+if(r==='Relat Curt'){seleccio.totalCaps=5; seleccio.escenesPerCap=2;}
+if(r==='Novel·la'){seleccio.totalCaps=20; seleccio.escenesPerCap=3;}
+if(r==='Èpic'){seleccio.totalCaps=30; seleccio.escenesPerCap=4;}
+document.getElementById('input-caps').value = seleccio.totalCaps;
+document.getElementById('input-escenes').value = seleccio.escenesPerCap;
+closeScreen();
+}
 window.selectPov = p=>{seleccio.pov=p; document.getElementById('pov-label').textContent=p; closeScreen();}
 
-// CANVI 4: Render tabs de plantilles editables
+// Plantilles sinopsi
 function renderPlantillaTabs(){
 const container = document.getElementById('plantilla-tabs');
-const plantilles = window.PLANTILLES_SINOPSI || {};
+const plantilles = window.PLANTILLES_SINOPSI || {
+'Cas Clàssic':'Un detectiu a {ciutat} investiga un cas que sembla rutinari fins que {event} ho canvia tot.',
+'Venjança':'A {ciutat}, {p0} busca justícia per {event} mentre {p1} intenta aturar-lo.',
+'Conspiració':'{p0} descobreix una trama que connecta {ciutat} amb {event}. Ningú és qui diu ser.'
+};
 const noms = Object.keys(plantilles);
 container.innerHTML = noms.map(nom=>{
 return `<div class="plantilla-tab" onclick="loadPlantilla('${nom}')">${nom}</div>`;
 }).join('');
 }
 
-// CANVI 5: Carrega plantilla al textarea per editar
 window.loadPlantilla = nom=>{
 const plantilles = window.PLANTILLES_SINOPSI || {};
 const textarea = document.getElementById('input-sinopsis');
@@ -249,7 +331,7 @@ if(tab.textContent === nom) tab.classList.add('active');
 });
 }
 
-// 5. Ubicació CP1 + CP2
+// 6. Ubicació CP1 + CP2
 function renderUbicacioList(){
 const list = document.getElementById('ubicacio-list');
 const ciutats = BANCS.banco_ubicacion || [];
@@ -279,7 +361,7 @@ inline.style.display='none';
 window.selectCiutatHub = ciutat=>{
 if(!seleccio.ciutatPrincipal){
 seleccio.ciutatPrincipal = ciutat;
-} else if(!seleccio.ciutatPrincipal2){
+} else if(!seleccio.ciutatPrincipal2 && ciutat!== seleccio.ciutatPrincipal){
 seleccio.ciutatPrincipal2 = ciutat;
 } else {
 seleccio.ciutatPrincipal2 = ciutat;
@@ -300,71 +382,172 @@ document.getElementById('ubicacio-label').textContent = seleccio.ciutatPrincipal
 renderUbicacioList();
 }
 
-// 6. Botó Generar
+// 7. Botó Generar - CABLEADO HÍBRIDO
 document.getElementById('btn-generar').onclick = async ()=>{
 if(!seleccio.ciutatPrincipal){
-alert('Selecciona Ciutat Principal 1 primer');
+mostrarError('Selecciona Ciutat Principal 1 primer');
 return;
 }
-document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${seleccio.ritme} policial...</p>`;
+if(!mod ||!mod.generarLlibre){
+mostrarError('Error: Motor no cargado. Recarga la página.');
+return;
+}
+
+const btn = document.getElementById('btn-generar');
+btn.disabled = true;
+const modoTxt = seleccio.modo === 'escena'? 'Escena' : seleccio.modo === 'capitol'? 'Capítol' : 'Llibre';
+document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${modoTxt} ${seleccio.ritme}...</p>`;
+
 try{
-const mod = await import(baseURL + 'main.js?v=' + Date.now());
-llibreGenerat = await mod.generarLlibre(seleccio, BANCS);
+const config = {
+...seleccio,
+nom: BANCS.banco_personatge?.[0]?.banco_variables?.nom?.[0] || 'Rita',
+nom2: BANCS.banco_personatge?.[0]?.banco_variables?.nom?.[1] || 'Víctor',
+tic: BANCS.banco_personatge?.[0]?.banco_variables?.tic?.[0] || 'es passa la mà per la barba',
+paraulesObjectiu: seleccio.modo === 'escena'? 500 : seleccio.modo === 'capitol'? 1500 : 0
+};
+
+// RESET si es libro completo
+if(config.modo === 'llibre'){
+await mod.resetEstructura();
+histActual = null;
+}
+
+// LLAMADA HÍBRIDA: generarLlibre decide según config.modo
+const resultado = await mod.generarLlibre(
+config,
+BANCS,
+histActual,
+seleccio.numCap,
+seleccio.numEsc,
+seleccio.totalCaps
+);
+
+// Actualizar hist para siguiente generación
+histActual = resultado.hist;
+
+// Adaptar resultado según modo
+if(config.modo === 'escena'){
+llibreGenerat = {
+capitols:[{
+num:seleccio.numCap,
+beat:resultado.metadata.beat,
+escenes:[{titol:`Cap ${seleccio.numCap} - Esc ${seleccio.numEsc}`,text:resultado.text}]
+}],
+metadata:{paraulesAprox:resultado.metadata.paraules,nCapitols:1}
+};
+} else if(config.modo === 'capitol'){
+// Si generarllibre.js devuelve capítulo, lo adaptamos
+const escenes = resultado.text.split('\n\n').map((t,i)=>({
+titol:`Escena ${i+1}`,
+text:t
+}));
+llibreGenerat = {
+capitols:[{num:seleccio.numCap,beat:'capitol',escenes}],
+metadata:{paraulesAprox:resultado.metadata.paraules,nCapitols:1}
+};
+} else {
+// Libro completo
+llibreGenerat = resultado;
+}
+
 mostrarLlibre(llibreGenerat);
 }catch(err){
 console.error(err);
-document.getElementById('resultat').innerHTML = `<p style="color:red;text-align:center">Error: ${err.message}</p>`;
+mostrarError(`Error: ${err.message}`);
+} finally {
+btn.disabled = false;
 }
 };
 
-// 7. Preview
+// 8. Preview
 document.getElementById('btn-preview').onclick = ()=>{
-if(!llibreGenerat) return alert('Primer prem Generar Text');
+if(!llibreGenerat) return mostrarError('Primer prem Generar Text');
 mostrarLlibre(llibreGenerat);
 };
 
-// 8. Mostrar llibre
+// 9. Mostrar llibre
 function mostrarLlibre(llibre){
-  const div = document.getElementById('lectura-content');
-  div.innerHTML = '';
-  llibre.capitols.forEach(cap=>{
-    cap.escenes.forEach(esc=>{
-      const el = document.createElement('div');
-      el.innerHTML = `<h3>${esc.titol}</h3><p style="line-height:1.8">${esc.text}</p><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">`;
-      div.appendChild(el);
-    });
-  });
-  document.getElementById('resultat').innerHTML = `<p style="text-align:center;color:var(--accent)">Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
-  document.getElementById('menu').style.display='none';
-  document.getElementById('screen-lectura').classList.add('active');
+const div = document.getElementById('lectura-content');
+div.innerHTML = '';
+llibre.capitols.forEach(cap=>{
+const capDiv = document.createElement('div');
+capDiv.innerHTML = `<h2 style="color:var(--accent);margin:24px 0 12px">CAPÍTOL ${cap.num} - ${cap.beat?.toUpperCase() || ''}</h2>`;
+cap.escenes.forEach((esc,idx)=>{
+const el = document.createElement('div');
+el.innerHTML = `<h3 style="color:var(--text-muted);font-size:14px;margin:16px 0 8px">${esc.titol || `Escena ${idx+1}`}</h3><p style="line-height:1.8">${esc.text}</p>`;
+capDiv.appendChild(el);
+});
+capDiv.innerHTML += `<hr style="margin:32px 0;border:none;border-top:2px solid var(--border)">`;
+div.appendChild(capDiv);
+});
+document.getElementById('resultat').innerHTML = `<p style="text-align:center;color:var(--accent)">✅ Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
+document.getElementById('menu').style.display='none';
+document.getElementById('screen-lectura').classList.add('active');
 }
 
-// 9. TOC
+// 10. TOC
 document.getElementById('btn-toc-toggle').onclick = ()=>{
-  if(!llibreGenerat) return alert('Primer prem Generar Text');
-  const toc = document.getElementById('toc-container');
-  toc.classList.toggle('toc-hidden');
+if(!llibreGenerat) return mostrarError('Primer prem Generar Text');
+const toc = document.getElementById('toc-container');
+const content = document.getElementById('toc-content');
+if(toc.classList.contains('toc-hidden')){
+content.innerHTML = llibreGenerat.capitols.map(c=>
+`<div class="toc-item" onclick="scrollToCap(${c.num})">
+<div class="toc-capitol">Capítol ${c.num} - ${c.beat}</div>
+<div class="toc-escenes">${c.escenes.length} escenes</div>
+</div>`
+).join('');
+}
+toc.classList.toggle('toc-hidden');
 };
 
-// 10. Exportar
+window.scrollToCap = num=>{
+const els = document.querySelectorAll('#lectura-content h2');
+if(els[num-1]) els[num-1].scrollIntoView({behavior:'smooth'});
+document.getElementById('toc-container').classList.add('toc-hidden');
+}
+
+// 11. Exportar
 document.getElementById('btn-exportar').onclick = ()=>{
-  if(!llibreGenerat) return alert('Primer prem Generar Text');
-  const text = llibreGenerat.capitols.map(c=>`CAPÍTOL ${c.num} - ${c.beat}\n\n`+c.escenes.map(e=>`${e.titol}\n${e.text}\n\n`).join('')).join('\n---\n\n');
-  const blob = new Blob([text],{type:'text/plain;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href=url;
-  a.download=(seleccio.titol||'text')+'.txt';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+if(!llibreGenerat) return mostrarError('Primer prem Generar Text');
+const text = llibreGenerat.capitols.map(c=>`CAPÍTOL ${c.num} - ${c.beat}\n\n`+c.escenes.map(e=>`${e.titol}\n${e.text}\n\n`).join('')).join('\n---\n\n');
+const blob = new Blob([text],{type:'text/plain;charset=utf-8'});
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href=url;
+a.download=(seleccio.titol||'lec-flix')+'_'+seleccio.modo+'.txt';
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+URL.revokeObjectURL(url);
 };
 
-// 11. Service Worker V9.9.9
+// 12. Reset
+document.getElementById('btn-reset').onclick = async ()=>{
+if(!mod) return;
+await mod.resetEstructura();
+histActual = null;
+llibreGenerat = null;
+document.getElementById('resultat').innerHTML = '<p style="color:var(--text-muted);text-align:center">Estructura resetejada. Llest per generar.</p>';
+console.log('🔄 Reset complet');
+};
+
+// 13. Utils
+function mostrarError(msg) {
+const errorDiv = document.getElementById('error-msg');
+if (errorDiv) {
+errorDiv.textContent = msg;
+errorDiv.style.display = 'block';
+setTimeout(() => { errorDiv.style.display = 'none'; }, 4000);
+}
+console.error(msg);
+}
+
+// 14. Service Worker
 if('serviceWorker' in navigator) navigator.serviceWorker.register(baseURL+'sw.js');
 
-console.log('✅ index.html V9.9.9 carregat - Tabs plantilles sinopsi actius');
+console.log('✅ index.html V12.1.1 HÍBRID carregat - generarLlibre actiu');
 </script>
 </body>
 </html>
