@@ -1,5 +1,6 @@
-// generaparagraf.js - Motor Paràgraf V9.9.12 lec-flix policial
-// Fixes: return fuera del while + contadores por clave + reset cada 3 caps
+// generaparagraf.js - Motor Paràgraf V9.9.13 lec-flix policial
+// Fixes: anti-{}, anti-repetició olor/so, ritme 3-2-3, forçaPassat única,
+// neteja espais, comptadors usosOlor/usosSo, connectors cada 3 frases, fix motor moto
 
 let histGlobal = {
   ubicacions: [],
@@ -16,14 +17,14 @@ export async function resetEstructura() {
   histGlobal = {
     ubicacions: [],
     emocions: [],
-    frasesUsades: [],
-    frasesUsadesCap: [],
+  frasesUsades: [],
+  frasesUsadesCap: [],
     combinacionsUsades: new Set(),
     paraulesTotals: 0,
     usosOlor: {},
     usosSo: {}
   };
-  console.log('🔄 Estructura V9.9.12 resetejada');
+  console.log('🔄 Estructura V9.9.13 resetejada');
 }
 
 function contarPalabras(texto) {
@@ -37,16 +38,20 @@ function getTextoBase(item) {
   return item.text || '';
 }
 
+// REGLA 2: Anti-repetició olor/so per clau + màxim 2 usos per escena
 function pickNoRepetit(arr, hist, tipus) {
   if (!arr || arr.length === 0) return null;
+
   const disponibles = arr.filter(item => {
     const txt = getTextoBase(item);
     if (!txt) return false;
     if (hist.frasesUsades.includes(txt.substring(0,40))) return false;
-    if (tipus === 'olor' && hist.usosOlor[txt] >= 2) return false;
-    if (tipus === 'so' && hist.usosSo[txt] >= 2) return false;
+    // REGLA 7: Comptadors usosOlor/usosSo màx 2
+    if (tipus === 'olor' && (hist.usosOlor[txt] || 0) >= 2) return false;
+    if (tipus === 'so' && (hist.usosSo[txt] || 0) >= 2) return false;
     return true;
   });
+
   const pool = disponibles.length > 0? disponibles : arr;
   return pool[Math.floor(Math.random() * pool.length)];
 }
@@ -55,31 +60,51 @@ function pronomPerNom(nom) {
   return /^[AEIOUaeiou]/.test(nom)? 'Ella' : 'Ell';
 }
 
+// REGLA 5: Neteja espais
 function netejaEspais(text) {
   return text.replace(/\s+/g,' ').replace(/\s+([.,])/g,'$1').trim();
 }
 
+// REGLA 6: ForçaPassat única - conjugació passat
 function forçaPassat(text) {
-  return text.replace(/\bMira\b/g, 'Va mirar')
-     .replace(/\bOlía\b/g, 'Feia olor')
-     .replace(/\bSe le congeló\b/g, 'Se li va gelar');
+  return text
+   .replace(/\bMira\b/g, 'Va mirar')
+   .replace(/\bOlía\b/g, 'Feia olor')
+   .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+   .replace(/\bSiente\b/g, 'Va sentir')
+   .replace(/\bCamina\b/g, 'Va caminar');
 }
 
+// REGLA 1: Anti-{} + REGLA 2: Fix motor moto
 function safeReplace(text, vars) {
   let out = text;
+
+  // Fix motor moto: "motor de la moto" → "motor"
+  out = out.replace(/\bmotor de la moto\b/gi, 'motor');
+
+  // Separar "sec i fred" del so, no del personatge
+  out = out.replace(/\bsec i fred\b(?=\s+(ell|ella|ell es|ella es))/gi, '');
+
+  // Replace variables
   for (const [k,v] of Object.entries(vars)) {
     out = out.replaceAll(k, v);
   }
+
+  // REGLA 1: Anti-{} placeholders
   out = out.replace(/\{[a-z0-9_\/]+\}/gi, '').trim();
   out = netejaEspais(out);
   return out.length > 10? out : '';
 }
+
+// REGLA 3: Connectors cada 3 frases - ritme 3-2-3
+const CONNECTORS = ['Però', 'De cop', 'Mentrestant', 'Aleshores', 'Sense avís'];
 
 export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
   hist = hist || histGlobal;
   const { nom, tic, ciutat, subtubActual, beatActual, beatAnterior, sinopsis, pauta, temps } = config;
   const paraulesObjectiu = config.paraulesObjectiu || 500;
 
+  // Reset cada 3 caps
   if (numEsc === 1 && numCap % 3 === 0) {
     hist.frasesUsadesCap = [];
     hist.usosOlor = {};
@@ -88,9 +113,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 
   const escenaris = (bancs.banco_escenarios || []).filter(e => {
     const matchCiutat = e.ciutat === ciutat;
-    const matchSubtub =!subtubActual ||
-      e.nom?.toLowerCase().includes(subtubActual.toLowerCase()) ||
-      subtubActual.toLowerCase().includes(e.nom?.toLowerCase());
+    const matchSubtub =!subtubActual || e.nom?.toLowerCase().includes(subtubActual.toLowerCase()) || subtubActual.toLowerCase().includes(e.nom?.toLowerCase());
     return matchCiutat && matchSubtub;
   });
 
@@ -99,6 +122,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     hist.ubicacions = [];
     escDisp = escenaris.length > 0? escenaris : [{nom: subtubActual || ciutat}];
   }
+
   const escenari = escDisp[Math.floor(Math.random() * escDisp.length)];
   hist.ubicacions.push(escenari.nom);
 
@@ -156,9 +180,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
     'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
     'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
-    'climax': beatAnterior === 'crisi'
-  ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
-      : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
+    'climax': beatAnterior === 'crisi'? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.` : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
     'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
     'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
   };
@@ -182,10 +204,17 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 
     if (lectura) {
       let text = forçaPassat(safeReplace(getTextoBase(lectura), varsTemps));
+
       if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
 
-        if (fraseIndex % 3 === 2 && contarPalabras(text) > 15) {
-          text = text.split('.')[0] + '.';
+        // REGLA 3: Ritme 3-2-3 + Connector cada 3a frase
+        if (fraseIndex % 3 === 2) {
+          const connector = CONNECTORS[Math.floor(Math.random() * CONNECTORS.length)];
+          if (contarPalabras(text) > 15) {
+            text = connector + ', ' + text.split('.')[0] + '.';
+          } else {
+            text = connector + '. ' + text;
+          }
         }
 
         if (fraseIndex >= 1) {
@@ -201,6 +230,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       }
     }
 
+    // Fallback amb comptadors
     if (emocions.length > 0) {
       const emo = forçaPassat(safeReplace(getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]), varsTemps));
       parrafo += ` ${pronomPerNom(nom)} va sentir ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
@@ -214,7 +244,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
         const txt = getTextoBase(o);
         return (hist.usosOlor[txt] || 0) < 2;
       });
-
       if (olorsDisp.length > 0) {
         const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
         const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
@@ -233,12 +262,11 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     } else {
       parrafo += ` I va saber que ja no hi havia volta enrere.`;
     }
-
     paraulesComptades = contarPalabras(parrafo);
-  } // <- AQUI CIERRA EL WHILE
+  }
 
   hist.paraulesTotals += paraulesComptades;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules`);
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.13`);
 
   return {
     text: parrafo.trim(),
@@ -256,4 +284,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.12 carregat - bucle arreglat');
+console.log('✅ Motor Paràgraf V9.9.13 carregat - 7 regles integrades');
