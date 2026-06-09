@@ -1,4 +1,4 @@
-// generaparagraf.js - Motor Paràgraf V9.9.14 BLINDAT
+// generaparagraf.js - Motor Paràgraf V12.1.1 BLINDAT
 // Fixes: txt definit, intents 200, fallbacks llargs, hist autoinit
 
 let histGlobal = {
