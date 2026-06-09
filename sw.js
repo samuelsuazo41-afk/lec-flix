@@ -9,7 +9,7 @@ const urlsToCache = [
   './styles.css',
   './main.js',
   './generaparagraf.js',
-  './generarllibre.js', // <- AFEGIT: motor híbrid
+  './generarLlibre.js', // <- AFEGIT: motor híbrid
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
