@@ -1,4 +1,4 @@
-// generaparagraf.js - Motor Paràgraf V9.9.16 lec-flix policial BLINDAT
+// generaparagraf.js - Motor Paràgraf V12.1.1 lec-flix policial BLINDAT
 // Fixes: ReferenceError txt, anti-bucle 200 intents, fallbacks llargs,
 // hist autoinit, window.generarLlibre fallback
 
