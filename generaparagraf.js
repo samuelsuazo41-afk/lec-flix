@@ -284,4 +284,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.13 carregat - 7 regles integrades');
+console.log('✅ Motor Paràgraf V9.9.13 carregat - 7 regles integrades'); 
