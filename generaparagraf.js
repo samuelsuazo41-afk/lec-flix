@@ -1,7 +1,7 @@
 // generaparagraf.js - Motor Paràgraf V9.9.15 lec-flix policial FINAL BLINDAT
 // Fixes: anti-{}, anti-repetició olor/so, ritme 3-2-3, forçaPassat única,
 // neteja espais, comptadors usosOlor/usosSo, connectors cada 3 frases,
-// fix motor moto, reomplert personatge automàtic, ANTI-BUCLE OLOR BLINDAT
+// fix motor moto, reomplert personatge automàtic, ANTI-ACAPARAMENT OLOR BLINDAT
 
 let histGlobal = {
   ubicacions: [],
@@ -12,8 +12,7 @@ let histGlobal = {
   paraulesTotals: 0,
   usosOlor: {},
   usosSo: {},
-  olorUsadaEscena: false,
-  olorsUsadesEscena: [] // ← NOU: array per evitar repetir la mateixa olor
+  olorUsadaEscena: false // ← flag per evitar acaparament
 };
 
 export async function resetEstructura() {
@@ -26,8 +25,7 @@ export async function resetEstructura() {
     paraulesTotals: 0,
     usosOlor: {},
     usosSo: {},
-    olorUsadaEscena: false,
-    olorsUsadesEscena: [] // ← NOU
+    olorUsadaEscena: false
   };
   console.log('🔄 Estructura V9.9.15 resetejada');
 }
@@ -43,15 +41,14 @@ function getTextoBase(item) {
   return item.text || '';
 }
 
-// REGLA 2: Anti-repetició olor/so per clau + màxim 2 usos per escena + blacklist escena
+// REGLA 2: Anti-repetició olor/so per clau + màxim 2 usos per escena
 function pickNoRepetit(arr, hist, tipus) {
   if (!arr || arr.length === 0) return null;
   const disponibles = arr.filter(item => {
     const txt = getTextoBase(item);
     if (!txt) return false;
     if (hist.frasesUsades.includes(txt.substring(0,40))) return false;
-    // BLINDAT: No repetir olors ja usades a l'escena
-    if (tipus === 'olor' && hist.olorsUsadesEscena?.includes(txt)) return false;
+    // REGLA 7: Comptadors usosOlor/usosSo màx 2
     if (tipus === 'olor' && (hist.usosOlor[txt] || 0) >= 2) return false;
     if (tipus === 'so' && (hist.usosSo[txt] || 0) >= 2) return false;
     return true;
@@ -64,15 +61,13 @@ function pronomPerNom(nom) {
   return /^[AEIOUaeiou]/.test(nom)? 'Ella' : 'Ell';
 }
 
-// REGLA 5: Neteja espais + "el una" → "una" + Anti-bucle olor placeholder
+// REGLA 5: Neteja espais + "el una" → "una"
 function netejaEspais(text) {
   return text
 .replace(/\s+/g,' ')
 .replace(/\s+([.,])/g,'$1')
 .replace(/\bel una\b/gi, 'una')
 .replace(/\bla una\b/gi, 'una')
-.replace(/\bL'olor de \{\} de\b/gi, '') // ← BLINDAT: elimina bucles {} olor
-.replace(/\bL'olor de\b/gi, '') // ← BLINDAT: doble "de"
 .trim();
 }
 
@@ -86,34 +81,25 @@ function forçaPassat(text) {
 .replace(/\bCamina\b/g, 'Va caminar');
 }
 
-// REGLA 1: Anti-{} + REGLA 2: Fix motor moto + REOMPLERT PERSONATGE + ANTI-BUCLE OLOR
+// REGLA 1: Anti-{} + REGLA 2: Fix motor moto + REOMPLERT PERSONATGE
 function safeReplace(text, vars) {
   let out = text;
   const nom = vars['{p0}'] || 'Rita';
   const nom2 = vars['{p1}'] || 'Víctor';
-
   // FIX MOTOR: "motor de la moto" → "motor"
   out = out.replace(/\bmotor\s+de\s+la\s+moto\b/gi, 'motor');
-
   // FIX SEC I FRED: Treure si va enganxat al so
   out = out.replace(/(\buna moto accelerant fort\b|\bmotor\b)\s*,\s*sec i fred/gi, '$1 sec i fred');
-
-  // BLINDAT ANTI-BUCLE: Si ja hi ha "L'olor de" al text i tornem a meter {olor}, eliminar
-  const jaTeOlor = /\bL'olor de\b/i.test(out);
-
   // REOMPLERT AUTOMÀTIC: ella → Rita, ell → Víctor, {} → Rita
   out = out.replace(/\bell\b/gi, nom2);
   out = out.replace(/\bella\b/gi, nom);
   out = out.replace(/\bEll\b/gi, nom2);
   out = out.replace(/\bElla\b/gi, nom);
-  out = out.replace(/\{\}/g, jaTeOlor? '' : nom); // ← BLINDAT: si ja hi ha olor, {} buit
-
+  out = out.replace(/\{\}/g, nom); // {} buits → nom
   // Replace variables normals del main
   for (const [k,v] of Object.entries(vars)) {
-    if (k === '{olor}' && jaTeOlor) continue; // ← BLINDAT: no substituir {olor} si ja n'hi ha
     out = out.replaceAll(k, v);
   }
-
   // REGLA 1 FIX: Anti-{} DEFINITIU - agafa qualsevol cosa dins {}
   out = out.replace(/\{[^}]*\}/g, '').trim();
   out = netejaEspais(out);
@@ -135,10 +121,9 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     hist.usosSo = {};
   }
 
-  // BLINDAT: Reset flag olor cada escena nova
+  // Reset flag olor cada escena nova per evitar acaparament
   if (numEsc === 1) {
     hist.olorUsadaEscena = false;
-    hist.olorsUsadesEscena = [];
   }
 
   const escenaris = (bancs.banco_escenarios || []).filter(e => {
@@ -168,19 +153,16 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
   const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
 
-  // BLINDAT ANTI-BUCLE OLOR: màxim 1 per escena + 25% probabilitat + blacklist
-  let olor = '';
+  // ANTI-ACAPARAMENT OLOR - màxim 1 per escena + 25% probabilitat
+  let olor = 'aire fred';
   let olorObj = null;
-  const jaHiHaOlorInici = /\bL'olor de\b/i.test(inicios[beatActual] || '');
-
-  if (!jaHiHaOlorInici &&!hist.olorUsadaEscena && Math.random() < 0.25) {
+  if (!hist.olorUsadaEscena && Math.random() < 0.25) {
     olorObj = pickNoRepetit(olors, hist, 'olor');
     if (olorObj) {
-      const txt = getTextoBase(olorObj);
+      const txt = getTextoBase(olorObj); // ← FIX: definir txt abans
       olor = txt;
       hist.usosOlor[txt] = (hist.usosOlor[txt] || 0) + 1;
       hist.olorUsadaEscena = true;
-      hist.olorsUsadesEscena.push(txt); // ← BLINDAT: guarda per no repetir
     }
   }
 
@@ -213,16 +195,16 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   };
 
   const inicios = {
-    'hook': `${nom} va obrir els ulls a ${escenari.nom} amb ${emocio} corrent-li per la sang. ${ticActual}. ${olor? `L'olor de ${olor} li omplia els pulmons mentre ` : ''}el ${so} llunyà li recordava que ${ciutat} guardava secrets.`,
-    'plantejament': `A ${escenari.nom} ${nom} va sentir ${emocio} quan va comprendre que el cas era més profund. ${ticActual}. ${olor? `Cada racó feia olor de ${olor} i ` : ''}el ${so} el seguia com una ombra.`,
-    'setup': `${nom} es va moure per ${escenari.nom} amb ${emocio}, intentant ordenar pensaments ${olor? `mentre l'olor de ${olor} el perseguia` : 'mentre caminava'}. ${ticActual}. El ${so} li deia que el temps s'esgotava.`,
-    'giro1': `El ${so} va trencar el silenci de ${escenari.nom} amb força. ${nom} va sentir ${emocio} ${olor? `quan l'olor de ${olor} s'intensificava fins a ofegar-lo` : 'quan va entendre el perill'}. ${ticActual}.`,
-    'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar ${olor && so? `mentre ${olor} i ${so} es barrejaven` : `mentre ${so} ressonava`} en una revelació. ${ticActual}.`,
-    'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. ${olor? `L'olor de ${olor} ara sabia a traïció` : 'Tot sabia a traïció'}. ${ticActual}.`,
-    'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com ${olor? `l'olor de ${olor} s'esvaïa i ` : ''}el ${so} s'apagava. ${ticActual}.`,
-    'climax': beatAnterior === 'crisi'? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${so} marcava el ritme del final.` : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${so} marcava el ritme del final. ${ticActual}.`,
-    'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau ${olor? `mentre l'olor de ${olor} es netejava` : 'mentre el silenci tornava'}. ${ticActual}.`,
-    'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${so} de fons. ${ticActual}.`
+    'hook': `${nom} va obrir els ulls a ${escenari.nom} amb ${emocio} corrent-li per la sang. ${ticActual}. L'olor de ${olor} li omplia els pulmons mentre el ${so} llunyà li recordava que ${ciutat} guardava secrets.`,
+    'plantejament': `A ${escenari.nom} ${nom} va sentir ${emocio} quan va comprendre que el cas era més profund. ${ticActual}. Cada racó feia olor de ${olor} i el ${so} el seguia com una ombra.`,
+    'setup': `${nom} es va moure per ${escenari.nom} amb ${emocio}, intentant ordenar pensaments mentre l'olor de ${olor} el perseguia. ${ticActual}. El ${so} li deia que el temps s'esgotava.`,
+    'giro1': `El ${so} va trencar el silenci de ${escenari.nom} amb força. ${nom} va sentir ${emocio} quan l'olor de ${olor} s'intensificava fins a ofegar-lo. ${ticActual}.`,
+    'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
+    'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
+    'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
+    'climax': beatAnterior === 'crisi'? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.` : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
+    'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
+    'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
   };
 
   // ORDRE CORRECTE: safeReplace primer → forçaPassat després
@@ -247,11 +229,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     if (lectura) {
       let text = safeReplace(getTextoBase(lectura), varsTemps);
       text = forçaPassat(text);
-
-      // BLINDAT: Si el text té "L'olor de" i ja hem usat olor a l'escena, saltar
-      const textTeOlor = /\bL'olor de\b/i.test(text);
-      if (textTeOlor && hist.olorUsadaEscena) continue;
-
       if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
         // REGLA 3: Ritme 3-2-3 + Connector cada 3a frase
         if (fraseIndex % 3 === 2) {
@@ -268,12 +245,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
         parrafo += ` ${text}`;
         hist.frasesUsades.push(text.substring(0,40));
         hist.frasesUsadesCap.push(text.substring(0,40));
-
-        // BLINDAT: Si aquesta frase porta olor, marcar usada
-        if (textTeOlor) {
-          hist.olorUsadaEscena = true;
-        }
-
         paraulesComptades = contarPalabras(parrafo);
         fraseIndex++;
         continue;
@@ -289,18 +260,17 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       continue;
     }
 
-    // BLINDAT: Fallback olor només si no s'ha usat i 15% probabilitat
+    // Fallback olor només si no s'ha usat i 15% probabilitat
     if (olors.length > 0 &&!hist.olorUsadaEscena && Math.random() < 0.15) {
       const olorsDisp = olors.filter(o => {
         const txt = getTextoBase(o);
-        return (hist.usosOlor[txt] || 0) < 2 &&!hist.olorsUsadesEscena.includes(txt);
+        return (hist.usosOlor[txt] || 0) < 2;
       });
       if (olorsDisp.length > 0) {
         const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
         const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
         hist.usosOlor[olor2] = (hist.usosOlor[olor2] || 0) + 1;
         hist.olorUsadaEscena = true;
-        hist.olorsUsadesEscena.push(olor2);
         parrafo += ` L'olor de ${olor2} s'enfilava...`;
         paraulesComptades = contarPalabras(parrafo);
         fraseIndex++;
@@ -319,7 +289,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   }
 
   hist.paraulesTotals += paraulesComptades;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.15`);
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules | Olor:${hist.olorUsadaEscena? 'SÍ' : 'NO'} V9.9.15`);
 
   return {
     text: parrafo.trim(),
@@ -331,10 +301,11 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       beat: beatActual,
       beatAnterior: beatAnterior,
       acte: capActe,
-      temps: temps?.any + '/' + temps?.mes
+      temps: temps?.any + '/' + temps?.mes,
+      olorUsada: hist.olorUsadaEscena // ← MÈTRICA per UI
     }
   };
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.15 carregat - BLINDAT anti-bucle olor');
+console.log('✅ Motor Paràgraf V9.9.15 carregat - 100% cablejat main + anti-acaparament olor');
