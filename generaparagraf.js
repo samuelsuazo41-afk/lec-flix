@@ -1,6 +1,6 @@
 // generaparagraf.js - Motor Paràgraf V12.1.1 lec-flix policial BLINDAT
 // Fixes: ReferenceError txt, anti-bucle 200 intents, fallbacks llargs,
-// hist autoinit, window.generarLlibre fallback
+// hist autoinit, window.generarLlibre fallback, beatAnterior guardado
 
 let histGlobal = {
   ubicacions: [],
@@ -60,20 +60,20 @@ function pronomPerNom(nom) {
 
 function netejaEspais(text) {
   return text
-   .replace(/\s+/g,' ')
-   .replace(/\s+([.,])/g,'$1')
-   .replace(/\bel una\b/gi, 'una')
-   .replace(/\bla una\b/gi, 'una')
-   .trim();
+  .replace(/\s+/g,' ')
+  .replace(/\s+([.,])/g,'$1')
+  .replace(/\bel una\b/gi, 'una')
+  .replace(/\bla una\b/gi, 'una')
+  .trim();
 }
 
 function forçaPassat(text) {
   return text
-   .replace(/\bMira\b/g, 'Va mirar')
-   .replace(/\bOlía\b/g, 'Feia olor')
-   .replace(/\bSe le congeló\b/g, 'Se li va gelar')
-   .replace(/\bSiente\b/g, 'Va sentir')
-   .replace(/\bCamina\b/g, 'Va caminar');
+  .replace(/\bMira\b/g, 'Va mirar')
+  .replace(/\bOlía\b/g, 'Feia olor')
+  .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+  .replace(/\bSiente\b/g, 'Va sentir')
+  .replace(/\bCamina\b/g, 'Va caminar');
 }
 
 function safeReplace(text, vars) {
@@ -104,6 +104,7 @@ function blindarHist(hist) {
   hist.olorUsadaEscena = hist.olorUsadaEscena!== undefined? hist.olorUsadaEscena : false;
   hist.frasesUsades = hist.frasesUsades || [];
   hist.frasesUsadesCap = hist.frasesUsadesCap || [];
+  hist.ubicacions = hist.ubicacions || [];
   return hist;
 }
 
@@ -284,7 +285,9 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   }
 
   hist.paraulesTotals += paraulesComptades;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.16`);
+  // FIX CRÍTIC 1: Guardar beatAnterior para siguiente escena
+  hist.beatAnterior = beatActual;
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V12.1.1`);
 
   return {
     text: parrafo.trim(),
@@ -307,4 +310,9 @@ window.generarLlibre = async function(seleccio, bancs) {
   console.error('⚠️ generarLlibre cridat des de generaparagraf.js. Hauria d\'estar al main.js');
   return { capítols: [], metadata: { error: 'Crida generarLlibre al main.js, no aquí' } };
 };
-console.log('✅ Motor Paràgraf V9.9.16 carregat - BLINDAT anti-error');
+
+// FIX CRÍTIC 2: Alias para compatibilidad con main.js
+export { generaParagraf as generarLlibre };
+export { resetEstructura };
+
+console.log('✅ Motor Paràgraf V12.1.1 BLINDAT carregat - zero bucles');
