@@ -1,22 +1,24 @@
-// generarllibre.js - Capa Híbrida V1.0.1 BLINDAT
-// Compatible 100% con generaparagraf.js V12.1.1 + index.html V12.1.1
+// generarllibre.js - Capa Híbrida V1.0.2 BLINDAT
+// Orquestador: decide si generar 1 escena, 1 capítol o llibre complet
+// Compatible 100% amb generaparagraf.js V12.1.1 BLINDAT + main.js V12.1.1
 
 import { generaParagraf, resetEstructura } from './generaparagraf.js';
 
 export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCaps) {
   console.log(`🚀 generarLlibre modo: ${config.modo || 'escena'}`);
 
-  // MODO 1: 1 escena = 1 párrafo - devuelve formato estándar
+  // MODO 1: 1 escena = 1 paràgraf
   if (!config.modo || config.modo === 'escena') {
     const res = await generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps);
-    // Adaptamos al formato que espera index.html
     return {
+      text: res.text,
       capitols: [{
         num: numCap,
         beat: res.metadata.beat,
         escenes: [{
           titol: `Cap ${numCap} - Esc ${numEsc}`,
-          text: res.text
+          text: res.text,
+          metadata: res.metadata
         }]
       }],
       hist: res.hist,
@@ -24,12 +26,15 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
         tipo: 'escena',
         paraulesAprox: res.metadata.paraules,
         nCapitols: 1,
-        beat: res.metadata.beat
+        beat: res.metadata.beat,
+        ubicacio: res.metadata.ubicacio,
+        emocio: res.metadata.emocio,
+        acte: res.metadata.acte
       }
     };
   }
 
-  // MODO 2: Capítulo completo
+  // MODO 2: Capítol complet - bucle pla, sense recursió
   if (config.modo === 'capitol') {
     let escenesArr = [];
     let histActual = hist;
@@ -38,9 +43,9 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
 
     for (let i = 0; i < escenesPerCap; i++) {
       const configEsc = {
-       ...config,
+      ...config,
         beatActual: beatsCap[i] || 'default',
-        beatAnterior: i > 0? beatsCap[i-1] : null
+        beatAnterior: i > 0? beatsCap[i-1] : histActual?.beatAnterior || null
       };
       const res = await generaParagraf(configEsc, bancs, histActual, numCap, i+1, totalCaps);
       escenesArr.push({
@@ -69,7 +74,7 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
     };
   }
 
-  // MODO 3: Libro completo
+  // MODO 3: Llibre complet - bucle pla, sense recursió
   if (config.modo === 'llibre') {
     await resetEstructura();
     let capitolsArr = [];
@@ -77,7 +82,6 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
     const totalCapsLlibre = config.totalCaps || 12;
     const escenesPerCap = config.escenesPerCap || 3;
 
-    // Beats por capítulo para novela 12 caps
     const beatsPerCap = config.beatsLlibre || [
       'hook', 'plantejament', 'setup',
       'giro1', 'midpoint', 'giro1',
@@ -89,25 +93,23 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
       const beatCap = beatsPerCap[cap-1] || 'default';
       const beatsEsc = calcularBeatsEscena(beatCap, escenesPerCap);
 
-      const resCap = await generarLlibre(
-        {
-         ...config,
-          modo: 'capitol',
-          beatsCap: beatsEsc
-        },
-        bancs,
-        histActual,
-        cap,
-        1,
-        totalCapsLlibre
-      );
+      const escenesArr = [];
+      for (let i = 0; i < escenesPerCap; i++) {
+        const configEsc = {
+        ...config,
+          beatActual: beatsEsc[i],
+          beatAnterior: i > 0? beatsEsc[i-1] : histActual?.beatAnterior || null
+        };
+        const res = await generaParagraf(configEsc, bancs, histActual, cap, i+1, totalCapsLlibre);
+        escenesArr.push({
+          titol: `Escena ${i+1} - ${res.metadata.beat}`,
+          text: res.text,
+          metadata: res.metadata
+        });
+        histActual = res.hist;
+      }
 
-      capitolsArr.push({
-        num: cap,
-        beat: beatCap,
-        escenes: resCap.capitols[0].escenes
-      });
-      histActual = resCap.hist;
+      capitolsArr.push({ num: cap, beat: beatCap, escenes: escenesArr });
     }
 
     const paraulesLlibre = capitolsArr.reduce((sum, c) =>
@@ -131,7 +133,7 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
   return await generarLlibre({...config, modo: 'escena' }, bancs, hist, numCap, numEsc, totalCaps);
 }
 
-// Helper: calcula beats por escena según beat del capítulo
+// Helper: calcula beats per escena segons beat del capítol
 function calcularBeatsEscena(beatCap, numEscenes) {
   const mapa = {
     'hook': ['hook', 'plantejament', 'setup'],
@@ -145,13 +147,8 @@ function calcularBeatsEscena(beatCap, numEscenes) {
     'resolucio': ['resolucio', 'resolucio', 'resolucio']
   };
   const base = mapa[beatCap] || ['default', 'default', 'default'];
-  // Rellena o corta según numEscenes
   while (base.length < numEscenes) base.push(base[base.length-1]);
   return base.slice(0, numEscenes);
-}
-
-function contarPalabras(texto) {
-  return texto.trim().split(/\s+/).filter(w => w.length > 0).length;
 }
 
 export { resetEstructura };
