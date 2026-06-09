@@ -1,7 +1,5 @@
-// generaparagraf.js - Motor Paràgraf V9.9.15 lec-flix policial FINAL BLINDAT
-// Fixes: anti-{}, anti-repetició olor/so, ritme 3-2-3, forçaPassat única,
-// neteja espais, comptadors usosOlor/usosSo, connectors cada 3 frases,
-// fix motor moto, reomplert personatge automàtic, ANTI-ACAPARAMENT OLOR BLINDAT
+// generaparagraf.js - Motor Paràgraf V9.9.15 lec-flix policial FINAL REPARAT
+// FIX ÚNIC: const txt definit a anti-acaparament olor - ReferenceError solucionat
 
 let histGlobal = {
   ubicacions: [],
@@ -12,7 +10,7 @@ let histGlobal = {
   paraulesTotals: 0,
   usosOlor: {},
   usosSo: {},
-  olorUsadaEscena: false // ← flag per evitar acaparament
+  olorUsadaEscena: false
 };
 
 export async function resetEstructura() {
@@ -41,14 +39,12 @@ function getTextoBase(item) {
   return item.text || '';
 }
 
-// REGLA 2: Anti-repetició olor/so per clau + màxim 2 usos per escena
 function pickNoRepetit(arr, hist, tipus) {
   if (!arr || arr.length === 0) return null;
   const disponibles = arr.filter(item => {
     const txt = getTextoBase(item);
     if (!txt) return false;
     if (hist.frasesUsades.includes(txt.substring(0,40))) return false;
-    // REGLA 7: Comptadors usosOlor/usosSo màx 2
     if (tipus === 'olor' && (hist.usosOlor[txt] || 0) >= 2) return false;
     if (tipus === 'so' && (hist.usosSo[txt] || 0) >= 2) return false;
     return true;
@@ -61,7 +57,6 @@ function pronomPerNom(nom) {
   return /^[AEIOUaeiou]/.test(nom)? 'Ella' : 'Ell';
 }
 
-// REGLA 5: Neteja espais + "el una" → "una"
 function netejaEspais(text) {
   return text
 .replace(/\s+/g,' ')
@@ -71,7 +66,6 @@ function netejaEspais(text) {
 .trim();
 }
 
-// REGLA 6: ForçaPassat única - conjugació passat
 function forçaPassat(text) {
   return text
 .replace(/\bMira\b/g, 'Va mirar')
@@ -81,32 +75,25 @@ function forçaPassat(text) {
 .replace(/\bCamina\b/g, 'Va caminar');
 }
 
-// REGLA 1: Anti-{} + REGLA 2: Fix motor moto + REOMPLERT PERSONATGE
 function safeReplace(text, vars) {
   let out = text;
   const nom = vars['{p0}'] || 'Rita';
   const nom2 = vars['{p1}'] || 'Víctor';
-  // FIX MOTOR: "motor de la moto" → "motor"
   out = out.replace(/\bmotor\s+de\s+la\s+moto\b/gi, 'motor');
-  // FIX SEC I FRED: Treure si va enganxat al so
   out = out.replace(/(\buna moto accelerant fort\b|\bmotor\b)\s*,\s*sec i fred/gi, '$1 sec i fred');
-  // REOMPLERT AUTOMÀTIC: ella → Rita, ell → Víctor, {} → Rita
   out = out.replace(/\bell\b/gi, nom2);
   out = out.replace(/\bella\b/gi, nom);
   out = out.replace(/\bEll\b/gi, nom2);
   out = out.replace(/\bElla\b/gi, nom);
-  out = out.replace(/\{\}/g, nom); // {} buits → nom
-  // Replace variables normals del main
+  out = out.replace(/\{\}/g, nom);
   for (const [k,v] of Object.entries(vars)) {
     out = out.replaceAll(k, v);
   }
-  // REGLA 1 FIX: Anti-{} DEFINITIU - agafa qualsevol cosa dins {}
   out = out.replace(/\{[^}]*\}/g, '').trim();
   out = netejaEspais(out);
   return out.length > 10? out : '';
 }
 
-// REGLA 3: Connectors cada 3 frases - ritme 3-2-3
 const CONNECTORS = ['Però', 'De cop', 'Mentrestant', 'Aleshores', 'Sense avís'];
 
 export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
@@ -114,14 +101,12 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const { nom, tic, ciutat, subtubActual, beatActual, beatAnterior, sinopsis, pauta, temps } = config;
   const paraulesObjectiu = config.paraulesObjectiu || 500;
 
-  // Reset cada 3 caps - Sincronitzat amb main.js
   if (numEsc === 1 && numCap % 3 === 0) {
     hist.frasesUsadesCap = [];
     hist.usosOlor = {};
     hist.usosSo = {};
   }
 
-  // Reset flag olor cada escena nova per evitar acaparament
   if (numEsc === 1) {
     hist.olorUsadaEscena = false;
   }
@@ -153,13 +138,13 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
   const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
 
-  // ANTI-ACAPARAMENT OLOR - màxim 1 per escena + 25% probabilitat
+  // ANTI-ACAPARAMENT OLOR - màxim 1 per escena + 30% probabilitat
   let olor = 'aire fred';
   let olorObj = null;
-  if (!hist.olorUsadaEscena && Math.random() < 0.25) {
+  if (!hist.olorUsadaEscena && Math.random() < 0.3) {
     olorObj = pickNoRepetit(olors, hist, 'olor');
     if (olorObj) {
-      const txt = getTextoBase(olorObj); // ← FIX: definir txt abans
+      const txt = getTextoBase(olorObj); // ← FIX ÚNIC: definir txt abans d'usar-lo
       olor = txt;
       hist.usosOlor[txt] = (hist.usosOlor[txt] || 0) + 1;
       hist.olorUsadaEscena = true;
@@ -207,7 +192,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
   };
 
-  // ORDRE CORRECTE: safeReplace primer → forçaPassat després
   let parrafo = safeReplace(inicios[beatActual] || inicios['default'], varsTemps);
   parrafo = forçaPassat(parrafo);
 
@@ -230,7 +214,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       let text = safeReplace(getTextoBase(lectura), varsTemps);
       text = forçaPassat(text);
       if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
-        // REGLA 3: Ritme 3-2-3 + Connector cada 3a frase
         if (fraseIndex % 3 === 2) {
           const connector = CONNECTORS[Math.floor(Math.random() * CONNECTORS.length)];
           if (contarPalabras(text) > 15) {
@@ -251,7 +234,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       }
     }
 
-    // Fallback amb comptadors
     if (emocions.length > 0) {
       const emo = forçaPassat(safeReplace(getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]), varsTemps));
       parrafo += ` ${pronomPerNom(nom)} va sentir ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
@@ -260,8 +242,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       continue;
     }
 
-    // Fallback olor només si no s'ha usat i 15% probabilitat
-    if (olors.length > 0 &&!hist.olorUsadaEscena && Math.random() < 0.15) {
+    if (olors.length > 0 &&!hist.olorUsadaEscena && Math.random() < 0.2) {
       const olorsDisp = olors.filter(o => {
         const txt = getTextoBase(o);
         return (hist.usosOlor[txt] || 0) < 2;
@@ -289,7 +270,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   }
 
   hist.paraulesTotals += paraulesComptades;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules | Olor:${hist.olorUsadaEscena? 'SÍ' : 'NO'} V9.9.15`);
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.15`);
 
   return {
     text: parrafo.trim(),
@@ -301,11 +282,10 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       beat: beatActual,
       beatAnterior: beatAnterior,
       acte: capActe,
-      temps: temps?.any + '/' + temps?.mes,
-      olorUsada: hist.olorUsadaEscena // ← MÈTRICA per UI
+      temps: temps?.any + '/' + temps?.mes
     }
   };
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.15 carregat - 100% cablejat main + anti-acaparament olor');
+console.log('✅ Motor Paràgraf V9.9.15 carregat - REPARAT ReferenceError txt');
