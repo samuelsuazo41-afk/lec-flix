@@ -1,266 +1,309 @@
-// js/main.js - MOTOR V9.9.13 lec-flix policial FINAL
-// Integració: 7 regles V9.9.10 + motor V9.9.13 + anti-error toque frases + nom2 cablejat
+// generaparagraf.js - Motor Paràgraf V9.9.14 lec-flix policial FINAL
+// Fixes: anti-{}, anti-repetició olor/so, ritme 3-2-3, forçaPassat única,
+// neteja espais, comptadors usosOlor/usosSo, connectors cada 3 frases,
+// fix motor moto, reomplert personatge automàtic, ANTI-ACAPARAMENT OLOR
 
-const baseURL = new URL('./', import.meta.url).href;
-const { generaParagraf, resetEstructura } = await import(baseURL + 'generaparagraf.js?v=' + Date.now());
-
-// CANVI: TOTS els camps editables entre []
-const PLANTILLES_SINOPSI = {
-  "Relat Curt": `[Protagonista] té [dies] dies per resoldre [element clau] a [ciutat]. Dia 1: troba [pista]. Dia [dies]: enfrontament final a [lloc]. Motiu: [diners/venjança/gelosia].`,
-  "Novel·la": `[Protagonista] té [dies] dies per trobar [element clau]. Dia 1: troba [pista] a [ciutat1]. Dia [dies/2]: descobreix que [gir]. Dia [dies]: enfrontament final a [ciutat2]. Motiu: [diners/venjança/gelosia].`,
-  "Èpic": `[Protagonista] té [dies] dies per resoldre [element clau]. Dia 1: troba [pista] a [ciutat1]. Dia [dies/5]: primer gir - [gir1]. Dia [dies/2]: descobreix que [gir2]. Dia [dies-2]: crisi a [lloc]. Dia [dies]: enfrontament final a [ciutat2]. Motiu: [diners/venjança/gelosia]. Complica: [complicacio].`
+let histGlobal = {
+  ubicacions: [],
+  emocions: [],
+  frasesUsades: [],
+  frasesUsadesCap: [],
+  combinacionsUsades: new Set(),
+  paraulesTotals: 0,
+  usosOlor: {},
+  usosSo: {},
+  olorUsadaEscena: false // ← NOU: flag per evitar acaparament
 };
 
-window.PLANTILLES_SINOPSI = PLANTILLES_SINOPSI;
-
-function hashSinopsi(text) {
-  let hash = 0;
-  if (!text) text = 'default_seed_lec_flix';
-  for (let i = 0; i < text.length; i++) {
-    const char = text.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash;
-  }
-  return Math.abs(hash);
-}
-
-function seededRandom(seed) {
-  let x = Math.sin(seed) * 10000;
-  return function() {
-    x = Math.sin(x) * 10000;
-    return x - Math.floor(x);
-  };
-}
-
-// REGLA 1: Anti-{} + fallback dies = 7
-function llegirPauta(sinopsi, seed) {
-  const text = (sinopsi || '').toLowerCase();
-  const ciutatForçada = text.includes('barceloneta')? 'barceloneta' : text.includes('gotic') || text.includes('gòtic')? 'barri_gotic' : text.includes('tibidabo')? 'tibidabo' : text.includes('eixample')? 'eixample' : text.includes('girona')? 'girona' : text.includes('sants')? 'sants' : null;
-  const toForçat = text.includes('por') || text.includes('miedo')? 'emo_pol_tensio' : text.includes('sospita') || text.includes('sospecha')? 'emo_pol_desconfianca' : text.includes('ira') || text.includes('furia') || text.includes('ràbia')? 'emo_pol_furia' : text.includes('obsessio') || text.includes('obsesión')? 'emo_pol_obsessio' : null;
-  const motiu = text.includes('diners') || text.includes('dinero')? 'diners' : text.includes('gelosia') || text.includes('celos')? 'gelosia' : text.includes('venjança') || text.includes('venganza')? 'venjança' : text.includes('drogues') || text.includes('drogas')? 'drogues' : 'poder';
-  const diesMatch = text.match(/(\d+)\s*dies?/);
-  const dies = diesMatch? parseInt(diesMatch[1]) : 7; // REGLA 1: fallback 7 si no hi ha {dies}
-  const elements = [];
-  if (text.includes('tatuatge') || text.includes('tatuaje')) elements.push('tatuatge');
-  if (text.includes('navalla') || text.includes('navaja')) elements.push('navalla');
-  if (text.includes('sang')) elements.push('sang');
-  if (text.includes('foto') || text.includes('fotografia')) elements.push('foto');
-  const seedSeq = [];
-  for(let i=0; i<10; i++) {
-    seedSeq.push(Math.floor(Math.sin(seed + i) * 1000));
-  }
-  return { ciutatForçada, toForçat, motiu, dies, elements, seedSeq };
-}
-
-function getConfigEditorial(ritme) {
-  if (ritme === 'Relat Curt') {
-    return { numCapitols: 5, paraulesTotals: 10000, escenesPerCap: 5, paraulesPerEscena: 400, beats: ['hook','inciting_incident','primer_giro','climax','resolucio'] };
-  } else if (ritme === 'Èpic') {
-    return { numCapitols: 30, paraulesTotals: 100000, escenesPerCap: 8, paraulesPerEscena: 400, beats: ['hook','plantejament','setup','giro1','midpoint','giro2','crisi','climax','resolucio'] };
-  } else {
-    return { numCapitols: 20, paraulesTotals: 60000, escenesPerCap: 6, paraulesPerEscena: 500, beats: ['hook','plantejament','setup','giro1','midpoint','giro2','crisi','climax','resolucio'] };
-  }
-}
-
-function pickSubtub(subtubs, hist) {
-  if (!subtubs || subtubs.length === 0) return null;
-  const disponibles = subtubs.filter(s =>!hist.ubicacions.includes(s));
-  const pool = disponibles.length > 0? disponibles : subtubs;
-  const idx = Math.floor(Math.random() * pool.length);
-  return pool[idx];
-}
-
-function pickCiutatsExtra(bancs, cp1, cp2, random) {
-  const totes = (bancs.banco_ubicacion || []).map(c => c.ciutat);
-  const disponibles = totes.filter(c => c!== cp1 && c!== cp2);
-  if (disponibles.length === 0) return [];
-  const n = Math.floor(random() * 2) + 1;
-  const extra = [];
-  const pool = [...disponibles];
-  for(let i = 0; i < n && pool.length > 0; i++) {
-    const idx = Math.floor(random() * pool.length);
-    extra.push(pool.splice(idx, 1)[0]);
-  }
-  return extra;
-}
-
-function calculaTemps(bancs, progress, rand) {
-  const tempsBank = bancs.banco_temps?.find(t => t.id === 'temps_modern_pulitzer');
-  if (!tempsBank) return null;
-  const anyActual = Math.floor(tempsBank.anyInici + (tempsBank.anyFi - tempsBank.anyInici) * progress);
-  const mesActual = tempsBank.mesos[Math.floor(rand() * 12)];
-  const diaActual = Math.floor(rand() * 28) + 1;
-  const mesNum = tempsBank.mesos.indexOf(mesActual) + 1;
-  let event = '';
-  const dateClau = tempsBank.datesClau?.find(d => d.mes === mesActual && d.dia === diaActual);
-  if (dateClau) event = dateClau.event;
-  return { any: anyActual, mes: mesActual, dia: diaActual, mesNum, event };
-}
-
-// REGLA 1: Anti-{} neteja extra al main
-function netejaPlaceholders(text) {
-  return text.replace(/\{[a-z0-9_\/]+\}/gi, '').replace(/\s+/g,' ').trim();
-}
-
-export async function generarLlibre(seleccio, bancs) {
-  await resetEstructura();
-  const seed = hashSinopsi(seleccio.sinopsis);
-  const rand = seededRandom(seed);
-  const randomOriginal = Math.random;
-  Math.random = rand;
-  const pauta = llegirPauta(seleccio.sinopsis, seed);
-  const config = getConfigEditorial(seleccio.ritme);
-  const ciutatsExtra = pickCiutatsExtra(bancs, seleccio.ciutatPrincipal, seleccio.ciutatPrincipal2, rand);
-  console.log('🗺️ Ciutats extra auto:', ciutatsExtra);
-  console.log('📋 Pauta detectada:', pauta);
-
-  const configBase = {
-    genere: seleccio.genere,
-    nom: seleccio.personatgeId || 'Rita',
-    nom2: seleccio.personatge2Id || 'Víctor', // ← CABLEJAT per reomplir "ell"
-    tic: 'es passa la mà per la barba',
-    ciutat: pauta.ciutatForçada || seleccio.ciutatPrincipal,
-    ciutat2: seleccio.ciutatPrincipal2,
-    ciutatsExtra: ciutatsExtra,
-    subtubsActius: seleccio.subtubsPrincipal || [],
-    subtubsActius2: seleccio.subtubsPrincipal2 || [],
-    sinopsis: seleccio.sinopsis || '',
-    pauta: pauta,
-    plantilla: PLANTILLES_SINOPSI[seleccio.ritme]
-  };
-
-  let hist = {
+export async function resetEstructura() {
+  histGlobal = {
     ubicacions: [],
-    escenarisUsats: [],
     emocions: [],
     frasesUsades: [],
     frasesUsadesCap: [],
     combinacionsUsades: new Set(),
-    pauta: pauta,
-    plantilla: configBase.plantilla,
     paraulesTotals: 0,
-    beatAnterior: null,
     usosOlor: {},
-    usosSo: {}
+    usosSo: {},
+    olorUsadaEscena: false // ← NOU
   };
+  console.log('🔄 Estructura V9.9.14 resetejada');
+}
 
-  const capitols = [];
-  const beats = config.beats;
-  let tempsFinal = null;
+function contarPalabras(texto) {
+  return texto.trim().split(/\s+/).filter(w => w.length > 0).length;
+}
 
-  for (let numCap = 1; numCap <= config.numCapitols; numCap++) {
-    const beatNom = beats[(numCap - 1) % beats.length];
-    const progress = numCap / config.numCapitols;
+function getTextoBase(item) {
+  const tb = item.texto_base;
+  if (Array.isArray(tb)) return tb[0] || '';
+  if (typeof tb === 'string') return tb;
+  return item.text || '';
+}
 
-    // REGLA 7: Reset cada 3 caps sincronitzat amb motor
-    if (numCap % 3 === 0) {
-      hist.frasesUsadesCap = [];
-      hist.usosOlor = {};
-      hist.usosSo = {};
-    }
+// REGLA 2: Anti-repetició olor/so per clau + màxim 2 usos per escena
+function pickNoRepetit(arr, hist, tipus) {
+  if (!arr || arr.length === 0) return null;
+  const disponibles = arr.filter(item => {
+    const txt = getTextoBase(item);
+    if (!txt) return false;
+    if (hist.frasesUsades.includes(txt.substring(0,40))) return false;
+    // REGLA 7: Comptadors usosOlor/usosSo màx 2
+    if (tipus === 'olor' && (hist.usosOlor[txt] || 0) >= 2) return false;
+    if (tipus === 'so' && (hist.usosSo[txt] || 0) >= 2) return false;
+    return true;
+  });
+  const pool = disponibles.length > 0? disponibles : arr;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
 
-    const temps = calculaTemps(bancs, progress, rand);
-    tempsFinal = temps;
+function pronomPerNom(nom) {
+  return /^[AEIOUaeiou]/.test(nom)? 'Ella' : 'Ell';
+}
 
-    let ciutatActual = configBase.ciutat;
-    let subtubsActuals = configBase.subtubsActius;
+// REGLA 5: Neteja espais + "el una" → "una"
+function netejaEspais(text) {
+  return text
+ .replace(/\s+/g,' ')
+ .replace(/\s+([.,])/g,'$1')
+ .replace(/\bel una\b/gi, 'una')
+ .replace(/\bla una\b/gi, 'una')
+ .trim();
+}
 
-    if (configBase.ciutat2 && numCap > 5 && numCap <= 10) {
-      ciutatActual = configBase.ciutat2;
-      subtubsActuals = configBase.subtubsActius2;
-    } else if (ciutatsExtra.length > 0 && numCap > 10 && numCap <= 15) {
-      ciutatActual = ciutatsExtra[0];
-      const bancCiutat = bancs.banco_ubicacion.find(c => c.ciutat === ciutatActual);
-      subtubsActuals = bancCiutat? bancCiutat.subtubs.map(s => s.nom) : [];
-    } else if (ciutatsExtra.length > 1 && numCap > 15) {
-      ciutatActual = ciutatsExtra[1];
-      const bancCiutat = bancs.banco_ubicacion.find(c => c.ciutat === ciutatActual);
-      subtubsActuals = bancCiutat? bancCiutat.subtubs.map(s => s.nom) : [];
-    }
+// REGLA 6: ForçaPassat única - conjugació passat
+function forçaPassat(text) {
+  return text
+ .replace(/\bMira\b/g, 'Va mirar')
+ .replace(/\bOlía\b/g, 'Feia olor')
+ .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+ .replace(/\bSiente\b/g, 'Va sentir')
+ .replace(/\bCamina\b/g, 'Va caminar');
+}
 
-    const escenes = [];
-    for (let numEsc = 1; numEsc <= config.escenesPerCap; numEsc++) {
-      const subtub = pickSubtub(subtubsActuals, hist);
+// REGLA 1: Anti-{} + REGLA 2: Fix motor moto + REOMPLERT PERSONATGE
+function safeReplace(text, vars) {
+  let out = text;
+  const nom = vars['{p0}'] || 'Rita';
+  const nom2 = vars['{p1}'] || 'Víctor';
+  // FIX MOTOR: "motor de la moto" → "motor"
+  out = out.replace(/\bmotor\s+de\s+la\s+moto\b/gi, 'motor');
+  // FIX SEC I FRED: Treure si va enganxat al so
+  out = out.replace(/(\buna moto accelerant fort\b|\bmotor\b)\s*,\s*sec i fred/gi, '$1 sec i fred');
+  // REOMPLERT AUTOMÀTIC: ella → Rita, ell → Víctor, {} → Rita
+  out = out.replace(/\bell\b/gi, nom2);
+  out = out.replace(/\bella\b/gi, nom);
+  out = out.replace(/\bEll\b/gi, nom2);
+  out = out.replace(/\bElla\b/gi, nom);
+  out = out.replace(/\{\}/g, nom); // {} buits → nom
+  // Replace variables normals del main
+  for (const [k,v] of Object.entries(vars)) {
+    out = out.replaceAll(k, v);
+  }
+  // REGLA 1 FIX: Anti-{} DEFINITIU - agafa qualsevol cosa dins {}
+  out = out.replace(/\{[^}]*\}/g, '').trim();
+  out = netejaEspais(out);
+  return out.length > 10? out : '';
+}
 
-      const configEscena = {
-      ...configBase,
-        ciutat: ciutatActual,
-        subtubActual: subtub || ciutatActual,
-        beatActual: beatNom,
-        beatAnterior: hist.beatAnterior,
-        numCapitol: numCap,
-        numEscena: numEsc,
-        escenesPerCap: config.escenesPerCap,
-        paraulesObjectiu: config.paraulesPerEscena,
-        progress: progress,
-        temps: temps,
-        nom2: seleccio.personatge2Id || 'Víctor' // ← LÍNIA AFEGIDA per cablejar {p1}
-      };
+// REGLA 3: Connectors cada 3 frases - ritme 3-2-3
+const CONNECTORS = ['Però', 'De cop', 'Mentrestant', 'Aleshores', 'Sense avís'];
 
-      const resultat = await generaParagraf(configEscena, bancs, hist, numCap, numEsc, config.numCapitols);
-      hist = resultat.hist;
-      hist.paraulesTotals += resultat.metadata.paraules;
+export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
+  hist = hist || histGlobal;
+  const { nom, tic, ciutat, subtubActual, beatActual, beatAnterior, sinopsis, pauta, temps } = config;
+  const paraulesObjectiu = config.paraulesObjectiu || 500;
 
-      // REGLA 1: Anti-{} doble filtre per seguretat
-      const textNet = netejaPlaceholders(resultat.text);
-      escenes.push({
-        titol: `Escena ${numEsc} - ${beatNom}`,
-        text: textNet,
-        metadata: resultat.metadata
-      });
-    }
-
-    hist.beatAnterior = beatNom;
-
-    if (progress <= 0.25) {
-      escenes.push({ titol: '', text: `<em>Acte 1: ${configBase.nom} encara no sap en què s'ha ficat...</em>` });
-    } else if (progress <= 0.75) {
-      escenes.push({ titol: '', text: `<em>Acte 2: Cada pista l'allunya més de la veritat...</em>` });
-    } else {
-      escenes.push({ titol: '', text: `<em>Acte 3: Només queda enfrontar-se al que ha descobert...</em>` });
-    }
-
-    capitols.push({ num: numCap, beat: beatNom, escenes });
+  // Reset cada 3 caps - Sincronitzat amb main.js
+  if (numEsc === 1 && numCap % 3 === 0) {
+    hist.frasesUsadesCap = [];
+    hist.usosOlor = {};
+    hist.usosSo = {};
   }
 
-  Math.random = randomOriginal;
+  // NOU: Reset flag olor cada escena nova per evitar acaparament
+  if (numEsc === 1) {
+    hist.olorUsadaEscena = false;
+  }
+
+  const escenaris = (bancs.banco_escenarios || []).filter(e => {
+    const matchCiutat = e.ciutat === ciutat;
+    const matchSubtub =!subtubActual || e.nom?.toLowerCase().includes(subtubActual.toLowerCase()) || subtubActual.toLowerCase().includes(e.nom?.toLowerCase());
+    return matchCiutat && matchSubtub;
+  });
+
+  let escDisp = escenaris.filter(e =>!hist.ubicacions.slice(-4).includes(e.nom));
+  if (escDisp.length === 0) {
+    hist.ubicacions = [];
+    escDisp = escenaris.length > 0? escenaris : [{nom: subtubActual || ciutat}];
+  }
+
+  const escenari = escDisp[Math.floor(Math.random() * escDisp.length)];
+  hist.ubicacions.push(escenari.nom);
+
+  let ticActual = tic || 'es passa la mà per la barba';
+  if (bancs.banco_personatge?.[0]?.banco_variables?.tic) {
+    const tics = bancs.banco_personatge[0].banco_variables.tic;
+    ticActual = tics[Math.floor(Math.random() * tics.length)];
+  }
+
+  const lectures = bancs.banco_lectura || [];
+  const lecturesAux = bancs.banco_lectura_aux || [];
+  const olors = (bancs.banco_olors || []).filter(o => o.genero?.includes('policiac'));
+  const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
+  const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
+
+  // NOU: ANTI-ACAPARAMENT OLOR - màxim 1 per escena + 30% probabilitat
+  let olor = 'aire fred';
+  let olorObj = null;
+  if (!hist.olorUsadaEscena && Math.random() < 0.3) {
+    olorObj = pickNoRepetit(olors, hist, 'olor');
+    if (olorObj) {
+      olor = getTextoBase(olorObj);
+      hist.usosOlor[txt] = (hist.usosOlor[txt] || 0) + 1;
+      hist.olorUsadaEscena = true; // ← Marca usada
+    }
+  }
+
+  const soObj = pickNoRepetit(sons, hist, 'so');
+  const emocioObj = pickNoRepetit(emocions, hist);
+  const so = soObj? getTextoBase(soObj) : 'silenci';
+  const emocio = emocioObj? getTextoBase(emocioObj) : 'inquietud';
+
+  if (soObj) {
+    const txt = getTextoBase(soObj);
+    hist.usosSo[txt] = (hist.usosSo[txt] || 0) + 1;
+  }
+
+  const progress = numCap / totalCaps;
+  let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
+
+  const varsTemps = {
+    '{any}': temps?.any || '2024',
+    '{mes}': temps?.mes || 'gener',
+    '{dia}': temps?.dia || '1',
+    '{event}': temps?.event || '',
+    '{p0}': nom,
+    '{p1}': config.nom2 || 'Víctor',
+    '{esc}': escenari.nom,
+    '{olor}': olor,
+    '{so}': so,
+    '{ciutat}': ciutat,
+    '{emocio}': emocio,
+    '{tic}': ticActual
+  };
+
+  const inicios = {
+    'hook': `${nom} va obrir els ulls a ${escenari.nom} amb ${emocio} corrent-li per la sang. ${ticActual}. L'olor de ${olor} li omplia els pulmons mentre el ${so} llunyà li recordava que ${ciutat} guardava secrets.`,
+    'plantejament': `A ${escenari.nom} ${nom} va sentir ${emocio} quan va comprendre que el cas era més profund. ${ticActual}. Cada racó feia olor de ${olor} i el ${so} el seguia com una ombra.`,
+    'setup': `${nom} es va moure per ${escenari.nom} amb ${emocio}, intentant ordenar pensaments mentre l'olor de ${olor} el perseguia. ${ticActual}. El ${so} li deia que el temps s'esgotava.`,
+    'giro1': `El ${so} va trencar el silenci de ${escenari.nom} amb força. ${nom} va sentir ${emocio} quan l'olor de ${olor} s'intensificava fins a ofegar-lo. ${ticActual}.`,
+    'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
+    'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
+    'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
+    'climax': beatAnterior === 'crisi'? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.` : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
+    'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
+    'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
+  };
+
+  // ORDRE CORRECTE: safeReplace primer → forçaPassat després
+  let parrafo = safeReplace(inicios[beatActual] || inicios['default'], varsTemps);
+  parrafo = forçaPassat(parrafo);
+
+  let paraulesComptades = contarPalabras(parrafo);
+  let fraseIndex = 0;
+  let intents = 0;
+  let bancLecturaUsat = [...lectures];
+  let bancAuxUsat = [...lecturesAux];
+
+  while (paraulesComptades < paraulesObjectiu && intents < 80) {
+    intents++;
+    let lectura = null;
+    if (bancLecturaUsat.length > 0) {
+      lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
+    } else if (bancAuxUsat.length > 0) {
+      lectura = bancAuxUsat.splice(Math.floor(Math.random() * bancAuxUsat.length), 1)[0];
+    }
+
+    if (lectura) {
+      let text = safeReplace(getTextoBase(lectura), varsTemps);
+      text = forçaPassat(text);
+      if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
+        // REGLA 3: Ritme 3-2-3 + Connector cada 3a frase
+        if (fraseIndex % 3 === 2) {
+          const connector = CONNECTORS[Math.floor(Math.random() * CONNECTORS.length)];
+          if (contarPalabras(text) > 15) {
+            text = connector + ', ' + text.split('.')[0] + '.';
+          } else {
+            text = connector + '. ' + text;
+          }
+        }
+        if (fraseIndex >= 1) {
+          text = text.replace(new RegExp(`\\b${nom}\\b`, 'g'), pronomPerNom(nom));
+        }
+        parrafo += ` ${text}`;
+        hist.frasesUsades.push(text.substring(0,40));
+        hist.frasesUsadesCap.push(text.substring(0,40));
+        paraulesComptades = contarPalabras(parrafo);
+        fraseIndex++;
+        continue;
+      }
+    }
+
+    // Fallback amb comptadors
+    if (emocions.length > 0) {
+      const emo = forçaPassat(safeReplace(getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]), varsTemps));
+      parrafo += ` ${pronomPerNom(nom)} va sentir ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
+      paraulesComptades = contarPalabras(parrafo);
+      fraseIndex++;
+      continue;
+    }
+
+    // NOU: Fallback olor només si no s'ha usat i 20% probabilitat
+    if (olors.length > 0 &&!hist.olorUsadaEscena && Math.random() < 0.2) {
+      const olorsDisp = olors.filter(o => {
+        const txt = getTextoBase(o);
+        return (hist.usosOlor[txt] || 0) < 2;
+      });
+      if (olorsDisp.length > 0) {
+        const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
+        const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
+        hist.usosOlor[olor2] = (hist.usosOlor[olor2] || 0) + 1;
+        hist.olorUsadaEscena = true; // ← Marca usada
+        parrafo += ` L'olor de ${olor2} s'enfilava...`;
+        paraulesComptades = contarPalabras(parrafo);
+        fraseIndex++;
+        continue;
+      }
+    }
+
+    if (capActe === 2 && numEsc % 2 === 0) {
+      parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys.`;
+    } else if (capActe === 3 && numEsc === config.escenesPerCap) {
+      parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor.`;
+    } else {
+      parrafo += ` I va saber que ja no hi havia volta enrere.`;
+    }
+    paraulesComptades = contarPalabras(parrafo);
+  }
+
+  hist.paraulesTotals += paraulesComptades;
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.14`);
 
   return {
-    capitols,
+    text: parrafo.trim(),
+    hist,
     metadata: {
-      seed: seed,
-      paraulesAprox: hist.paraulesTotals,
-      paraulesObjectiu: config.paraulesTotals,
-      nCapitols: config.numCapitols,
-      ritme: seleccio.ritme,
-      genere: seleccio.genere,
-      sinopsis: seleccio.sinopsis,
-      plantillaUsada: configBase.plantilla,
-      plantillesDisponibles: Object.keys(PLANTILLES_SINOPSI),
-      personatge: configBase.nom,
-      personatge2: configBase.nom2, // ← Metadata del segon personatge
-      ciutat: configBase.ciutat,
-      ciutat2: configBase.ciutat2,
-      ciutatsExtra: ciutatsExtra,
-      subtubs: configBase.subtubsActius,
-      subtubs2: configBase.subtubsActius2,
-      pauta: pauta,
-      paraulesPerEscena: config.paraulesPerEscena,
-      temps: tempsFinal?.any + '/' + tempsFinal?.mes,
-      complert: hist.paraulesTotals >= config.paraulesTotals * 0.95
+      paraules: paraulesComptades,
+      ubicacio: escenari.nom,
+      emocio: emocio,
+      beat: beatActual,
+      beatAnterior: beatAnterior,
+      acte: capActe,
+      temps: temps?.any + '/' + temps?.mes
     }
   };
 }
 
-export async function generarLectura(seleccio, bancs, numEscenes = 6) {
-  const res = await generarLlibre(seleccio, bancs);
-  const primerCap = res.capitols[0];
-  return {
-    escenes: primerCap.escenes.slice(0, numEscenes),
-    metadata: res.metadata
-  };
-}
-
-window.generarLlibre = generarLlibre;
-window.generarLectura = generarLectura;
-console.log('✅ Motor V9.9.13 carregat - 7 regles + nom2 cablejat integrat');
+window.generarEscena = generaParagraf;
+console.log('✅ Motor Paràgraf V9.9.14 carregat - 7 regles + anti-acaparament olor integrat');
