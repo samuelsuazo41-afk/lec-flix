@@ -1,6 +1,7 @@
-// generaparagraf.js - Motor Paràgraf V9.9.13 lec-flix policial
+// generaparagraf.js - Motor Paràgraf V9.9.13 lec-flix policial FINAL
 // Fixes: anti-{}, anti-repetició olor/so, ritme 3-2-3, forçaPassat única,
-// neteja espais, comptadors usosOlor/usosSo, connectors cada 3 frases, fix motor moto
+// neteja espais, comptadors usosOlor/usosSo, connectors cada 3 frases,
+// fix motor moto, reomplert personatge automàtic
 
 let histGlobal = {
   ubicacions: [],
@@ -17,8 +18,8 @@ export async function resetEstructura() {
   histGlobal = {
     ubicacions: [],
     emocions: [],
-  frasesUsades: [],
-  frasesUsadesCap: [],
+    frasesUsades: [],
+    frasesUsadesCap: [],
     combinacionsUsades: new Set(),
     paraulesTotals: 0,
     usosOlor: {},
@@ -60,38 +61,52 @@ function pronomPerNom(nom) {
   return /^[AEIOUaeiou]/.test(nom)? 'Ella' : 'Ell';
 }
 
-// REGLA 5: Neteja espais
+// REGLA 5: Neteja espais + "el una" → "una"
 function netejaEspais(text) {
-  return text.replace(/\s+/g,' ').replace(/\s+([.,])/g,'$1').trim();
+  return text
+  .replace(/\s+/g,' ')
+  .replace(/\s+([.,])/g,'$1')
+  .replace(/\bel una\b/gi, 'una')
+  .replace(/\bla una\b/gi, 'una')
+  .trim();
 }
 
 // REGLA 6: ForçaPassat única - conjugació passat
 function forçaPassat(text) {
   return text
-   .replace(/\bMira\b/g, 'Va mirar')
-   .replace(/\bOlía\b/g, 'Feia olor')
-   .replace(/\bSe le congeló\b/g, 'Se li va gelar')
-   .replace(/\bSiente\b/g, 'Va sentir')
-   .replace(/\bCamina\b/g, 'Va caminar');
+  .replace(/\bMira\b/g, 'Va mirar')
+  .replace(/\bOlía\b/g, 'Feia olor')
+  .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+  .replace(/\bSiente\b/g, 'Va sentir')
+  .replace(/\bCamina\b/g, 'Va caminar');
 }
 
-// REGLA 1: Anti-{} + REGLA 2: Fix motor moto
+// REGLA 1: Anti-{} + REGLA 2: Fix motor moto + REOMPLERT PERSONATGE
 function safeReplace(text, vars) {
   let out = text;
+  const nom = vars['{p0}'] || 'Rita';
+  const nom2 = vars['{p1}'] || 'Víctor';
 
-  // Fix motor moto: "motor de la moto" → "motor"
-  out = out.replace(/\bmotor de la moto\b/gi, 'motor');
+  // FIX MOTOR: "motor de la moto" → "motor"
+  out = out.replace(/\bmotor\s+de\s+la\s+moto\b/gi, 'motor');
 
-  // Separar "sec i fred" del so, no del personatge
-  out = out.replace(/\bsec i fred\b(?=\s+(ell|ella|ell es|ella es))/gi, '');
+  // FIX SEC I FRED: Treure si va enganxat al so
+  out = out.replace(/(\buna moto accelerant fort\b|\bmotor\b)\s*,\s*sec i fred/gi, '$1 sec i fred');
 
-  // Replace variables
+  // REOMPLERT AUTOMÀTIC: ella → Rita, ell → Víctor, {} → Rita
+  out = out.replace(/\bell\b/gi, nom2);
+  out = out.replace(/\bella\b/gi, nom);
+  out = out.replace(/\bEll\b/gi, nom2);
+  out = out.replace(/\bElla\b/gi, nom);
+  out = out.replace(/\{\}/g, nom); // {} buits → nom
+
+  // Replace variables normals del main
   for (const [k,v] of Object.entries(vars)) {
     out = out.replaceAll(k, v);
   }
 
-  // REGLA 1: Anti-{} placeholders
-  out = out.replace(/\{[a-z0-9_\/]+\}/gi, '').trim();
+  // REGLA 1 FIX: Anti-{} DEFINITIU - agafa qualsevol cosa dins {}
+  out = out.replace(/\{[^}]*\}/g, '').trim();
   out = netejaEspais(out);
   return out.length > 10? out : '';
 }
@@ -104,7 +119,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const { nom, tic, ciutat, subtubActual, beatActual, beatAnterior, sinopsis, pauta, temps } = config;
   const paraulesObjectiu = config.paraulesObjectiu || 500;
 
-  // Reset cada 3 caps
+  // Reset cada 3 caps - Sincronitzat amb main.js
   if (numEsc === 1 && numCap % 3 === 0) {
     hist.frasesUsadesCap = [];
     hist.usosOlor = {};
@@ -164,6 +179,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     '{dia}': temps?.dia || '1',
     '{event}': temps?.event || '',
     '{p0}': nom,
+    '{p1}': config.nom2 || 'Víctor',
     '{esc}': escenari.nom,
     '{olor}': olor,
     '{so}': so,
@@ -185,7 +201,10 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
   };
 
-  let parrafo = forçaPassat(safeReplace(inicios[beatActual] || inicios['default'], varsTemps));
+  // ORDRE CORRECTE: safeReplace primer → forçaPassat després
+  let parrafo = safeReplace(inicios[beatActual] || inicios['default'], varsTemps);
+  parrafo = forçaPassat(parrafo);
+
   let paraulesComptades = contarPalabras(parrafo);
   let fraseIndex = 0;
   let intents = 0;
@@ -203,10 +222,10 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     }
 
     if (lectura) {
-      let text = forçaPassat(safeReplace(getTextoBase(lectura), varsTemps));
+      let text = safeReplace(getTextoBase(lectura), varsTemps);
+      text = forçaPassat(text);
 
       if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
-
         // REGLA 3: Ritme 3-2-3 + Connector cada 3a frase
         if (fraseIndex % 3 === 2) {
           const connector = CONNECTORS[Math.floor(Math.random() * CONNECTORS.length)];
@@ -284,4 +303,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.13 carregat - 7 regles integrades'); 
+console.log('✅ Motor Paràgraf V9.9.13 carregat - 7 regles + cablejat main integrat');
