@@ -1,7 +1,7 @@
-// generaparagraf.js - Motor Paràgraf V9.9.13 lec-flix policial FINAL
+// generaparagraf.js - Motor Paràgraf V9.9.14 lec-flix policial FINAL
 // Fixes: anti-{}, anti-repetició olor/so, ritme 3-2-3, forçaPassat única,
 // neteja espais, comptadors usosOlor/usosSo, connectors cada 3 frases,
-// fix motor moto, reomplert personatge automàtic
+// fix motor moto, reomplert personatge automàtic, ANTI-ACAPARAMENT OLOR
 
 let histGlobal = {
   ubicacions: [],
@@ -11,7 +11,8 @@ let histGlobal = {
   combinacionsUsades: new Set(),
   paraulesTotals: 0,
   usosOlor: {},
-  usosSo: {}
+  usosSo: {},
+  olorUsadaEscena: false // ← NOU: flag per evitar acaparament
 };
 
 export async function resetEstructura() {
@@ -23,9 +24,10 @@ export async function resetEstructura() {
     combinacionsUsades: new Set(),
     paraulesTotals: 0,
     usosOlor: {},
-    usosSo: {}
+    usosSo: {},
+    olorUsadaEscena: false // ← NOU
   };
-  console.log('🔄 Estructura V9.9.13 resetejada');
+  console.log('🔄 Estructura V9.9.14 resetejada');
 }
 
 function contarPalabras(texto) {
@@ -42,7 +44,6 @@ function getTextoBase(item) {
 // REGLA 2: Anti-repetició olor/so per clau + màxim 2 usos per escena
 function pickNoRepetit(arr, hist, tipus) {
   if (!arr || arr.length === 0) return null;
-
   const disponibles = arr.filter(item => {
     const txt = getTextoBase(item);
     if (!txt) return false;
@@ -52,7 +53,6 @@ function pickNoRepetit(arr, hist, tipus) {
     if (tipus === 'so' && (hist.usosSo[txt] || 0) >= 2) return false;
     return true;
   });
-
   const pool = disponibles.length > 0? disponibles : arr;
   return pool[Math.floor(Math.random() * pool.length)];
 }
@@ -64,21 +64,21 @@ function pronomPerNom(nom) {
 // REGLA 5: Neteja espais + "el una" → "una"
 function netejaEspais(text) {
   return text
-  .replace(/\s+/g,' ')
-  .replace(/\s+([.,])/g,'$1')
-  .replace(/\bel una\b/gi, 'una')
-  .replace(/\bla una\b/gi, 'una')
-  .trim();
+ .replace(/\s+/g,' ')
+ .replace(/\s+([.,])/g,'$1')
+ .replace(/\bel una\b/gi, 'una')
+ .replace(/\bla una\b/gi, 'una')
+ .trim();
 }
 
 // REGLA 6: ForçaPassat única - conjugació passat
 function forçaPassat(text) {
   return text
-  .replace(/\bMira\b/g, 'Va mirar')
-  .replace(/\bOlía\b/g, 'Feia olor')
-  .replace(/\bSe le congeló\b/g, 'Se li va gelar')
-  .replace(/\bSiente\b/g, 'Va sentir')
-  .replace(/\bCamina\b/g, 'Va caminar');
+ .replace(/\bMira\b/g, 'Va mirar')
+ .replace(/\bOlía\b/g, 'Feia olor')
+ .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+ .replace(/\bSiente\b/g, 'Va sentir')
+ .replace(/\bCamina\b/g, 'Va caminar');
 }
 
 // REGLA 1: Anti-{} + REGLA 2: Fix motor moto + REOMPLERT PERSONATGE
@@ -86,25 +86,20 @@ function safeReplace(text, vars) {
   let out = text;
   const nom = vars['{p0}'] || 'Rita';
   const nom2 = vars['{p1}'] || 'Víctor';
-
   // FIX MOTOR: "motor de la moto" → "motor"
   out = out.replace(/\bmotor\s+de\s+la\s+moto\b/gi, 'motor');
-
   // FIX SEC I FRED: Treure si va enganxat al so
   out = out.replace(/(\buna moto accelerant fort\b|\bmotor\b)\s*,\s*sec i fred/gi, '$1 sec i fred');
-
   // REOMPLERT AUTOMÀTIC: ella → Rita, ell → Víctor, {} → Rita
   out = out.replace(/\bell\b/gi, nom2);
   out = out.replace(/\bella\b/gi, nom);
   out = out.replace(/\bEll\b/gi, nom2);
   out = out.replace(/\bElla\b/gi, nom);
   out = out.replace(/\{\}/g, nom); // {} buits → nom
-
   // Replace variables normals del main
   for (const [k,v] of Object.entries(vars)) {
     out = out.replaceAll(k, v);
   }
-
   // REGLA 1 FIX: Anti-{} DEFINITIU - agafa qualsevol cosa dins {}
   out = out.replace(/\{[^}]*\}/g, '').trim();
   out = netejaEspais(out);
@@ -124,6 +119,11 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     hist.frasesUsadesCap = [];
     hist.usosOlor = {};
     hist.usosSo = {};
+  }
+
+  // NOU: Reset flag olor cada escena nova per evitar acaparament
+  if (numEsc === 1) {
+    hist.olorUsadaEscena = false;
   }
 
   const escenaris = (bancs.banco_escenarios || []).filter(e => {
@@ -153,18 +153,23 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
   const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
 
-  const olorObj = pickNoRepetit(olors, hist, 'olor');
+  // NOU: ANTI-ACAPARAMENT OLOR - màxim 1 per escena + 30% probabilitat
+  let olor = 'aire fred';
+  let olorObj = null;
+  if (!hist.olorUsadaEscena && Math.random() < 0.3) {
+    olorObj = pickNoRepetit(olors, hist, 'olor');
+    if (olorObj) {
+      olor = getTextoBase(olorObj);
+      hist.usosOlor[txt] = (hist.usosOlor[txt] || 0) + 1;
+      hist.olorUsadaEscena = true; // ← Marca usada
+    }
+  }
+
   const soObj = pickNoRepetit(sons, hist, 'so');
   const emocioObj = pickNoRepetit(emocions, hist);
-
-  const olor = olorObj? getTextoBase(olorObj) : 'aire fred';
   const so = soObj? getTextoBase(soObj) : 'silenci';
   const emocio = emocioObj? getTextoBase(emocioObj) : 'inquietud';
 
-  if (olorObj) {
-    const txt = getTextoBase(olorObj);
-    hist.usosOlor[txt] = (hist.usosOlor[txt] || 0) + 1;
-  }
   if (soObj) {
     const txt = getTextoBase(soObj);
     hist.usosSo[txt] = (hist.usosSo[txt] || 0) + 1;
@@ -214,7 +219,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   while (paraulesComptades < paraulesObjectiu && intents < 80) {
     intents++;
     let lectura = null;
-
     if (bancLecturaUsat.length > 0) {
       lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
     } else if (bancAuxUsat.length > 0) {
@@ -224,7 +228,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     if (lectura) {
       let text = safeReplace(getTextoBase(lectura), varsTemps);
       text = forçaPassat(text);
-
       if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
         // REGLA 3: Ritme 3-2-3 + Connector cada 3a frase
         if (fraseIndex % 3 === 2) {
@@ -235,11 +238,9 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
             text = connector + '. ' + text;
           }
         }
-
         if (fraseIndex >= 1) {
           text = text.replace(new RegExp(`\\b${nom}\\b`, 'g'), pronomPerNom(nom));
         }
-
         parrafo += ` ${text}`;
         hist.frasesUsades.push(text.substring(0,40));
         hist.frasesUsadesCap.push(text.substring(0,40));
@@ -258,7 +259,8 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       continue;
     }
 
-    if (olors.length > 0) {
+    // NOU: Fallback olor només si no s'ha usat i 20% probabilitat
+    if (olors.length > 0 &&!hist.olorUsadaEscena && Math.random() < 0.2) {
       const olorsDisp = olors.filter(o => {
         const txt = getTextoBase(o);
         return (hist.usosOlor[txt] || 0) < 2;
@@ -267,6 +269,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
         const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
         const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
         hist.usosOlor[olor2] = (hist.usosOlor[olor2] || 0) + 1;
+        hist.olorUsadaEscena = true; // ← Marca usada
         parrafo += ` L'olor de ${olor2} s'enfilava...`;
         paraulesComptades = contarPalabras(parrafo);
         fraseIndex++;
@@ -285,7 +288,7 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   }
 
   hist.paraulesTotals += paraulesComptades;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.13`);
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.14`);
 
   return {
     text: parrafo.trim(),
@@ -303,4 +306,4 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
 }
 
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.13 carregat - 7 regles + cablejat main integrat');
+console.log('✅ Motor Paràgraf V9.9.14 carregat - 7 regles + anti-acaparament olor integrat');
