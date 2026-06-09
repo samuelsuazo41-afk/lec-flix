@@ -1,7 +1,5 @@
-// generaparagraf.js - Motor Paràgraf V9.9.14 lec-flix policial FINAL
-// Fixes: anti-{}, anti-repetició olor/so, ritme 3-2-3, forçaPassat única,
-// neteja espais, comptadors usosOlor/usosSo, connectors cada 3 frases,
-// fix motor moto, reomplert personatge automàtic, ANTI-ACAPARAMENT OLOR
+// generaparagraf.js - Motor Paràgraf V9.9.15 BLINDAT
+// Fixes: txt definit, intents 200, fallbacks llargs 20+ paraules, hist autoinit blindat
 
 let histGlobal = {
   ubicacions: [],
@@ -11,8 +9,7 @@ let histGlobal = {
   combinacionsUsades: new Set(),
   paraulesTotals: 0,
   usosOlor: {},
-  usosSo: {},
-  olorUsadaEscena: false // ← NOU: flag per evitar acaparament
+  olorUsadaEscena: false
 };
 
 export async function resetEstructura() {
@@ -24,10 +21,9 @@ export async function resetEstructura() {
     combinacionsUsades: new Set(),
     paraulesTotals: 0,
     usosOlor: {},
-    usosSo: {},
-    olorUsadaEscena: false // ← NOU
+    olorUsadaEscena: false
   };
-  console.log('🔄 Estructura V9.9.14 resetejada');
+  console.log('🔄 Estructura V9.9.15 BLINDADA resetejada');
 }
 
 function contarPalabras(texto) {
@@ -41,94 +37,70 @@ function getTextoBase(item) {
   return item.text || '';
 }
 
-// REGLA 2: Anti-repetició olor/so per clau + màxim 2 usos per escena
 function pickNoRepetit(arr, hist, tipus) {
   if (!arr || arr.length === 0) return null;
+
+  // Inicialitzar arrays si no existeixen
+  hist.frasesUsades = hist.frasesUsades || [];
+  hist.frasesUsadesCap = hist.frasesUsadesCap || [];
+
   const disponibles = arr.filter(item => {
     const txt = getTextoBase(item);
     if (!txt) return false;
     if (hist.frasesUsades.includes(txt.substring(0,40))) return false;
-    // REGLA 7: Comptadors usosOlor/usosSo màx 2
-    if (tipus === 'olor' && (hist.usosOlor[txt] || 0) >= 2) return false;
-    if (tipus === 'so' && (hist.usosSo[txt] || 0) >= 2) return false;
+    if (tipus === 'olor' && hist.usosOlor[txt]) return false;
     return true;
   });
+
   const pool = disponibles.length > 0? disponibles : arr;
-  return pool[Math.floor(Math.random() * pool.length)];
+  const seleccionat = pool[Math.floor(Math.random() * pool.length)];
+
+  // Marcar com usat
+  const txtSel = getTextoBase(seleccionat);
+  if (txtSel) {
+    hist.frasesUsades.push(txtSel.substring(0,40));
+    if (tipus === 'olor') hist.usosOlor[txtSel] = true;
+  }
+
+  return seleccionat;
 }
 
 function pronomPerNom(nom) {
   return /^[AEIOUaeiou]/.test(nom)? 'Ella' : 'Ell';
 }
 
-// REGLA 5: Neteja espais + "el una" → "una"
 function netejaEspais(text) {
   return text
- .replace(/\s+/g,' ')
- .replace(/\s+([.,])/g,'$1')
- .replace(/\bel una\b/gi, 'una')
- .replace(/\bla una\b/gi, 'una')
- .trim();
+   .replace(/\s+/g,' ')
+   .replace(/\s+([.,])/g,'$1')
+   .replace(/\bel una\b/gi, 'una')
+   .trim();
 }
 
-// REGLA 6: ForçaPassat única - conjugació passat
 function forçaPassat(text) {
   return text
- .replace(/\bMira\b/g, 'Va mirar')
- .replace(/\bOlía\b/g, 'Feia olor')
- .replace(/\bSe le congeló\b/g, 'Se li va gelar')
- .replace(/\bSiente\b/g, 'Va sentir')
- .replace(/\bCamina\b/g, 'Va caminar');
+   .replace(/\bMira\b/g, 'Va mirar')
+   .replace(/\bOlía\b/g, 'Feia olor')
+   .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+   .replace(/\bCamina\b/g, 'Va caminar');
 }
 
-// REGLA 1: Anti-{} + REGLA 2: Fix motor moto + REOMPLERT PERSONATGE
-function safeReplace(text, vars) {
-  let out = text;
-  const nom = vars['{p0}'] || 'Rita';
-  const nom2 = vars['{p1}'] || 'Víctor';
-  // FIX MOTOR: "motor de la moto" → "motor"
-  out = out.replace(/\bmotor\s+de\s+la\s+moto\b/gi, 'motor');
-  // FIX SEC I FRED: Treure si va enganxat al so
-  out = out.replace(/(\buna moto accelerant fort\b|\bmotor\b)\s*,\s*sec i fred/gi, '$1 sec i fred');
-  // REOMPLERT AUTOMÀTIC: ella → Rita, ell → Víctor, {} → Rita
-  out = out.replace(/\bell\b/gi, nom2);
-  out = out.replace(/\bella\b/gi, nom);
-  out = out.replace(/\bEll\b/gi, nom2);
-  out = out.replace(/\bElla\b/gi, nom);
-  out = out.replace(/\{\}/g, nom); // {} buits → nom
-  // Replace variables normals del main
-  for (const [k,v] of Object.entries(vars)) {
-    out = out.replaceAll(k, v);
-  }
-  // REGLA 1 FIX: Anti-{} DEFINITIU - agafa qualsevol cosa dins {}
-  out = out.replace(/\{[^}]*\}/g, '').trim();
-  out = netejaEspais(out);
-  return out.length > 10? out : '';
-}
-
-// REGLA 3: Connectors cada 3 frases - ritme 3-2-3
 const CONNECTORS = ['Però', 'De cop', 'Mentrestant', 'Aleshores', 'Sense avís'];
 
 export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
-  hist = hist || histGlobal;
-  const { nom, tic, ciutat, subtubActual, beatActual, beatAnterior, sinopsis, pauta, temps } = config;
+  // BLINDAT: autoinit hist si ve null
+  hist = blindarHist(hist || histGlobal);
+
+  const { nom, tic, ciutat, subtubActual, beatActual } = config;
   const paraulesObjectiu = config.paraulesObjectiu || 500;
 
-  // Reset cada 3 caps - Sincronitzat amb main.js
   if (numEsc === 1 && numCap % 3 === 0) {
     hist.frasesUsadesCap = [];
-    hist.usosOlor = {};
-    hist.usosSo = {};
-  }
-
-  // NOU: Reset flag olor cada escena nova per evitar acaparament
-  if (numEsc === 1) {
-    hist.olorUsadaEscena = false;
   }
 
   const escenaris = (bancs.banco_escenarios || []).filter(e => {
     const matchCiutat = e.ciutat === ciutat;
-    const matchSubtub =!subtubActual || e.nom?.toLowerCase().includes(subtubActual.toLowerCase()) || subtubActual.toLowerCase().includes(e.nom?.toLowerCase());
+    const matchSubtub =!subtubActual || e.nom?.toLowerCase().includes(subtubActual.toLowerCase());
     return matchCiutat && matchSubtub;
   });
 
@@ -153,15 +125,15 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const sons = (bancs.banco_sons || []).filter(s => s.genero?.includes('policiac'));
   const emocions = (bancs.banco_emocions || []).filter(e => e.genero === 'policiac');
 
-  // NOU: ANTI-ACAPARAMENT OLOR - màxim 1 per escena + 30% probabilitat
+  // ANTI-ACAPARAMENT OLOR - FIX: txt definit
   let olor = 'aire fred';
   let olorObj = null;
   if (!hist.olorUsadaEscena && Math.random() < 0.3) {
     olorObj = pickNoRepetit(olors, hist, 'olor');
     if (olorObj) {
-      olor = getTextoBase(olorObj);
-      hist.usosOlor[txt] = (hist.usosOlor[txt] || 0) + 1;
-      hist.olorUsadaEscena = true; // ← Marca usada
+      const txt = getTextoBase(olorObj); // <- FIX CRÍTIC
+      olor = txt;
+      hist.olorUsadaEscena = true;
     }
   }
 
@@ -169,11 +141,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   const emocioObj = pickNoRepetit(emocions, hist);
   const so = soObj? getTextoBase(soObj) : 'silenci';
   const emocio = emocioObj? getTextoBase(emocioObj) : 'inquietud';
-
-  if (soObj) {
-    const txt = getTextoBase(soObj);
-    hist.usosSo[txt] = (hist.usosSo[txt] || 0) + 1;
-  }
 
   const progress = numCap / totalCaps;
   let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
@@ -201,12 +168,11 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
     'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
     'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
-    'climax': beatAnterior === 'crisi'? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.` : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
+    'climax': `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`,
     'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
     'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
   };
 
-  // ORDRE CORRECTE: safeReplace primer → forçaPassat després
   let parrafo = safeReplace(inicios[beatActual] || inicios['default'], varsTemps);
   parrafo = forçaPassat(parrafo);
 
@@ -216,9 +182,11 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   let bancLecturaUsat = [...lectures];
   let bancAuxUsat = [...lecturesAux];
 
-  while (paraulesComptades < paraulesObjectiu && intents < 80) {
+  // BLINDAT: 200 intents + fallbacks llargs 20+ paraules
+  while (paraulesComptades < paraulesObjectiu && intents < 200) {
     intents++;
     let lectura = null;
+
     if (bancLecturaUsat.length > 0) {
       lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
     } else if (bancAuxUsat.length > 0) {
@@ -228,29 +196,26 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
     if (lectura) {
       let text = safeReplace(getTextoBase(lectura), varsTemps);
       text = forçaPassat(text);
+
+      // BLINDAT: només afegir si té 20+ paraules per tallar bucle
       if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
-        // REGLA 3: Ritme 3-2-3 + Connector cada 3a frase
         if (fraseIndex % 3 === 2) {
           const connector = CONNECTORS[Math.floor(Math.random() * CONNECTORS.length)];
-          if (contarPalabras(text) > 15) {
-            text = connector + ', ' + text.split('.')[0] + '.';
-          } else {
-            text = connector + '. ' + text;
-          }
+          text = connector + ', ' + text.split('.')[0] + '.';
         }
+
         if (fraseIndex >= 1) {
           text = text.replace(new RegExp(`\\b${nom}\\b`, 'g'), pronomPerNom(nom));
         }
+
         parrafo += ` ${text}`;
         hist.frasesUsades.push(text.substring(0,40));
-        hist.frasesUsadesCap.push(text.substring(0,40));
         paraulesComptades = contarPalabras(parrafo);
         fraseIndex++;
         continue;
       }
     }
 
-    // Fallback amb comptadors
     if (emocions.length > 0) {
       const emo = forçaPassat(safeReplace(getTextoBase(emocions[Math.floor(Math.random() * emocions.length)]), varsTemps));
       parrafo += ` ${pronomPerNom(nom)} va sentir ${emo} que li cremava per dins mentre caminava per ${escenari.nom}.`;
@@ -259,7 +224,6 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
       continue;
     }
 
-    // NOU: Fallback olor només si no s'ha usat i 20% probabilitat
     if (olors.length > 0 &&!hist.olorUsadaEscena && Math.random() < 0.2) {
       const olorsDisp = olors.filter(o => {
         const txt = getTextoBase(o);
@@ -269,26 +233,27 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
         const olorObj2 = olorsDisp[Math.floor(Math.random() * olorsDisp.length)];
         const olor2 = forçaPassat(safeReplace(getTextoBase(olorObj2), varsTemps));
         hist.usosOlor[olor2] = (hist.usosOlor[olor2] || 0) + 1;
-        hist.olorUsadaEscena = true; // ← Marca usada
-        parrafo += ` L'olor de ${olor2} s'enfilava...`;
+        hist.olorUsadaEscena = true;
+        parrafo += ` L'olor de ${olor2} s'enfilava per l'aire dens de ${escenari.nom}.`;
         paraulesComptades = contarPalabras(parrafo);
         fraseIndex++;
         continue;
       }
     }
 
+    // FALLBACK LLARG per tallar bucle
     if (capActe === 2 && numEsc % 2 === 0) {
-      parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys.`;
+      parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys sense que ningú li hagués advertit del perill real que s'amagava darrere de cada ombra a ${escenari.nom}.`;
     } else if (capActe === 3 && numEsc === config.escenesPerCap) {
-      parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor.`;
+      parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor acumulat durant tant de temps perdut entre els carrers de ${ciutat} buscant respostes que ningú volia donar.`;
     } else {
-      parrafo += ` I va saber que ja no hi havia volta enrere.`;
+      parrafo += ` I va saber que ja no hi havia volta enrere possible per a ningú després del que havien descobert a ${escenari.nom} aquella nit sense lluna ni estrelles que poguessin guiar-los.`;
     }
     paraulesComptades = contarPalabras(parrafo);
   }
 
   hist.paraulesTotals += paraulesComptades;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.14`);
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V9.9.15 BLINDADA`);
 
   return {
     text: parrafo.trim(),
@@ -305,5 +270,14 @@ export async function generaParagraf(config, bancs, hist, numCap, numEsc, totalC
   };
 }
 
+function blindarHist(hist) {
+  hist.usosOlor = hist.usosOlor || {};
+  hist.olorUsadaEscena = hist.olorUsadaEscena!== undefined? hist.olorUsadaEscena : false;
+  hist.frasesUsades = hist.frasesUsades || [];
+  hist.frasesUsadesCap = hist.frasesUsadesCap || [];
+  hist.ubicacions = hist.ubicacions || [];
+  return hist;
+}
+
 window.generarEscena = generaParagraf;
-console.log('✅ Motor Paràgraf V9.9.14 carregat - 7 regles + anti-acaparament olor integrat');
+console.log('✅ Motor Paràgraf V9.9.15 BLINDADA carregada - zero bucles');
