@@ -1,1 +1,35 @@
-["policiac"]
+[
+  {
+    "id": "policiac",
+    "nombre": "Policial",
+    "activo": true,
+    "contexto_prologo": "Barcelona anys 50, pluja, ombres llargues, cafè fred a la comissaria. Protagonista cansat amb deute personal. Ambient noir, olors de pedra mullada i tabac vell.",
+    "ratio": "60_humano_20_policial_20_personal",
+    "beats": 12,
+    "tono": "fosc, introspectiu, tensió constant",
+    "objetos_clave": ["cafè fred", "placa", "dossier polsós", "foto cartera"],
+    "frases_gatillo": ["No dormia des de feia tres nits", "El cas havia començat dues hores abans"]
+  },
+  {
+    "id": "romantica",
+    "nombre": "Romàntica Contemporània",
+    "activo": false,
+    "contexto_prologo": "Barcelona actual, terrassa al Born, sol de tarda, olor de mar i cafè amb llet. Protagonista amb ferida emocional. Ambient càlid, diàleg espurnejant.",
+    "ratio": "70_humano_20_emocional_10_escena",
+    "beats": 12,
+    "tono": "càlid, irònic, tensió romàntica",
+    "objetos_clave": ["cafè amb llet", "llibreta", "missatge sense enviar", "paraigua"],
+    "frases_gatillo": ["No creia en segones oportunitats", "La va veure i el món va parar"]
+  },
+  {
+    "id": "thriller",
+    "nombre": "Thriller Psicològic",
+    "activo": false,
+    "contexto_prologo": "Pis buit, 3 AM, només el soroll de la nevera. Protagonista paranoica. Ambient claustrofòbic, tot pot ser mentida.",
+    "ratio": "50_tension_30_humano_20_gir",
+    "beats": 15,
+    "tono": "ansiós, paranoic, gir cada 3 caps",
+    "objetos_clave": ["rellotge parat", "nota anònima", "mirall esquerdat"],
+    "frases_gatillo": ["Algú l'observava des de la foscor", "La porta estava tancada per dins"]
+  }
+]
