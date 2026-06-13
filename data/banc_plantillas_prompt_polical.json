@@ -227,4 +227,186 @@
     "descripcio": "Crims última parada, metro tanca, climax túnel fosc",
     "prompt_master": "Ets escriptor thriller metro. 14 capítols claustrofòbia.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-4: {{ciutat_1}} metro → Cos vagó última parada\nEscena 5-8: {{ciutat_2}} → Víctima2 mateixa parada\nEscena 9-14: {{ciutat_3}} túnel → Climax revisor assassí\nREGLA COHERÈNCIA VIATGE: Línia metro passa 3 ciutats. Últim tren 2:00 AM sense sortida.\n\nVARIABLES: {{policia_metro}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{última_parada}} {{senzill}} bitllet {{túnel}}\n\nHOOK CAP 1: 'Últim metro 2:00 AM {{ciutat_1}}. Home apunyalat vagó buit.' Pregunta: 'Qui puja a última hora?'\n\nCAP 1-4: INICI cos vagó {{ciutat_1}}. ENLLAÇ càmeres sense rostre. DESENLLAÇ CLIFF: Bitllet senzill sense tornar. 'D'on ve?'\nCAP 5-8: INICI víctima2 mateixa parada {{ciutat_2}}. ENLLAÇ cap 9. DESENLLAÇ CLIFF OPEN LOOP: Totes víctimes porten bitllet mateix número. 'Missatge?'\nCAP 9 BEAT 8 PAYBACK: INICI descobreix revisor és assassí. ENLLAÇ {{ciutat_3}} túnel. DESENLLAÇ CLIFF PAYBACK: Revisor venja acomiadament. 'Tren és casa teva?' GIR.\nCAP 10-14 PAYBACK TOTAL: INICI túnel fosc apaguen llums {{ciutat_3}}. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Revisor atropellat tren. Frase: 'Última parada per tots.'\n\nCONTINUÏTAT: Vagó → bitllet → revisor → túnel. SORTIDA: 14 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + claustrofòbia + MULTILOCAL 1-3 CIUTATS."
   },
-  
+  {
+  "id": "pol_20_profesor_criminal",
+  "subgenere": "Professor Criminal",
+  "nom": "Mestre assassí 12 caps",
+  "caps": 12,
+  "ratio": "60_policial_30_humano_10_personal",
+  "climax": "aula_abandonada",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "open_loop", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["urbana","escola","psicologic"],
+  "descripcio": "Professor literatura deixa pistes literatura a crims, climax aula abandonada",
+  "prompt_master": "Ets escriptor thriller psicològic bestseller. Genera SINOPSI 12 capítols professor criminal + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-4: {{ciutat_1}} {{escola}} → Crim 1 amb cita Poe\nEscena 5-8: {{ciutat_2}} biblioteca → Professor sospitós\nEscena 9-12: {{ciutat_3}} aula abandonada → Confrontació final\nREGLA COHERÈNCIA VIATGE: Professor es mou entre ciutats donant classes. Ruta {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}} segueix calendari escolar.\n\nVARIABLES: {{professor}} {{detectiu_lector}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{obra_literaria}} {{aula_abandonada}} {{pista1}} {{pista2}}\n\nHOOK CAP 1: 'Cadàver a {{ciutat_1}} amb full Poe: El cor delator. Signat P.' Pregunta: 'Quin professor cita Poe abans de matar?'\n\nCAP 1-4: INICI crim {{ciutat_1}} cita literària. ENLLAÇ detectiu lliga Poe. DESENLLAÇ CLIFF: Segon crim mateix mètode. CONTINUÏTAT: cita.\nCAP 5-8 BEAT 8: INICI biblioteca {{ciutat_2}} professor present. ENLLAÇ pista llibre. DESENLLAÇ CLIFF PAYBACK: Professor va ser alumne víctima. GIR.\nCAP 9-12 PAYBACK TOTAL: INICI {{ciutat_3}} aula abandonada trampa. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Professor detingut. Frase: 'La literatura mata més que bala.'\n\nCONTINUÏTAT: Poe → pista llibre → aula. SORTIDA: 12 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_21_venganza_familiar",
+  "subgenere": "Venjança Familiar",
+  "nom": "Sang per sang 14 caps",
+  "caps": 14,
+  "ratio": "55_policial_35_humano_10_personal",
+  "climax": "cementiri_familiar",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["poble","cementiri","venjança"],
+  "descripcio": "Germà menor busca venjança mort germà gran, climax cementiri familiar",
+  "prompt_master": "Ets escriptor venjança bestseller. 14 caps sang per sang + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-5: {{ciutat_1}} poble → Mort germà gran\nEscena 6-10: {{ciutat_2}} → Menor entrena, busca culpables\nEscena 11-14: {{ciutat_3}} cementiri familiar → Enfrontament final\nREGLA COHERÈNCIA VIATGE: Menor recorre pobles buscant qui va matar germà. {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}} seguint pista vella.\n\nVARIABLES: {{germa_menor}} {{germa_gran}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{assins}} {{cementiri}} {{arma_germa}}\n\nHOOK: 'Creu germà gran {{ciutat_1}} amb data d’ahir. Qui mata després de mort?'\n\nCAP 1-5: INICI funeral {{ciutat_1}}. ENLLAÇ menor troba arma germà. DESENLLAÇ CLIFF: Llista 3 noms.\nCAP 6-10 BEAT 8: INICI {{ciutat_2}} mata primer. ENLLAÇ descobreix germà gran era policia encobert. DESENLLAÇ CLIFF PAYBACK: Venjança era ordre del germà. GIR.\nCAP 11-14 PAYBACK TOTAL: INICI {{ciutat_3}} cementiri enfrontament últim assassí. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Menor perdona, deixa arma tomba. Frase: 'Sang no renta sang.'\n\nCONTINUÏTAT: Llista → arma → perdó. SORTIDA: 14 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_22_falsos_testimonis",
+  "subgenere": "Falsos Testimonis",
+  "nom": "Tots menteixen 12 caps",
+  "caps": 12,
+  "ratio": "60_policial_30_humano_10_personal",
+  "climax": "sala_interrogatoris",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "open_loop", "payback_beat8"],
+  "tags_ciutats": ["urbana","interrogatori","mentides"],
+  "descripcio": "4 testimonis, 4 versions, només 1 veritat, climax sala interrogatoris",
+  "prompt_master": "Ets escriptor misteri Rashomon bestseller. 12 caps 4 testimonis + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-3: {{ciutat_1}} escena crim → Testimoni 1\nEscena 4-6: {{ciutat_2}} → Testimoni 2 versió diferent\nEscena 7-12: {{ciutat_3}} sala interrogatoris → Creua versions\nREGLA COHERÈNCIA VIATGE: Inspector trasllada testimonis entre comissaries {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}} per aïllar-los.\n\nVARIABLES: {{inspector}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{testimoni1}} {{testimoni2}} {{testimoni3}} {{testimoni4}} {{veritat}}\n\nHOOK: '4 persones veuen mateix assassinat a {{ciutat_1}}. 4 històries, 0 coincidents.'\n\nCAP 1-3: INICI testimoni 1 {{ciutat_1}} culpa A. DESENLLAÇ CLIFF: Té àlibi.\nCAP 4-6: INICI testimoni 2 {{ciutat_2}} culpa B. DESENLLAÇ CLIFF: Té àlibi.\nCAP 7-8 BEAT 8: INICI creua versions {{ciutat_3}}. DESENLLAÇ CLIFF PAYBACK: Tots 4 menteixen per protegir víctima. GIR.\nCAP 9-12 PAYBACK TOTAL: INICI sala interrogatoris {{ciutat_3}} confrontació. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Víctima es va suïcidar. Frase: 'Veritat no ven, mentida sí.'\n\nCONTINUÏTAT: Versió1 → Versió2 → Creua → Veritat. SORTIDA: 12 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_23_cazador_recompensas",
+  "subgenere": "Caçador Recompenses",
+  "nom": "Preu al cap 12 caps",
+  "caps": 12,
+  "ratio": "65_policial_25_humano_10_personal",
+  "climax": "frontera",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["frontera","desert","persecució"],
+  "descripcio": "Caçador busca fugitiu amb recompensa, climax frontera",
+  "prompt_master": "Ets escriptor western modern bestseller. 12 caps persecució + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-4: {{ciutat_1}} cartell 'Wanted' → Caçador accepta\nEscena 5-8: {{ciutat_2}} desert → Rastre fred\nEscena 9-12: {{ciutat_3}} frontera → Enfrontament final\nREGLA COHERÈNCIA VIATGE: Persecució cap a frontera. {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}} perdent/recuperant rastre.\n\nVARIABLES: {{caçador}} {{fugitiu}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{recompensa}} {{frontera}} {{traïdor}}\n\nHOOK: '100.000€ viu o mort a {{ciutat_1}}. Foto fugitiu 10 anys més jove.'\n\nCAP 1-4: INICI caçador {{ciutat_1}} agafa cas. ENLLAÇ primera pista. DESENLLAÇ CLIFF: Pista porta desert.\nCAP 5-8 BEAT 8: INICI desert {{ciutat_2}} troba cabanya. ENLLAÇ fugitiu era policia. DESENLLAÇ CLIFF PAYBACK: Caçador va delatar policia fa 10 anys. GIR.\nCAP 9-12 PAYBACK TOTAL: INICI {{ciutat_3}} frontera duel. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Caçador deixa fugir, trenca contracte. Frase: 'Algunes recompenses no es cobren.'\n\nCONTINUÏTAT: Cartell → pista → frontera. SORTIDA: 12 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_24_culto_secreto",
+  "subgenere": "Culto Secreto",
+  "nom": "Secte ciutat 14 caps",
+  "caps": 14,
+  "ratio": "55_policial_35_humano_10_personal",
+  "climax": "catedral_subterrània",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "open_loop", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["urbana","secta","subterrani"],
+  "descripcio": "Desaparicions rituales, secte sota ciutat, climax catedral subterrània",
+  "prompt_master": "Ets escriptor thriller secta bestseller. 14 caps rituals + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-5: {{ciutat_1}} superfície → Desaparicions joves\nEscena 6-10: {{ciutat_2}} clavegueram → Símbols secta\nEscena 11-14: {{ciutat_3}} catedral subterrània → Ritual final\nREGLA COHERÈNCIA VIATGE: Descens físic. {{ciutat_1}} superfície → {{ciutat_2}} subterani → {{ciutat_3}} profund.\n\nVARIABLES: {{detectiu}} {{líder_secta}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{víctima17}} {{símbol}} {{catedral}}\n\nHOOK: '17 joves desapareguts {{ciutat_1}}. Tots amb mateix símbol pintat porta.'\n\nCAP 1-5: INICI desaparició 17 {{ciutat_1}}. ENLLAÇ símbol. DESENLLAÇ CLIFF: Símbol és mapa clavegueram.\nCAP 6-10 BEAT 8: INICI {{ciutat_2}} clavegueram troba altar. ENLLAÇ líder és alcalde. DESENLLAÇ CLIFF PAYBACK: Alcalde dirigeix secte. GIR.\nCAP 11-14 PAYBACK TOTAL: INICI {{ciutat_3}} catedral subterrània ritual nit 17. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Rescat víctima 17, alcalde arrestat. Frase: 'Déu no viu sota terra.'\n\nCONTINUÏTAT: Símbol → altar → catedral. SORTIDA: 14 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_25_robo_perfecto",
+  "subgenere": "Robo Perfecto",
+  "nom": "Atracament museu 12 caps",
+  "caps": 12,
+  "ratio": "60_policial_30_humano_10_personal",
+  "climax": "galeria_buida",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "payback_beat14"],
+  "tags_ciutats": ["urbana","museu","robatori"],
+  "descripcio": "Roben quadre impossible, dins hi havia res, climax galeria buida",
+  "prompt_master": "Ets escriptor heist bestseller. 12 caps robatori impossible + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-4: {{ciutat_1}} museu → Roben 'La Gioconda'\nEscena 5-8: {{ciutat_2}} magatzem → Quadre fals\nEscena 9-12: {{ciutat_3}} galeria buida → Veritat robatori\nREGLA COHERÈNCIA VIATGE: Quadre es mou {{ciutat_1}} museu → {{ciutat_2}} fals → {{ciutat_3}} veritat.\n\nVARIABLES: {{lladre}} {{detectiu_art}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{quadre}} {{galeria_buida}} {{motiu_real}}\n\nHOOK: 'Alarma {{ciutat_1}} 3AM. Quadre desapareix. Càmeres no graven res.'\n\nCAP 1-4: INICI robatori {{ciutat_1}} museu. ENLLAÇ detectiu art. DESENLLAÇ CLIFF: Quadre era fals fa 20 anys.\nCAP 5-8: INICI {{ciutat_2}} magatzem troba original. DESENLLAÇ CLIFF: Lladre va robar fals per protegir original.\nCAP 9-12 PAYBACK TOTAL: INICI {{ciutat_3}} galeria buida. ENLLAÇ veritat. DESENLLAÇ CLIFF RESOLT: Robatori era per denunciar falsificació museu. Frase: 'El millor robatori és dir veritat.'\n\nCONTINUÏTAT: Fals → original → veritat. SORTIDA: 12 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_26_psicopata_mirror",
+  "subgenere": "Psicòpata Mirror",
+  "nom": "Assassí copia tu 14 caps",
+  "caps": 14,
+  "ratio": "60_policial_30_humano_10_personal",
+  "climax": "casa_mirrors",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "open_loop", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["urbana","psicologic","mirrors"],
+  "descripcio": "Assassí copia mètodes detectiu, climax casa miralls",
+  "prompt_master": "Ets escriptor psicòpata bestseller. 14 caps mirror killer + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-5: {{ciutat_1}} crims → Copien casos antics detectiu\nEscena 6-10: {{ciutat_2}} → Missatges directes detectiu\nEscena 11-14: {{ciutat_3}} casa miralls → Confrontació final\nREGLA COHERÈNCIA VIATGE: Assassí segueix carrera detectiu. Ciutats on detectiu va treballar {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}}.\n\nVARIABLES: {{detectiu}} {{mirror_killer}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{cas_antic1}} {{cas_antic2}} {{casa_mirrors}}\n\nHOOK: 'Nou cadàver {{ciutat_1}} mateix mètode cas teu fa 8 anys. Firma: Tu.'\n\nCAP 1-5: INICI crim copia cas antic {{ciutat_1}}. ENLLAÇ detectiu reconeix mètode. DESENLLAÇ CLIFF: Segon crim copia segon cas.\nCAP 6-10 BEAT 8: INICI missatge {{ciutat_2}}: 'Sóc el teu millor cas'. ENLLAÇ descobreix mirror era pacient teràpia. DESENLLAÇ CLIFF PAYBACK: Detectiu va fallar cas antic. GIR.\nCAP 11-14 PAYBACK TOTAL: INICI {{ciutat_3}} casa miralls laberint. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Mirror detingut, detectiu accepta error. Frase: 'El monstre em mira i sóc jo.'\n\nCONTINUÏTAT: Cas1 → Cas2 → casa miralls. SORTIDA: 14 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_27_negligencia_medica",
+  "subgenere": "Negligència Mèdica",
+  "nom": "Mort quiròfan 12 caps",
+  "caps": 12,
+  "ratio": "55_policial_35_humano_10_personal",
+  "climax": "quiròfan",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["hospital","medicina","encobriment"],
+  "descripcio": "Pacient mor operació, hospital encobreix, climax quiròfan",
+  "prompt_master": "Ets escriptor thriller mèdic bestseller. 12 caps negligència + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-4: {{ciutat_1}} hospital → Mort pacient VIP\nEscena 5-8: {{ciutat_2}} clínica privada → Compra silenci\nEscena 9-12: {{ciutat_3}} quiròfan → Prova final\nREGLA COHERÈNCIA VIATGE: Dossier mèdic es mou entre hospitals {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}} per ocultar-lo.\n\nVARIABLES: {{inspector}} {{cirurgià}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{pacient_VIP}} {{error_mèdic}} {{quiròfan}}\n\nHOOK: 'Pacient VIP mor {{ciutat_1}} quiròfan. Acta diu: Parada cardíaca. Infernadora diu: Altre.'\n\nCAP 1-4: INICI mort {{ciutat_1}}. ENLLAÇ infernadora testimoni. DESENLLAÇ CLIFF: Infernadora desapareix.\nCAP 5-8 BEAT 8: INICI {{ciutat_2}} clínica paga silenci. ENLLAÇ troba dossier. DESENLLAÇ CLIFF PAYBACK: Cirurgià borratxo operació. GIR.\nCAP 9-12 PAYBACK TOTAL: INICI {{ciutat_3}} quiròfan prova vídeo. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Cirurgià condemnat, hospital paga. Frase: 'Jurament Hipòcrates també jutja.'\n\nCONTINUÏTAT: Mort → dossier → vídeo. SORTIDA: 12 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_28_trata_blancas",
+  "subgenere": "Trata Blanques",
+  "nom": "Xarxa noies 16 caps",
+  "caps": 16,
+  "ratio": "60_policial_30_humano_10_personal",
+  "climax": "vaixell_càrrega",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "open_loop", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["port","tràfic","rescat"],
+  "descripcio": "Xarxa tràfic noies, rescat climax vaixell càrrega",
+  "prompt_master": "Ets escriptor rescat bestseller. 16 caps tràfic + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-6: {{ciutat_1}} port → Noia desapareix\nEscena 7-12: {{ciutat_2}} → Ruta tràfic, suborns\nEscena 13-16: {{ciutat_3}} vaixell càrrega mar → Rescat\nREGLA COHERÈNCIA VIATGE: Ruta tràfic real {{ciutat_1}} port → {{ciutat_2}} trànsit → {{ciutat_3}} destinació mar.\n\nVARIABLES: {{agent}} {{noia_principal}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{xarxa}} {{vaixell}} {{contenidor}}\n\nHOOK: 'Noia 16 anys desapareix {{ciutat_1}} port. Última foto: contenidor amb número.'\n\nCAP 1-6: INICI desaparició {{ciutat_1}}. ENLLAÇ agent troba contenidor buit. DESENLLAÇ CLIFF: Número porta altre port.\nCAP 7-12 BEAT 8: INICI {{ciutat_2}} suborn policia local. ENLLAÇ ruta mapa. DESENLLAÇ CLIFF PAYBACK: Agent infiltrat és part xarxa. GIR.\nCAP 13-16 PAYBACK TOTAL: INICI {{ciutat_3}} vaixell càrrega mar nit. ENLLAÇ rescat. DESENLLAÇ CLIFF RESOLT: Noies alliberades, xarxa cau. Frase: 'Llibertat no té preu.'\n\nCONTINUÏTAT: Contenidor → ruta → vaixell. SORTIDA: 16 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_29_fals_identitat",
+  "subgenere": "Falsa Identitat",
+  "nom": "No sóc jo 12 caps",
+  "caps": 12,
+  "ratio": "60_policial_30_humano_10_personal",
+  "climax": "registre_civil",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["urbana","identitat","fraude"],
+  "descripcio": "Home acusat crim que no va fer, algú roba identitat, climax registre civil",
+  "prompt_master": "Ets escriptor identitat robada bestseller. 12 caps fals jo + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-4: {{ciutat_1}} detenció → Home acusat assassinat\nEscena 5-8: {{ciutat_2}} → Busca proves no era ell\nEscena 9-12: {{ciutat_3}} registre civil → Descobreix doble\nREGLA COHERÈNCIA VIATGE: Home fuig entre ciutats demostrant no era ell. {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}} buscant àlibi.\n\nVARIABLES: {{acusat}} {{doble}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{assassinat}} {{registre}} {{DNI_fals}}\n\nHOOK: 'Detenen Marc {{ciutat_1}} assassinat. Marc estava 300km lluny amb família.'\n\nCAP 1-4: INICI detenció {{ciutat_1}}. ENLLAÇ àlibi no serveix. DESENLLAÇ CLIFF: Càmeres mostren 'Marc' cometent crim.\nCAP 5-8 BEAT 8: INICI {{ciutat_2}} busca doble. ENLLAÇ troba DNI fals. DESENLLAÇ CLIFF PAYBACK: Doble és germà bessó abandonat. GIR.\nCAP 9-12 PAYBACK TOTAL: INICI {{ciutat_3}} registre civil certificat naixement. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Germà detingut, Marc lliure. Frase: 'Jo no soc ell, però ell és jo.'\n\nCONTINUÏTAT: Detenció → DNI fals → registre. SORTIDA: 12 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_30_ultima_voluntat",
+  "subgenere": "Última Voluntat",
+  "nom": "Testament sang 12 caps",
+  "caps": 12,
+  "ratio": "55_policial_35_humano_10_personal",
+  "climax": "despatx_notari",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["urbana","herència","família"],
+  "descripcio": "Miliari mor, testament deixa pista assassinat, climax despatx notari",
+  "prompt_master": "Ets escriptor herència criminal bestseller. 12 caps testament + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-4: {{ciutat_1}} funeral → Lectura testament\nEscena 5-8: {{ciutat_2}} → Pista amagada testament\nEscena 9-12: {{ciutat_3}} despatx notari → Veritat mort\nREGLA COHERÈNCIA VIATGE: Família recorre propietats difunt {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}} seguint pistes testament.\n\nVARIABLES: {{hereu}} {{notari}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{miliari}} {{pista_testament}} {{assí_família}}\n\nHOOK: 'Miliari mor {{ciutat_1}} natural. Testament: Si llegeixes això, m’han matat.'\n\nCAP 1-4: INICI lectura {{ciutat_1}}. ENLLAÇ pista 1: clau. DESENLLAÇ CLIFF: Hereu principal no és família.\nCAP 5-8 BEAT 8: INICI {{ciutat_2}} caixa seguretat. ENLLAÇ pista 2: vídeo. DESENLLAÇ CLIFF PAYBACK: Vídeo mostra nebot enverinant. GIR.\nCAP 9-12 PAYBACK TOTAL: INICI {{ciutat_3}} despatx notari confrontació. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Nebot arrestat, hereu real hereta. Frase: 'Diners compren silenci, no vida.'\n\nCONTINUÏTAT: Clau → caixa → vídeo. SORTIDA: 12 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_31_doble_agent",
+  "subgenere": "Doble Agent",
+  "nom": "Toro a la comissaria 14 caps",
+  "caps": 14,
+  "ratio": "65_policial_25_humano_10_personal",
+  "climax": "comissaria",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "open_loop", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["urbana","comissaria","traïció","madrugada"],
+  "descripcio": "Agent infiltrat clan dins policia, company és doble agent, climax comissaria nit",
+  "prompt_master": "Ets escriptor thriller doble agent bestseller. Genera SINOPSI 14 capítols paranoia + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-5: {{ciutat_1}} comissaria → Agent infiltrat clan, no confia ningú\nEscena 6-10: {{ciutat_2}} → Descobreix fuita informació, sospita 3 companys\nEscena 11-14: {{ciutat_3}} comissaria nit → Enfrontament final company doble agent\nREGLA COHERÈNCIA VIATGE: Agent es mou {{ciutat_1}}→{{ciutat_2}} seguint pista, torna {{ciutat_3}} per tancar cas.\n\nVARIABLES: {{agent}} {{company_doble}} {{cap_corrupte}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{fuita}} {{gravadora}}\n\nHOOK CAP 1: 'Agent nou a {{ciutat_1}}. 48h després, operació secreta filtrada. Només 5 sabíem.' Pregunta: 'Qui és el doble?'\n\nCAP 1-5: INICI operació filtrada {{ciutat_1}}. ENLLAÇ sospita 3 companys. DESENLLAÇ CLIFF: Missatge anònim: 'Un de vosaltres cobra clan'. CONTINUÏTAT: gravadora.\nCAP 6-10: INICI investiga fuita {{ciutat_2}}. ENLLAÇ cap 8 BEAT 8. DESENLLAÇ CLIFF OPEN LOOP: Troba gravadora cotxe {{company_doble}}. CONTINUÏTAT: sospita.\nCAP 11-13: INICI torna {{ciutat_3}} comissaria. ENLLAÇ nit. DESENLLAÇ CLIFF PAYBACK: {{company_doble}} apunta agent amb arma. 'Treballava clan 10 anys'. GIR.\nCAP 14 PAYBACK TOTAL: INICI comissaria buida {{ciutat_3}} 3 AM. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Agent grava confessió. {{company_doble}} arrestat. Frase: 'Confiança mata més que bala.'\n\nCONTINUÏTAT: Fuita → gravadora → confessió. PATTERN: Esc1 sospita, Esc2 investigació, Esc3 enfrontament. TONO 65/25/10. SORTIDA: 14 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_32_psicologic_terror",
+  "subgenere": "Psicològic Terror",
+  "nom": "Assassí imita 12 caps",
+  "caps": 12,
+  "ratio": "50_policial_40_humano_10_personal",
+  "climax": "casa_abandonada",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "open_loop", "payback_beat14"],
+  "tags_ciutats": ["bosque","abandonada","psicològic","obsessió"],
+  "descripcio": "Assassí copia crims 20 anys enrere, detectiu amb trauma, climax casa abandonada",
+  "prompt_master": "Ets escriptor thriller psicològic bestseller. 12 caps assassí imita + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-4: {{ciutat_1}} escena crim → Copia crim 1998\nEscena 5-8: {{ciutat_2}} → Detectiu descobreix diari assassí antic\nEscena 9-12: {{ciutat_3}} {{casa}} abandonada → Climax psicòtic\nREGLA COHERÈNCIA VIATGE: Detectiu segueix ruta crims originals {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}} casa.\n\nVARIABLES: {{detectiu}} {{assí}} {{crim1998}} {{diari}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{casa}} abandonada {{trauma}}\n\nHOOK: 'Cos trobat {{ciutat_1}}. Mateixa posició, mateixa navalla que cas 1998 sense resoldre.'\n\nCAP 1-4: INICI escena crim còpia {{ciutat_1}}. ENLLAÇ diari 1998. DESENLLAÇ CLIFF: 'Ell ha tornat o algú l’imita?'\nCAP 5-8: INICI detectiu trauma {{ciutat_2}}. ENLLAÇ cap 8 BEAT 8. DESENLLAÇ CLIFF OPEN LOOP: Detectiu era testimoni 1998. CONTINUÏTAT: trauma.\nCAP 9-12 PAYBACK TOTAL: INICI {{ciutat_3}} casa abandonada. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Assassí era fill víctima 1998. Frase: 'Cicles sang no es trenquen sols.'\n\nCONTINUÏTAT: Crim → diari → trauma → casa. SORTIDA: 12 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_33_narco_frontera",
+  "subgenere": "Narco Frontera",
+  "nom": "RUTA Blanca 16 caps",
+  "caps": 16,
+  "ratio": "60_policial_30_humano_10_personal",
+  "climax": "pont_fronterer",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "open_loop", "payback_beat8", "payback_beat14"],
+  "tags_ciutats": ["frontera","pont","narco","desert"],
+  "descripcio": "Cartel droga frontera, DEA + policia local, climax pont fronterer tempesta",
+  "prompt_master": "Ets escriptor narco thriller bestseller. 16 caps cartel + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-6: {{ciutat_1}} frontera → DEA arriba, droga creua\nEscena 7-11: {{ciutat_2}} desert → Persecució camions\nEscena 12-16: {{ciutat_3}} {{pont}} fronterer → Climax intercanvi\nREGLA COHERÈNCIA VIATGE: Ruta droga {{ciutat_1}}→{{ciutat_2}} desert→{{ciutat_3}} pont. Descriu calor desert.\n\nVARIABLES: {{agent_dea}} {{capo}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{pont}} {{droga}} {{camio}} {{informant}}\n\nHOOK: '500kg creuen frontera {{ciutat_1}} cada nit. DEA porta 3 anys sense veure cara capo.'\n\nCAP 1-6: INICI DEA {{ciutat_1}}. ENLLAÇ informant local. DESENLLAÇ CLIFF: Informant apareix mort desert.\nCAP 7-11 BEAT 8: INICI persecució {{ciutat_2}}. ENLLAÇ descobreix capo és jutge. GIR. DESENLLAÇ CLIFF PAYBACK: Jutge ordena matar agent.\nCAP 12-16 PAYBACK TOTAL: INICI {{ciutat_3}} pont fronterer tempesta. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: Camió cau riu, capo arrestat. Frase: 'Frontera no perdona.'\n\nCONTINUÏTAT: Informant → jutge → pont. SORTIDA: 16 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + MULTILOCAL 1-3 CIUTATS."
+},
+{
+  "id": "pol_34_ultim_caso_jubilacio_amazon",
+  "subgenere": "Últim Cas Jubilació",
+  "nom": "48h Jubilació 12 caps",
+  "caps": 12,
+  "ratio": "55_policial_35_humano_10_personal",
+  "climax": "despatx_buit",
+  "metodes_amazon": ["hook_5s", "cliffhanger_cap", "open_loop", "payback_beat14"],
+  "tags_ciutats": ["urbana","nostàlgia","comissaria","comiat"],
+  "descripcio": "Inspector jubila demà, cas antic 30 anys torna, última oportunitat",
+  "prompt_master": "Ets escriptor comiat policia bestseller. 12 caps 4h cada cap + cliffhangers.\n\nLOCACIONS 1-3 CIUTATS:\nEscena 1-4: {{ciutat_1}} comissaria → Obre caixa pols 30 anys\nEscena 5-8: {{ciutat_2}} → Busca proves DNA, laboratori\nEscena 9-12: {{ciutat_3}} despatx buit → Climax i comiat placa\nREGLA COHERÈNCIA VIATGE: Últim viatge inspector abans jubilació. Comiat recorrent llocs cas antic {{ciutat_1}}→{{ciutat_2}}→{{ciutat_3}}.\n\nVARIABLES: {{inspector_vell}} {{ciutat_1}} {{ciutat_2}} {{ciutat_3}} {{cas_antic}} 30anys {{company_jove}} {{placa}} {{DNA}}\n\nHOOK CAP 1: 'Demà jubilació {{ciutat_1}}. Trucada 11 PM: Cas {{cas_antic}} té moviment. 48h.' Pregunta: 'Tancaràs cercle?'\n\nCAP 1-4: INICI obre caixa pols 30 anys {{ciutat_1}}. ENLLAÇ company jove ajuda. DESENLLAÇ CLIFF: Prova nova DNA congelada.\nCAP 5-8: INICI DNA no coincideix {{ciutat_2}} laboratori. ENLLAÇ cap 8. DESENLLAÇ CLIFF OPEN LOOP: 'Qui va mentir 30 anys i per què?'\nCAP 9-11: INICI descobreix company jove és fill assassí. ENLLAÇ {{ciutat_3}} despatx. DESENLLAÇ CLIFF PAYBACK: Company saboteja cas per protegir pare.\nCAP 12 PAYBACK TOTAL: INICI {{ciutat_3}} despatx buit última nit 8 AM. ENLLAÇ final. DESENLLAÇ CLIFF RESOLT: {{inspector_vell}} resol cas sol. Deixa placa taula i marxa. Frase: 'Cas tancat, vida comença.'\n\nCONTINUÏTAT: Caixa → DNA → company → placa taula.\nPATTERN: Esc1 nostàlgia, Esc2 ciència, Esc3 comiat. TONO 55/35/10. SORTIDA: 12 caps INICI/ENLLAÇ/DESENLLAÇ CLIFF + comiat + MULTILOCAL 1-3 CIUTATS."
+}
+]
+ 
+
