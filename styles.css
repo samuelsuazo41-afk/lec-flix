@@ -1,623 +1,379 @@
-:root { 
-  --bg-dark: #0d0f12; 
-  --bg-panel: #161a1f; 
-  --bg-hover: #1e232b; 
-  --text: #e6e8eb; 
-  --text-muted: #8a9199; 
-  --accent: #4ade80; 
-  --accent-hover: #22c55e; 
-  --border: #2a2f36; 
-  --danger: #ef4444; 
-} 
+:root {
+  --bg: #0d0f12;
+  --bg-panel: #1a1d22;
+  --bg-hover: #23272e;
+  --text: #e6e7e9;
+  --text-muted: #8a8f96;
+  --accent: #00bcd4;
+  --accent-hover: #00acc1;
+  --border: #2a2e33;
+  --btn: #262a31;
+  --danger: #ef4444;
+}
 
 * { 
   box-sizing: border-box; 
   margin: 0; 
   padding: 0; 
-} 
-
-body { 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-  background: var(--bg-dark); 
-  color: var(--text); 
-  line-height: 1.6; 
-  padding-bottom: 80px; 
-} 
-
-header { 
-  background: var(--bg-panel); 
-  padding: 16px; 
-  text-align: center; 
-  border-bottom: 1px solid var(--border); 
-} 
-
-header h1 { 
-  font-size: 24px; 
-  color: var(--accent); 
-} 
-
-header p { 
-  font-size: 13px; 
-  color: var(--text-muted); 
-} 
-
-main { 
-  max-width: 800px; 
-  margin: 0 auto; 
-  padding: 20px; 
-} 
-
-/* Input títol */ 
-#input-titol { 
-  width: 100%; 
-  padding: 12px; 
-  background: var(--bg-panel); 
-  color: var(--text); 
-  border: 1px solid var(--border); 
-  border-radius: 6px; 
-  font-size: 15px; 
-  text-align: center; 
-  margin-bottom: 20px; 
-} 
-
-#input-titol:focus { 
-  outline: none; 
-  border-color: var(--accent); 
-} 
-
-/* Botons del menú principal */ 
-.tabs-container { 
-  display: flex; 
-  flex-direction: column; 
-  gap: 10px; 
-  margin-bottom: 30px; 
-} 
-
-.tab-btn { 
-  background: var(--bg-panel); 
-  border: 1px solid var(--border); 
-  color: var(--text); 
-  padding: 16px 20px; 
-  border-radius: 8px; 
-  font-size: 15px; 
-  font-weight: 600; 
-  cursor: pointer; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  transition: all 0.2s; 
-} 
-
-.tab-btn:hover { 
-  background: var(--bg-hover); 
-  border-color: var(--accent); 
-} 
-
-.tab-btn.disabled { 
-  opacity: 0.6; 
-  cursor: default; 
-} 
-
-.tab-btn.disabled:hover { 
-  background: var(--bg-panel); 
-  border-color: var(--border); 
-} 
-
-.tab-btn span { 
-  color: var(--text-muted); 
-  font-size: 12px; 
-} 
-
-/* Botons verds de baix */ 
-.botons { 
-  display: flex; 
-  gap: 10px; 
-  margin: 30px 0; 
-} 
-
-.botons button { 
-  flex: 1; 
-  padding: 14px; 
-  background: var(--accent); 
-  color: var(--bg-dark); 
-  border: none; 
-  border-radius: 6px; 
-  font-size: 15px; 
-  font-weight: 700; 
-  cursor: pointer; 
-  transition: background 0.2s; 
-} 
-
-.botons button:hover { 
-  background: var(--accent-hover); 
-} 
-
-.botons button:nth-child(2) { 
-  background: var(--accent); 
-  font-size: 16px; 
-} 
-
-/* Resultat preview */ 
-#resultat { 
-  background: var(--bg-panel); 
-  border: 1px solid var(--border); 
-  border-radius: 8px; 
-  padding: 20px; 
-  margin-top: 20px; 
-} 
-
-#resultat h3 { 
-  color: var(--accent); 
-  margin-bottom: 12px; 
-} 
-
-#resultat p { 
-  margin: 8px 0; 
-  font-size: 14px; 
-} 
-
-#resultat strong { 
-  color: var(--text); 
-} 
-
-/* PANTALLES SEPARADES */ 
-.screen { 
-  display: none; 
-  animation: fadeIn 0.2s ease-in; 
-} 
-
-.screen.active { 
-  display: block; 
-} 
-
-@keyframes fadeIn { 
-  from { opacity: 0; transform: translateY(10px); } 
-  to { opacity: 1; transform: translateY(0); } 
-} 
-
-.screen-header { 
-  display: flex; 
-  align-items: center; 
-  gap: 16px; 
-  padding: 16px 0; 
-  border-bottom: 1px solid var(--border); 
-  margin-bottom: 20px; 
-} 
-
-.screen-header button { 
-  background: var(--bg-panel); 
-  border: 1px solid var(--border); 
-  color: var(--text); 
-  padding: 8px 16px; 
-  border-radius: 6px; 
-  cursor: pointer; 
-  font-size: 14px; 
-} 
-
-.screen-header button:hover { 
-  background: var(--bg-hover); 
-} 
-
-.screen-header h2 { 
-  flex: 1; 
-  font-size: 20px; 
-  text-align: center; 
-} 
-
-.screen-content { 
-  display: flex; 
-  flex-direction: column; 
-  gap: 10px; 
-} 
-
-/* Botons d’opció dins pantalles */ 
-.opt-btn { 
-  background: var(--bg-panel); 
-  border: 1px solid var(--border); 
-  color: var(--text); 
-  padding: 16px; 
-  border-radius: 8px; 
-  text-align: left; 
-  font-size: 15px; 
-  cursor: pointer; 
-  transition: all 0.2s; 
 }
 
-.opt-btn:hover { 
-  background: var(--bg-hover); 
-  border-color: var(--accent); 
-} 
-
-.opt-btn small { 
-  display: block; 
-  margin-top: 4px; 
-  font-size: 12px; 
-  color: var(--text-muted); 
-} 
-
-/* CANVI V9.9.9: Tabs de plantilles sinopsi */ 
-.plantilla-tabs { 
-  display: flex; 
-  gap: 8px; 
-  margin-bottom: 16px; 
-} 
-
-.plantilla-tab { 
-  flex: 1; 
-  padding: 12px 16px; 
-  background: var(--bg-panel); 
-  border: 1px solid var(--border); 
-  color: var(--text); 
-  border-radius: 6px; 
-  font-size: 14px; 
-  font-weight: 600; 
-  cursor: pointer; 
-  text-align: center; 
-  transition: all 0.2s; 
-} 
-
-.plantilla-tab:hover { 
-  background: var(--bg-hover); 
-  border-color: var(--accent); 
-} 
-
-.plantilla-tab.active { 
-  background: var(--accent); 
-  color: var(--bg-dark); 
-  border-color: var(--accent); 
-} 
-
-/* TEXTAREA SINOPSI */ 
-#input-sinopsis { 
-  width: 100%; 
-  height: 180px; 
-  background: var(--bg-panel); 
-  color: var(--text); 
-  border: 1px solid var(--border); 
-  border-radius: 6px; 
-  padding: 12px; 
-  font-size: 14px; 
-  resize: none; 
-  margin-bottom: 12px; 
-} 
-
-#input-sinopsis:focus { 
-  outline: none; 
-  border-color: var(--accent); 
-} 
-
-/* PANTALLA LECTURA */ 
-#lectura-content { 
-  background: var(--bg-panel); 
-  border: 1px solid var(--border); 
-  border-radius: 8px; 
-  padding: 24px; 
-  margin: 20px 0; 
-} 
-
-#lectura-content h3 { 
-  color: var(--accent); 
-  margin: 24px 0 12px; 
-  font-size: 18px; 
-} 
-
-#lectura-content p { 
-  margin: 12px 0; 
-  font-size: 15px; 
-  line-height: 1.8; 
-} 
-
-#lectura-content hr { 
-  border: none; 
-  border-top: 1px solid var(--border); 
-  margin: 24px 0; 
-} 
-
-#lectura-content em { 
-  color: var(--text-muted); 
-  font-style: italic; 
-} 
-
-/* TOC */ 
-#toc-container { 
-  background: var(--bg-panel); 
-  border: 1px solid var(--border); 
-  border-radius: 8px; 
-  padding: 16px; 
-  margin: 20px 0; 
-  max-height: 400px; 
-  overflow-y: auto; 
-} 
-
-#toc-container.toc-hidden { 
-  display: none; 
-} 
-
-.toc-item { 
-  padding: 12px 0; 
-  cursor: pointer; 
-  border-bottom: 1px solid var(--border); 
-  transition: background 0.2s; 
-} 
-
-.toc-item:hover { 
-  background: var(--bg-hover); 
-} 
-
-.toc-capitol { 
-  font-weight: 700; 
-  color: var(--text); 
-  font-size: 15px; 
-} 
-
-.toc-resumen { 
-  font-size: 13px; 
-  color: var(--text-muted); 
-  padding: 4px 0 0 20px; 
-  line-height: 1.4; 
-} 
-
-.toc-escenes { 
-  font-size: 12px; 
-  color: var(--accent); 
-  padding: 2px 0 0 20px; 
-} 
-
-/* SUBTUBS - V9.9 CP1 + CP2 */ 
-.subtub-item { 
-  display: flex; 
-  align-items: center; 
-  gap: 12px; 
-  background: var(--bg-panel); 
-  border: 1px solid var(--border); 
-  padding: 12px 16px; 
-  border-radius: 8px; 
-  margin-bottom: 8px; 
-  transition: all 0.2s; 
-} 
-
-.subtub-item:hover { 
-  background: var(--bg-hover); 
-  border-color: var(--accent); 
-} 
-
-.subtub-item input[type="checkbox"] { 
-  width: 18px; 
-  height: 18px; 
-  cursor: pointer; 
-  accent-color: var(--accent); 
-  flex-shrink: 0; 
-} 
-
-.subtub-item label { 
-  flex: 1; 
-  font-size: 15px; 
-  cursor: pointer; 
-  user-select: none; 
-} 
-
-/* Navegació lectura */ 
-.lectura-nav { 
-  display: flex; 
-  gap: 10px; 
-  justify-content: center; 
-  margin: 30px 0; 
-} 
-
-.lectura-nav button { 
-  padding: 12px 24px; 
-  background: var(--bg-panel); 
-  border: 1px solid var(--border); 
-  color: var(--text); 
-  border-radius: 6px; 
-  cursor: pointer; 
-  font-size: 14px; 
-  font-weight: 600; 
-} 
-
-.lectura-nav button:hover { 
-  background: var(--bg-hover); 
-  border-color: var(--accent); 
-} 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
 
 /* ========================================
-   NOU V14.3.0: PANTALLA 3 PLANTILLA GRID
+   9 PANTALLES - ESTRUCTURA BASE
 ======================================== */
-.grid-plantillas {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 12px;
-  padding: 10px 0;
+.screen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg);
+  z-index: 100;
+  overflow-y: auto;
 }
 
-.card-plantilla {
+.screen.active {
+  display: block;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.screen-header {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.screen-header button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 12px;
+  font-weight: 600;
+}
+
+.screen-header button:hover {
+  background: var(--bg-hover);
+  border-radius: 6px;
+}
+
+.screen-header h2 {
+  margin: 0;
+  font-size: 18px;
+  flex: 1;
+  text-align: center;
+}
+
+.screen-content {
+  padding: 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   SPLASH - PANTALLA 1
+======================================== */
+.splash {
+  text-align: center;
+  padding-top: 40vh;
+}
+
+.splash h1 {
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+
+.splash button {
+  padding: 16px 32px;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  color: var(--bg);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.splash button:hover {
+  background: var(--accent-hover);
+}
+
+/* ========================================
+   MENÚ - PANTALLA 2 - 6 BOTONS
+======================================== */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.menu-btn {
+  padding: 28px 16px;
+  background: var(--bg-panel);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.menu-btn:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+}
+
+/* ========================================
+   BOTONS I INPUTS GENERALS
+======================================== */
+button.opt-btn {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 8px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+button.opt-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+}
+
+button.opt-btn.accent {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  font-weight: 700;
+  text-align: center;
+}
+
+button.opt-btn.accent:hover {
+  background: var(--accent-hover);
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ========================================
+   GENERAR - PANTALLA 3 - 4 PASOS
+======================================== */
+.gen-btn {
+  padding: 12px 16px;
+  margin: 4px;
+  background: var(--btn);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.gen-btn.active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.lang-btn {
+  padding: 8px 16px;
+  margin: 4px;
+  background: var(--btn);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.lang-btn.active {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.progress-container {
+  margin: 16px 0;
+  background: var(--bg-panel);
+  border-radius: 6px;
+  overflow: hidden;
+  height: 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--accent);
+  width: 0%;
+  transition: width 0.3s;
+}
+
+/* ========================================
+   GRID 34 PLANTILLES - PANTALLA 5
+======================================== */
+.grid-34 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.card-34 {
+  padding: 16px;
   background: var(--bg-panel);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 16px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.card-plantilla:hover {
+.card-34:hover {
   background: var(--bg-hover);
   border-color: var(--accent);
   transform: translateY(-2px);
 }
 
-.card-plantilla h3 {
+.card-34 h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
   color: var(--accent);
-  font-size: 16px;
-  margin-bottom: 8px;
 }
 
-.card-plantilla p {
+.card-34 p {
+  margin: 4px 0;
   font-size: 13px;
   color: var(--text-muted);
-  margin: 4px 0;
 }
 
-.card-plantilla button {
-  background: var(--accent);
-  color: var(--bg-dark);
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 700;
+.card-34 button {
   margin-top: 10px;
+  padding: 8px 12px;
+  background: var(--accent);
+  border: none;
+  border-radius: 4px;
+  color: var(--bg);
+  font-weight: 600;
   cursor: pointer;
-}
-
-.card-plantilla button:hover {
-  background: var(--accent-hover);
-}
-
-/* Detalle plantilla */
-#pantalla-plantilla-detalle {
-  padding: 20px;
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-top: 20px;
-}
-
-#pantalla-plantilla-detalle h3 {
-  color: var(--accent);
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-#det-prompt {
   width: 100%;
-  min-height: 200px;
-  background: var(--bg-dark);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 12px;
-  font-family: monospace;
-  font-size: 13px;
-  margin: 12px 0;
-  resize: vertical;
 }
 
 /* ========================================
-   NOU V14.3.0: PANTALLA 4 HIPNOSI
+   SINOPSI - PANTALLA 4
 ======================================== */
-.prompt-box {
-  background: var(--bg-dark);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-}
-
-.prompt-box h4 {
-  color: var(--accent);
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-.prompt-box pre {
-  white-space: pre-wrap;
+.sinopsi-caixa {
+  min-height: 80px;
   font-size: 13px;
   line-height: 1.5;
-  color: var(--text);
 }
 
 /* ========================================
-   NOU V14.3.0: PANTALLA 5 DADES
+   ACCIONES GRID - BOTONS EXPORTAR
 ======================================== */
-#lista-variables {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.acciones-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 24px;
 }
 
-#lista-variables input {
-  width: 100%;
-  padding: 12px;
-  background: var(--bg-panel);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  font-size: 15px;
-}
-
-#lista-variables input:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-
-#lista-variables button {
-  background: var(--accent);
-  color: var(--bg-dark);
-  border: none;
-  padding: 14px;
-  border-radius: 6px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 10px;
+.acciones-grid .full {
+  grid-column: 1 / 3;
 }
 
 /* ========================================
-   NOU V14.3.0: PANTALLA 6 BIBLIOTECA
+   LECTURA - PANTALLA 9
 ======================================== */
-.item-biblioteca {
-  background: var(--bg-panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 12px;
-}
-
-.item-biblioteca h4 {
+#text-lectura h2 {
   color: var(--accent);
-  font-size: 15px;
-  margin-bottom: 6px;
+  margin: 24px 0 16px;
+  font-size: 22px;
 }
 
-.item-biblioteca p {
+#text-lectura h4 {
+  color: var(--text-muted);
+  margin: 20px 0 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+#text-lectura p {
+  margin: 12px 0;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* ========================================
+   DADES I BIBLIOTECA
+======================================== */
+#seccio-variables label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 4px;
   font-size: 13px;
   color: var(--text-muted);
-  margin: 4px 0;
 }
 
-/* Error banner */
-.error-banner {
-  position: fixed;
-  top: 70px;
-  left: 20px;
-  right: 20px;
-  background: var(--danger);
-  color: white;
-  padding: 14px;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: 600;
-  z-index: 999;
-  display: none;
+pre {
+  background: var(--bg);
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
 }
 
-/* Mobile */
-@media (max-width: 600px) { 
-  main { 
-    padding: 12px; 
-  } 
-  .botons { 
-    flex-direction: column; 
-  } 
-  .lectura-nav { 
-    flex-direction: column; 
-  } 
-  .subtub-item { 
-    padding: 10px 12px; 
-  } 
-  .plantilla-tabs { 
-    flex-direction: column; 
-  }
-  .grid-plantillas {
+/* ========================================
+   MOBILE
+======================================== */
+@media (max-width: 600px) {
+  .menu-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .acciones-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .screen-content {
+    padding: 12px;
   }
 }
