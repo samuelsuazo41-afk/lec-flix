@@ -6,270 +6,210 @@
 <meta name="theme-color" content="#0d0f12">
 <title>lec-flix policial V14.3.0</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css?v=20">
+<link rel="stylesheet" href="styles.css?v=22">
 <style>
 :root{--bg:#0d0f12;--bg-panel:#1a1d22;--text:#e6e7e9;--text-muted:#8a8f96;--accent:#00bcd4;--border:#2a2e33;--btn:#262a31}
 body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
-header{text-align:center;padding:16px;border-bottom:1px solid var(--border)}
-header h1{margin:0;font-size:20px;color:var(--accent)}
-header p{margin:4px 0 0;font-size:12px;color:var(--text-muted)}
-main{padding:12px;max-width:720px;margin:0 auto}
-input{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);border-radius:6px;margin-bottom:12px;font-size:15px}
-.tabs-container{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
-.tab-btn{padding:14px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;display:flex;justify-content:center;align-items:center;font-size:13px;font-weight:600;text-align:center}
-.tab-btn:hover{background:#2e333b}
-.botons{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:16px}
-.botons button{padding:14px;border:none;border-radius:6px;background:var(--accent);color:#000;font-weight:600;cursor:pointer;font-size:14px}
-.botons button.btn-secondary{background:var(--btn);color:var(--text)}
-#resultat{min-height:60px;padding:12px;background:var(--bg-panel);border-radius:6px;border:1px solid var(--border)}
 .screen{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:100;overflow-y:auto}
 .screen.active{display:block}
-.screen-header{position:sticky;top:0;background:var(--bg);padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.screen-header{position:sticky;top:0;background:var(--bg);padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;z-index:10}
 .screen-header button{background:none;border:none;color:var(--accent);font-size:14px;cursor:pointer;padding:8px 12px}
 .screen-header h2{margin:0;font-size:16px;flex:1;text-align:center}
-.screen-content{padding:16px}
-.opt-btn{width:100%;padding:14px;margin-bottom:8px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;color:var(--text);cursor:pointer;text-align:left;font-size:14px}
-.opt-btn:hover{background:#23272e;border-color:var(--accent)}
-.opt-btn small{display:block;color:var(--text-muted);font-size:12px;margin-top:4px}
-.lectura-nav{position:sticky;bottom:0;background:var(--bg);padding:12px;border-top:1px solid var(--border);display:flex;gap:8px}
-.lectura-nav button{flex:1;padding:12px;border:none;border-radius:6px;background:var(--btn);color:var(--text);cursor:pointer;font-weight:600}
-.toc-hidden{display:none}
-#toc-container{background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;margin:12px;padding:12px;max-height:40vh;overflow-y:auto}
-.toc-item{cursor:pointer;padding:12px 0;border-bottom:1px solid var(--border)}
-.toc-item:hover{background:#23272e}
-.toc-capitol{font-weight:600;color:var(--text)}
-.toc-resumen{font-size:13px;color:var(--text-muted);padding:4px 0 0 20px;line-height:1.4}
-.toc-escenes{font-size:12px;color:var(--accent);padding:2px 0 0 20px}
-textarea{font-family:inherit;width:100%;min-height:160px;padding:12px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);border-radius:6px;font-size:15px}
-.inline-subtabs{margin:16px 0;padding:12px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px}
-.inline-subtabs h4{margin:0 0 8px;font-size:13px;color:var(--text-muted)}
-.inline-subtabs.cp-row{display:flex;justify-content:space-between;align-items:center;margin:6px 0}
-.inline-subtabs.cp-row span{font-size:14px}
-.inline-subtabs.cp-row button{background:none;border:1px solid var(--accent);color:var(--accent);padding:4px 8px;border-radius:4px;font-size:12px;cursor:pointer}
-.plantilla-tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto}
-.plantilla-tab{flex:0 0 auto;padding:10px 14px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;text-align:center;white-space:nowrap}
-.plantilla-tab.active{background:var(--accent);color:#000;border-color:var(--accent)}
-.modo-hibrid{margin:16px 0;padding:12px;background:var(--bg-panel);border:1px solid var(--accent);border-radius:6px}
-.modo-hibrid h4{margin:0 0 12px;font-size:13px;color:var(--accent)}
-.modo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
-.modo-btn{padding:10px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;text-align:center}
-.modo-btn.active{background:var(--accent);color:#000;border-color:var(--accent)}
-.modo-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.modo-inputs label{font-size:12px;color:var(--text-muted);display:block;margin-bottom:4px}
-.modo-inputs input{margin-bottom:0}
-.error-banner{position:fixed;top:60px;left:12px;right:12px;background:#ff4444;color:#fff;padding:12px;border-radius:6px;z-index:200;text-align:center;display:none}
-.grid-plantillas{display:grid;grid-template-columns:1fr;gap:10px}
-.card-plantilla{padding:12px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;cursor:pointer}
-.card-plantilla h3{margin:0 0 6px;font-size:14px;color:var(--accent)}
-.card-plantilla p{margin:4px 0;font-size:12px;color:var(--text-muted)}
-.card-plantilla button{margin-top:8px;padding:8px 12px;background:var(--accent);border:none;border-radius:4px;color:#000;font-weight:600;cursor:pointer}
-.item-biblioteca{padding:12px;margin-bottom:8px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px}
-.item-biblioteca h4{margin:0 0 4px;font-size:14px;color:var(--accent)}
-.item-biblioteca p{margin:2px 0;font-size:12px;color:var(--text-muted)}
+.screen-content{padding:16px;max-width:720px;margin:0 auto}
+button.opt-btn{width:100%;padding:14px;margin-bottom:8px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;color:var(--text);cursor:pointer;text-align:left;font-size:14px;font-weight:500}
+button.opt-btn:hover{background:#23272e;border-color:var(--accent)}
+button.opt-btn.accent{background:var(--accent);color:#000;border-color:var(--accent)}
+input,textarea,select{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);border-radius:6px;margin-bottom:12px;font-size:15px}
+.grid-34{display:grid;grid-template-columns:1fr;gap:10px}
+.card-34{padding:12px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;cursor:pointer}
+.card-34 h3{margin:0 0 6px;font-size:14px;color:var(--accent)}
+.card-34 p{margin:4px 0;font-size:12px;color:var(--text-muted)}
+.card-34 button{margin-top:8px;padding:8px 12px;background:var(--accent);border:none;border-radius:4px;color:#000;font-weight:600;cursor:pointer;width:100%}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+.menu-btn{padding:24px;background:var(--bg-panel);border:2px solid var(--border);border-radius:12px;cursor:pointer;text-align:center;font-size:16px;font-weight:600;transition:border-color 0.2s}
+.menu-btn:hover{border-color:var(--accent)}
+.progress-container{margin:16px 0;background:var(--bg-panel);border-radius:6px;overflow:hidden}
+.progress-bar{height:8px;background:var(--accent);width:0%;transition:width 0.3s}
+.gen-btn{padding:12px;margin:4px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer}
+.gen-btn.active{background:var(--accent);color:#000}
+.lang-btn{padding:8px 16px;margin:4px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer}
+.lang-btn.active{background:var(--accent);color:#000}
+.sinopsi-caixa{min-height:80px;font-size:13px}
+.splash{text-align:center;padding-top:40vh}
+.splash h1{font-size:32px;color:var(--accent);margin-bottom:24px}
+.splash button{padding:16px 32px;background:var(--accent);border:none;border-radius:8px;color:#000;font-size:18px;font-weight:600;cursor:pointer}
+.acciones-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:24px}
+.acciones-grid button{grid-column:auto}
+.acciones-grid .full{grid-column:1/3}
+pre{background:var(--bg-panel);padding:12px;border-radius:6px;font-size:12px;overflow-x:auto}
 </style>
 </head>
 <body>
 
-<div id="error-msg" class="error-banner"></div>
-
-<header>
-  <h1>lec-flix policial</h1>
-  <p>Generador Multi-Ritme V14.3.0 HÍBRID</p>
-</header>
-
-<main>
-
-  <!-- PANTALLA 2: MENÚ PRINCIPAL - 6 BOTONS -->
-  <section id="menu">
-    <input id="input-titol" type="text" placeholder="Títol del llibre..." onchange="seleccio.titol = this.value">
-    
-    <!-- Selector modo híbrido -->
-    <div class="modo-hibrid">
-      <h4>MODO GENERACIÓ</h4>
-      <div class="modo-grid">
-        <div class="modo-btn active" data-modo="escena" onclick="selectModo('escena')">1 Escena</div>
-        <div class="modo-btn" data-modo="capitol" onclick="selectModo('capitol')">Capítol</div>
-        <div class="modo-btn" data-modo="llibre" onclick="selectModo('llibre')">Llibre</div>
-      </div>
-      <div class="modo-inputs">
-        <div><label>Total Capítols</label><input id="input-caps" type="number" value="12" min="1" max="50" onchange="seleccio.totalCaps = parseInt(this.value)"></div>
-        <div><label>Escenes/Cap</label><input id="input-escenes" type="number" value="3" min="1" max="10" onchange="seleccio.escenesPerCap = parseInt(this.value)"></div>
-        <div><label>Cap Actual</label><input id="input-cap" type="number" value="1" min="1" onchange="seleccio.numCap = parseInt(this.value)"></div>
-        <div><label>Escena Actual</label><input id="input-esc" type="number" value="1" min="1" onchange="seleccio.numEsc = parseInt(this.value)"></div>
-      </div>
-    </div>
-
-    <!-- 6 BOTONS MENÚ - CADA UN OBRE PANTALLA -->
-    <div class="tabs-container">
-      <div class="tab-btn" onclick="openScreen('generar')">📚 GENERAR</div>
-      <div class="tab-btn" onclick="openScreen('hipnosis')">🧠 HIPNOSI</div>
-      <div class="tab-btn" onclick="openScreen('plantilla')">📋 34 PLANTILLES</div>
-      <div class="tab-btn" onclick="openScreen('datos')">⚙️ DADES</div>
-      <div class="tab-btn" onclick="openScreen('biblioteca')">📖 BIBLIOTECA</div>
-      <div class="tab-btn" onclick="openScreen('info')">ℹ️ INFO</div>
-    </div>
-
-    <!-- Tabs configuració ràpida -->
-    <div class="tabs-container">
-      <div class="tab-btn disabled">GÈNERE <span id="genere-label">POLICIAL</span></div>
-      <div class="tab-btn" onclick="openScreen('sinopsis')">SINOPSI <span id="sinopsis-label">▼</span></div>
-      <div class="tab-btn" onclick="openScreen('ubicacio')">UBICACIÓ <span id="ubicacio-label">▼</span></div>
-      <div class="tab-btn" onclick="openScreen('estructura')">ESTRUCTURA <span id="estructura-label">Save the Cat</span></div>
-      <div class="tab-btn" onclick="openScreen('ritme')">RITME <span id="ritme-label">Novel·la</span></div>
-      <div class="tab-btn" onclick="openScreen('pov')">POV <span id="pov-label">1 Protagonista</span></div>
-    </div>
-
-    <!-- Botons acció -->
-    <div class="botons">
-      <button id="btn-preview">Preview</button>
-      <button id="btn-generar">Generar Text</button>
-      <button id="btn-exportar">Exportar.txt</button>
-      <button id="btn-reset" class="btn-secondary">Reset</button>
-    </div>
-
-    <section id="resultat">
-      <p style="color:var(--text-muted);text-align:center">Selecciona Ubicació + Ritme per començar</p>
-    </section>
-  </section>
-
-  <!-- PANTALLA 3: SINOPSIS -->
-  <section id="screen-sinopsis" class="screen">
-    <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>SINOPSI</h2></div>
-    <div class="screen-content">
-      <div class="plantilla-tabs" id="plantilla-tabs"></div>
-      <textarea id="input-sinopsis" placeholder="Selecciona una plantilla o escriu la teva sinopsi..."></textarea>
-      <button class="opt-btn" onclick="saveSinopsis()">Guardar Sinopsi</button>
-    </div>
-  </section>
-
-  <!-- PANTALLA 4: UBICACIÓ -->
-  <section id="screen-ubicacio" class="screen">
-    <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>UBICACIÓ</h2></div>
-    <div class="screen-content">
-      <h3 style="color:var(--accent);padding:8px 0">Catalunya</h3>
-      <div id="ubicacio-list"></div>
-      <div id="inline-subtabs" class="inline-subtabs" style="display:none">
-        <h4>Selecció Activa</h4>
-        <div class="cp-row"><span>Ciutat Principal 1: <strong id="cp1-nom">-</strong></span><button onclick="clearCP(1)" id="cp1-clear" style="display:none">X</button></div>
-        <div class="cp-row"><span>Ciutat Principal 2: <strong id="cp2-nom">-</strong></span><button onclick="clearCP(2)" id="cp2-clear" style="display:none">X</button></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PANTALLA 5: ESTRUCTURA -->
-  <section id="screen-estructura" class="screen">
-    <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>ESTRUCTURA</h2></div>
-    <div class="screen-content">
-      <button class="opt-btn" onclick="selectEstructura('3 Actes')">3 Actes Clàssic</button>
-      <button class="opt-btn" onclick="selectEstructura('Save the Cat')">Save the Cat</button>
-      <button class="opt-btn" onclick="selectEstructura('No Lineal')">No Lineal</button>
-    </div>
-  </section>
-
-  <!-- PANTALLA 6: RITME -->
-  <section id="screen-ritme" class="screen">
-    <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>RITME</h2></div>
-    <div class="screen-content">
-      <button class="opt-btn" onclick="selectRitme('Relat Curt')">Relat Curt ~10k<br><small>5 capítols</small></button>
-      <button class="opt-btn" onclick="selectRitme('Novel·la')">Novel·la 60k<br><small>20 capítols</small></button>
-      <button class="opt-btn" onclick="selectRitme('Èpic')">Èpic 100k<br><small>30 capítols</small></button>
-    </div>
-  </section>
-
-  <!-- PANTALLA 7: POV -->
-  <section id="screen-pov" class="screen">
-    <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>POV</h2></div>
-    <div class="screen-content">
-      <button class="opt-btn" onclick="selectPov('1 Protagonista')">1 Protagonista</button>
-      <button class="opt-btn" onclick="selectPov('3 POV Rotatius')">3 POV Rotatius</button>
-      <button class="opt-btn" onclick="selectPov('Omniscient')">Narrador Omniscient</button>
-    </div>
-  </section>
-
-  <!-- PANTALLA 8: HIPNOSI PROMPTS - Botó 2 -->
-  <section id="screen-hipnosis" class="screen">
-    <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>HIPNOSI PROMPTS</h2></div>
-    <div class="screen-content">
-      <h4 style="color:var(--accent)">Prompt Master</h4>
-      <textarea id="prompt-master-hipnosis" readonly></textarea>
-      <button class="opt-btn" id="btn-copiar-todo">Copiar Tot</button>
-      <p id="info-hooks-hipnosis" style="color:var(--text-muted);font-size:12px;margin-top:12px"></p>
-    </div>
-  </section>
-
-  <!-- PANTALLA 9: PLANTILLA 34 PAUTES - Botó 3 -->
-  <section id="screen-plantilla" class="screen">
-    <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>BANCO 34 PLANTILLES</h2></div>
-    <div class="screen-content">
-      <div id="grid-plantillas-34" class="grid-plantillas"></div>
-      <div id="pantalla-plantilla-detalle" style="display:none">
-        <h3 id="det-nom" style="color:var(--accent)"></h3>
-        <p id="det-id" style="display:none"></p>
-        <p><strong>Caps:</strong> <span id="det-caps"></span> | <strong>Climax:</strong> <span id="det-climax"></span></p>
-        <p><strong>Ratio:</strong> <span id="det-ratio"></span></p>
-        <p><strong>Tags:</strong> <span id="det-tags"></span></p>
-        <p><strong>Hooks:</strong> <span id="det-hooks"></span></p>
-        <p id="det-desc" style="color:var(--text-muted);margin:12px 0"></p>
-        <h4>Prompt Master:</h4>
-        <textarea id="det-prompt" readonly style="min-height:200px"></textarea>
-        <button class="opt-btn" onclick="usarPlantilla(document.getElementById('det-id').textContent)">Usar per Generar</button>
-        <button class="opt-btn btn-secondary" onclick="document.getElementById('pantalla-plantilla-detalle').style.display='none'; document.getElementById('grid-plantillas-34').style.display='block'">← Tornar Grid</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- PANTALLA 10: DADES - Botó 4 -->
-  <section id="screen-datos" class="screen">
-    <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>DADES I VARIABLES</h2></div>
-    <div class="screen-content" id="lista-variables"></div>
-  </section>
-
-  <!-- PANTALLA 11: BIBLIOTECA - Botó 5 -->
-  <section id="screen-biblioteca" class="screen">
-    <div class="screen-header"><button onclick="closeScreen()">← Tornar</button><h2>LA MEVA BIBLIOTECA</h2></div>
-    <div class="screen-content" id="lista-biblioteca"></div>
-  </section>
-
-  <!-- PANTALLA 12: INFO - Botó 6 -->
-<section id="screen-info" class="screen">
-  <div class="screen-header">
-    <button onclick="closeScreen()">← Tornar</button>
-    <h2>INFO APP</h2>
+<!-- 1. SPLASH -->
+<section id="screen-splash" class="screen active">
+  <div class="splash">
+    <h1>lec-flix policial</h1>
+    <p style="color:var(--text-muted);margin-bottom:32px">V14.3.0 HÍBRID</p>
+    <button onclick="entrarApp()">ENTRAR</button>
   </div>
+</section>
+
+<!-- 2. MENÚ PRINCIPAL - 6 BOTONS + ACCIONS -->
+<section id="screen-menu" class="screen">
+  <div class="screen-header"><h2>MENÚ PRINCIPAL</h2></div>
   <div class="screen-content">
-    <p>Versió: <span id="info-version">V14.3.0</span></p>
+    <div class="menu-grid">
+      <div class="menu-btn" onclick="openScreen('generar')">📚 GENERAR LLIBRE</div>
+      <div class="menu-btn" onclick="openScreen('sinopsi')">🧠 SINOPSI PROMPTS</div>
+      <div class="menu-btn" onclick="openScreen('plantillas')">📋 BANCO 34 PLANTILLAS</div>
+      <div class="menu-btn" onclick="openScreen('dades')">⚙️ DADES I VARIABLES</div>
+      <div class="menu-btn" onclick="openScreen('biblioteca')">📖 LA MEVA BIBLIOTECA</div>
+      <div class="menu-btn" onclick="openScreen('info')">ℹ️ INFO APP</div>
+    </div>
+    
+    <!-- Accions ràpides Menú -->
+    <div class="acciones-grid">
+      <button class="opt-btn" id="btn-exportar-txt">Exportar .txt</button>
+      <button class="opt-btn" id="btn-reset" style="background:var(--btn)">Reset</button>
+    </div>
+  </div>
+</section>
+
+<!-- 3. PANTALLA GENERAR LLIBRE - 4 PASOS -->
+<section id="screen-generar" class="screen">
+  <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>GENERAR LLIBRE</h2></div>
+  <div class="screen-content">
+    <h3>PAS 1: Selecciona Gènere</h3>
+    <div id="pas1-generes"></div>
+    
+    <h3 style="margin-top:24px">PAS 2: Selecciona Subgènere/Plantilla</h3>
+    <div id="pas2-plantilles" class="grid-34"></div>
+    
+    <h3 style="margin-top:24px">PAS 3: Omple Variables</h3>
+    <div id="pas3-variables"></div>
+    
+    <h3 style="margin-top:24px">PAS 4: Idioma</h3>
+    <button class="lang-btn active" data-lang="CAT" onclick="setIdioma('CAT')">CAT</button>
+    <button class="lang-btn" data-lang="ES" onclick="setIdioma('ES')">ES</button>
+    
+    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
+    <p id="progress-text" style="text-align:center;color:var(--text-muted)">0%</p>
+    
+    <button id="btn-generar" class="opt-btn accent" style="margin-top:16px" onclick="generarLlibre()">GENERAR</button>
+  </div>
+</section>
+
+<!-- 4. SINOPSI PROMPTS - BOTÓ 2 -->
+<section id="screen-sinopsi" class="screen">
+  <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>SINOPSI PROMPTS</h2></div>
+  <div class="screen-content">
+    <select id="sinopsi-selector"></select>
+    
+    <h4 style="color:var(--accent);margin-top:16px">HOOK 5s</h4>
+    <textarea class="sinopsi-caixa" id="caixa-1" readonly></textarea>
+    
+    <h4 style="color:var(--accent)">CLIFFHANGER</h4>
+    <textarea class="sinopsi-caixa" id="caixa-2" readonly></textarea>
+    
+    <h4 style="color:var(--accent)">PAYBACK BEAT 8</h4>
+    <textarea class="sinopsi-caixa" id="caixa-3" readonly></textarea>
+    
+    <h4 style="color:var(--accent)">PAYBACK BEAT 14</h4>
+    <textarea class="sinopsi-caixa" id="caixa-4" readonly></textarea>
+    
+    <h4 style="color:var(--accent)">INICI CAP</h4>
+    <textarea class="sinopsi-caixa" id="caixa-5" readonly></textarea>
+    
+    <h4 style="color:var(--accent)">ENLLAÇ</h4>
+    <textarea class="sinopsi-caixa" id="caixa-6" readonly></textarea>
+    
+    <h4 style="color:var(--accent)">DESENLLAÇ CLIFF</h4>
+    <textarea class="sinopsi-caixa" id="caixa-7" readonly></textarea>
+    
+    <button class="opt-btn accent" onclick="copiarTotSinopsi()">COPIAR TOT</button>
+  </div>
+</section>
+
+<!-- 5. BANCO 34 PLANTILLAS - BOTÓ 3 -->
+<section id="screen-plantillas" class="screen">
+  <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>BANCO 34 PLANTILLAS</h2></div>
+  <div class="screen-content">
+    <div id="grid-34" class="grid-34"></div>
+    
+    <div id="detalle-plantilla" style="display:none">
+      <h3 id="det-nom" style="color:var(--accent)"></h3>
+      <p><strong>Climax:</strong> <span id="det-climax"></span></p>
+      <p><strong>Ratio:</strong> <span id="det-ratio"></span></p>
+      <p><strong>Variables:</strong></p>
+      <pre id="det-variables"></pre>
+      <h4>Prompt Master:</h4>
+      <textarea id="det-prompt" readonly style="min-height:200px"></textarea>
+      <button class="opt-btn accent" id="btn-usar-plantilla">USAR PER GENERAR</button>
+      <button class="opt-btn" style="background:var(--btn)" onclick="document.getElementById('detalle-plantilla').style.display='none'; document.getElementById('grid-34').style.display='grid'">← Tornar Grid</button>
+    </div>
+  </div>
+</section>
+
+<!-- 6. DADES I VARIABLES - BOTÓ 4 -->
+<section id="screen-dades" class="screen">
+  <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>DADES I VARIABLES</h2></div>
+  <div class="screen-content">
+    <h3>Secció 1: Variables Globals</h3>
+    <div id="seccio-variables"></div>
+    
+    <h3 style="margin-top:24px">Secció 2: Stats Banc</h3>
+    <p>Total plantilles: <span id="stat-plantilles">0/34</span></p>
+    <p>Total caps mitja: <span id="stat-mitja">0</span></p>
+  </div>
+</section>
+
+<!-- 7. BIBLIOTECA - BOTÓ 5 -->
+<section id="screen-biblioteca" class="screen">
+  <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>LA MEVA BIBLIOTECA</h2></div>
+  <div class="screen-content">
+    <div id="lista-llibres"></div>
+    <button class="opt-btn" id="btn-neteja-biblioteca" style="background:var(--btn);margin-top:16px">NETEJAR BIBLIOTECA</button>
+  </div>
+</section>
+
+<!-- 8. INFO APP - BOTÓ 6 -->
+<section id="screen-info" class="screen">
+  <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>INFO APP</h2></div>
+  <div class="screen-content">
+    <p>Versió: <span id="info-versio">V14.3.0</span></p>
+    <p>Banc actiu: banc_plantillas.json</p>
     <p>Plantilles carregades: <span id="info-plantilles">0/34</span></p>
-    <p>Motor: <span id="info-motor">Desconnectat</span></p>
-    <p>Bancs actius: <span id="info-bancs">0</span></p>
+    <p>Motor IA: <span id="info-motor">Desconnectat</span></p>
     <hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">
     <p style="font-size:12px;color:var(--text-muted)">Lec-Flix Policial Híbrid</p>
-    <p style="font-size:12px;color:var(--text-muted)">Generador Multi-Ritme + 34 Plantilles Pautes</p>
   </div>
 </section>
 
-<!-- PANTALLA 13: LECTURA FINAL -->
+<!-- 9. LECTURA FINAL - AMB TOTS ELS BOTONS EXPORTAR -->
 <section id="screen-lectura" class="screen">
-  <div class="screen-header">
-    <button onclick="closeScreen('menu')">← Menú</button>
-    <h2>LECTURA</h2>
-    <button id="btn-toc-toggle">Índex</button>
-  </div>
-  <div id="toc-container" class="toc-hidden">
-    <div id="toc-content"></div>
-  </div>
-  <div class="screen-content" id="lectura-content"></div>
-  <div class="lectura-nav">
-    <button id="btn-prev-seccio">← Anterior</button>
-    <button id="btn-next-seccio">Següent →</button>
+  <div class="screen-header"><button onclick="openScreen('menu')">← Menú</button><h2>LECTURA FINAL</h2></div>
+  <div class="screen-content">
+    <h3>📖 ÍNDEX AUTOMÀTIC</h3>
+    <div id="index-lectura"></div>
+    
+    <hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">
+    
+    <div id="text-lectura"></div>
+    
+    <!-- BOTONS EXPORTAR SEGONS DIAGRAMA -->
+    <div class="acciones-grid">
+      <button class="opt-btn" id="btn-llegir-cap1">LLEGIR CAP 1</button>
+      <button class="opt-btn accent" id="btn-generar-altre">GENERA UN ALTRE</button>
+      
+      <button class="opt-btn" id="btn-exportar-epub">DESCARREGAR EPUB</button>
+      <button class="opt-btn" id="btn-exportar-pdf">DESCARREGAR PDF</button>
+      
+      <button class="opt-btn full" id="btn-compartir">COMPARTIR</button>
+    </div>
   </div>
 </section>
-
-</main>
-
-<div id="error-msg" class="error-banner" style="display:none;"></div>
 
 <script type="module" src="main.js?v=14.3.0"></script>
-
 </body>
 </html>
-
