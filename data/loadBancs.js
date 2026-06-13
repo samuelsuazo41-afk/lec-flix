@@ -1,11 +1,13 @@
-// data/loadBancs.js - Carregador V14.3.0 lec-flix policial HÍBRID FINAL
-// Carrega TOTS els bancs + fusió CP1/CP2 + normalització per main.js V14.3.0 + generarllibre.js V14.3.0
+// loadBancs.js - Carregador V14.3.2 lec-flix policial HÍBRID FINAL
+// Carrega TOTS els bancs + banco_generos.json des d'arrel
+// Compatible main.js V14.3.2 + generarllibre.js V14.3.2
 
 export async function cargarBancs() {
+  // PINÇA CAPTURE 1: Ruta arrel, no /data/ per evitar "Failed to fetch"
   const baseURL = new URL('./', import.meta.url).href;
 
   const bancsFiles = [
-    'banco_generes.json',
+    'banco_generos.json', // PINÇA: Afegit per botons gèneres dinàmics
     'banco_estructura.json',
     'banco_personatge.json',
     'banco_personatges_generals.json',
@@ -37,7 +39,6 @@ export async function cargarBancs() {
     try {
       const url = baseURL + file;
       const res = await fetch(url);
-
       if (!res.ok) {
         console.warn(`⚠️ No s'ha pogut carregar ${file} - Status: ${res.status}`);
         bancs[file.replace('.json', '')] = [];
@@ -48,8 +49,13 @@ export async function cargarBancs() {
       let data = await res.json();
       const key = file.replace('.json', '');
 
-      // NORMALITZACIÓ V14.3.0 per main.js + generarllibre.js
-      if (key === 'banco_estructura') {
+      // NORMALITZACIÓ V14.3.2 per main.js + generarllibre.js
+      if (key === 'banco_generos') {
+        // PINÇA: banco_generos ve amb wrapper {banco_generos: [...]}
+        bancs[key] = data.banco_generos || [];
+        console.log(`📚 Gèneres carregats: ${bancs[key].length} - Actius: ${bancs[key].filter(g=>g.activo).length}`);
+      }
+      else if (key === 'banco_estructura') {
         if (!Array.isArray(data)) data = [data];
         bancs[key] = data;
       }
@@ -116,8 +122,7 @@ export async function cargarBancs() {
     console.warn(`⚠️ Bancs amb error: ${errors.join(', ')}`);
   }
 
-  console.log('✅ TOTS ELS BANCS V14.3.0 CABLEJATS I NORMALITZATS');
+  console.log('✅ TOTS ELS BANCS V14.3.2 CABLEJATS I NORMALITZATS');
   console.log(`📊 Total bancs: ${Object.keys(bancs).length} | Errors: ${errors.length}`);
-
   return bancs;
 }
