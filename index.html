@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d0f12">
-<title>lec-flix policial V14.3.0</title>
+<title>lec-flix policial V14.3.1</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css?v=23">
+<link rel="stylesheet" href="styles.css?v=24">
 <style>
 :root{--bg:#0d0f12;--bg-panel:#1a1d22;--text:#e6e7e9;--text-muted:#8a8f96;--accent:#00bcd4;--border:#2a2e33;--btn:#262a31;--danger:#ef4444}
 body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
@@ -41,11 +41,13 @@ input,textarea,select{width:100%;padding:12px;border:1px solid var(--border);bac
 .acciones-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:24px}
 .acciones-grid .full{grid-column:1/3}
 pre{background:var(--bg);padding:12px;border-radius:6px;font-size:12px;overflow-x:auto;border:1px solid var(--border)}
-/* PINÇA: Textarea prompt master gran */
+/* PINÇA: Textarea prompt master gran editable */
 #prompt-master-box{min-height:420px;font-family:'Courier New',monospace;font-size:12px;line-height:1.5;background:var(--bg);resize:vertical}
-#prompt-master-box:focus{border-color:var(--accent);outline:none}
+#prompt-master-box:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 2px rgba(0,188,212,0.2)}
 #info-bancs-lista p{margin:8px 0;font-size:13px}
+#info-dades-lista p{margin:8px 0;font-size:13px}
 label{display:block;margin-top:12px;margin-bottom:4px;font-size:13px;color:var(--text-muted)}
+h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--accent)}
 </style>
 </head>
 <body>
@@ -54,7 +56,7 @@ label{display:block;margin-top:12px;margin-bottom:4px;font-size:13px;color:var(-
 <section id="screen-splash" class="screen active">
   <div class="splash">
     <h1>lec-flix policial</h1>
-    <p style="color:var(--text-muted);margin-bottom:32px">V14.3.0 HÍBRID</p>
+    <p style="color:var(--text-muted);margin-bottom:32px">V14.3.1 HÍBRID</p>
     <button onclick="entrarApp()">ENTRAR</button>
   </div>
 </section>
@@ -102,7 +104,7 @@ label{display:block;margin-top:12px;margin-bottom:4px;font-size:13px;color:var(-
   </div>
 </section>
 
-<!-- 4. SINOPSI PROMPTS - PINÇA: 1 CAIXA PROMPT MASTER -->
+<!-- 4. SINOPSI PROMPTS - PINÇA: 1 CAIXA EDITABLE -->
 <section id="screen-sinopsi" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>SINOPSI PROMPTS</h2></div>
   <div class="screen-content">
@@ -110,10 +112,11 @@ label{display:block;margin-top:12px;margin-bottom:4px;font-size:13px;color:var(-
     <select id="sinopsi-selector"></select>
 
     <h4 style="color:var(--accent);margin-top:20px">PROMPT MASTER COMPLET</h4>
-    <textarea id="prompt-master-box" readonly></textarea>
+    <!-- PINÇA: Tret readonly per poder enganxar prompt David Ferrer -->
+    <textarea id="prompt-master-box" placeholder="Enganxa aquí el teu prompt_master sencer o selecciona plantilla per carregar..."></textarea>
 
     <button class="opt-btn accent" onclick="copiarPromptMaster()">📋 COPIAR PROMPT PER CHATGPT</button>
-    <p style="color:var(--text-muted);font-size:12px;margin-top:12px">Pin pan: copia → enganxa a ChatGPT → canvia {{variables}} → genera</p>
+    <p style="color:var(--text-muted);font-size:12px;margin-top:12px">Pin pan: copia → enganxa a ChatGPT/Claude → canvia {{variables}} → genera</p>
   </div>
 </section>
 
@@ -136,15 +139,16 @@ label{display:block;margin-top:12px;margin-bottom:4px;font-size:13px;color:var(-
   </div>
 </section>
 
-<!-- 6. DADES I VARIABLES - BOTÓ 4 -->
+<!-- 6. DADES I VARIABLES - PINÇA: NOMÉS INFORMACIÓ -->
 <section id="screen-dades" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>DADES I VARIABLES</h2></div>
   <div class="screen-content">
-    <h3>Secció 1: Variables Globals Editables</h3>
-    <div id="seccio-variables"></div>
-    <h3 style="margin-top:24px">Secció 2: Stats Banc</h3>
-    <p>Total plantilles: <span id="stat-plantilles">0/34</span></p>
-    <p>Total caps mitja: <span id="stat-mitja">0</span></p>
+    <h3>📊 Informació del Banc Actiu</h3>
+    <div id="info-dades-lista"></div>
+    <p style="color:var(--text-muted);font-size:12px;margin-top:24px">
+      Aquesta pantalla només mostra informació. Per omplir variables usa PAS 3 de Generar Llibre
+      o enganxa directament el teu prompt_master a Sinopsi i edita {{prota}}, {{ciutat_1}} allà.
+    </p>
   </div>
 </section>
 
@@ -161,13 +165,11 @@ label{display:block;margin-top:12px;margin-bottom:4px;font-size:13px;color:var(-
 <section id="screen-info" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>INFO APP</h2></div>
   <div class="screen-content">
-    <p>Versió: <span id="info-versio">V14.3.0</span></p>
+    <p>Versió: <span id="info-versio">V14.3.1</span></p>
     <p>Banc actiu: banc_plantillas.json</p>
     <p>Plantilles carregades: <span id="info-plantilles">0/34</span></p>
     <p>Motor IA: <span id="info-motor">Desconnectat</span></p>
-    
     <hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">
-    
     <h4 style="color:var(--accent)">Bancs disponibles:</h4>
     <div id="info-bancs-lista"></div>
   </div>
@@ -191,6 +193,6 @@ label{display:block;margin-top:12px;margin-bottom:4px;font-size:13px;color:var(-
   </div>
 </section>
 
-<script type="module" src="main.js?v=14.3.0"></script>
+<script type="module" src="main.js?v=14.3.1"></script>
 </body>
 </html>
