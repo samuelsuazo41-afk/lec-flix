@@ -25,7 +25,7 @@ body {
 }
 
 /* ========================================
-   9 PANTALLES - ESTRUCTURA BASE
+   10 PANTALLES - ESTRUCTURA BASE
 ======================================== */
 .screen {
   display: none;
@@ -120,7 +120,7 @@ body {
 }
 
 /* ========================================
-   MENÚ - PANTALLA 2 - 6 BOTONS
+   MENÚ - PANTALLA 2 - 7 BOTONS
 ======================================== */
 .menu-grid {
   display: grid;
@@ -249,7 +249,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ========================================
-   GRID 34 PLANTILLES - PANTALLA 5
+   GRID 34 PLANTILLES + PROMPT MASTERS
 ======================================== */
 .grid-34 {
   display: grid;
@@ -296,6 +296,13 @@ input:focus, textarea:focus, select:focus {
   width: 100%;
 }
 
+/* PINÇA: Textarea prompts amb scroll */
+.card-34 textarea {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
 /* ========================================
    SINOPSI - PANTALLA 4 PINÇA: 1 CAIXA PROMPT MASTER EDITABLE
 ======================================== */
@@ -327,7 +334,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ========================================
-   INFO APP - PANTALLA 8 PINÇA: DADES BANCS
+   INFO APP - PANTALLA 8 PINÇA: DADES BANCS GLOSARI
 ======================================== */
 #info-bancs-lista {
   background: var(--bg-panel);
@@ -385,7 +392,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ========================================
-   LECTURA - PANTALLA 9
+   LECTURA - PANTALLA 10
 ======================================== */
 #text-lectura h2 {
   color: var(--accent);
