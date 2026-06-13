@@ -1,458 +1,281 @@
-// main.js - Lec-Flix V14.3.0 FINAL UNIFICAT
-// Inclou generarLlibre, mostrarLlibre, TOC, Exportar, Reset + 6 Pantalles
+// main.js - Lec-Flix V14.3.0 DIAGRAMA OFICIAL
+// 9 Pantalles segons diagrama + Lògica generarllibre.js V14.3.0
 
 let BANCS = {};
-let bancPlantillas = [];
 let mod = null;
 let histActual = null;
 let llibreGenerat = null;
-
 const baseURL = new URL('./', import.meta.url).href;
 
-// ESTAT GLOBAL - Mateix objecte que el teu index
-window.seleccio = {
-  titol:'', genere:'policiac', estructura:'Save the Cat', ritme:'Novel·la', pov:'1 Protagonista',
-  ciutatPrincipal:null, ciutatPrincipal2:null, subtubsPrincipal:[], subtubsPrincipal2:[],
-  sinopsis:'', personatgeId:null,
-  modo:'escena', totalCaps:12, escenesPerCap:3, numCap:1, numEsc:1,
-  temps:{any:'2024',mes:'gener',dia:'1',event:''},
-  beatsCap:['setup','giro1','midpoint','giro2','crisi','climax','resolucio'],
-  plantillaId:null, prompt_master:''
+const seleccio = {
+  genere: 'policial',
+  subgenere: null,
+  plantillaId: null,
+  prompt_master: '',
+  variables: {},
+  idioma: 'CAT',
+  modo: 'llibre'
 };
 
 // ========================================
-// 1. INIT + CARREGA BANCS + MOTOR
+// 1. SPLASH → MENÚ
 // ========================================
-async function initApp() {
-  try {
-    const bancMod = await import(baseURL + 'data/loadBancs.js?v=' + Date.now());
-    BANCS = await bancMod.cargarBancs();
-    bancPlantillas = BANCS.banc_plantillas || [];
-    console.log('📚 Bancs V12.1.1 carregats:', Object.keys(BANCS), `${bancPlantillas.length}/34 plantilles`);
-
-    mod = await import(baseURL + 'generarllibre.js?v=' + Date.now());
-    console.log('✅ Motor Híbrid V1.0 carregat - generarLlibre disponible');
-  } catch (e) {
-    console.warn('Fallback bancs/motor', e);
-    BANCS = {
-      banco_ubicacion: [
-        {ciutat:'Barcelona', subtubs:[{nom:'Gràcia'},{nom:'Barceloneta'},{nom:'Tibidabo'},{nom:'Gòtic'},{nom:'Eixample'}]},
-        {ciutat:'Girona', subtubs:[{nom:'Pont de Pedra'},{nom:'Catedral'},{nom:'Call Jueu'}]},
-        {ciutat:'Tarragona', subtubs:[{nom:'Amfiteatre'},{nom:'Part Alta'}]},
-        {ciutat:'Figueres', subtubs:[{nom:'Museu Dalí'},{nom:'Centre'}]}
-      ],
-      banco_personatge: [{id:'p1', genero:'policiac', banco_variables:{nom:['Àlex','Rita','Marc'], tic:['es passa la mà per la barba','mira el rellotge','somriu']}}],
-      banc_plantillas: []
-    };
-    mostrarError('Error carregant motor. Usa fallback.');
-  }
-
-  // Init listeners
-  initBotons();
-  console.log('✅ index.html V14.3.0 HÍBRID carregat - generarLlibre actiu');
-}
-
-// ========================================
-// 2. NAVEGACIÓ - MATEIX QUE EL TEU INDEX
-// ========================================
-window.openScreen = function(screenName){
-  document.getElementById('menu').style.display='none';
-  document.getElementById('resultat').style.display='none';
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const screen = document.getElementById('screen-'+screenName);
-  if(screen) screen.classList.add('active');
-
-  if(screenName==='sinopsis'){
-    document.getElementById('input-sinopsis').value = seleccio.sinopsis || '';
-    renderPlantillaTabs();
-  }
-  if(screenName==='ubicacio') renderUbicacioList();
-  if(screenName==='plantilla') renderGridPlantillas();
-  if(screenName==='datos') renderVariablesGlobals();
-  if(screenName==='biblioteca') renderBiblioteca();
-  if(screenName==='info') renderInfoApp();
-};
-
-window.closeScreen = function(target='menu'){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  if(target==='lectura'){
-    document.getElementById('menu').style.display='none';
-    document.getElementById('screen-lectura').classList.add('active');
-  } else {
-    document.getElementById('menu').style.display='block';
-    document.getElementById('resultat').style.display='block';
-  }
+window.entrarApp = () => {
+  document.getElementById('screen-splash').classList.remove('active');
+  document.getElementById('screen-menu').classList.add('active');
 };
 
 // ========================================
-// 3. SELECTORS INDEX - MATEIX CODI TEU
+// 2. MENÚ PRINCIPAL - 6 BOTONS
 // ========================================
-window.selectModo = modo=>{
-  seleccio.modo = modo;
-  document.querySelectorAll('.modo-btn').forEach(btn=>{
-    btn.classList.remove('active');
-    if(btn.dataset.modo === modo) btn.classList.add('active');
-  });
-  console.log('🎯 Modo:', modo);
+window.openScreen = function(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + screen).classList.add('active');
+
+  if (screen === 'generar') renderPasosGenerar();
+  if (screen === 'hipnosi') renderHipnosi();
+  if (screen === 'plantillas') renderBancoPlantillas();
+  if (screen === 'dades') renderDadesVariables();
+  if (screen === 'biblioteca') renderBiblioteca();
+  if (screen === 'info') renderInfo();
 };
 
-window.saveSinopsis = ()=>{
-  seleccio.sinopsis = document.getElementById('input-sinopsis').value.trim();
-  document.getElementById('sinopsis-label').textContent = seleccio.sinopsis? '✓' : '▼';
-  closeScreen();
-}
-
-window.selectEstructura = e=>{
-  seleccio.estructura=e;
-  document.getElementById('estructura-label').textContent=e;
-  closeScreen();
-}
-
-window.selectRitme = r=>{
-  seleccio.ritme=r;
-  document.getElementById('ritme-label').textContent=r;
-  if(r==='Relat Curt'){seleccio.totalCaps=5; seleccio.escenesPerCap=2;}
-  if(r==='Novel·la'){seleccio.totalCaps=20; seleccio.escenesPerCap=3;}
-  if(r==='Èpic'){seleccio.totalCaps=30; seleccio.escenesPerCap=4;}
-  document.getElementById('input-caps').value = seleccio.totalCaps;
-  document.getElementById('input-escenes').value = seleccio.escenesPerCap;
-  closeScreen();
-}
-
-window.selectPov = p=>{
-  seleccio.pov=p;
-  document.getElementById('pov-label').textContent=p;
-  closeScreen();
-}
+window.closeScreen = () => openScreen('menu');
 
 // ========================================
-// 4. UBICACIÓ CP1 + CP2 - MATEIX CODI TEU
+// 3. PANTALLA GENERAR LLIBRE - 4 PASOS
 // ========================================
-function renderUbicacioList(){
-  const list = document.getElementById('ubicacio-list');
-  const ciutats = BANCS.banco_ubicacion || [];
-  list.innerHTML = ciutats.map(c=>{
-    let tags = [];
-    if(c.ciutat === seleccio.ciutatPrincipal) tags.push('CP1');
-    if(c.ciutat === seleccio.ciutatPrincipal2) tags.push('CP2');
-    const label = tags.length > 0? `${c.ciutat} (${tags.join(', ')})` : c.ciutat;
-    return `<button class="opt-btn" onclick="selectCiutatHub('${c.ciutat}')">${label}</button>`;
-  }).join('');
-  renderInlineSubtabs();
+function renderPasosGenerar() {
+  // PAS 1: Gèneres
+  const genDiv = document.getElementById('pas1-generes');
+  const generes = ['Policial', 'Romàntica', 'Suspens', 'Històrica', 'Ciència Ficció'];
+  genDiv.innerHTML = generes.map(g =>
+    `<button class="gen-btn" onclick="selectGenere('${g}')">${g}</button>`
+  ).join('');
+
+  // PAS 2: 34 Plantilles filtrades per gènere
+  renderPlantillesFiltre();
 }
 
-function renderInlineSubtabs(){
-  const inline = document.getElementById('inline-subtabs');
-  if(seleccio.ciutatPrincipal || seleccio.ciutatPrincipal2){
-    inline.style.display='block';
-    document.getElementById('cp1-nom').textContent = seleccio.ciutatPrincipal || '-';
-    document.getElementById('cp2-nom').textContent = seleccio.ciutatPrincipal2 || '-';
-    document.getElementById('cp1-clear').style.display = seleccio.ciutatPrincipal? 'block':'none';
-    document.getElementById('cp2-clear').style.display = seleccio.ciutatPrincipal2? 'block':'none';
-  } else {
-    inline.style.display='none';
-  }
-}
+window.selectGenere = g => {
+  seleccio.genere = g.toLowerCase();
+  document.querySelectorAll('.gen-btn').forEach(b =>
+    b.classList.toggle('active', b.textContent === g)
+  );
+  renderPlantillesFiltre();
+};
 
-window.selectCiutatHub = ciutat=>{
-  if(!seleccio.ciutatPrincipal){
-    seleccio.ciutatPrincipal = ciutat;
-  } else if(!seleccio.ciutatPrincipal2 && ciutat!== seleccio.ciutatPrincipal){
-    seleccio.ciutatPrincipal2 = ciutat;
-  } else {
-    seleccio.ciutatPrincipal2 = ciutat;
-  }
-  document.getElementById('ubicacio-label').textContent = seleccio.ciutatPrincipal || '▼';
-  renderUbicacioList();
-}
+function renderPlantillesFiltre() {
+  const grid = document.getElementById('pas2-plantilles');
+  const plantilles = BANCS.banco_plantillas?.filter(p =>
+    p.genere === seleccio.genere ||!p.genere
+  ) || [];
 
-window.clearCP = num=>{
-  if(num===1){
-    seleccio.ciutatPrincipal = null;
-    seleccio.subtubsPrincipal = [];
-  } else {
-    seleccio.ciutatPrincipal2 = null;
-    seleccio.subtubsPrincipal2 = [];
-  }
-  document.getElementById('ubicacio-label').textContent = seleccio.ciutatPrincipal || '▼';
-  renderUbicacioList();
-}
-
-// ========================================
-// 5. PLANTILLES SINOPSI + BOTÓ 3 PLANTILLA 34
-// ========================================
-function renderPlantillaTabs(){
-  const container = document.getElementById('plantilla-tabs');
-  const plantilles = window.PLANTILLES_SINOPSI || {
-    'Cas Clàssic':'Un detectiu a {ciutat} investiga un cas que sembla rutinari fins que {event} ho canvia tot.',
-    'Venjança':'A {ciutat}, {p0} busca justícia per {event} mentre {p1} intenta aturar-lo.',
-    'Conspiració':'{p0} descobreix una trama que connecta {ciutat} amb {event}. Ningú és qui diu ser.'
-  };
-  const noms = Object.keys(plantilles);
-  container.innerHTML = noms.map(nom=>
-    `<div class="plantilla-tab" onclick="loadPlantilla('${nom}')">${nom}</div>`
-  ).join('') + `<div class="plantilla-tab" onclick="openScreen('plantilla')">+34 més</div>`;
-}
-
-window.loadPlantilla = nom=>{
-  const plantilles = window.PLANTILLES_SINOPSI || {};
-  const textarea = document.getElementById('input-sinopsis');
-  textarea.value = plantilles[nom] || '';
-  document.querySelectorAll('.plantilla-tab').forEach(tab=>{
-    tab.classList.remove('active');
-    if(tab.textContent === nom) tab.classList.add('active');
-  });
-}
-
-function renderGridPlantillas() {
-  const grid = document.getElementById('grid-plantillas-34');
-  if (!grid ||!bancPlantillas.length) return;
-
-  grid.innerHTML = bancPlantillas.map(p => `
-    <div class="card-plantilla" onclick="verDetallePlantilla('${p.id}')">
+  grid.innerHTML = plantilles.map(p => `
+    <div class="card-plantilla" onclick="selectPlantilla('${p.id}')">
       <h3>[${p.id}] ${p.nom}</h3>
-      <p><strong>Caps:</strong> ${p.caps} | <strong>Climax:</strong> ${p.climax}</p>
-      <p><strong>Ratio:</strong> ${p.ratio}</p>
-      <button onclick="event.stopPropagation(); usarPlantilla('${p.id}')">Usar</button>
+      <p>${p.caps} caps | Climax: ${p.climax}</p>
     </div>
   `).join('');
 }
 
-function verDetallePlantilla(id) {
-  const p = bancPlantillas.find(x => x.id === id);
-  document.getElementById('det-id').textContent = p.id;
-  document.getElementById('det-nom').textContent = p.nom;
-  document.getElementById('det-prompt').textContent = p.prompt_master;
-  document.getElementById('grid-plantillas-34').style.display = 'none';
-  document.getElementById('pantalla-plantilla-detalle').style.display = 'block';
-}
-
-window.usarPlantilla = function(id) {
-  const p = bancPlantillas.find(x => x.id === id);
+window.selectPlantilla = id => {
+  const p = BANCS.banco_plantillas.find(x => x.id === id);
   seleccio.plantillaId = id;
-  seleccio.totalCaps = p.caps;
   seleccio.prompt_master = p.prompt_master;
-  document.getElementById('input-caps').value = p.caps;
-  closeScreen();
-  openScreen('generar');
+  seleccio.subgenere = p.nom;
+
+  // PAS 3: Render variables
+  renderVariablesForm(p.variables || ['ciutat_1','ciutat_2','prota','antagonista']);
+};
+
+function renderVariablesForm(vars) {
+  const div = document.getElementById('pas3-variables');
+  div.innerHTML = vars.map(v => `
+    <label>{{${v}}}</label>
+    <input id="var-${v}" placeholder="${v}">
+  `).join('');
 }
 
-// ========================================
-// 6. BOTÓ GENERAR - EL TEU BLOC SENCER
-// ========================================
-async function generarLlibre() {
-  if(!seleccio.ciutatPrincipal){
-    mostrarError('Selecciona Ciutat Principal 1 primer');
-    return;
-  }
-  if(!mod ||!mod.generarLlibre){
-    mostrarError('Error: Motor no cargado. Recarga la página.');
-    return;
-  }
+// PAS 4: Idioma + Generar
+window.setIdioma = lang => {
+  seleccio.idioma = lang;
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === lang)
+  );
+};
 
+window.generarLlibre = async () => {
+  if (!seleccio.plantillaId) return alert('Selecciona plantilla primer');
+
+  // Agafar variables del form
+  document.querySelectorAll('#pas3-variables input').forEach(inp => {
+    seleccio.variables[inp.id.replace('var-','')] = inp.value;
+  });
+
+  showProgress(0);
   const btn = document.getElementById('btn-generar');
   btn.disabled = true;
-  const modoTxt = seleccio.modo === 'escena'? 'Escena' : seleccio.modo === 'capitol'? 'Capítol' : 'Llibre';
-  document.getElementById('resultat').innerHTML = `<p style="text-align:center">Generant ${modoTxt} ${seleccio.ritme}...</p>`;
 
-  try{
-    const config = {
-    ...seleccio,
-      nom: BANCS.banco_personatge?.[0]?.banco_variables?.nom?.[0] || 'Rita',
-      nom2: BANCS.banco_personatge?.[0]?.banco_variables?.nom?.[1] || 'Víctor',
-      tic: BANCS.banco_personatge?.[0]?.banco_variables?.tic?.[0] || 'es passa la mà per la barba',
-      ciutat_1: seleccio.ciutatPrincipal,
-      ciutat_2: seleccio.ciutatPrincipal2,
-      ciutat_3: 'Madrid',
-      paraulesObjectiu: seleccio.modo === 'escena'? 500 : seleccio.modo === 'capitol'? 1500 : 0
-    };
+  try {
+    const config = {...seleccio, modo: 'llibre'};
+    const resultado = await mod.generarLlibre(config, BANCS, null, 1, 1, seleccio.totalCaps || 12);
 
-    // RESET si es libro completo
-    if(config.modo === 'llibre'){
-      await mod.resetEstructura();
-      histActual = null;
-    }
-
-    // LLAMADA HÍBRIDA: generarLlibre decide según config.modo
-    const resultado = await mod.generarLlibre(
-      config, BANCS, histActual, seleccio.numCap, seleccio.numEsc, seleccio.totalCaps
-    );
-
-    // Actualizar hist para siguiente generación
-    histActual = resultado.hist;
-
-    // Adaptar resultado según modo
-    if(config.modo === 'escena'){
-      llibreGenerat = {
-        capitols:[{
-          num:seleccio.numCap,
-          beat:resultado.metadata.beat,
-          escenes:[{titol:`Cap ${seleccio.numCap} - Esc ${seleccio.numEsc}`,text:resultado.text}]
-        }],
-        metadata:{paraulesAprox:resultado.metadata.paraules,nCapitols:1}
-      };
-    } else if(config.modo === 'capitol'){
-      const escenes = resultado.text.split('\n\n').map((t,i)=>({ titol:`Escena ${i+1}`, text:t }));
-      llibreGenerat = {
-        capitols:[{num:seleccio.numCap,beat:'capitol',escenes}],
-        metadata:{paraulesAprox:resultado.metadata.paraules,nCapitols:1}
-      };
-    } else {
-      // Libro completo
-      llibreGenerat = resultado;
-    }
-
-    mostrarLlibre(llibreGenerat);
-
-  }catch(err){
-    console.error(err);
-    mostrarError(`Error: ${err.message}`);
+    llibreGenerat = resultado;
+    showProgress(100);
+    setTimeout(() => openScreen('lectura'), 500);
+    mostrarLecturaFinal(resultado);
+  } catch(e) {
+    alert('Error: ' + e.message);
   } finally {
     btn.disabled = false;
   }
+};
+
+function showProgress(p) {
+  document.getElementById('progress-bar').style.width = p + '%';
+  document.getElementById('progress-text').textContent = p + '%';
 }
 
 // ========================================
-// 7. PREVIEW + MOSTRAR LLIBRE - EL TEU CODI
+// 4. HIPNOSI PROMPTS - BOTÓ 2
 // ========================================
-function mostrarPreview() {
-  if(!llibreGenerat) return mostrarError('Primer prem Generar Text');
-  mostrarLlibre(llibreGenerat);
+function renderHipnosi() {
+  const selector = document.getElementById('hipnosi-selector');
+  const plantilles = BANCS.banco_plantillas || [];
+
+  selector.innerHTML = plantilles.map(p =>
+    `<option value="${p.id}">[${p.id}] ${p.nom}</option>`
+  ).join('');
+
+  selector.onchange = e => carregarPromptsPlantilla(e.target.value);
 }
 
-function mostrarLlibre(llibre){
-  const div = document.getElementById('lectura-content');
-  div.innerHTML = '';
-  llibre.capitols.forEach(cap=>{
-    const capDiv = document.createElement('div');
-    capDiv.innerHTML = `<h2 style="color:var(--accent);margin:24px 0 12px">CAPÍTOL ${cap.num} - ${cap.beat?.toUpperCase() || ''}</h2>`;
-    cap.escenes.forEach((esc,idx)=>{
-      const el = document.createElement('div');
-      el.innerHTML = `<h3 style="color:var(--text-muted);font-size:14px;margin:16px 0 8px">${esc.titol || `Escena ${idx+1}`}</h3><p style="line-height:1.8">${esc.text}</p>`;
-      capDiv.appendChild(el);
-    });
-    capDiv.innerHTML += `<hr style="margin:32px 0;border:none;border-top:2px solid var(--border)">`;
-    div.appendChild(capDiv);
+function carregarPromptsPlantilla(id) {
+  const p = BANCS.banco_plantillas.find(x => x.id === id);
+  if (!p) return;
+
+  const beats = ['hook','cliffhanger','payback8','payback14','inici_cap','enllac','desenllac'];
+  beats.forEach((beat, i) => {
+    const caixa = document.getElementById(`caixa-${i+1}`);
+    if (caixa) caixa.value = p.prompts?.[beat] || p.prompt_master || '';
   });
-
-  document.getElementById('resultat').innerHTML = `<p style="text-align:center;color:var(--accent)">✅ Generat: ${llibre.metadata.paraulesAprox} paraules - ${llibre.metadata.nCapitols} capítols</p>`;
-  document.getElementById('menu').style.display='none';
-  document.getElementById('screen-lectura').classList.add('active');
-
-  guardarBiblioteca();
 }
 
-// ========================================
-// 8. TOC + SCROLL - EL TEU CODI
-// ========================================
-window.scrollToCap = num=>{
-  const els = document.querySelectorAll('#lectura-content h2');
-  if(els[num-1]) els[num-1].scrollIntoView({behavior:'smooth'});
-  document.getElementById('toc-container').classList.add('toc-hidden');
+window.copiarTotHipnosi = () => {
+  const text = Array.from(document.querySelectorAll('.hipnosi-caixa'))
+   .map(c => c.value).join('\n\n---\n\n');
+  navigator.clipboard.writeText(text);
+  alert('Copiat!');
 };
 
 // ========================================
-// 9. EXPORTAR + RESET - EL TEU CODI
+// 5. BANCO 34 PLANTILLAS - BOTÓ 3
 // ========================================
-function exportarTxt() {
-  if(!llibreGenerat) return mostrarError('Primer prem Generar Text');
-  const text = llibreGenerat.capitols.map(c=>`CAPÍTOL ${c.num} - ${c.beat}\n\n`+c.escenes.map(e=>`${e.titol}\n${e.text}\n\n`).join('')).join('\n---\n\n');
-  const blob = new Blob([text],{type:'text/plain;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href=url;
-  a.download=(seleccio.titol||'lec-flix')+'_'+seleccio.modo+'.txt';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+function renderBancoPlantillas() {
+  const grid = document.getElementById('grid-34');
+  const plantilles = BANCS.banco_plantillas || [];
+
+  grid.innerHTML = plantilles.map(p => `
+    <div class="card-34" onclick="verDetallePlantilla('${p.id}')">
+      <h3>[${p.id}] ${p.nom}</h3>
+      <p>${p.caps} caps | ${p.climax}</p>
+      <p>${p.ratio}</p>
+      <button onclick="event.stopPropagation(); usarPerGenerar('${p.id}')">USAR</button>
+    </div>
+  `).join('');
 }
 
-async function resetearHist() {
-  if(!mod) return;
-  await mod.resetEstructura();
-  histActual = null;
-  llibreGenerat = null;
-  document.getElementById('resultat').innerHTML = '<p style="color:var(--text-muted);text-align:center">Estructura resetejada. Llest per generar.</p>';
-  console.log('🔄 Reset complet');
+window.verDetallePlantilla = id => {
+  const p = BANCS.banco_plantillas.find(x => x.id === id);
+  document.getElementById('det-prompt').textContent = p.prompt_master;
+  document.getElementById('det-climax').textContent = p.climax;
+  document.getElementById('det-ratio').textContent = p.ratio;
+  document.getElementById('det-variables').textContent = JSON.stringify(p.variables || [], null, 2);
+  document.getElementById('grid-34').style.display = 'none';
+  document.getElementById('detalle-plantilla').style.display = 'block';
+};
+
+window.usarPerGenerar = id => {
+  selectPlantilla(id);
+  openScreen('generar');
+};
+
+// ========================================
+// 6. DADES I VARIABLES - BOTÓ 4
+// ========================================
+function renderDadesVariables() {
+  const vars = BANCS.banco_variables || [];
+  const div = document.getElementById('seccio-variables');
+
+  div.innerHTML = vars.map(v => `
+    <div class="var-row">
+      <span>{{${v.id}}}</span>
+      <input value="${v.placeholder}" onchange="updateVar('${v.id}', this.value)">
+    </div>
+  `).join('') + `<button onclick="addVariable()">+ AFEGIR VARIABLE</button>`;
+
+  // Stats
+  document.getElementById('stat-plantilles').textContent = `${BANCS.banco_plantillas?.length || 0}/34 ✅`;
+  const mitja = BANCS.banco_plantillas?.reduce((a,b) => a + (b.caps||12), 0) / BANCS.banco_plantillas?.length || 0;
+  document.getElementById('stat-mitja').textContent = mitja.toFixed(1);
 }
 
 // ========================================
-// 10. DADES + BIBLIOTECA + INFO
+// 7. BIBLIOTECA - BOTÓ 5
 // ========================================
-function renderVariablesGlobals() {
-  const container = document.getElementById('lista-variables');
-  container.innerHTML = `
-    <input id="var-ciutat1" placeholder="Ciutat 1" value="${seleccio.ciutatPrincipal||''}">
-    <input id="var-ciutat2" placeholder="Ciutat 2" value="${seleccio.ciutatPrincipal2||''}">
-    <input id="var-prota" placeholder="Protagonista" value="${seleccio.nom||'Rita'}">
-    <button onclick="guardarVariables()">Guardar Variables</button>
-  `;
-}
-
-function guardarVariables() {
-  seleccio.ciutatPrincipal = document.getElementById('var-ciutat1').value;
-  seleccio.ciutatPrincipal2 = document.getElementById('var-ciutat2').value;
-  alert('Variables guardades');
-  closeScreen();
-}
-
-function guardarBiblioteca() {
-  const llibres = JSON.parse(localStorage.getItem('biblioteca_lec_flix') || '[]');
-  llibres.unshift({
-    id: Date.now(),
-    plantilla: seleccio.plantillaId,
-    titol: seleccio.titol,
-    data: new Date().toLocaleString(),
-    preview: document.getElementById('lectura-content').textContent.substring(0,150)
-  });
-  localStorage.setItem('biblioteca_lec_flix', JSON.stringify(llibres.slice(0,20)));
-}
-
 function renderBiblioteca() {
-  const container = document.getElementById('lista-biblioteca');
   const llibres = JSON.parse(localStorage.getItem('biblioteca_lec_flix') || '[]');
-  container.innerHTML = llibres.length? llibres.map(l => `
-    <div class="item-biblioteca">
-      <h4>[${l.plantilla}] ${l.titol || 'Sense títol'}</h4>
-      <p>${l.data}</p>
-      <p>${l.preview}...</p>
+  const div = document.getElementById('lista-llibres');
+
+  div.innerHTML = llibres.length? llibres.map(l => `
+    <div class="llibre-item">
+      <h4>${l.titol}</h4>
+      <p>${l.data} | ${l.caps} caps</p>
+      <button onclick="llegirLlibre(${l.id})">LLEGIR</button>
+      <button onclick="eliminarLlibre(${l.id})">ELIMINAR</button>
     </div>
   `).join('') : '<p>No tens llibres guardats</p>';
 }
 
-function renderInfoApp() {
-  document.getElementById('info-version').textContent = 'V14.3.0 FINAL';
-  document.getElementById('info-plantilles').textContent = `${bancPlantillas.length}/34 carregades`;
+// ========================================
+// 8. INFO APP - BOTÓ 6
+// ========================================
+function renderInfo() {
+  document.getElementById('info-versio').textContent = 'V14.3.0';
+  document.getElementById('info-plantilles').textContent = `${BANCS.banco_plantillas?.length || 0}/34`;
+  document.getElementById('info-motor').textContent = mod? 'GPT-4 / Claude' : 'Desconnectat';
 }
 
 // ========================================
-// 11. INIT BOTONS + SERVICE WORKER
+// 9. LECTURA FINAL
 // ========================================
-function initBotons() {
-  document.getElementById('btn-generar')?.addEventListener('click', generarLlibre);
-  document.getElementById('btn-preview')?.addEventListener('click', mostrarPreview);
-  document.getElementById('btn-exportar')?.addEventListener('click', exportarTxt);
-  document.getElementById('btn-reset')?.addEventListener('click', resetearHist);
-
-  document.getElementById('btn-toc-toggle')?.addEventListener('click', ()=>{
-    if(!llibreGenerat) return mostrarError('Primer prem Generar Text');
-    const toc = document.getElementById('toc-container');
-    const content = document.getElementById('toc-content');
-    if(toc.classList.contains('toc-hidden')){
-      content.innerHTML = llibreGenerat.capitols.map(c=>
-        `<div class="toc-item" onclick="scrollToCap(${c.num})">
-          <div class="toc-capitol">Capítol ${c.num} - ${c.beat}</div>
-          <div class="toc-escenes">${c.escenes.length} escenes</div>
-        </div>`
-      ).join('');
-    }
-    toc.classList.toggle('toc-hidden');
-  });
+function mostrarLecturaFinal(llibre) {
+  const index = document.getElementById('index-lectura');
+  index.innerHTML = llibre.capitols.map(c => `
+    <div class="index-cap">
+      <h3>Cap ${c.num}: ${c.titol}</h3>
+      <p>${c.resum?.substring(0,120)}...</p>
+      <button onclick="llegirCap(${c.num})">LLEGIR CAP ${c.num}</button>
+    </div>
+  `).join('');
 }
 
-// Service Worker
-if('serviceWorker' in navigator) navigator.serviceWorker.register(baseURL+'sw.js');
+window.llegirCap = num => {
+  const cap = llibreGenerat.capitols.find(c => c.num === num);
+  document.getElementById('text-lectura').innerHTML =
+    `<h2>CAPÍTOL ${cap.num}</h2>` + cap.escenes.map(e => `<p>${e.text}</p>`).join('');
+};
 
-// INIT
+// ========================================
+// INIT + LOAD BANCS
+// ========================================
+async function initApp() {
+  const bancMod = await import(baseURL + 'data/loadBancs.js?v=' + Date.now());
+  BANCS = await bancMod.cargarBancs();
+
+  mod = await import(baseURL + 'generarllibre.js?v=' + Date.now());
+  console.log('✅ V14.3.0 carregat - 9 pantalles actives');
+}
+
 document.addEventListener('DOMContentLoaded', initApp);
