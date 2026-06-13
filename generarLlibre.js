@@ -402,4 +402,4 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
   };
 }
 
-console.log('✅ Motor Híbrid V14.3.0 carregat - escena/capitol/llibre actiu');
+console.log('✅ Motor Híbrid V14.3.0 carregat - escena/capitol/llibre actiu'); 
