@@ -6,42 +6,46 @@
 <meta name="theme-color" content="#0d0f12">
 <title>lec-flix policial V14.3.0</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css?v=22">
+<link rel="stylesheet" href="styles.css?v=23">
 <style>
-:root{--bg:#0d0f12;--bg-panel:#1a1d22;--text:#e6e7e9;--text-muted:#8a8f96;--accent:#00bcd4;--border:#2a2e33;--btn:#262a31}
+:root{--bg:#0d0f12;--bg-panel:#1a1d22;--text:#e6e7e9;--text-muted:#8a8f96;--accent:#00bcd4;--border:#2a2e33;--btn:#262a31;--danger:#ef4444}
 body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
 .screen{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:100;overflow-y:auto}
 .screen.active{display:block}
 .screen-header{position:sticky;top:0;background:var(--bg);padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;z-index:10}
-.screen-header button{background:none;border:none;color:var(--accent);font-size:14px;cursor:pointer;padding:8px 12px}
-.screen-header h2{margin:0;font-size:16px;flex:1;text-align:center}
+.screen-header button{background:none;border:none;color:var(--accent);font-size:14px;cursor:pointer;padding:8px 12px;font-weight:600}
+.screen-header h2{margin:0;font-size:18px;flex:1;text-align:center}
 .screen-content{padding:16px;max-width:720px;margin:0 auto}
-button.opt-btn{width:100%;padding:14px;margin-bottom:8px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;color:var(--text);cursor:pointer;text-align:left;font-size:14px;font-weight:500}
+button.opt-btn{width:100%;padding:14px;margin-bottom:8px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;color:var(--text);cursor:pointer;text-align:left;font-size:14px;font-weight:500;transition:all 0.2s}
 button.opt-btn:hover{background:#23272e;border-color:var(--accent)}
-button.opt-btn.accent{background:var(--accent);color:#000;border-color:var(--accent)}
-input,textarea,select{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);border-radius:6px;margin-bottom:12px;font-size:15px}
+button.opt-btn.accent{background:var(--accent);color:#000;border-color:var(--accent);font-weight:700;text-align:center}
+input,textarea,select{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);border-radius:6px;margin-bottom:12px;font-size:15px;font-family:inherit}
 .grid-34{display:grid;grid-template-columns:1fr;gap:10px}
-.card-34{padding:12px;background:var(--bg-panel);border:1px solid var(--border);border-radius:6px;cursor:pointer}
-.card-34 h3{margin:0 0 6px;font-size:14px;color:var(--accent)}
-.card-34 p{margin:4px 0;font-size:12px;color:var(--text-muted)}
-.card-34 button{margin-top:8px;padding:8px 12px;background:var(--accent);border:none;border-radius:4px;color:#000;font-weight:600;cursor:pointer;width:100%}
+.card-34{padding:16px;background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.2s}
+.card-34:hover{background:#23272e;border-color:var(--accent);transform:translateY(-2px)}
+.card-34 h3{margin:0 0 8px;font-size:15px;color:var(--accent)}
+.card-34 p{margin:4px 0;font-size:13px;color:var(--text-muted)}
+.card-34 button{margin-top:10px;padding:8px 12px;background:var(--accent);border:none;border-radius:4px;color:#000;font-weight:600;cursor:pointer;width:100%}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
-.menu-btn{padding:24px;background:var(--bg-panel);border:2px solid var(--border);border-radius:12px;cursor:pointer;text-align:center;font-size:16px;font-weight:600;transition:border-color 0.2s}
-.menu-btn:hover{border-color:var(--accent)}
-.progress-container{margin:16px 0;background:var(--bg-panel);border-radius:6px;overflow:hidden}
-.progress-bar{height:8px;background:var(--accent);width:0%;transition:width 0.3s}
-.gen-btn{padding:12px;margin:4px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer}
-.gen-btn.active{background:var(--accent);color:#000}
-.lang-btn{padding:8px 16px;margin:4px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer}
+.menu-btn{padding:28px 16px;background:var(--bg-panel);border:2px solid var(--border);border-radius:12px;cursor:pointer;text-align:center;font-size:16px;font-weight:600;transition:border-color 0.2s,background 0.2s}
+.menu-btn:hover{border-color:var(--accent);background:#23272e}
+.progress-container{margin:16px 0;background:var(--bg-panel);border-radius:6px;overflow:hidden;height:8px}
+.progress-bar{height:100%;background:var(--accent);width:0%;transition:width 0.3s}
+.gen-btn{padding:12px 16px;margin:4px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:14px;transition:all 0.2s}
+.gen-btn.active{background:var(--accent);color:#000;border-color:var(--accent)}
+.lang-btn{padding:8px 16px;margin:4px;background:var(--btn);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:14px}
 .lang-btn.active{background:var(--accent);color:#000}
-.sinopsi-caixa{min-height:80px;font-size:13px}
 .splash{text-align:center;padding-top:40vh}
 .splash h1{font-size:32px;color:var(--accent);margin-bottom:24px}
-.splash button{padding:16px 32px;background:var(--accent);border:none;border-radius:8px;color:#000;font-size:18px;font-weight:600;cursor:pointer}
+.splash button{padding:16px 32px;background:var(--accent);border:none;border-radius:8px;color:#000;font-size:18px;font-weight:700;cursor:pointer}
 .acciones-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:24px}
-.acciones-grid button{grid-column:auto}
 .acciones-grid .full{grid-column:1/3}
-pre{background:var(--bg-panel);padding:12px;border-radius:6px;font-size:12px;overflow-x:auto}
+pre{background:var(--bg);padding:12px;border-radius:6px;font-size:12px;overflow-x:auto;border:1px solid var(--border)}
+/* PINÇA: Textarea prompt master gran */
+#prompt-master-box{min-height:420px;font-family:'Courier New',monospace;font-size:12px;line-height:1.5;background:var(--bg);resize:vertical}
+#prompt-master-box:focus{border-color:var(--accent);outline:none}
+#info-bancs-lista p{margin:8px 0;font-size:13px}
+label{display:block;margin-top:12px;margin-bottom:4px;font-size:13px;color:var(--text-muted)}
 </style>
 </head>
 <body>
@@ -67,8 +71,6 @@ pre{background:var(--bg-panel);padding:12px;border-radius:6px;font-size:12px;ove
       <div class="menu-btn" onclick="openScreen('biblioteca')">📖 LA MEVA BIBLIOTECA</div>
       <div class="menu-btn" onclick="openScreen('info')">ℹ️ INFO APP</div>
     </div>
-    
-    <!-- Accions ràpides Menú -->
     <div class="acciones-grid">
       <button class="opt-btn" id="btn-exportar-txt">Exportar .txt</button>
       <button class="opt-btn" id="btn-reset" style="background:var(--btn)">Reset</button>
@@ -100,34 +102,18 @@ pre{background:var(--bg-panel);padding:12px;border-radius:6px;font-size:12px;ove
   </div>
 </section>
 
-<!-- 4. SINOPSI PROMPTS - BOTÓ 2 -->
+<!-- 4. SINOPSI PROMPTS - PINÇA: 1 CAIXA PROMPT MASTER -->
 <section id="screen-sinopsi" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>SINOPSI PROMPTS</h2></div>
   <div class="screen-content">
+    <label>Selecciona Plantilla:</label>
     <select id="sinopsi-selector"></select>
-    
-    <h4 style="color:var(--accent);margin-top:16px">HOOK 5s</h4>
-    <textarea class="sinopsi-caixa" id="caixa-1" readonly></textarea>
-    
-    <h4 style="color:var(--accent)">CLIFFHANGER</h4>
-    <textarea class="sinopsi-caixa" id="caixa-2" readonly></textarea>
-    
-    <h4 style="color:var(--accent)">PAYBACK BEAT 8</h4>
-    <textarea class="sinopsi-caixa" id="caixa-3" readonly></textarea>
-    
-    <h4 style="color:var(--accent)">PAYBACK BEAT 14</h4>
-    <textarea class="sinopsi-caixa" id="caixa-4" readonly></textarea>
-    
-    <h4 style="color:var(--accent)">INICI CAP</h4>
-    <textarea class="sinopsi-caixa" id="caixa-5" readonly></textarea>
-    
-    <h4 style="color:var(--accent)">ENLLAÇ</h4>
-    <textarea class="sinopsi-caixa" id="caixa-6" readonly></textarea>
-    
-    <h4 style="color:var(--accent)">DESENLLAÇ CLIFF</h4>
-    <textarea class="sinopsi-caixa" id="caixa-7" readonly></textarea>
-    
-    <button class="opt-btn accent" onclick="copiarTotSinopsi()">COPIAR TOT</button>
+
+    <h4 style="color:var(--accent);margin-top:20px">PROMPT MASTER COMPLET</h4>
+    <textarea id="prompt-master-box" readonly></textarea>
+
+    <button class="opt-btn accent" onclick="copiarPromptMaster()">📋 COPIAR PROMPT PER CHATGPT</button>
+    <p style="color:var(--text-muted);font-size:12px;margin-top:12px">Pin pan: copia → enganxa a ChatGPT → canvia {{variables}} → genera</p>
   </div>
 </section>
 
@@ -136,7 +122,6 @@ pre{background:var(--bg-panel);padding:12px;border-radius:6px;font-size:12px;ove
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>BANCO 34 PLANTILLAS</h2></div>
   <div class="screen-content">
     <div id="grid-34" class="grid-34"></div>
-    
     <div id="detalle-plantilla" style="display:none">
       <h3 id="det-nom" style="color:var(--accent)"></h3>
       <p><strong>Climax:</strong> <span id="det-climax"></span></p>
@@ -155,9 +140,8 @@ pre{background:var(--bg-panel);padding:12px;border-radius:6px;font-size:12px;ove
 <section id="screen-dades" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>DADES I VARIABLES</h2></div>
   <div class="screen-content">
-    <h3>Secció 1: Variables Globals</h3>
+    <h3>Secció 1: Variables Globals Editables</h3>
     <div id="seccio-variables"></div>
-    
     <h3 style="margin-top:24px">Secció 2: Stats Banc</h3>
     <p>Total plantilles: <span id="stat-plantilles">0/34</span></p>
     <p>Total caps mitja: <span id="stat-mitja">0</span></p>
@@ -173,7 +157,7 @@ pre{background:var(--bg-panel);padding:12px;border-radius:6px;font-size:12px;ove
   </div>
 </section>
 
-<!-- 8. INFO APP - BOTÓ 6 -->
+<!-- 8. INFO APP - PINÇA: AMB DADES BANCS -->
 <section id="screen-info" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>INFO APP</h2></div>
   <div class="screen-content">
@@ -181,8 +165,11 @@ pre{background:var(--bg-panel);padding:12px;border-radius:6px;font-size:12px;ove
     <p>Banc actiu: banc_plantillas.json</p>
     <p>Plantilles carregades: <span id="info-plantilles">0/34</span></p>
     <p>Motor IA: <span id="info-motor">Desconnectat</span></p>
+    
     <hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">
-    <p style="font-size:12px;color:var(--text-muted)">Lec-Flix Policial Híbrid</p>
+    
+    <h4 style="color:var(--accent)">Bancs disponibles:</h4>
+    <div id="info-bancs-lista"></div>
   </div>
 </section>
 
@@ -192,19 +179,13 @@ pre{background:var(--bg-panel);padding:12px;border-radius:6px;font-size:12px;ove
   <div class="screen-content">
     <h3>📖 ÍNDEX AUTOMÀTIC</h3>
     <div id="index-lectura"></div>
-    
     <hr style="margin:24px 0;border:none;border-top:1px solid var(--border)">
-    
     <div id="text-lectura"></div>
-    
-    <!-- BOTONS EXPORTAR SEGONS DIAGRAMA -->
     <div class="acciones-grid">
       <button class="opt-btn" id="btn-llegir-cap1">LLEGIR CAP 1</button>
       <button class="opt-btn accent" id="btn-generar-altre">GENERA UN ALTRE</button>
-      
       <button class="opt-btn" id="btn-exportar-epub">DESCARREGAR EPUB</button>
       <button class="opt-btn" id="btn-exportar-pdf">DESCARREGAR PDF</button>
-      
       <button class="opt-btn full" id="btn-compartir">COMPARTIR</button>
     </div>
   </div>
