@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d0f12">
 <title>lec-flix policial V14.3.2</title>
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css?v=25">
+
+<!-- PINÇA: Totes les rutes sense / davant + cache bust -->
+<link rel="manifest" href="manifest.json?v=14.3.2">
+<link rel="stylesheet" href="styles.css?v=14.3.2">
+
 <style>
 :root{--bg:#0d0f12;--bg-panel:#1a1d22;--text:#e6e7e9;--text-muted:#8a8f96;--accent:#00bcd4;--border:#2a2e33;--btn:#262a31;--danger:#ef4444}
 body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
@@ -87,53 +90,42 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
   <div class="screen-content">
     <h3>PAS 1: Selecciona Gènere</h3>
     <div id="pas1-generes"></div>
-    
     <h3 style="margin-top:24px">PAS 2: Selecciona Subgènere/Plantilla</h3>
     <div id="pas2-plantilles" class="grid-34"></div>
-    
     <h3 style="margin-top:24px">PAS 3: Omple Variables</h3>
     <div id="pas3-variables"></div>
-    
     <h3 style="margin-top:24px">PAS 4: Idioma</h3>
     <button class="lang-btn active" data-lang="CAT" onclick="setIdioma('CAT')">CAT</button>
     <button class="lang-btn" data-lang="ES" onclick="setIdioma('ES')">ES</button>
-    
     <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
     <p id="progress-text" style="text-align:center;color:var(--text-muted)">0%</p>
-    
     <button id="btn-generar" class="opt-btn accent" style="margin-top:16px" onclick="generarLlibre()">GENERAR</button>
   </div>
 </section>
 
-<!-- 4. SINOPSI PROMPTS - PINÇA: BOTÓ GUARDAR EN VES DE COPIAR -->
+<!-- 4. SINOPSI PROMPTS - PINÇA: BOTÓ GUARDAR -->
 <section id="screen-sinopsi" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>SINOPSI PROMPTS</h2></div>
   <div class="screen-content">
     <label>Selecciona Plantilla:</label>
     <select id="sinopsi-selector"></select>
-
     <h4 style="color:var(--accent);margin-top:20px">PROMPT MASTER COMPLET</h4>
-    <textarea id="prompt-master-box" placeholder="Enganxa aquí el teu prompt_master sencer o selecciona plantilla per carregar..."></textarea>
-
-    <!-- PINÇA: Botó canviat a GUARDAR -->
+    <textarea id="prompt-master-box" placeholder="Enganxa aquí el teu prompt_master sencer..."></textarea>
     <button class="opt-btn accent" onclick="guardarSinopsi()">💾 GUARDAR SINOPSI</button>
     <p style="color:var(--text-muted);font-size:12px;margin-top:12px">Guarda el prompt aquí. Després copia i enganxa a ChatGPT/Claude/Gemini</p>
   </div>
 </section>
 
-<!-- 5B. PROMPT MASTERS - NOU - NOMÉS INFORMACIÓ -->
+<!-- 5B. PROMPT MASTERS - NOU -->
 <section id="screen-promptmasters" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>PROMPT MASTERS</h2></div>
   <div class="screen-content">
-    <p style="color:var(--text-muted);font-size:13px;margin-bottom:20px">
-      Prompts preparats per copiar a ChatGPT/Claude. Cada un amb explicació i tip de plantilla.
-      Després la IA et genera la sinopsi adaptada.
-    </p>
+    <p style="color:var(--text-muted);font-size:13px;margin-bottom:20px">Prompts preparats per copiar a ChatGPT/Claude. Cada un amb explicació i tip de plantilla.</p>
     <div id="grid-prompts" class="grid-34"></div>
   </div>
 </section>
 
-<!-- 5. BANCO 34 PLANTILLAS - PER GENERAR -->
+<!-- 5. BANCO 34 PLANTILLAS -->
 <section id="screen-plantillas" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>34 PLANTILLES GENERAR</h2></div>
   <div class="screen-content">
@@ -152,19 +144,17 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
   </div>
 </section>
 
-<!-- 6. DADES I VARIABLES - PINÇA: NOMÉS INFORMACIÓ -->
+<!-- 6. DADES I VARIABLES -->
 <section id="screen-dades" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>DADES I VARIABLES</h2></div>
   <div class="screen-content">
     <h3>📊 Informació del Banc Actiu</h3>
     <div id="info-dades-lista"></div>
-    <p style="color:var(--text-muted);font-size:12px;margin-top:24px">
-      Aquesta pantalla només mostra informació. Per omplir variables usa PAS 3 de Generar Llibre o enganxa directament el teu prompt_master a Sinopsi i edita {{prota}}, {{ciutat_1}} allà.
-    </p>
+    <p style="color:var(--text-muted);font-size:12px;margin-top:24px">Aquesta pantalla només mostra informació. Per omplir variables usa PAS 3 de Generar Llibre.</p>
   </div>
 </section>
 
-<!-- 7. BIBLIOTECA - BOTÓ 5 -->
+<!-- 7. BIBLIOTECA -->
 <section id="screen-biblioteca" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>LA MEVA BIBLIOTECA</h2></div>
   <div class="screen-content">
@@ -173,7 +163,7 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
   </div>
 </section>
 
-<!-- 8. INFO APP - PINÇA: AMB DADES BANCS GLOSARI -->
+<!-- 8. INFO APP -->
 <section id="screen-info" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>INFO APP</h2></div>
   <div class="screen-content">
@@ -187,7 +177,7 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
   </div>
 </section>
 
-<!-- 9. LECTURA FINAL - AMB TOTS ELS BOTONS EXPORTAR -->
+<!-- 9. LECTURA FINAL -->
 <section id="screen-lectura" class="screen">
   <div class="screen-header"><button onclick="openScreen('menu')">← Menú</button><h2>LECTURA FINAL</h2></div>
   <div class="screen-content">
@@ -205,6 +195,7 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
   </div>
 </section>
 
+<!-- PINÇA: Script des d'arrel amb cache bust -->
 <script type="module" src="main.js?v=14.3.2"></script>
 </body>
 </html>
