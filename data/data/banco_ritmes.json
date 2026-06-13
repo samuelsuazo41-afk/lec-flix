@@ -1,0 +1,42 @@
+[
+  {
+    "id": "lento",
+    "nom": "Ritme Lent - Descriptiu",
+    "descripcio": "Més descripció, ambientació, introspecció. 400-450 paraules per escena",
+    "paraulesObjectiu": 420,
+    "densitatAccio": 0.3,
+    "freqConnector": 0.2,
+    "freqOlor": 0.4,
+    "freqSo": 0.3
+  },
+  {
+    "id": "normal",
+    "nom": "Ritme Normal - Equilibrat",
+    "descripcio": "Equilibri acció-descripció. 500 paraules per escena",
+    "paraulesObjectiu": 500,
+    "densitatAccio": 0.5,
+    "freqConnector": 0.33,
+    "freqOlor": 0.3,
+    "freqSo": 0.3
+  },
+  {
+    "id": "rapido",
+    "nom": "Ritme Ràpid - Acció",
+    "descripcio": "Més diàleg i acció, frases curtes. 550-600 paraules per escena",
+    "paraulesObjectiu": 580,
+    "densitatAccio": 0.7,
+    "freqConnector": 0.45,
+    "freqOlor": 0.2,
+    "freqSo": 0.4
+  },
+  {
+    "id": "policial",
+    "nom": "Ritme Policial - Tensió",
+    "descripcio": "Tensió constant, girs ràpids. 520 paraules per escena",
+    "paraulesObjectiu": 520,
+    "densitatAccio": 0.6,
+    "freqConnector": 0.4,
+    "freqOlor": 0.35,
+    "freqSo": 0.35
+  }
+]
