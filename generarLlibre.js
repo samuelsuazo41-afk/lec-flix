@@ -63,26 +63,26 @@ function pronomPerNom(nom) {
 
 function netejaEspais(text) {
   return text
-   .replace(/\s+/g,' ')
-   .replace(/\s+([.,])/g,'$1')
-   .replace(/\bel una\b/gi, 'una')
-   .replace(/\bla una\b/gi, 'una')
-   .trim();
+  .replace(/\s+/g,' ')
+  .replace(/\s+([.,])/g,'$1')
+  .replace(/\bel una\b/gi, 'una')
+  .replace(/\bla una\b/gi, 'una')
+  .trim();
 }
 
 function forçaPassat(text) {
   return text
-   .replace(/\bMira\b/g, 'Va mirar')
-   .replace(/\bOlía\b/g, 'Feia olor')
-   .replace(/\bSe le congeló\b/g, 'Se li va gelar')
-   .replace(/\bSiente\b/g, 'Va sentir')
-   .replace(/\bCamina\b/g, 'Va caminar');
+  .replace(/\bMira\b/g, 'Va mirar')
+  .replace(/\bOlía\b/g, 'Feia olor')
+  .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+  .replace(/\bSiente\b/g, 'Va sentir')
+  .replace(/\bCamina\b/g, 'Va caminar');
 }
 
 function safeReplace(text, vars) {
   let out = text;
-  const nom = vars['{p0}'] || vars['prota'] || 'Rita';
-  const nom2 = vars['{p1}'] || vars['antagonista'] || 'Víctor';
+  const nom = vars['{p0}'] || vars['prota'] || vars['{{prota}}'] || 'Rita';
+  const nom2 = vars['{p1}'] || vars['antagonista'] || vars['{{antagonista}}'] || 'Víctor';
 
   out = out.replace(/\bmotor\s+de\s+la\s+moto\b/gi, 'motor');
   out = out.replace(/(\buna moto accelerant fort\b|\bmotor\b)\s*,\s*sec i fred/gi, '$1 sec i fred');
@@ -118,24 +118,17 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
   hist = blindarHist(hist || histGlobal);
 
   // CABLEJAT 100% AMB MAIN.JS
-  const {
-    variables = {},
-    plantillaId,
-    prompt_master,
-    idioma = 'CAT',
-    ciutat_1,
-    ciutat_2
-  } = config;
+  const { variables = {}, plantillaId, prompt_master, idioma = 'CAT', ciutat_1, ciutat_2, escenesPerCap = 3 } = config;
 
-  const nom = variables.prota || variables['{p0}'] || 'Rita';
+  const nom = variables.prota || variables['{p0}'] || variables['{{prota}}'] || 'Rita';
   const tic = variables.tic || 'es passa la mà per la barba';
-  const ciutat = ciutat_1 || variables.ciutat_1 || 'Girona';
+  const ciutat = ciutat_1 || variables.ciutat_1 || variables['{{ciutat_1}}'] || 'Girona';
   const subtubActual = variables.subtub || null;
   const beatActual = config.beatActual || 'setup';
   const paraulesObjectiu = config.paraulesObjectiu || 500;
   const temps = variables.temps || {any:'2024', mes:'gener', dia:'1', event:''};
 
-  // Reset per capítol nou
+  // Reset per capítol nou cada 3 caps
   if (numEsc === 1 && numCap % 3 === 0) {
     hist.frasesUsadesCap = [];
     hist.usosOlor = {};
@@ -197,31 +190,31 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
   const progress = numCap / totalCaps;
   let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
 
-  // VARS CABLEJADES AMB MAIN.JS
+  // VARS CABLEJADES AMB MAIN.JS - DOBLE FORMAT {var} i {{var}}
   const varsTemps = {
     '{any}': temps.any || '2024',
     '{mes}': temps.mes || 'gener',
     '{dia}': temps.dia || '1',
     '{event}': temps.event || '',
     '{p0}': nom,
-    '{p1}': variables.antagonista || 'Víctor',
+    '{p1}': variables.antagonista || variables['{{antagonista}}'] || 'Víctor',
     '{esc}': escenari.nom,
     '{olor}': olor,
     '{so}': so,
     '{ciutat_1}': ciutat,
-    '{ciutat_2}': ciutat_2 || 'Barcelona',
+    '{ciutat_2}': ciutat_2 || variables.ciutat_2 || variables['{{ciutat_2}}'] || 'Barcelona',
     '{ciutat}': ciutat,
     '{emocio}': emocio,
     '{tic}': ticActual,
     '{plantilla}': plantillaId || ''
   };
 
-  // Afegir variables CP2 del main
+  // Afegir variables CP2 del main en format {{var}}
   Object.entries(variables).forEach(([k,v]) => {
-    varsTemps[`{{${k}}}`] = v;
+    if (v) varsTemps[`{{${k}}}`] = v;
   });
 
-  // Si hi ha prompt_master de plantilla 34, l'usem
+  // Si hi ha prompt_master de plantilla 34, l'usem directe
   let parrafo = '';
   if (prompt_master && prompt_master.length > 50) {
     parrafo = safeReplace(prompt_master, varsTemps);
@@ -284,7 +277,7 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
     // FALLBACK LLARG BLINDAT
     if (capActe === 2 && numEsc % 2 === 0) {
       parrafo += ` De sobte va entendre que tot el que creia sobre el cas era una mentida elaborada durant anys sense que ningú li hagués advertit del perill real que s'amagava darrere de cada pista falsa.`;
-    } else if (capActe === 3 && numEsc === config.escenesPerCap) {
+    } else if (capActe === 3 && numEsc === escenesPerCap) {
       parrafo += ` I finalment va comprendre que el viatge havia valgut la pena malgrat el dolor acumulat durant tant de temps perdut buscant respostes que sempre havien estat davant dels seus ulls.`;
     } else {
       parrafo += ` I va saber que ja no hi havia volta enrere possible per a ningú dels dos després de tot el que havien descobert aquella nit fosca a ${escenari.nom}.`;
@@ -326,7 +319,7 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
   if (modo === 'escena') {
     const beatActual = beats[numEsc - 1] || 'setup';
     const resultado = await generaParagraf(
-      {...config, beatActual},
+      {...config, beatActual, escenesPerCap},
       bancs, hist, numCap, numEsc, totalCaps
     );
     return {
@@ -353,7 +346,7 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
     for (let i = 0; i < escenesPerCap; i++) {
       const beatActual = beats[i] || 'setup';
       const resultado = await generaParagraf(
-        {...config, beatActual},
+        {...config, beatActual, escenesPerCap},
         bancs, histLocal, numCap, i + 1, totalCaps
       );
       escenes.push({titol: `Escena ${i + 1}`, text: resultado.text});
@@ -383,7 +376,7 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
     for (let esc = 1; esc <= escenesPerCap; esc++) {
       const beatActual = beats[esc - 1] || 'setup';
       const resultado = await generaParagraf(
-        {...config, beatActual},
+        {...config, beatActual, escenesPerCap},
         bancs, histLocal, cap, esc, totalCaps
       );
       escenes.push({titol: `Escena ${esc}`, text: resultado.text});
