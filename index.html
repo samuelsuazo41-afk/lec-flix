@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0d0f12">
-<title>lec-flix policial V14.3.1</title>
+<title>lec-flix policial V14.3.2</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css?v=24">
+<link rel="stylesheet" href="styles.css?v=25">
 <style>
 :root{--bg:#0d0f12;--bg-panel:#1a1d22;--text:#e6e7e9;--text-muted:#8a8f96;--accent:#00bcd4;--border:#2a2e33;--btn:#262a31;--danger:#ef4444}
 body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text)}
@@ -56,19 +56,20 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
 <section id="screen-splash" class="screen active">
   <div class="splash">
     <h1>lec-flix policial</h1>
-    <p style="color:var(--text-muted);margin-bottom:32px">V14.3.1 HÍBRID</p>
+    <p style="color:var(--text-muted);margin-bottom:32px">V14.3.2 HÍBRID</p>
     <button onclick="entrarApp()">ENTRAR</button>
   </div>
 </section>
 
-<!-- 2. MENÚ PRINCIPAL - 6 BOTONS + ACCIONS -->
+<!-- 2. MENÚ PRINCIPAL - 7 BOTONS + ACCIONS PINÇA: PROMPT MASTERS NOU -->
 <section id="screen-menu" class="screen">
   <div class="screen-header"><h2>MENÚ PRINCIPAL</h2></div>
   <div class="screen-content">
     <div class="menu-grid">
       <div class="menu-btn" onclick="openScreen('generar')">📚 GENERAR LLIBRE</div>
       <div class="menu-btn" onclick="openScreen('sinopsi')">🧠 SINOPSI PROMPTS</div>
-      <div class="menu-btn" onclick="openScreen('plantillas')">📋 BANCO 34 PLANTILLAS</div>
+      <div class="menu-btn" onclick="openScreen('promptmasters')">🧠 PROMPT MASTERS</div>
+      <div class="menu-btn" onclick="openScreen('plantillas')">📋 34 PLANTILLES GENERAR</div>
       <div class="menu-btn" onclick="openScreen('dades')">⚙️ DADES I VARIABLES</div>
       <div class="menu-btn" onclick="openScreen('biblioteca')">📖 LA MEVA BIBLIOTECA</div>
       <div class="menu-btn" onclick="openScreen('info')">ℹ️ INFO APP</div>
@@ -104,7 +105,7 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
   </div>
 </section>
 
-<!-- 4. SINOPSI PROMPTS - PINÇA: 1 CAIXA EDITABLE -->
+<!-- 4. SINOPSI PROMPTS - PINÇA: BOTÓ GUARDAR EN VES DE COPIAR -->
 <section id="screen-sinopsi" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>SINOPSI PROMPTS</h2></div>
   <div class="screen-content">
@@ -112,17 +113,29 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
     <select id="sinopsi-selector"></select>
 
     <h4 style="color:var(--accent);margin-top:20px">PROMPT MASTER COMPLET</h4>
-    <!-- PINÇA: Tret readonly per poder enganxar prompt David Ferrer -->
     <textarea id="prompt-master-box" placeholder="Enganxa aquí el teu prompt_master sencer o selecciona plantilla per carregar..."></textarea>
 
-    <button class="opt-btn accent" onclick="copiarPromptMaster()">📋 COPIAR PROMPT PER CHATGPT</button>
-    <p style="color:var(--text-muted);font-size:12px;margin-top:12px">Pin pan: copia → enganxa a ChatGPT/Claude → canvia {{variables}} → genera</p>
+    <!-- PINÇA: Botó canviat a GUARDAR -->
+    <button class="opt-btn accent" onclick="guardarSinopsi()">💾 GUARDAR SINOPSI</button>
+    <p style="color:var(--text-muted);font-size:12px;margin-top:12px">Guarda el prompt aquí. Després copia i enganxa a ChatGPT/Claude/Gemini</p>
   </div>
 </section>
 
-<!-- 5. BANCO 34 PLANTILLAS - BOTÓ 3 -->
+<!-- 5B. PROMPT MASTERS - NOU - NOMÉS INFORMACIÓ -->
+<section id="screen-promptmasters" class="screen">
+  <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>PROMPT MASTERS</h2></div>
+  <div class="screen-content">
+    <p style="color:var(--text-muted);font-size:13px;margin-bottom:20px">
+      Prompts preparats per copiar a ChatGPT/Claude. Cada un amb explicació i tip de plantilla.
+      Després la IA et genera la sinopsi adaptada.
+    </p>
+    <div id="grid-prompts" class="grid-34"></div>
+  </div>
+</section>
+
+<!-- 5. BANCO 34 PLANTILLAS - PER GENERAR -->
 <section id="screen-plantillas" class="screen">
-  <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>BANCO 34 PLANTILLAS</h2></div>
+  <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>34 PLANTILLES GENERAR</h2></div>
   <div class="screen-content">
     <div id="grid-34" class="grid-34"></div>
     <div id="detalle-plantilla" style="display:none">
@@ -146,8 +159,7 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
     <h3>📊 Informació del Banc Actiu</h3>
     <div id="info-dades-lista"></div>
     <p style="color:var(--text-muted);font-size:12px;margin-top:24px">
-      Aquesta pantalla només mostra informació. Per omplir variables usa PAS 3 de Generar Llibre
-      o enganxa directament el teu prompt_master a Sinopsi i edita {{prota}}, {{ciutat_1}} allà.
+      Aquesta pantalla només mostra informació. Per omplir variables usa PAS 3 de Generar Llibre o enganxa directament el teu prompt_master a Sinopsi i edita {{prota}}, {{ciutat_1}} allà.
     </p>
   </div>
 </section>
@@ -161,11 +173,11 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
   </div>
 </section>
 
-<!-- 8. INFO APP - PINÇA: AMB DADES BANCS -->
+<!-- 8. INFO APP - PINÇA: AMB DADES BANCS GLOSARI -->
 <section id="screen-info" class="screen">
   <div class="screen-header"><button onclick="closeScreen()">← Menú</button><h2>INFO APP</h2></div>
   <div class="screen-content">
-    <p>Versió: <span id="info-versio">V14.3.1</span></p>
+    <p>Versió: <span id="info-versio">V14.3.2</span></p>
     <p>Banc actiu: banc_plantillas.json</p>
     <p>Plantilles carregades: <span id="info-plantilles">0/34</span></p>
     <p>Motor IA: <span id="info-motor">Desconnectat</span></p>
@@ -193,6 +205,6 @@ h4{margin-top:20px;margin-bottom:8px;font-size:14px;font-weight:600;color:var(--
   </div>
 </section>
 
-<script type="module" src="main.js?v=14.3.1"></script>
+<script type="module" src="main.js?v=14.3.2"></script>
 </body>
 </html>
