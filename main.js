@@ -1,5 +1,5 @@
-// main.js - Lec-Flix V14.3.0 DIAGRAMA OFICIAL
-// 9 Pantalles segons diagrama + Lògica generarllibre.js V14.3.0
+// main.js - Lec-Flix V14.3.0 DIAGRAMA + EXPORTAR
+// 9 Pantalles + Botons Exportar TXT/EPUB/PDF/Compartir
 
 let BANCS = {};
 let mod = null;
@@ -14,7 +14,8 @@ const seleccio = {
   prompt_master: '',
   variables: {},
   idioma: 'CAT',
-  modo: 'llibre'
+  modo: 'llibre',
+  titol: 'lec-flix'
 };
 
 // ========================================
@@ -33,7 +34,7 @@ window.openScreen = function(screen) {
   document.getElementById('screen-' + screen).classList.add('active');
 
   if (screen === 'generar') renderPasosGenerar();
-  if (screen === 'hipnosi') renderHipnosi();
+  if (screen === 'sinopsi') renderSinopsi();
   if (screen === 'plantillas') renderBancoPlantillas();
   if (screen === 'dades') renderDadesVariables();
   if (screen === 'biblioteca') renderBiblioteca();
@@ -46,14 +47,11 @@ window.closeScreen = () => openScreen('menu');
 // 3. PANTALLA GENERAR LLIBRE - 4 PASOS
 // ========================================
 function renderPasosGenerar() {
-  // PAS 1: Gèneres
   const genDiv = document.getElementById('pas1-generes');
   const generes = ['Policial', 'Romàntica', 'Suspens', 'Històrica', 'Ciència Ficció'];
   genDiv.innerHTML = generes.map(g =>
     `<button class="gen-btn" onclick="selectGenere('${g}')">${g}</button>`
   ).join('');
-
-  // PAS 2: 34 Plantilles filtrades per gènere
   renderPlantillesFiltre();
 }
 
@@ -72,7 +70,7 @@ function renderPlantillesFiltre() {
   ) || [];
 
   grid.innerHTML = plantilles.map(p => `
-    <div class="card-plantilla" onclick="selectPlantilla('${p.id}')">
+    <div class="card-34" onclick="selectPlantilla('${p.id}')">
       <h3>[${p.id}] ${p.nom}</h3>
       <p>${p.caps} caps | Climax: ${p.climax}</p>
     </div>
@@ -84,8 +82,6 @@ window.selectPlantilla = id => {
   seleccio.plantillaId = id;
   seleccio.prompt_master = p.prompt_master;
   seleccio.subgenere = p.nom;
-
-  // PAS 3: Render variables
   renderVariablesForm(p.variables || ['ciutat_1','ciutat_2','prota','antagonista']);
 };
 
@@ -97,7 +93,6 @@ function renderVariablesForm(vars) {
   `).join('');
 }
 
-// PAS 4: Idioma + Generar
 window.setIdioma = lang => {
   seleccio.idioma = lang;
   document.querySelectorAll('.lang-btn').forEach(b =>
@@ -108,7 +103,6 @@ window.setIdioma = lang => {
 window.generarLlibre = async () => {
   if (!seleccio.plantillaId) return alert('Selecciona plantilla primer');
 
-  // Agafar variables del form
   document.querySelectorAll('#pas3-variables input').forEach(inp => {
     seleccio.variables[inp.id.replace('var-','')] = inp.value;
   });
@@ -122,6 +116,7 @@ window.generarLlibre = async () => {
     const resultado = await mod.generarLlibre(config, BANCS, null, 1, 1, seleccio.totalCaps || 12);
 
     llibreGenerat = resultado;
+    guardarBiblioteca(resultado);
     showProgress(100);
     setTimeout(() => openScreen('lectura'), 500);
     mostrarLecturaFinal(resultado);
@@ -138,10 +133,10 @@ function showProgress(p) {
 }
 
 // ========================================
-// 4. HIPNOSI PROMPTS - BOTÓ 2
+// 4. SINOPSI PROMPTS - BOTÓ 2
 // ========================================
-function renderHipnosi() {
-  const selector = document.getElementById('hipnosi-selector');
+function renderSinopsi() {
+  const selector = document.getElementById('sinopsi-selector');
   const plantilles = BANCS.banco_plantillas || [];
 
   selector.innerHTML = plantilles.map(p =>
@@ -149,6 +144,7 @@ function renderHipnosi() {
   ).join('');
 
   selector.onchange = e => carregarPromptsPlantilla(e.target.value);
+  if (plantilles.length) carregarPromptsPlantilla(plantilles[0].id);
 }
 
 function carregarPromptsPlantilla(id) {
@@ -162,11 +158,11 @@ function carregarPromptsPlantilla(id) {
   });
 }
 
-window.copiarTotHipnosi = () => {
-  const text = Array.from(document.querySelectorAll('.hipnosi-caixa'))
-   .map(c => c.value).join('\n\n---\n\n');
+window.copiarTotSinopsi = () => {
+  const text = Array.from(document.querySelectorAll('.sinopsi-caixa'))
+  .map(c => c.value).join('\n\n---\n\n');
   navigator.clipboard.writeText(text);
-  alert('Copiat!');
+  alert('Sinopsi copiada al porta-retalls!');
 };
 
 // ========================================
@@ -181,17 +177,19 @@ function renderBancoPlantillas() {
       <h3>[${p.id}] ${p.nom}</h3>
       <p>${p.caps} caps | ${p.climax}</p>
       <p>${p.ratio}</p>
-      <button onclick="event.stopPropagation(); usarPerGenerar('${p.id}')">USAR</button>
+      <button>VEURE DETALL</button>
     </div>
   `).join('');
 }
 
 window.verDetallePlantilla = id => {
   const p = BANCS.banco_plantillas.find(x => x.id === id);
-  document.getElementById('det-prompt').textContent = p.prompt_master;
+  document.getElementById('det-nom').textContent = p.nom;
+  document.getElementById('det-nom').dataset.id = p.id;
   document.getElementById('det-climax').textContent = p.climax;
   document.getElementById('det-ratio').textContent = p.ratio;
   document.getElementById('det-variables').textContent = JSON.stringify(p.variables || [], null, 2);
+  document.getElementById('det-prompt').textContent = p.prompt_master;
   document.getElementById('grid-34').style.display = 'none';
   document.getElementById('detalle-plantilla').style.display = 'block';
 };
@@ -201,6 +199,14 @@ window.usarPerGenerar = id => {
   openScreen('generar');
 };
 
+// Connectar botó usar del detall
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('btn-usar-plantilla')?.addEventListener('click', () => {
+    const id = document.getElementById('det-nom').dataset.id;
+    usarPerGenerar(id);
+  });
+});
+
 // ========================================
 // 6. DADES I VARIABLES - BOTÓ 4
 // ========================================
@@ -209,34 +215,66 @@ function renderDadesVariables() {
   const div = document.getElementById('seccio-variables');
 
   div.innerHTML = vars.map(v => `
-    <div class="var-row">
-      <span>{{${v.id}}}</span>
-      <input value="${v.placeholder}" onchange="updateVar('${v.id}', this.value)">
-    </div>
-  `).join('') + `<button onclick="addVariable()">+ AFEGIR VARIABLE</button>`;
+    <label>{{${v.id}}}</label>
+    <input value="${v.placeholder}" onchange="updateVar('${v.id}', this.value)">
+  `).join('');
 
-  // Stats
-  document.getElementById('stat-plantilles').textContent = `${BANCS.banco_plantillas?.length || 0}/34 ✅`;
+  document.getElementById('stat-plantilles').textContent = `${BANCS.banco_plantillas?.length || 0}/34`;
   const mitja = BANCS.banco_plantillas?.reduce((a,b) => a + (b.caps||12), 0) / BANCS.banco_plantillas?.length || 0;
   document.getElementById('stat-mitja').textContent = mitja.toFixed(1);
 }
 
+window.updateVar = (id, val) => {
+  const v = BANCS.banco_variables.find(x => x.id === id);
+  if (v) v.placeholder = val;
+};
+
 // ========================================
 // 7. BIBLIOTECA - BOTÓ 5
 // ========================================
+function guardarBiblioteca(llibre) {
+  const llibres = JSON.parse(localStorage.getItem('biblioteca_lec_flix') || '[]');
+  llibres.unshift({
+    id: Date.now(),
+    titol: seleccio.titol,
+    plantilla: seleccio.plantillaId,
+    data: new Date().toLocaleString(),
+    caps: llibre.capitols.length,
+    content: llibre
+  });
+  localStorage.setItem('biblioteca_lec_flix', JSON.stringify(llibres.slice(0, 20)));
+}
+
 function renderBiblioteca() {
   const llibres = JSON.parse(localStorage.getItem('biblioteca_lec_flix') || '[]');
   const div = document.getElementById('lista-llibres');
 
   div.innerHTML = llibres.length? llibres.map(l => `
-    <div class="llibre-item">
-      <h4>${l.titol}</h4>
-      <p>${l.data} | ${l.caps} caps</p>
+    <div class="card-34">
+      <h3>${l.titol || 'Sense títol'}</h3>
+      <p>[${l.plantilla}] ${l.data} | ${l.caps} caps</p>
       <button onclick="llegirLlibre(${l.id})">LLEGIR</button>
-      <button onclick="eliminarLlibre(${l.id})">ELIMINAR</button>
+      <button onclick="eliminarLlibre(${l.id})" style="background:#c33">ELIMINAR</button>
     </div>
-  `).join('') : '<p>No tens llibres guardats</p>';
+  `).join('') : '<p style="text-align:center;color:var(--text-muted)">No tens llibres guardats</p>';
 }
+
+window.llegirLlibre = id => {
+  const llibres = JSON.parse(localStorage.getItem('biblioteca_lec_flix') || '[]');
+  const l = llibres.find(x => x.id === id);
+  if (l) {
+    llibreGenerat = l.content;
+    openScreen('lectura');
+    mostrarLecturaFinal(l.content);
+  }
+};
+
+window.eliminarLlibre = id => {
+  const llibres = JSON.parse(localStorage.getItem('biblioteca_lec_flix') || '[]');
+  const filtrats = llibres.filter(x => x.id!== id);
+  localStorage.setItem('biblioteca_lec_flix', JSON.stringify(filtrats));
+  renderBiblioteca();
+};
 
 // ========================================
 // 8. INFO APP - BOTÓ 6
@@ -248,34 +286,99 @@ function renderInfo() {
 }
 
 // ========================================
-// 9. LECTURA FINAL
+// 9. LECTURA FINAL + EXPORTAR
 // ========================================
 function mostrarLecturaFinal(llibre) {
   const index = document.getElementById('index-lectura');
   index.innerHTML = llibre.capitols.map(c => `
-    <div class="index-cap">
-      <h3>Cap ${c.num}: ${c.titol}</h3>
+    <div class="card-34" onclick="llegirCap(${c.num})">
+      <h3>Cap ${c.num}: ${c.titol || 'Sense títol'}</h3>
       <p>${c.resum?.substring(0,120)}...</p>
-      <button onclick="llegirCap(${c.num})">LLEGIR CAP ${c.num}</button>
     </div>
   `).join('');
+
+  if (llibre.capitols.length) llegirCap(1);
 }
 
 window.llegirCap = num => {
-  const cap = llibreGenerat.capitols.find(c => c.num === num);
+  const cap = llibreGenerat?.capitols.find(c => c.num === num);
+  if (!cap) return;
   document.getElementById('text-lectura').innerHTML =
-    `<h2>CAPÍTOL ${cap.num}</h2>` + cap.escenes.map(e => `<p>${e.text}</p>`).join('');
+    `<h2>CAPÍTOL ${cap.num}</h2>` + cap.escenes.map(e => `<h4>${e.titol}</h4><p>${e.text}</p>`).join('');
 };
 
 // ========================================
-// INIT + LOAD BANCS
+// 10. EXPORTAR - BOTONS NOUS
+// ========================================
+window.exportarTxt = () => {
+  if (!llibreGenerat) return alert('Primer genera un llibre');
+  const text = llibreGenerat.capitols.map(c =>
+    `CAPÍTOL ${c.num} - ${c.titol}\n\n` + c.escenes.map(e => `${e.titol}\n${e.text}\n\n`).join('')
+  ).join('\n---\n\n');
+
+  const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = (seleccio.titol || 'lec-flix') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+window.exportarEpub = () => {
+  if (!llibreGenerat) return alert('Primer genera un llibre');
+  alert('Exportar EPUB: Funcionalitat pendent d\'implementar amb llibreria epub.js');
+  // TODO: implementar generació EPUB real
+};
+
+window.exportarPDF = () => {
+  if (!llibreGenerat) return alert('Primer genera un llibre');
+  window.print();
+};
+
+window.compartirLlibre = async () => {
+  if (!llibreGenerat) return alert('Primer genera un llibre');
+  const text = `Llegeix "${seleccio.titol}" generat amb Lec-Flix V14.3.0`;
+  if (navigator.share) {
+    await navigator.share({title: seleccio.titol, text: text});
+  } else {
+    navigator.clipboard.writeText(text);
+    alert('Enllaç copiat!');
+  }
+};
+
+window.resetApp = () => {
+  if (confirm('Esborrar selecció i tornar a començar?')) {
+    llibreGenerat = null;
+    histActual = null;
+    openScreen('generar');
+  }
+};
+
+// ========================================
+// 11. INIT + CONNECTAR BOTONS
 // ========================================
 async function initApp() {
   const bancMod = await import(baseURL + 'data/loadBancs.js?v=' + Date.now());
   BANCS = await bancMod.cargarBancs();
 
   mod = await import(baseURL + 'generarllibre.js?v=' + Date.now());
-  console.log('✅ V14.3.0 carregat - 9 pantalles actives');
+  console.log('✅ V14.3.0 carregat - 9 pantalles + Exportar');
+
+  // Connectar botons exportar
+  document.getElementById('btn-exportar-txt')?.addEventListener('click', exportarTxt);
+  document.getElementById('btn-exportar-epub')?.addEventListener('click', exportarEpub);
+  document.getElementById('btn-exportar-pdf')?.addEventListener('click', exportarPDF);
+  document.getElementById('btn-compartir')?.addEventListener('click', compartirLlibre);
+  document.getElementById('btn-reset')?.addEventListener('click', resetApp);
+  document.getElementById('btn-llegir-cap1')?.addEventListener('click', () => llegirCap(1));
+  document.getElementById('btn-generar-altre')?.addEventListener('click', () => openScreen('generar'));
+  document.getElementById('btn-neteja-biblioteca')?.addEventListener('click', () => {
+    if (confirm('Esborrar tota la biblioteca?')) {
+      localStorage.removeItem('biblioteca_lec_flix');
+      renderBiblioteca();
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
