@@ -1,5 +1,5 @@
 // generarllibre.js - Motor Híbrid V14.3.0 Lec-Flix Policial
-// Compatible 100% amb main.js V14.3.0 + index.html V14
+// 100% compatible amb main.js V14.3.0 + index.html V14.3.0
 // Modes: escena | capitol | llibre + 34 plantilles pautes
 
 let histGlobal = {
@@ -36,6 +36,7 @@ function contarPalabras(texto) {
 }
 
 function getTextoBase(item) {
+  if (!item) return '';
   const tb = item.texto_base;
   if (Array.isArray(tb)) return tb[0] || '';
   if (typeof tb === 'string') return tb;
@@ -80,8 +81,8 @@ function forçaPassat(text) {
 
 function safeReplace(text, vars) {
   let out = text;
-  const nom = vars['{p0}'] || 'Rita';
-  const nom2 = vars['{p1}'] || 'Víctor';
+  const nom = vars['{p0}'] || vars['prota'] || 'Rita';
+  const nom2 = vars['{p1}'] || vars['antagonista'] || 'Víctor';
 
   out = out.replace(/\bmotor\s+de\s+la\s+moto\b/gi, 'motor');
   out = out.replace(/(\buna moto accelerant fort\b|\bmotor\b)\s*,\s*sec i fred/gi, '$1 sec i fred');
@@ -92,7 +93,7 @@ function safeReplace(text, vars) {
   out = out.replace(/\{\}/g, nom);
 
   for (const [k,v] of Object.entries(vars)) {
-    out = out.replaceAll(k, v);
+    if (v) out = out.replaceAll(k, v);
   }
   out = out.replace(/\{[^}]*\}/g, '').trim();
   out = netejaEspais(out);
@@ -116,10 +117,25 @@ const CONNECTORS = ['Però', 'De cop', 'Mentrestant', 'Aleshores', 'Sense avís'
 async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
   hist = blindarHist(hist || histGlobal);
 
-  const { nom, tic, ciutat_1, ciutat_2, subtubActual, beatActual, sinopsis, prompt_master, temps } = config;
-  const paraulesObjectiu = config.paraulesObjectiu || 500;
-  const ciutat = ciutat_1 || config.ciutat || 'Girona';
+  // CABLEJAT 100% AMB MAIN.JS
+  const {
+    variables = {},
+    plantillaId,
+    prompt_master,
+    idioma = 'CAT',
+    ciutat_1,
+    ciutat_2
+  } = config;
 
+  const nom = variables.prota || variables['{p0}'] || 'Rita';
+  const tic = variables.tic || 'es passa la mà per la barba';
+  const ciutat = ciutat_1 || variables.ciutat_1 || 'Girona';
+  const subtubActual = variables.subtub || null;
+  const beatActual = config.beatActual || 'setup';
+  const paraulesObjectiu = config.paraulesObjectiu || 500;
+  const temps = variables.temps || {any:'2024', mes:'gener', dia:'1', event:''};
+
+  // Reset per capítol nou
   if (numEsc === 1 && numCap % 3 === 0) {
     hist.frasesUsadesCap = [];
     hist.usosOlor = {};
@@ -129,24 +145,21 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
     hist.olorUsadaEscena = false;
   }
 
-  // Escenari aleatori CP1/CP2
-  const escenaris = (bancs.banco_escenarios || []).filter(e => {
-    const matchCiutat = e.ciutat === ciutat || e.ciutat === ciutat_2;
-    const matchSubtub =!subtubActual || e.nom?.toLowerCase().includes(subtubActual.toLowerCase());
-    return matchCiutat && matchSubtub;
-  });
+  // Escenari aleatori CP1/CP2 - USA BANCO_UBICACION
+  const ciutats = bancs.banco_ubicacion || [];
+  const ciutatObj = ciutats.find(c => c.ciutat === ciutat) || ciutats[0];
+  const subtubs = ciutatObj?.subtubs || [{nom: ciutat}];
 
-  let escDisp = escenaris.filter(e =>!hist.ubicacions.slice(-4).includes(e.nom));
+  let escDisp = subtubs.filter(e =>!hist.ubicacions.slice(-4).includes(e.nom));
   if (escDisp.length === 0) {
     hist.ubicacions = [];
-    escDisp = escenaris.length > 0? escenaris : [{nom: subtubActual || ciutat}];
+    escDisp = subtubs;
   }
-
   const escenari = escDisp[Math.floor(Math.random() * escDisp.length)];
   hist.ubicacions.push(escenari.nom);
 
-  // TIC aleatori
-  let ticActual = tic || 'es passa la mà per la barba';
+  // TIC aleatori de banco_personatge
+  let ticActual = tic;
   if (bancs.banco_personatge?.[0]?.banco_variables?.tic) {
     const tics = bancs.banco_personatge[0].banco_variables.tic;
     ticActual = tics[Math.floor(Math.random() * tics.length)];
@@ -184,24 +197,29 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
   const progress = numCap / totalCaps;
   let capActe = progress <= 0.25? 1 : progress <= 0.75? 2 : 3;
 
+  // VARS CABLEJADES AMB MAIN.JS
   const varsTemps = {
-    '{any}': temps?.any || '2024',
-    '{mes}': temps?.mes || 'gener',
-    '{dia}': temps?.dia || '1',
-    '{event}': temps?.event || '',
+    '{any}': temps.any || '2024',
+    '{mes}': temps.mes || 'gener',
+    '{dia}': temps.dia || '1',
+    '{event}': temps.event || '',
     '{p0}': nom,
-    '{p1}': config.nom2 || 'Víctor',
+    '{p1}': variables.antagonista || 'Víctor',
     '{esc}': escenari.nom,
     '{olor}': olor,
     '{so}': so,
-    '{ciutat_1}': ciutat_1 || ciutat,
+    '{ciutat_1}': ciutat,
     '{ciutat_2}': ciutat_2 || 'Barcelona',
     '{ciutat}': ciutat,
     '{emocio}': emocio,
     '{tic}': ticActual,
-    '{sinopsis}': sinopsis || '',
-    '{plantilla}': config.plantillaId || ''
+    '{plantilla}': plantillaId || ''
   };
+
+  // Afegir variables CP2 del main
+  Object.entries(variables).forEach(([k,v]) => {
+    varsTemps[`{{${k}}}`] = v;
+  });
 
   // Si hi ha prompt_master de plantilla 34, l'usem
   let parrafo = '';
@@ -215,9 +233,7 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
       'midpoint': `Al centre de ${escenari.nom}, ${nom} va descobrir la veritat. ${emocio} el va travessar mentre ${olor} i ${so} es barrejaven en una revelació. ${ticActual}.`,
       'giro2': `Res era el que semblava a ${escenari.nom}. ${nom} amb ${emocio} va entendre que havia estat manipulat. L'olor de ${olor} ara sabia a traïció. ${ticActual}.`,
       'crisi': `A ${escenari.nom} tot s'esfondrava. ${nom} amb ${emocio} extrema va veure com l'olor de ${olor} s'esvaïa i el ${so} s'apagava. ${ticActual}.`,
-      'climax': hist.beatAnterior === 'crisi'
-       ? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.`
-        : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
+      'climax': hist.beatAnterior === 'crisi'? `Després de la crisi a ${escenari.nom}, ${nom} va avançar amb ${emocio} pura cap a l'enfrontament final. ${ticActual}. ${olor} i ${so} marcaven el ritme del final.` : `L'enfrontament final a ${escenari.nom}. ${nom} va avançar amb ${emocio} pura mentre ${olor} i ${so} marcaven el ritme del final. ${ticActual}.`,
       'resolucio': `${nom} va quedar sol a ${escenari.nom} després de la tempesta. ${emocio} es transformava en pau mentre l'olor de ${olor} es netejava. ${ticActual}.`,
       'default': `${nom} va continuar a ${escenari.nom} amb ${emocio}, ${olor} i ${so} de fons. ${ticActual}.`
     };
@@ -235,7 +251,6 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
   while (paraulesComptades < paraulesObjectiu && intents < 200) {
     intents++;
     let lectura = null;
-
     if (bancLecturaUsat.length > 0) {
       lectura = bancLecturaUsat.splice(Math.floor(Math.random() * bancLecturaUsat.length), 1)[0];
     } else if (bancAuxUsat.length > 0) {
@@ -245,7 +260,6 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
     if (lectura) {
       let text = safeReplace(getTextoBase(lectura), varsTemps);
       text = forçaPassat(text);
-
       if (text.length > 20 &&!hist.frasesUsades.includes(text.substring(0,40))) {
         if (fraseIndex % 3 === 2) {
           const connector = CONNECTORS[Math.floor(Math.random() * CONNECTORS.length)];
@@ -280,7 +294,6 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
 
   hist.paraulesTotals += paraulesComptades;
   hist.beatAnterior = beatActual;
-
   console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V14.3.0`);
 
   return {
@@ -293,7 +306,7 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
       beat: beatActual,
       beatAnterior: hist.beatAnterior,
       acte: capActe,
-      temps: `${temps?.any || '2024'}/${temps?.mes || 'gener'}`
+      temps: `${temps.any}/${temps.mes}`
     }
   };
 }
@@ -304,23 +317,25 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
 export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCaps) {
   hist = blindarHist(hist || histGlobal);
 
+  // CABLEJAT AMB MAIN.JS: config.modo, config.escenesPerCap, config.totalCaps
+  const modo = config.modo || 'llibre';
+  const escenesPerCap = config.escenesPerCap || 3;
+  const beats = config.beatsCap || ['setup','giro1','midpoint','giro2','crisi','climax','resolucio'];
+
   // Modo ESCENA: 1 sol paràgraf
-  if (config.modo === 'escena') {
-    const beatActual = config.beatsCap?.[numEsc - 1] || 'setup';
+  if (modo === 'escena') {
+    const beatActual = beats[numEsc - 1] || 'setup';
     const resultado = await generaParagraf(
       {...config, beatActual},
-      bancs,
-      hist,
-      numCap,
-      numEsc,
-      totalCaps
+      bancs, hist, numCap, numEsc, totalCaps
     );
-
     return {
       capitols: [{
         num: numCap,
         beat: resultado.metadata.beat,
-        escenes: [{titol: `Cap ${numCap} - Esc ${numEsc}`, text: resultado.text}]
+        titol: `Capítol ${numCap}`,
+        resum: resultado.text.substring(0, 120) + '...',
+        escenes: [{titol: `Escena ${numEsc}`, text: resultado.text}]
       }],
       metadata: {
         paraulesAprox: resultado.metadata.paraules,
@@ -332,29 +347,24 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
   }
 
   // Modo CAPÍTOL: generar escenesPerCap paràgrafs
-  if (config.modo === 'capitol') {
+  if (modo === 'capitol') {
     const escenes = [];
     let histLocal = hist;
-    const beats = config.beatsCap || ['setup','giro1','midpoint','giro2','crisi','climax','resolucio'];
-
-    for (let i = 0; i < config.escenesPerCap; i++) {
+    for (let i = 0; i < escenesPerCap; i++) {
       const beatActual = beats[i] || 'setup';
       const resultado = await generaParagraf(
         {...config, beatActual},
-        bancs,
-        histLocal,
-        numCap,
-        i + 1,
-        totalCaps
+        bancs, histLocal, numCap, i + 1, totalCaps
       );
       escenes.push({titol: `Escena ${i + 1}`, text: resultado.text});
       histLocal = resultado.hist;
     }
-
     return {
       capitols: [{
         num: numCap,
         beat: 'capitol',
+        titol: `Capítol ${numCap}`,
+        resum: escenes[0].text.substring(0, 120) + '...',
         escenes: escenes
       }],
       metadata: {
@@ -368,28 +378,25 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
   // Modo LLIBRE: generar totalCaps capítols
   const capitols = [];
   let histLocal = hist;
-
   for (let cap = 1; cap <= totalCaps; cap++) {
     const escenes = [];
-    const beats = config.beatsCap || ['setup','giro1','midpoint','giro2','crisi','climax','resolucio'];
-    const escPerCap = config.escenesPerCap || 3;
-
-    for (let esc = 1; esc <= escPerCap; esc++) {
+    for (let esc = 1; esc <= escenesPerCap; esc++) {
       const beatActual = beats[esc - 1] || 'setup';
       const resultado = await generaParagraf(
         {...config, beatActual},
-        bancs,
-        histLocal,
-        cap,
-        esc,
-        totalCaps
+        bancs, histLocal, cap, esc, totalCaps
       );
       escenes.push({titol: `Escena ${esc}`, text: resultado.text});
       histLocal = resultado.hist;
     }
-
     const beatCap = beats[Math.floor((cap-1) / totalCaps * beats.length)] || 'setup';
-    capitols.push({num: cap, beat: beatCap, escenes: escenes});
+    capitols.push({
+      num: cap,
+      beat: beatCap,
+      titol: `Capítol ${cap}`,
+      resum: escenes[0].text.substring(0, 120) + '...',
+      escenes: escenes
+    });
   }
 
   return {
@@ -402,5 +409,4 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
   };
 }
 
-export { resetEstructura };
 console.log('✅ Motor Híbrid V14.3.0 carregat - escena/capitol/llibre actiu');
