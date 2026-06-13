@@ -1,0 +1,42 @@
+[
+  {
+    "id": "p0",
+    "nom": "Nom protagonista",
+    "placeholder": "Rita",
+    "tipus": "text",
+    "obligatori": true,
+    "descripcio": "Nom del personatge principal"
+  },
+  {
+    "id": "p1",
+    "nom": "Nom antagonista",
+    "placeholder": "Víctor",
+    "tipus": "text",
+    "obligatori": false,
+    "descripcio": "Nom del dolent o sospitós"
+  },
+  {
+    "id": "arma",
+    "nom": "Arma del crim",
+    "placeholder": "Pistola",
+    "tipus": "text",
+    "obligatori": false,
+    "descripcio": "Arma usada al crim"
+  },
+  {
+    "id": "organitzacio",
+    "nom": "Organització criminal",
+    "placeholder": "La Rosa Negra",
+    "tipus": "text",
+    "obligatori": false,
+    "descripcio": "Banda o organització"
+  },
+  {
+    "id": "any",
+    "nom": "Any històric",
+    "placeholder": "2024",
+    "tipus": "numero",
+    "obligatori": false,
+    "descripcio": "Any on passa la història"
+  }
+]
