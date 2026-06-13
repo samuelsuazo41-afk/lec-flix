@@ -1,5 +1,5 @@
-// generarllibre.js - Motor Híbrid V14.3.0 Lec-Flix Policial
-// 100% compatible amb main.js V14.3.0 + index.html V14.3.0
+// generarllibre.js - Motor Híbrid V14.3.1 Lec-Flix Policial
+// 100% compatible amb main.js V14.3.1 + index.html V14.3.1
 // Modes: escena | capitol | llibre + 34 plantilles pautes
 
 let histGlobal = {
@@ -28,7 +28,7 @@ export async function resetEstructura() {
     olorUsadaEscena: false,
     beatAnterior: null
   };
-  console.log('🔄 Estructura V14.3.0 resetejada');
+  console.log('🔄 Estructura V14.3.1 resetejada');
 }
 
 function contarPalabras(texto) {
@@ -63,20 +63,20 @@ function pronomPerNom(nom) {
 
 function netejaEspais(text) {
   return text
-  .replace(/\s+/g,' ')
-  .replace(/\s+([.,])/g,'$1')
-  .replace(/\bel una\b/gi, 'una')
-  .replace(/\bla una\b/gi, 'una')
-  .trim();
+ .replace(/\s+/g,' ')
+ .replace(/\s+([.,])/g,'$1')
+ .replace(/\bel una\b/gi, 'una')
+ .replace(/\bla una\b/gi, 'una')
+ .trim();
 }
 
 function forçaPassat(text) {
   return text
-  .replace(/\bMira\b/g, 'Va mirar')
-  .replace(/\bOlía\b/g, 'Feia olor')
-  .replace(/\bSe le congeló\b/g, 'Se li va gelar')
-  .replace(/\bSiente\b/g, 'Va sentir')
-  .replace(/\bCamina\b/g, 'Va caminar');
+ .replace(/\bMira\b/g, 'Va mirar')
+ .replace(/\bOlía\b/g, 'Feia olor')
+ .replace(/\bSe le congeló\b/g, 'Se li va gelar')
+ .replace(/\bSiente\b/g, 'Va sentir')
+ .replace(/\bCamina\b/g, 'Va caminar');
 }
 
 function safeReplace(text, vars) {
@@ -117,7 +117,7 @@ const CONNECTORS = ['Però', 'De cop', 'Mentrestant', 'Aleshores', 'Sense avís'
 async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
   hist = blindarHist(hist || histGlobal);
 
-  // CABLEJAT 100% AMB MAIN.JS
+  // CABLEJAT 100% AMB MAIN.JS V14.3.1
   const { variables = {}, plantillaId, prompt_master, idioma = 'CAT', ciutat_1, ciutat_2, escenesPerCap = 3 } = config;
 
   const nom = variables.prota || variables['{p0}'] || variables['{{prota}}'] || 'Rita';
@@ -287,7 +287,7 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
 
   hist.paraulesTotals += paraulesComptades;
   hist.beatAnterior = beatActual;
-  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V14.3.0`);
+  console.log(`✅ Cap${numCap} Esc${numEsc} ${beatActual}: ${paraulesComptades}/${paraulesObjectiu} paraules V14.3.1`);
 
   return {
     text: parrafo.trim(),
@@ -310,7 +310,7 @@ async function generaParagraf(config, bancs, hist, numCap, numEsc, totalCaps) {
 export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCaps) {
   hist = blindarHist(hist || histGlobal);
 
-  // CABLEJAT AMB MAIN.JS: config.modo, config.escenesPerCap, config.totalCaps
+  // CABLEJAT AMB MAIN.JS V14.3.1: config.modo, config.escenesPerCap, config.totalCaps
   const modo = config.modo || 'llibre';
   const escenesPerCap = config.escenesPerCap || 3;
   const beats = config.beatsCap || ['setup','giro1','midpoint','giro2','crisi','climax','resolucio'];
@@ -402,4 +402,4 @@ export async function generarLlibre(config, bancs, hist, numCap, numEsc, totalCa
   };
 }
 
-console.log('✅ Motor Híbrid V14.3.0 carregat - escena/capitol/llibre actiu');
+console.log('✅ Motor Híbrid V14.3.1 carregat - escena/capitol/llibre actiu');
