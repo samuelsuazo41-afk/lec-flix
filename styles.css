@@ -297,12 +297,57 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* ========================================
-   SINOPSI - PANTALLA 4
+   SINOPSI - PANTALLA 4 PINÇA: 1 CAIXA PROMPT MASTER
 ======================================== */
-.sinopsi-caixa {
-  min-height: 80px;
+#sinopsi-selector {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+#prompt-master-box {
+  min-height: 420px;
+  font-family: 'Courier New', Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px;
+  color: var(--text);
+  resize: vertical;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+#prompt-master-box:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.2);
+}
+
+/* Elimino .sinopsi-caixa vell perquè ja no s'usa */
+
+/* ========================================
+   INFO APP - PANTALLA 8 PINÇA: DADES BANCS
+======================================== */
+#info-bancs-lista {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+#info-bancs-lista p {
+  margin: 10px 0;
   font-size: 13px;
   line-height: 1.5;
+}
+
+#info-bancs-lista strong {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* ========================================
@@ -352,6 +397,22 @@ input:focus, textarea:focus, select:focus {
   color: var(--text-muted);
 }
 
+label {
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+h4 {
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
 pre {
   background: var(--bg);
   padding: 12px;
@@ -375,5 +436,10 @@ pre {
   
   .screen-content {
     padding: 12px;
+  }
+
+  #prompt-master-box {
+    min-height: 350px;
+    font-size: 11px;
   }
 }
